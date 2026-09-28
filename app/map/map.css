@@ -1,0 +1,27 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css";
+
+@source "../../components/MapComponent.tsx";
+@source "../../components/ui/map.tsx";
+
+@theme {
+  --color-background: #f5f0e8;
+  --color-foreground: #006e52;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #006e52;
+  --color-border: rgba(0, 110, 82, 0.18);
+  --color-accent: #f5f0e8;
+  --color-accent-foreground: #006e52;
+  --color-muted-foreground: rgba(0, 110, 82, 0.68);
+}
+
+.memco-map-tooltip .maplibregl-popup-content {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.memco-map-tooltip .maplibregl-popup-tip {
+  display: none;
+}

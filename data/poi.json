@@ -1,0 +1,198 @@
+[
+  {
+    "id": 101,
+    "name": "Singasandra Metro Station",
+    "category": "bus_stop",
+    "lng": 77.64485,
+    "lat": 12.88082,
+    "distanceLabel": "1.7 km",
+    "timeLabel": "2 min",
+    "featured": true,
+    "images": ["https://images.unsplash.com/photo-1517732306149-e8f829eb588a?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 102,
+    "name": "Hosa Road Metro Station",
+    "category": "bus_stop",
+    "lng": 77.6524806,
+    "lat": 12.8707806,
+    "distanceLabel": "1.5 km",
+    "timeLabel": "2 min",
+    "featured": true,
+    "images": ["https://images.unsplash.com/photo-1517732306149-e8f829eb588a?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 103,
+    "name": "Kudlu Gate Metro Station",
+    "category": "bus_stop",
+    "lng": 77.6418,
+    "lat": 12.8924,
+    "distanceLabel": "3.5 km",
+    "timeLabel": "5 min",
+    "images": ["https://images.unsplash.com/photo-1517732306149-e8f829eb588a?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 104,
+    "name": "Apollo Cradle & Children's Hospital",
+    "category": "hospital",
+    "lng": 77.6542531,
+    "lat": 12.8695143,
+    "distanceLabel": "2.6 km",
+    "timeLabel": "4 min",
+    "featured": true,
+    "images": ["https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 105,
+    "name": "Hospitec Multispeciality Hospital",
+    "category": "hospital",
+    "lng": 77.6489078,
+    "lat": 12.8859649,
+    "distanceLabel": "4.3 km",
+    "timeLabel": "5 min",
+    "images": ["https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 106,
+    "name": "Raksha Hospital",
+    "category": "hospital",
+    "lng": 77.6505317,
+    "lat": 12.8892622,
+    "distanceLabel": "4.0 km",
+    "timeLabel": "5 min",
+    "images": ["https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 107,
+    "name": "The Oxford College of Engineering",
+    "category": "school",
+    "lng": 77.631261,
+    "lat": 12.9020523,
+    "distanceLabel": "4.5 km",
+    "timeLabel": "6 min",
+    "featured": true,
+    "images": ["https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 108,
+    "name": "ACTS Secondary School",
+    "category": "school",
+    "lng": 77.6583284,
+    "lat": 12.8662015,
+    "distanceLabel": "3.2 km",
+    "timeLabel": "5 min",
+    "images": ["https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 109,
+    "name": "PES University Electronic City Campus",
+    "category": "school",
+    "lng": 77.6654393,
+    "lat": 12.861641,
+    "distanceLabel": "4.7 km",
+    "timeLabel": "7 min",
+    "images": ["https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 110,
+    "name": "Market Square Mall",
+    "category": "mall",
+    "lng": 77.62038,
+    "lat": 12.9219,
+    "distanceLabel": "7.8 km",
+    "timeLabel": "10 min",
+    "images": ["https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 111,
+    "name": "Nexus Vega City",
+    "category": "mall",
+    "lng": 77.6011572,
+    "lat": 12.9078071,
+    "distanceLabel": "7.8 km",
+    "timeLabel": "11 min",
+    "featured": true,
+    "images": ["https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 112,
+    "name": "South India Shopping Mall",
+    "category": "mall",
+    "lng": 77.597713,
+    "lat": 12.8908667,
+    "distanceLabel": "7.1 km",
+    "timeLabel": "9 min",
+    "images": ["https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 113,
+    "name": "Parappana Agrahara Lake Park",
+    "category": "park",
+    "lng": 77.662515,
+    "lat": 12.8790645,
+    "distanceLabel": "4.2 km",
+    "timeLabel": "8 min",
+    "images": ["https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 114,
+    "name": "Somasundarapalya Lake Park",
+    "category": "park",
+    "lng": 77.6480751,
+    "lat": 12.8986762,
+    "distanceLabel": "4.9 km",
+    "timeLabel": "6 min",
+    "images": ["https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 115,
+    "name": "Begur Lake",
+    "category": "park",
+    "lng": 77.6308861,
+    "lat": 12.874496,
+    "distanceLabel": "2.7 km",
+    "timeLabel": "4 min",
+    "featured": true,
+    "images": ["https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 116,
+    "name": "Begur Fort",
+    "category": "landmark",
+    "lng": 77.6227291,
+    "lat": 12.8708766,
+    "distanceLabel": "2.9 km",
+    "timeLabel": "4 min",
+    "images": ["https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 117,
+    "name": "Novel Tech Park",
+    "category": "IT Company",
+    "lng": 77.641281,
+    "lat": 12.8915064,
+    "distanceLabel": "3.2 km",
+    "timeLabel": "4 min",
+    "images": ["https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 118,
+    "name": "AMR Tech Park",
+    "category": "IT Company",
+    "lng": 77.6306008,
+    "lat": 12.8992968,
+    "distanceLabel": "4.5 km",
+    "timeLabel": "6 min",
+    "images": ["https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80"]
+  },
+  {
+    "id": 119,
+    "name": "Infosys Electronic City",
+    "category": "IT Company",
+    "lng": 77.6614373,
+    "lat": 12.8424198,
+    "distanceLabel": "7.4 km",
+    "timeLabel": "11 min",
+    "images": ["https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80"]
+  }
+]
