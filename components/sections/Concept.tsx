@@ -116,7 +116,7 @@ export function Concept() {
         </div>
 
         {/* panel 2 — the place */}
-        <div className="hz-panel gm" id="location">
+        <div className="hz-panel gm">
           <span className="gm-country lbl" data-hfade>I n d i a</span>
           <h2 className="gm-words disp" aria-label="Begur, South Bengaluru">
             <span className="gm-w1" data-hchars><Chars text="BEGUR," /></span>

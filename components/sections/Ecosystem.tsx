@@ -18,26 +18,41 @@ export function Ecosystem() {
     s.lines?.forEach((l) => { const m = document.createElement("span"); m.className = "ln-mask"; l.parentNode!.insertBefore(m, l); m.appendChild(l); });
     gsap.set(s.lines!, { yPercent: 110 });
     gsap.set(q(".ec-copy .lbl"), { opacity: 0 });
-    let played = false;
-    const play = () => {
-      if (played) return; played = true;
-      charsIn(word, { duration: 1.3 });
-      gsap.to(s.lines!, { yPercent: 0, duration: 1.2, stagger: 0.1, delay: 0.6, ease: "power3.out" });
-      gsap.to(q(".ec-copy .lbl"), { opacity: 1, duration: 1, delay: 1 });
-      gsap.to(q(".ec-shade"), { opacity: 1, duration: 1.4 });
+    /* the white word and copy exist only on the full-bleed photo: shown once the photo has filled the screen,
+       hidden again whenever the visitor scrolls back into the merge (so no half-word over the paper) */
+    let shown = false;
+    const show = () => {
+      if (shown) return; shown = true;
+      charsIn(word, { duration: 1.3, overwrite: true });
+      gsap.to(s.lines!, { yPercent: 0, duration: 1.2, stagger: 0.1, delay: 0.6, ease: "power3.out", overwrite: true });
+      gsap.to(q(".ec-copy .lbl"), { opacity: 1, duration: 1, delay: 1, overwrite: true });
+      gsap.to(q(".ec-shade"), { opacity: 1, duration: 1.4, overwrite: true });
     };
-    const tl = gsap.timeline({
+    const hide = () => {
+      if (!shown) return; shown = false;
+      gsap.to(word, { opacity: 0, duration: 0.3, overwrite: true });
+      gsap.to(s.lines!, { yPercent: 110, duration: 0.3, overwrite: true });
+      gsap.to(q(".ec-copy .lbl"), { opacity: 0, duration: 0.3, overwrite: true });
+      gsap.to(q(".ec-shade"), { opacity: 0, duration: 0.4, overwrite: true });
+    };
+    const FULL = 0.92; // timeline time at which the merged photo is (almost) full-bleed
+    const tl: gsap.core.Timeline = gsap.timeline({
       defaults: { ease: "none" },
+      // follows the (smoothed) photo, not the scrollbar: show on the way in, hide on the way back
+      onUpdate: () => { if (tl.time() >= FULL) show(); else hide(); },
       scrollTrigger: {
-        trigger: root.current, start: "top top", end: "+=110%", pin: true, scrub: 1, onLeave: play,
+        // three phases over the pin: merge (0–1) → hold the full photo with the word + copy (1–2.4) → release
+        trigger: root.current, start: "top top", end: "+=260%", pin: true, scrub: 1.2, anticipatePin: 1, onLeave: show,
         // on paper at first, on the photo once it has grown: the chrome follows
-        onUpdate: (st) => { root.current!.dataset.tone = st.progress > 0.45 ? "dark" : "light"; },
+        onUpdate: (st) => { root.current!.dataset.tone = st.progress > 0.2 ? "dark" : "light"; },
       },
     });
     tl.fromTo(q(".ec-frame"), { width: "58vw", height: "58vh" }, { width: "100vw", height: "100vh", duration: 1, ease: "power2.inOut" }, 0)
       .fromTo(q(".ec-split"), { scaleY: 1 }, { scaleY: 0, duration: 0.45 }, 0)
       .fromTo(q(".ec-frame img"), { scale: 1.2 }, { scale: 1, duration: 1 }, 0)
-      .call(play, [], 0.72);
+      /* hold: the merged photo stays put while the word and paragraph settle; a very slow push-in keeps it alive */
+      .to(q(".ec-frame img"), { scale: 1.05, duration: 1.4 }, 1)
+      .to({}, { duration: 0.2 });
     return () => s.revert();
   });
   return (

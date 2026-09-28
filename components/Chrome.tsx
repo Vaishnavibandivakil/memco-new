@@ -1,16 +1,24 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger, scrollToId } from "@/lib/motion";
-import { WA } from "@/lib/data";
 import { openHomes } from "@/components/sections/Homes";
 
-/* Fixed chrome from the reference: rotating seal (top-left), stacked serif CTA + small links (top-right),
-   hairline progress rail with section number (left), round contact button (bottom-right).
+/* Fixed chrome: a rounded header bar with the MEMCO + Jutaku logos, links and the "Select a home" action,
+   and the hairline progress rail with section number (left).
    Colour follows the section under the logo: its data-tone ("dark" | "light") is copied to html[data-tone]. */
+const LINKS: [string, string][] = [["location", "Location"], ["amenities", "Amenities"], ["interiors", "Interiors"], ["pricing", "Pricing"], ["contact", "Contact"]];
+
 export function Chrome() {
-  const seal = useRef<SVGSVGElement>(null);
   const bar = useRef<HTMLSpanElement>(null);
   const [no, setNo] = useState("01");
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    // Esc closes the menu only when it is the top layer — if the homes panel is open, Esc belongs to the panel
+    const key = (e: KeyboardEvent) => { if (e.key === "Escape" && !document.documentElement.classList.contains("panel-open")) setOpen(false); };
+    window.addEventListener("keydown", key);
+    return () => window.removeEventListener("keydown", key);
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -23,7 +31,6 @@ export function Chrome() {
         start: 0, end: "max", refreshPriority: -1,
         onUpdate: (st) => {
           if (bar.current) bar.current.style.transform = `scaleY(${st.progress})`;
-          if (seal.current) seal.current.style.transform = `rotate(${st.progress * 540}deg)`;
           /* the section actually under the logo wins (later siblings overlap earlier ones) */
           let k = -1;
           sections.forEach((el, j) => { const r = el.getBoundingClientRect(); if (r.top <= 40 && r.bottom > 40) k = j; });
@@ -44,19 +51,29 @@ export function Chrome() {
 
   return (
     <div className="chrome">
-      <a className="seal" href="#top" onClick={(e) => { e.preventDefault(); scrollToId("top"); }} aria-label="MEMCO Skyline · Jutaku, back to top">
-        <svg ref={seal} viewBox="0 0 100 100" aria-hidden>
-          <defs><path id="seal-path" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" /></defs>
-          <text><textPath href="#seal-path" startOffset="0">MEMCO · SKYLINE · JUTAKU · BEGUR · MEMCO · SKYLINE · JUTAKU · BEGUR ·</textPath></text>
-        </svg>
-        <span className="seal-mark" aria-hidden />
-      </a>
-
-      <nav className="topnav" aria-label="Primary">
-        <button type="button" className="topnav-cta" onClick={openHomes}>Select<br />a home</button>
-        <a className="lbl" href={WA()} target="_blank" rel="noreferrer">Book a visit</a>
-        <a className="lbl" href="#contact" onClick={(e) => { e.preventDefault(); scrollToId("contact"); }}>Contact</a>
-      </nav>
+      {/* a normal header: one rounded bar — both logos, section links, the primary action */}
+      <header className={`hdr${open ? " is-open" : ""}`}>
+        {/* the logo is the switch: the pill opens outward to reveal the links and the action, and stays
+            open until the visitor closes it again (logo / ✕ or Esc) — links and the action don't close it */}
+        <button type="button" className="hdr-brand" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="hdr-more" aria-label={open ? "Close menu" : "Open menu"}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="hdr-memco" src="/brand/lockup-h.png" alt="MEMCO Skyline" width={856} height={243} />
+          <span className="hdr-div" aria-hidden />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="hdr-jutaku" src="/brand/jutaku.png" alt="Jutaku" width={379} height={260} />
+          <span className="hdr-plus" aria-hidden />
+        </button>
+        <div className="hdr-more" id="hdr-more" inert={!open}>
+          <div className="hdr-inner">
+            <nav className="hdr-nav" aria-label="Primary">
+              {LINKS.map(([id, label], i) => (
+                <a key={id} href={`#${id}`} style={{ ["--i" as string]: i }} onClick={(e) => { e.preventDefault(); scrollToId(id); }}>{label}</a>
+              ))}
+            </nav>
+            <button type="button" className="hdr-cta" style={{ ["--i" as string]: LINKS.length }} onClick={openHomes}>Select a home</button>
+          </div>
+        </div>
+      </header>
 
       <div className="rail" aria-hidden>
         <span className="rail-line"><span ref={bar} className="rail-fill" /></span>
@@ -64,9 +81,6 @@ export function Chrome() {
         <span className="rail-scroll lbl">Scroll</span>
       </div>
 
-      <a className="fab" href={WA()} target="_blank" rel="noreferrer" aria-label="Chat with MEMCO Skyline on WhatsApp">
-        <svg viewBox="0 0 24 24" aria-hidden><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2Zm0 1.6a7.2 7.2 0 1 1-3.7 13.4l-.3-.2-2.6.7.7-2.5-.2-.3A7.2 7.2 0 0 1 12 4.8Zm-3 3.6c-.2 0-.5 0-.7.3-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.8 2.1.8 2.6.7 3 .6.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.4-.3-1.8-.8c-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6 6 0 0 1-3-2.6c-.2-.4.2-.4.6-1.2.1-.2 0-.3 0-.5l-.8-2c-.2-.5-.4-.4-.5-.4H9Z" /></svg>
-      </a>
     </div>
   );
 }

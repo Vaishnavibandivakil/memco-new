@@ -71,8 +71,6 @@ export const PHONE = "+91-9187224980";
 export const EMAIL = "info@memcoskyline.com";
 export const RERA = "PRM/KA/RERA/1251/310/PR/240426/008602";
 export const ADDRESS = "Off NH7 on Manipal County Road, Bengaluru 560068";
-export const WA = (text = "Hi MEMCO Skyline, I would like to book a Jutaku Experience visit.") =>
-  `https://wa.me/919187224980?text=${encodeURIComponent(text)}`;
 
 export type Post = { slug: string; kicker: string; title: string; excerpt: string; meta?: string; photo: string; alt: string };
 

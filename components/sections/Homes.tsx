@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Chars } from "@/components/Chars";
 import { getInventory, typeName, SAMPLE_NOTE, type Unit } from "@/lib/inventory";
 import { HomePlanSvg } from "@/components/HomePlanSvg";
-import { WA } from "@/lib/data";
+import { EMAIL } from "@/lib/data";
 import { gsap, charsIn, lenis } from "@/lib/motion";
 
 /* open from anywhere: every "View available homes" / "Select a home" button calls this */
@@ -75,7 +75,7 @@ export function Homes() {
     if (i % 5 === 1 && (i - 1) / 5 < PHOTO_CARDS.length) cards.push({ kind: "photo", i: (i - 1) / 5 });
   });
 
-  const ask = (u: Unit) => WA(`Hi MEMCO Skyline, I'm interested in unit ${u.code} (${typeName(u.type)}, level ${u.level}). Could you share details?`);
+  const ask = (u: Unit) => `mailto:${EMAIL}?subject=${encodeURIComponent(`Enquiry: unit ${u.code}`)}&body=${encodeURIComponent(`Hi MEMCO Skyline, I'm interested in unit ${u.code} (${typeName(u.type)}, level ${u.level}). Could you share details?`)}`;
 
   return (
     <section id="homes" ref={root} className="hm" role="dialog" aria-modal="true" aria-label="Available homes" aria-hidden={!open} data-own-reveals>
@@ -111,7 +111,7 @@ export function Homes() {
       <div className="hm-grid">
         {cards.map((c) =>
           c.kind === "unit" ? (
-            <a key={c.u.code} className={`hm-card${c.u.status !== "available" ? " is-sold" : ""}`} href={ask(c.u)} target="_blank" rel="noreferrer">
+            <a key={c.u.code} className={`hm-card${c.u.status !== "available" ? " is-sold" : ""}`} href={ask(c.u)}>
               <p className="lbl hm-card-top">{c.u.type === "CORNER" ? "Corner" : "Urban"} · Level {String(c.u.level).padStart(2, "0")}</p>
               <div className="hm-plan"><HomePlanSvg unit={c.u} /></div>
               <p className="lbl hm-card-meta">Unit {c.u.code} · {c.u.facing.split(" · ")[0]}</p>

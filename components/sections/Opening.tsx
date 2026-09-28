@@ -32,8 +32,16 @@ export function Opening() {
     const intro = gsap.timeline({ onComplete: () => { clip.style.clipPath = "none"; l?.start(); } });
     intro
       .set(q(".op-media"), { scale: 1.4 })
-      .to(arch, { t: 36, s: 38, r: 12, duration: 1.2, ease: "power3.inOut", delay: 0.3, onUpdate: draw })
-      .to(arch, { t: 0, s: 0, r: 0, duration: 1.4, ease: "expo.inOut", onUpdate: draw })
+      /* the green intro screen carries the wordmark: MEMCO / SKYLINE surfaces first, then lifts away as the arch opens */
+      .add(charsIn(q(".op-intro .ch"), { duration: 1, stagger: { amount: 0.6, from: "random" } }), 0.1)
+      .fromTo(q(".op-intro .lbl"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.2)
+      .to(arch, { t: 36, s: 38, r: 12, duration: 1.2, ease: "power3.inOut", onUpdate: draw }, 0.55)
+      .addLabel("open", ">-0.1")
+      /* as the arch opens to full screen the halves part outward and fade */
+      .to(q(".oi-sky"), { xPercent: -45, opacity: 0, duration: 1, ease: "power2.in" }, "open")
+      .to(q(".oi-line"), { xPercent: 45, opacity: 0, duration: 1, ease: "power2.in" }, "open")
+      .to(q(".oi-kicker"), { opacity: 0, y: -20, duration: 0.6, ease: "power2.in" }, "open")
+      .to(arch, { t: 0, s: 0, r: 0, duration: 1.4, ease: "expo.inOut", onUpdate: draw }, "<")
       .to(q(".op-media"), { scale: 1.12, duration: 2.6, ease: "expo.out" }, "<")
       .add(charsIn(q(".op-title .ch"), { duration: 1.3, stagger: { amount: 0.9, from: "random" } }), "-=1.7")
       .fromTo(q(".op-script"), { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "power2.inOut" }, "-=0.9")
@@ -53,6 +61,12 @@ export function Opening() {
     <>
       <section id="top" ref={root} className="op" data-tone="dark">
         <div className="op-sticky">
+          {/* intro wordmark on the green screen: SKY | arch | LINE — the tower window opens between the two halves */}
+          <div className="op-intro" aria-hidden>
+            <span className="lbl oi-kicker">Jutaku <i>·</i> Urban lifestyle ecosystem</span>
+            <span className="disp oi-sky"><Chars text="SKY" /></span>
+            <span className="disp oi-line"><Chars text="LINE" /></span>
+          </div>
           <div className="op-clip">
             <div className="op-media">
               <div className="cover" style={{ ["--ar" as string]: 2000 / 1199 }}>
@@ -90,7 +104,9 @@ export function Opening() {
           <h1 className="op-title">
             <span className="op-l1 disp"><Chars text="MEMCO" /></span>
             <span className="op-l2 disp"><Chars text="SKYLINE" /></span>
-            <span className="op-script script">Jutaku</span>
+            {/* Jutaku sub-brand mark, reversed white on photography (§05) */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="op-script" src="/brand/jutaku-white.png" alt="Jutaku" width={379} height={260} />
           </h1>
           <div className="op-row">
             <span className="caps-serif">The luxury</span>
