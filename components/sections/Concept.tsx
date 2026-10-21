@@ -16,8 +16,8 @@ const ROAD_X = [288, 1510];
 const DOTS: [number, number][] = [[490, 230], [684, 245], [1117, 232], [1301, 221]];
 const HOME: [number, number] = [900, 242];
 
-/* Reference 00:52–01:02 — one horizontal run on paper: the concept statement → "NEW GOLDEN MILE" with the
-   portrait photo and the side note → "THE COAST YOU WANTED" and the drawn coast road.
+
+/* One horizontal project sequence: Design → Concept → location → connectivity.
    Vertical scroll drives the track; each block plays its own timed reveal as it slides into view.
    Type always sits above the photographs. */
 export function Concept() {
@@ -33,23 +33,43 @@ export function Concept() {
       scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${dist()}`, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
     });
 
-    /* panel 1 is on screen when the pin starts — its lines play on vertical entry */
-    const s = new SplitType(q(".cc-statement")[0] as HTMLElement, { types: "lines", lineClass: "ln" });
+    /* the Design panel is on screen when the pin starts */
+    const s = new SplitType(q(".ds-statement")[0] as HTMLElement, { types: "lines", lineClass: "ln" });
     s.lines?.forEach((l) => { const m = document.createElement("span"); m.className = "ln-mask"; l.parentNode!.insertBefore(m, l); m.appendChild(l); });
-    gsap.set(q(".cc-statement")[0], { visibility: "visible" });
+    gsap.set(q(".ds-statement")[0], { visibility: "visible" });
     gsap.set(s.lines!, { yPercent: 110 });
-    gsap.set(q(".cc-fade"), { opacity: 0, y: 16 });
+    gsap.set(q(".ds-fade"), { opacity: 0, y: 16 });
+    const designPhotos = q(".ds-hero");
+    gsap.set(designPhotos, { opacity: 0, y: 18, scale: 0.985 });
     ScrollTrigger.create({
       trigger: root.current, start: "top 65%", once: true,
       onEnter: () => {
         gsap.to(s.lines!, { yPercent: 0, duration: 1.2, stagger: 0.1, ease: "power3.out" });
-        gsap.to(q(".cc-fade"), { opacity: 1, y: 0, duration: 1, stagger: 0.12, delay: 0.3, ease: "power3.out" });
+        gsap.to(q(".ds-fade"), { opacity: 1, y: 0, duration: 1, stagger: 0.12, delay: 0.3, ease: "power3.out" });
+        gsap.to(designPhotos, { opacity: 1, y: 0, scale: 1, duration: 1.05, stagger: 0.12, delay: 0.4, ease: "power3.out" });
       },
     });
 
     /* later panels: timed reveals keyed to the horizontal position */
     const when = (el: Element, play: () => void, start = "left 80%") =>
       ScrollTrigger.create({ trigger: el, containerAnimation: move, start, once: true, onEnter: play });
+
+    const conceptLines = q(".cc-line");
+    gsap.set(conceptLines, { yPercent: 112 });
+    when(q(".cc-statement")[0], () => {
+      gsap.to(conceptLines, { yPercent: 0, duration: 1.05, stagger: 0.13, ease: "power3.out" });
+    }, "left 88%");
+
+    q(".dp-photo, .cc-hero").forEach((photo) => {
+      gsap.fromTo(photo, { clipPath: "inset(0% 0% 0% 100%)" }, {
+        clipPath: "inset(0% 0% 0% 0%)", ease: "none",
+        scrollTrigger: { trigger: photo, containerAnimation: move, start: "left 100%", end: "left 70%", scrub: 1 },
+      });
+      gsap.fromTo(photo.querySelector("img"), { scale: 1.16 }, {
+        scale: 1, ease: "none",
+        scrollTrigger: { trigger: photo, containerAnimation: move, start: "left 100%", end: "left 70%", scrub: 1 },
+      });
+    });
 
     q(".hz [data-hchars]").forEach((el) => {
       const chars = el.querySelectorAll(".ch");
@@ -91,9 +111,6 @@ export function Concept() {
       onLeave: () => flow.pause(),
       onLeaveBack: () => { draw.pause(0); drawn.p = 0; paint(); flow.pause(); },
     });
-    /* decoration drifts */
-    gsap.to(q(".cc-deco"), { yPercent: -18, ease: "none", scrollTrigger: { trigger: root.current, start: "top bottom", end: () => `+=${dist() + window.innerHeight}`, scrub: true } });
-
     if (mobile) ScrollTrigger.refresh();
     return () => s.revert();
   });
@@ -101,21 +118,69 @@ export function Concept() {
   return (
     <section id="project" ref={root} className="hz" data-tone="light" data-own-reveals>
       <div className="hz-track">
-        {/* panel 1 — the concept */}
-        <div className="hz-panel cc">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="cc-deco cc-tl" src="/images/gazebos.webp" alt="" loading="lazy" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="cc-deco cc-br" src="/images/serenity-park.webp" alt="" loading="lazy" />
+        <div id="design" className="hz-panel ds">
+          <div className="ds-body">
+            <p className="lbl ds-kicker ds-fade">01 / Design</p>
+            <h2 className="caps-serif ds-statement">Built around <span>real life</span></h2>
+            <p className="ds-intro ds-fade">MEMCO Skyline is planned around everyday use: natural light, functional layouts and shared places that extend life beyond your home.</p>
+          </div>
+          <figure className="ds-hero ds-fade">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/design-living.webp" alt="A light filled living room with a considered, functional layout" loading="lazy" />
+            <figcaption className="lbl">JUTAKU · MEMCO Skyline</figcaption>
+          </figure>
+        </div>
+
+        <div id="principles" className="hz-panel dp">
+          <div className="dp-content">
+            <div className="dp-heading">
+              <p className="lbl" data-hfade>02 / Our approach</p>
+              <h2 className="caps-serif" data-hfade>Design principles</h2>
+              <p data-hfade>Every aspect of MEMCO Skyline is thoughtfully crafted to deliver maximum value and experience.</p>
+            </div>
+            <ol className="dp-list" aria-label="Design principles">
+              <li data-hfade><span>01</span><div><h3>Purpose-led design</h3><p>Spaces designed around everyday use, not just visuals.</p></div></li>
+              <li data-hfade><span>02</span><div><h3>Functional flow</h3><p>Layouts planned with purpose for how you actually live.</p></div></li>
+              <li data-hfade><span>03</span><div><h3>Experience-driven planning</h3><p>Built around real life, not just architectural aesthetics.</p></div></li>
+              <li data-hfade><span>04</span><div><h3>Integrated ecosystem planning</h3><p>Spaces designed to serve multiple purposes: work, play and create.</p></div></li>
+            </ol>
+          </div>
+          <figure className="dp-photo">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/balcony-exterior.webp" alt="Open balconies and warm architectural details at MEMCO Skyline" loading="lazy" />
+          </figure>
+        </div>
+
+        <div id="concept" className="hz-panel cc">
           <div className="cc-body">
-            <p className="lbl cc-fade">The concept</p>
-            <h2 className="caps-serif cc-statement">Jutaku is an urban lifestyle ecosystem: 646 private spaces opening onto 50,000 sq ft of professionally managed spaces.</h2>
-            <p className="cc-small cc-fade">At MEMCO Skyline we build homes that stay small on purpose, so the ecosystem around them can be large.</p>
-            <span className="mark cc-fade" aria-hidden />
+            <p className="lbl cc-kicker" data-hfade>03 / The concept</p>
+            <h2 className="caps-serif cc-statement" aria-label="A smarter way to own space.">
+              <span className="cc-line-mask"><span className="cc-line">A smarter way</span></span>
+              <span className="cc-line-mask"><span className="cc-line">to own space.</span></span>
+            </h2>
+            <p className="cc-intro" data-hfade>Private space, with more of life within reach. JUTAKU brings your home together with places to work, meet and unwind.</p>
+          </div>
+          <figure className="cc-hero">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/walking-trails.jpg" alt="Tree-lined walking trails at MEMCO Skyline" loading="lazy" />
+          </figure>
+        </div>
+
+        <div className="hz-panel cp">
+          <div className="cp-content">
+            <div className="cp-heading">
+              <p className="lbl" data-hfade>04 / What this means</p>
+              <h2 className="caps-serif" data-hfade>A complete lifestyle solution</h2>
+            </div>
+            <div className="cc-points">
+              <article data-hfade><span>01</span><div><h3>An urban lifestyle private space</h3><p>A personal sanctuary designed for comfort and efficiency.</p></div></article>
+              <article data-hfade><span>02</span><div><h3>A larger community ecosystem</h3><p>50,000 sq ft of shared experiences and amenities.</p></div></article>
+              <article data-hfade><span>03</span><div><h3>Access to work and community</h3><p>Places to live, work, play and grow, all within reach.</p></div></article>
+            </div>
           </div>
         </div>
 
-        {/* panel 2 — the place */}
+        {/* the place */}
         <div className="hz-panel gm">
           <span className="gm-country lbl" data-hfade>I n d i a</span>
           <h2 className="gm-words disp" aria-label="Begur, South Bengaluru">
@@ -137,7 +202,7 @@ export function Concept() {
           </button>
         </div>
 
-        {/* panel 3 — the road */}
+        {/* the road */}
         <div className="hz-panel rc">
           <h2 className="disp rc-title">
             <span data-hchars><Chars text="EVERYTHING" /></span>

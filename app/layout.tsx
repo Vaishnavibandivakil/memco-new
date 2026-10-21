@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { SmoothScroll } from "@/components/SmoothScroll";
-import { Chrome } from "@/components/Chrome";
 
 /* Brand guidelines §04: Montserrat only — Bold 700 headlines/numerals, SemiBold 600 sub-heads/labels/buttons,
    Regular 400 body. Self-hosted from app/fonts (variable wght axis) so the site never depends on reaching
@@ -23,9 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         {/* flags before first paint so intro states never flash; without JS everything is visible */}
         <script dangerouslySetInnerHTML={{ __html: boot }} />
-        <SmoothScroll />
         {children}
-        <Chrome />
       </body>
     </html>
   );
