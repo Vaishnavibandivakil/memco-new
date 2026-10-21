@@ -99,7 +99,7 @@ export function Concept() {
   });
 
   return (
-    <section ref={root} className="hz" data-tone="light" data-own-reveals>
+    <section id="project" ref={root} className="hz" data-tone="light" data-own-reveals>
       <div className="hz-track">
         {/* panel 1 — the concept */}
         <div className="hz-panel cc">
