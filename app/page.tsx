@@ -2,6 +2,7 @@ import { Opening } from "@/components/sections/Opening";
 import { Quote } from "@/components/sections/Quote";
 import { Concept } from "@/components/sections/Concept";
 import { Nearby } from "@/components/sections/Nearby";
+import { JutakuExperience } from "@/components/sections/JutakuExperience";
 import { Amenities } from "@/components/sections/Amenities";
 import { SpaceToLive } from "@/components/sections/SpaceToLive";
 import { Ecosystem } from "@/components/sections/Ecosystem";
@@ -21,6 +22,7 @@ export default function Home() {
       <Quote />
       <Concept />
       <Nearby />
+      <JutakuExperience />
       <Amenities />
       <SpaceToLive />
       <Ecosystem />

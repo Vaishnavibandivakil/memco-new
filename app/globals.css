@@ -475,6 +475,40 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .nb-fact-label { margin-top: 4px; font-size: clamp(14px, 1.15vw, 20px); font-weight: 600; line-height: 1.2; }
 .nb-fact-note { margin-top: 3px; color: var(--signal); font-size: 8px; }
 .nb-fact-desc { max-width: 260px; margin-top: auto; padding-top: 16px; font-size: 11px; line-height: 1.45; }
+/* ── Jutaku experience ───────────────────────────────────────── */
+.jx { position: relative; padding: 15vh var(--side) 6vh; overflow: hidden; background: var(--offwhite); }
+.jx-head { position: relative; display: grid; grid-template-columns: 1fr minmax(240px, 380px); align-items: end; gap: 24px 6vw; padding-bottom: 8vh; }
+.jx-heading { display: grid; gap: 18px; }
+.jx-heading .disp { color: var(--green); font-size: clamp(42px, 7vw, 116px); }
+.jx-intro { max-width: 380px; padding-bottom: 6px; font-size: clamp(13px, 1.1vw, 16px); line-height: 1.8; }
+.jx-mark { position: absolute; top: -6vh; right: 2vw; color: var(--green-20); font-family: var(--ff-disp); font-size: clamp(100px, 18vw, 280px); font-weight: 700; line-height: .8; pointer-events: none; }
+.jx-grid { position: relative; display: grid; grid-template-columns: 1.1fr .9fr 1.1fr; align-items: start; gap: 2vw; }
+.jx-card:nth-child(2) { margin-top: 12vh; }
+.jx-card:nth-child(3) { margin-top: 4vh; }
+.jx-image { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--green-20); }
+.jx-card:nth-child(2) .jx-image { aspect-ratio: 3 / 4; }
+.jx-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--e-out); }
+.jx-card:hover .jx-image img { transform: scale(1.04); }
+.jx-number { position: absolute; top: 14px; left: 16px; padding: 6px 9px; background: var(--offwhite); color: var(--green); }
+.jx-card-copy { display: grid; gap: 8px; padding-top: 18px; }
+.jx-card-copy h3 { color: var(--green); font-size: clamp(19px, 2vw, 30px); }
+.jx-card-copy .lbl { opacity: .62; font-size: 9px; }
+.jx-foot { display: flex; justify-content: space-between; gap: 20px; margin-top: 12vh; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--green); }
+.jx-foot .lbl { font-size: 8px; }
+@media (max-width: 760px) {
+  .jx { padding: 12vh 20px 5vh; }
+  .jx-head { grid-template-columns: 1fr; gap: 22px; padding-bottom: 6vh; }
+  .jx-heading .disp { font-size: 15vw; }
+  .jx-intro { max-width: 36ch; }
+  .jx-mark { top: -4vh; right: 0; font-size: 36vw; }
+  .jx-grid { grid-template-columns: 1fr 1fr; gap: 34px 14px; }
+  .jx-card:nth-child(2) { margin-top: 9vh; }
+  .jx-card:nth-child(3) { grid-column: 1 / -1; width: 78%; margin: 0 auto; }
+  .jx-card:nth-child(3) .jx-image { aspect-ratio: 4 / 3; }
+  .jx-card-copy h3 { font-size: 19px; }
+  .jx-foot { flex-direction: column; gap: 8px; margin-top: 8vh; }
+}
+
 /* gallery */
 .gl { padding: 4vh 0 20vh; background: var(--paper); }
 .gl-body { display: grid; grid-template-columns: 2.1fr 1fr; gap: 1vw; padding: 10vh var(--side) 0; }
