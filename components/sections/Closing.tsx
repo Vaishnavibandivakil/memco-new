@@ -28,7 +28,7 @@ export function Closing() {
           <span className="mark mark-light" aria-hidden data-fade />
           <a className="disp cl-phone" href={`tel:${tel}`} data-chars><Chars text="+91 91872 24980" /></a>
           <div className="cl-info">
-            <p className="lbl" data-fade data-delay="0.3">Experience Center · now open</p>
+            <p className="lbl" data-fade data-delay="0.3">Experience Centre · now open</p>
             <p className="lbl dim" data-fade data-delay="0.4">{ADDRESS}</p>
             <p className="lbl" data-fade data-delay="0.5"><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
           </div>

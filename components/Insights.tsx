@@ -53,33 +53,32 @@ export function InsightsPreview() {
 
   return (
     <section id="insights" className="insights-preview" data-tone="light" aria-labelledby="insights-title">
-      <div className="insights-preview-top">
-        <p className="insights-eyebrow lbl">Jutaku / Insights</p>
-        <Link href="/insights" className="insights-all lbl">View all films <ArrowUpRight size={13} aria-hidden="true" /></Link>
-      </div>
-      <h2 id="insights-title" className="sr-only">Stories from Jutaku</h2>
-      <div className="insights-artboard" aria-label="Featured films">
-        {videos.map((video, index) => (
-          <div className={`insights-feature insights-feature-${index + 1}`} key={video.id}>
-            <button type="button" className="insights-feature-image" onClick={() => setPlaying(video)} aria-label={`Watch ${video.title}`}>
-              <InsightImage video={video} />
-              <span className="insights-feature-play lbl" aria-hidden="true"><Play size={12} fill="currentColor" /> Play film</span>
-            </button>
-            {index < 2 ? (
-              <div className="insights-feature-caption">
-                <span>{String(index + 1).padStart(2, "0")} / {video.category}</span>
-                <span>{video.previewTitle ?? video.title}</span>
-              </div>
-            ) : (
-              <div className="insights-feature-note">
-                <span>03 / {video.category}</span>
-                <p>Small private spaces, a larger world to explore. See the places and people shaping life at Jutaku.</p>
-              </div>
-            )}
+      <div className="insights-spread">
+        <div className="insights-spread-cover">
+          <button type="button" className="insights-cover-film" onClick={() => setPlaying(videos[0])} aria-label={`Watch ${videos[0].title}`}>
+            <InsightImage video={videos[0]} />
+            <span className="insights-cover-shade" aria-hidden="true" />
+            <span className="insights-cover-watch lbl">Play film <Play size={13} fill="currentColor" aria-hidden="true" /></span>
+          </button>
+          <div className="insights-cover-top lbl"><span>Jutaku / Films</span><span>01—03</span></div>
+          <div className="insights-cover-title"><span className="lbl">01 / {videos[0].category}</span><strong>Inside<br />Jutaku.</strong></div>
+          <div className="insights-cover-bottom lbl"><span>MEMCO Skyline</span></div>
+        </div>
+        <div className="insights-spread-page">
+          <div className="insights-spread-top lbl"><span>Jutaku / Insights</span><Link href="/insights">View all films</Link></div>
+          <h2 id="insights-title">The Jutaku<br />journal.</h2>
+          <p className="insights-spread-intro">Films from the Experience Centre, its people and the spaces taking shape.</p>
+          <div className="insights-spread-films" aria-label="More featured films">
+            {videos.slice(1).map((video, index) => (
+              <button type="button" className="insights-spread-film" key={video.id} onClick={() => setPlaying(video)} aria-label={`Watch ${video.title}`}>
+                <span className="insights-spread-film-image"><InsightImage video={video} /><span className="insights-film-play" aria-hidden="true"><Play size={15} fill="currentColor" /></span></span>
+                <span className="insights-spread-film-caption"><small>0{index + 2} / {video.category}</small><strong>{video.previewTitle ?? video.title}</strong></span>
+              </button>
+            ))}
           </div>
-        ))}
+          <div className="insights-spread-bottom lbl"><span>Stories from Jutaku</span><span>Begur, Bengaluru</span></div>
+        </div>
       </div>
-      <div className="insights-preview-foot lbl"><span>MEMCO Skyline · South Bengaluru</span><span>Films 01 — 03</span></div>
       <VideoModal video={playing} onClose={() => setPlaying(null)} />
     </section>
   );
@@ -89,8 +88,8 @@ export function InsightsLibrary() {
   const [playing, setPlaying] = useState<InsightVideo | null>(null);
   return (
     <main className="insights-page">
-      <header className="insights-page-header"><Link href="/#insights" className="lbl"><ArrowLeft size={18} aria-hidden="true" /> Back to site</Link><span className="lbl">MEMCO Skyline / Jutaku</span></header>
-      <div className="insights-page-intro"><p className="insights-eyebrow lbl">Jutaku / Films 01—06</p><h1 className="disp">The Jutaku<br />journal</h1><p>Meet the people, explore the places, and see the ideas behind the Jutaku experience.</p></div>
+      <header className="insights-page-header"><Link href="/#insights" className="lbl"><ArrowLeft size={18} aria-hidden="true" /> Back to Insights</Link><span className="lbl">MEMCO Skyline / Jutaku</span></header>
+      <div className="insights-page-intro"><p className="insights-eyebrow lbl">Jutaku / Films 01—06</p><h1 className="disp">The Jutaku<br />journal</h1><p>Visit the Experience Centre, meet the people involved and see the spaces taking shape.</p></div>
       <div className="insights-library" aria-label="Jutaku videos">
         {INSIGHT_VIDEOS.map((video, index) => (
           <button type="button" className="insights-library-card" key={video.id} onClick={() => setPlaying(video)} aria-label={`Watch ${video.title}`}>
