@@ -2,8 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { ArrowLeft, CalendarDays, House, MessageCircle, TrendingUp } from "lucide-react";
+import { CalendarDays, House, MessageCircle, TrendingUp } from "lucide-react";
 import { PHONE } from "@/lib/data";
+import { SubpageHeader } from "@/components/SubpageHeader";
 
 type Interest = "Self use" | "Investment";
 
@@ -40,9 +41,8 @@ export function BrochureForm() {
       </div>
       <div className="br-main">
         <div className="br-shell">
-          <Link className="br-back" href="/#jutaku-experience"><ArrowLeft size={17} aria-hidden="true" /><span>Back to Jutaku Experience</span></Link>
+          <SubpageHeader label="Jutaku / Enquiry" closeHref="/#jutaku-experience" closeLabel="Jutaku Experience" />
           <div className="br-content">
-            <p className="lbl br-kicker">Jutaku / Enquiry</p>
             <h1>Discover more<br />about Jutaku.</h1>
             <p className="br-intro">Share a few details and connect with the MEMCO Skyline team on WhatsApp.</p>
 

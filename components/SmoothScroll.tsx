@@ -26,5 +26,29 @@ export function SmoothScroll() {
     ro.observe(document.body);
     return () => { ro.disconnect(); clearTimeout(t); gsap.ticker.remove(tick); l.destroy(); delete window.__lenis; };
   }, []);
+
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+
+    let active = true;
+    let timer = 0;
+    let frame = 0;
+    void document.fonts.ready.then(() => {
+      if (!active) return;
+      timer = window.setTimeout(() => {
+        if (!active) return;
+        ScrollTrigger.refresh();
+        frame = window.requestAnimationFrame(() => {
+          const target = document.getElementById(id);
+          if (!target) return;
+          if (window.__lenis) window.__lenis.scrollTo(target, { immediate: true });
+          else target.scrollIntoView({ behavior: "auto", block: "start" });
+        });
+      }, 350);
+    });
+
+    return () => { active = false; window.clearTimeout(timer); window.cancelAnimationFrame(frame); };
+  }, []);
   return null;
 }

@@ -8,12 +8,13 @@ export type Room = {
   caption: string;
 };
 
-/* Four interior renders from memcoskyline.com (gallery/flat-interior). Captions are the site's own. */
+/* Interior views supplied for the Feeling of Home gallery. */
 export const ROOMS: Room[] = [
-  { slug: "bedroom", index: "01", name: "The Bedroom", title: ["The", "Bedroom"], italic: "Bed against the wardrobe wall, balcony light from the left.", photo: "/images/interior-bedroom.jpg", caption: "Master Bedroom" },
-  { slug: "kitchen", index: "02", name: "The Kitchen", title: ["The", "Kitchen"], italic: "Counter on two walls, so nothing is more than a step away.", photo: "/images/interior-kitchen.jpg", caption: "L-Shaped Modern Kitchen" },
-  { slug: "entry", index: "03", name: "The Entry", title: ["The", "Entry"], italic: "The kitchen as you see it from the front door.", photo: "/images/interior-kitchen-entry.jpg", caption: "Kitchen Entry View" },
-  { slug: "bathroom", index: "04", name: "The Bathroom", title: ["The", "Bathroom"], italic: "Glass shower and one long counter.", photo: "/images/interior-bathroom.jpg", caption: "Modern Bathroom" },
+  { slug: "bedroom", index: "01", name: "The Bedroom", title: ["The", "Bedroom"], italic: "A quiet bedroom with the wardrobe close at hand.", photo: "/images/interior-bedroom-wardrobe.jpg", caption: "Bedroom with wardrobe and soft daylight" },
+  { slug: "bedroom-open-plan", index: "02", name: "The Bedroom", title: ["The", "Bedroom"], italic: "Room to rest, work and take in the view.", photo: "/images/interior-bedroom-open-plan.jpg", caption: "Open plan bedroom with desk and window seating" },
+  { slug: "kitchen", index: "03", name: "The Kitchen", title: ["The", "Kitchen"], italic: "A warm, open kitchen with space to gather.", photo: "/images/interior-kitchen-new.jpg", caption: "Open kitchen with wood cabinetry and breakfast seating" },
+  { slug: "entry", index: "04", name: "The Entry", title: ["The", "Entry"], italic: "Step inside to a connected living space.", photo: "/images/interior-entry-new.jpg", caption: "Entry view into the kitchen and living area" },
+  { slug: "bathroom", index: "05", name: "The Bathroom", title: ["The", "Bathroom"], italic: "A calm space with a glass shower and natural finishes.", photo: "/images/interior-bathroom-new.jpg", caption: "Bathroom with glass shower and dark stone finishes" },
 ];
 
 export type Amenity = { id: string; index: string; name: string; desc: string; area?: string; photo: string; detail: string[] };

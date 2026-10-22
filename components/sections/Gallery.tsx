@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { Split } from "@/components/Split";
-import { gsap, scrollToId } from "@/lib/motion";
+import { gsap } from "@/lib/motion";
 import { ROOMS } from "@/lib/data";
 
 const MS = 5200;
@@ -55,7 +56,7 @@ export function Gallery() {
             <p className="caps-serif gl-name is-on" key={`t${i}`}>{r.name}</p>
             <p className="gl-cap is-on" key={`c${i}`}>{r.italic}</p>
           </div>
-          <button type="button" className="pill lbl gl-cta" onClick={() => scrollToId("contact")}>Book a visit <span aria-hidden>+</span></button>
+          <Link className="pill lbl gl-cta" href="/book-visit">Book a visit</Link>
         </aside>
       </div>
     </div>

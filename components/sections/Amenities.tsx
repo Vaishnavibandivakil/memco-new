@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
-import { gsap, useScene, scrollToId } from "@/lib/motion";
+import Link from "next/link";
+import { gsap, useScene } from "@/lib/motion";
 import { AMENITY_SLIDES } from "@/lib/content";
 
 /* Reference 01:08–01:20 — pinned full-bleed amenity photos, each wiping in on a diagonal;
@@ -57,7 +58,7 @@ export function Amenities() {
           </div>
         ))}
       </div>
-      <a className="am-book lbl" href="#contact" onClick={(e) => { e.preventDefault(); scrollToId("contact"); }}>Book a visit<br />now</a>
+      <Link className="am-book lbl" href="/book-visit">Book a visit<br />now</Link>
     </section>
   );
 }

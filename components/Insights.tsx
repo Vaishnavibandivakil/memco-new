@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Play, X } from "lucide-react";
+import { ArrowUpRight, Play, X } from "lucide-react";
 import { INSIGHT_VIDEOS, type InsightVideo } from "@/lib/insights";
+import { SubpageHeader } from "@/components/SubpageHeader";
 
 function InsightImage({ video }: { video: InsightVideo }) {
   return (
@@ -86,7 +87,7 @@ export function InsightsLibrary() {
   const [playing, setPlaying] = useState<InsightVideo | null>(null);
   return (
     <main className="insights-page">
-      <header className="insights-page-header"><Link href="/#insights" className="lbl"><ArrowLeft size={18} aria-hidden="true" /> Back to Insights</Link><span className="lbl">MEMCO Skyline / Jutaku</span></header>
+      <SubpageHeader className="insights-page-header" label="Jutaku / Insights" closeHref="/#insights" closeLabel="Insights" />
       <div className="insights-page-intro"><p className="insights-eyebrow lbl">Jutaku / Films 01—06</p><h1 className="disp">The Jutaku<br />journal</h1><p>Visit the Experience Centre, meet the people involved and see the spaces taking shape.</p></div>
       <div className="insights-library" aria-label="Jutaku videos">
         {INSIGHT_VIDEOS.map((video, index) => (

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { EMAIL } from "@/lib/data";
+import { SubpageHeader } from "@/components/SubpageHeader";
 
 type LegalSection = {
   title: string;
@@ -34,9 +34,8 @@ export function LegalPage({ label, title, introduction, sections, relatedHref, r
 
       <div className="legal-main">
         <div className="legal-shell">
-          <Link className="legal-back" href="/#contact"><ArrowLeft size={17} aria-hidden="true" /> Back to Jutaku</Link>
+          <SubpageHeader label={`Jutaku / ${label}`} closeHref="/#contact" closeLabel="Contact" />
           <header className="legal-heading">
-            <p className="lbl">Jutaku / {label}</p>
             <h1>{title}</h1>
             <p>{introduction}</p>
             <small>Last updated 22 October 2026</small>

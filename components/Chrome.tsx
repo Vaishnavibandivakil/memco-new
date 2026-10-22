@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap, ScrollTrigger, scrollToId } from "@/lib/motion";
 import { openHomes } from "@/components/sections/Homes";
+import { openLifestylePopup } from "@/components/LifestylePopup";
 
 /* Fixed chrome: a rounded header bar with the MEMCO + Jutaku logos, links and the "Select a home" action,
    and the hairline progress rail with section number (left).
@@ -69,6 +70,7 @@ export function Chrome() {
               {LINKS.map(([id, label], i) => (
                 <a key={id} href={`#${id}`} style={{ ["--i" as string]: i }} onClick={(e) => { e.preventDefault(); scrollToId(id); }}>{label}</a>
               ))}
+              <button type="button" style={{ ["--i" as string]: LINKS.length }} onClick={() => { setOpen(false); openLifestylePopup(); }}>Find your fit</button>
             </nav>
             <button type="button" className="hdr-cta" style={{ ["--i" as string]: LINKS.length + 1 }} onClick={openHomes}>Select a home</button>
           </div>

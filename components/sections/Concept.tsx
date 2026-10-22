@@ -232,6 +232,7 @@ export function Concept() {
               <li className="pl-stop pl-home" aria-label="MEMCO Skyline"><span className="pl-lab"><span className="mark" /></span><i /></li>
             </ol>
           </div>
+          <a className="rc-directions" href="https://www.google.com/maps/dir/?api=1&destination=12.874382129106094%2C77.6407185246645" target="_blank" rel="noopener noreferrer" aria-label="Get directions to Jutaku on Google Maps">Get directions to Jutaku</a>
         </div>
       </div>
     </section>

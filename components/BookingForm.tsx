@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { Armchair, ArrowLeft, ArrowRight } from "lucide-react";
-import { EMAIL } from "@/lib/data";
+import { Armchair } from "lucide-react";
+import { SubpageHeader } from "@/components/SubpageHeader";
 
 type VisitDate = { iso: string; day: string; label: string; year: number };
 
@@ -35,12 +35,30 @@ export function BookingForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [requestReady, setRequestReady] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [submitError, setSubmitError] = useState("");
 
   const chosenDate = dates.find((date) => date.iso === selectedDate) ?? dates[0];
-  const mailSubject = `JUTAKU Experience visit request — ${chosenDate.label} ${chosenDate.year}`;
-  const mailBody = `Hello MEMCO Skyline,\n\nI would like to request a JUTAKU Experience visit.\n\nName: ${name}\nPhone: ${phone}\nEmail: ${email}\nPreferred date: ${chosenDate.day}, ${chosenDate.label} ${chosenDate.year}\nPreferred time: ${selectedSlot === null ? "Not selected" : slotLabel(selectedSlot)}\nGuests: ${guests}\n\nPlease confirm availability. Thank you.`;
-  const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+
+  async function submitVisit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (selectedSlot === null || submitStatus === "sending" || submitStatus === "sent") return;
+    setSubmitStatus("sending");
+    setSubmitError("");
+    try {
+      const response = await fetch("/api/visit-requests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ date: selectedDate, hour: selectedSlot, guests, name: name.trim(), phone: phone.trim(), email: email.trim() }),
+      });
+      const result = await response.json() as { error?: string };
+      if (!response.ok) throw new Error(result.error || "We couldn't send your request. Please try again.");
+      setSubmitStatus("sent");
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "We couldn't send your request. Please try again.");
+      setSubmitStatus("error");
+    }
+  }
 
   return (
     <main className="bk-page" data-tone="light">
@@ -59,23 +77,20 @@ export function BookingForm() {
       </aside>
 
       <div className="bk-main">
-        <div className="bk-topline">
-          <Link href="/#jutaku-experience"><span className="bk-back-arrow"><ArrowLeft size={17} strokeWidth={1.8} /></span><span>Back to Jutaku Experience</span></Link>
-        </div>
+        <SubpageHeader label="Jutaku / Visit" closeHref="/#jutaku-experience" closeLabel="Jutaku Experience" />
         <header className="bk-heading">
-          <p className="lbl">JUTAKU Experience Centre</p>
           <h1>See JUTAKU<br /><span>in person.</span></h1>
           <p>Visit the Experience Centre in Singasandra. Choose a day and time for your one-hour walkthrough.</p>
         </header>
 
-        <form className="bk-form" onSubmit={(event) => { event.preventDefault(); if (selectedSlot !== null) setRequestReady(true); }}>
+        <form className="bk-form" onSubmit={submitVisit}>
           <div className="bk-card-heading"><span>PLAN YOUR VISIT</span><h2>Book an appointment</h2></div>
 
           <fieldset className="bk-group">
             <legend>Choose a day <span>Through 31 Dec {dates[dates.length - 1].year}</span></legend>
             <div className="bk-dates" aria-label="Preferred dates">
               {dates.map((date) => (
-                <button key={date.iso} type="button" className={`bk-date${selectedDate === date.iso ? " is-selected" : ""}`} aria-label={`${date.day}, ${date.label} ${date.year}`} aria-pressed={selectedDate === date.iso} onClick={() => { setSelectedDate(date.iso); setSelectedSlot(null); setRequestReady(false); }}>
+                <button key={date.iso} type="button" className={`bk-date${selectedDate === date.iso ? " is-selected" : ""}`} aria-label={`${date.day}, ${date.label} ${date.year}`} aria-pressed={selectedDate === date.iso} onClick={() => { setSelectedDate(date.iso); setSelectedSlot(null); setSubmitStatus("idle"); }}>
                   <small>{date.day}</small><strong>{date.label}</strong>
                 </button>
               ))}
@@ -88,7 +103,7 @@ export function BookingForm() {
               {Array.from({ length: 9 }, (_, index) => index + 9).map((hour) => {
                 const now = new Date();
                 const past = selectedDate === dates[0].iso && hour <= now.getHours();
-                return <button key={hour} type="button" disabled={past} className={`bk-slot${selectedSlot === hour ? " is-selected" : ""}`} aria-pressed={selectedSlot === hour} aria-label={slotLabel(hour)} onClick={() => { setSelectedSlot(hour); setRequestReady(false); }}>{`${hour % 12 || 12}:00 ${hour < 12 ? "AM" : "PM"}`}</button>;
+                return <button key={hour} type="button" disabled={past} className={`bk-slot${selectedSlot === hour ? " is-selected" : ""}`} aria-pressed={selectedSlot === hour} aria-label={slotLabel(hour)} onClick={() => { setSelectedSlot(hour); setSubmitStatus("idle"); }}>{`${hour % 12 || 12}:00 ${hour < 12 ? "AM" : "PM"}`}</button>;
               })}
             </div>
           </fieldset>
@@ -106,7 +121,7 @@ export function BookingForm() {
                   className={`bk-guest-seat${count <= guests ? " is-occupied" : ""}${count === guests ? " is-selected" : ""}`}
                   aria-label={`${count} ${count === 1 ? "guest" : "guests"}`}
                   aria-pressed={count === guests}
-                  onClick={() => { setGuests(count); setRequestReady(false); }}
+                  onClick={() => { setGuests(count); setSubmitStatus("idle"); }}
                 >
                   <Armchair size={22} strokeWidth={1.7} aria-hidden="true" />
                   <span aria-hidden="true">{count}</span>
@@ -116,20 +131,20 @@ export function BookingForm() {
           </div>
 
           <div className="bk-fields">
-            <label>Your name *<input required autoComplete="name" placeholder="Full name" value={name} onChange={(event) => { setName(event.target.value); setRequestReady(false); }} /></label>
-            <label>Phone number *<input required type="tel" inputMode="tel" autoComplete="tel" minLength={10} placeholder="Mobile number" value={phone} onChange={(event) => { setPhone(event.target.value); setRequestReady(false); }} /></label>
-            <label className="bk-email">Email address *<input required type="email" autoComplete="email" placeholder="you@example.com" value={email} onChange={(event) => { setEmail(event.target.value); setRequestReady(false); }} /></label>
+            <label>Your name *<input required autoComplete="name" placeholder="Full name" value={name} onChange={(event) => { setName(event.target.value); setSubmitStatus("idle"); }} /></label>
+            <label>Phone number *<input required type="tel" inputMode="tel" autoComplete="tel" minLength={10} placeholder="Mobile number" value={phone} onChange={(event) => { setPhone(event.target.value); setSubmitStatus("idle"); }} /></label>
+            <label className="bk-email">Email address *<input required type="email" autoComplete="email" placeholder="you@example.com" value={email} onChange={(event) => { setEmail(event.target.value); setSubmitStatus("idle"); }} /></label>
           </div>
 
           <div className="bk-finish">
-            <button type="submit" className="bk-submit" disabled={selectedSlot === null}>Prepare my visit <ArrowRight size={18} /></button>
-            <p>Choose a time, then email your request to the MEMCO Skyline team.</p>
+            <button type="submit" className="bk-submit" disabled={selectedSlot === null || submitStatus === "sending" || submitStatus === "sent"}>{submitStatus === "sending" ? "Sending request…" : submitStatus === "sent" ? "Request sent" : "Request a visit"}</button>
+            <p>We&apos;ll contact you to confirm your visit.</p>
             {selectedSlot === null && <span className="bk-slot-prompt">Select a time to continue.</span>}
-            {requestReady && (
+            {submitStatus === "error" && <p className="bk-submit-error" role="alert">{submitError}</p>}
+            {submitStatus === "sent" && (
               <div className="bk-ready" role="status">
-                <strong>Your request is ready.</strong>
-                <p>{chosenDate.day}, {chosenDate.label} · {selectedSlot === null ? "" : slotLabel(selectedSlot)} · {guests} {guests === 1 ? "guest" : "guests"}. Send it to the MEMCO Skyline team to confirm your visit.</p>
-                <a href={mailto}>Open email request <ArrowRight size={17} /></a>
+                <strong>Your request has been sent.</strong>
+                <p>{chosenDate.day}, {chosenDate.label} · {selectedSlot === null ? "" : slotLabel(selectedSlot)} · {guests} {guests === 1 ? "guest" : "guests"}. The MEMCO Skyline team will contact you to confirm availability.</p>
               </div>
             )}
           </div>

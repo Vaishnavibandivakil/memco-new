@@ -22,6 +22,7 @@ type SpeechRecognizer = {
   onend: (() => void) | null;
   start: () => void;
   stop: () => void;
+  abort: () => void;
 };
 type SpeechWindow = Window & {
   SpeechRecognition?: new () => SpeechRecognizer;
@@ -73,7 +74,7 @@ export function ChatAssistant() {
   const isWelcome = messages.length === 0;
 
   const closeChat = useCallback(() => {
-    speech.current?.stop();
+    speech.current?.abort();
     speech.current = null;
     setOpen(false);
     setDraft("");
@@ -83,7 +84,7 @@ export function ChatAssistant() {
     nextId.current = 1;
   }, []);
 
-  useEffect(() => () => { speech.current?.stop(); }, []);
+  useEffect(() => () => { speech.current?.abort(); }, []);
 
   useEffect(() => {
     const hero = pathname === "/" ? document.querySelector<HTMLElement>(".op") : null;
@@ -150,8 +151,12 @@ export function ChatAssistant() {
   }
 
   function toggleMicrophone() {
-    if (listening) {
-      speech.current?.stop();
+    if (speech.current) {
+      const recognition = speech.current;
+      speech.current = null;
+      recognition.abort();
+      setListening(false);
+      setSpeechStatus("Stopped listening.");
       return;
     }
     const voiceWindow = window as SpeechWindow;
@@ -165,6 +170,7 @@ export function ChatAssistant() {
     recognition.interimResults = false;
     recognition.continuous = false;
     recognition.onresult = (event) => {
+      if (speech.current !== recognition) return;
       const spoken = event.results[0]?.[0]?.transcript?.trim();
       if (spoken) {
         setDraft((current) => [current.trim(), spoken].filter(Boolean).join(" "));
@@ -173,10 +179,13 @@ export function ChatAssistant() {
       }
     };
     recognition.onerror = (event) => {
+      if (speech.current !== recognition) return;
+      speech.current = null;
       setSpeechStatus(event.error === "not-allowed" ? "Microphone access was blocked." : "Couldn’t hear that. Please try again.");
       setListening(false);
     };
     recognition.onend = () => {
+      if (speech.current !== recognition) return;
       setListening(false);
       speech.current = null;
     };
