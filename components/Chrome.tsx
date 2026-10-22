@@ -6,7 +6,7 @@ import { openHomes } from "@/components/sections/Homes";
 /* Fixed chrome: a rounded header bar with the MEMCO + Jutaku logos, links and the "Select a home" action,
    and the hairline progress rail with section number (left).
    Colour follows the section under the logo: its data-tone ("dark" | "light") is copied to html[data-tone]. */
-const LINKS: [string, string][] = [["top", "Home"], ["project", "The Project"], ["living", "Living"], ["pricing", "Pricing"]];
+const LINKS: [string, string][] = [["top", "Home"], ["project", "The Project"], ["living", "Living"], ["pricing", "Pricing"], ["insights", "Insights"]];
 
 export function Chrome() {
   const bar = useRef<HTMLSpanElement>(null);
@@ -69,7 +69,6 @@ export function Chrome() {
               {LINKS.map(([id, label], i) => (
                 <a key={id} href={`#${id}`} style={{ ["--i" as string]: i }} onClick={(e) => { e.preventDefault(); scrollToId(id); }}>{label}</a>
               ))}
-              <span className="hdr-link-pending" aria-disabled="true" style={{ ["--i" as string]: LINKS.length }}>Insights</span>
             </nav>
             <button type="button" className="hdr-cta" style={{ ["--i" as string]: LINKS.length + 1 }} onClick={openHomes}>Select a home</button>
           </div>

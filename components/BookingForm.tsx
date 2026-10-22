@@ -60,12 +60,12 @@ export function BookingForm() {
 
       <div className="bk-main">
         <div className="bk-topline">
-          <Link href="/#amenities"><span className="bk-back-arrow"><ArrowLeft size={17} strokeWidth={1.8} /></span><span>Back to site</span></Link>
+          <Link href="/#jutaku-experience"><span className="bk-back-arrow"><ArrowLeft size={17} strokeWidth={1.8} /></span><span>Back to Jutaku Experience</span></Link>
         </div>
         <header className="bk-heading">
           <p className="lbl">JUTAKU Experience Centre</p>
           <h1>See JUTAKU<br /><span>in person.</span></h1>
-          <p>Take a 60-minute walk through the Experience Centre in Singasandra. Choose a day and time below.</p>
+          <p>Visit the Experience Centre in Singasandra. Choose a day and time for your one-hour walkthrough.</p>
         </header>
 
         <form className="bk-form" onSubmit={(event) => { event.preventDefault(); if (selectedSlot !== null) setRequestReady(true); }}>
@@ -123,7 +123,7 @@ export function BookingForm() {
 
           <div className="bk-finish">
             <button type="submit" className="bk-submit" disabled={selectedSlot === null}>Prepare my visit <ArrowRight size={18} /></button>
-            <p>We’ll confirm your preferred time before your visit.</p>
+            <p>Choose a time, then email your request to the MEMCO Skyline team.</p>
             {selectedSlot === null && <span className="bk-slot-prompt">Select a time to continue.</span>}
             {requestReady && (
               <div className="bk-ready" role="status">

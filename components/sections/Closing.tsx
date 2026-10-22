@@ -1,5 +1,6 @@
 import { Chars } from "@/components/Chars";
 import { PHONE, EMAIL, ADDRESS, RERA } from "@/lib/data";
+import { InsightsPreview } from "@/components/Insights";
 
 /* Reference 01:38–01:44 — "PERFECT SEA VIEWS": a full-bleed photograph scrolls in with its title surfacing
    on top; the deep contact page follows and the phone number writes itself in giant condensed numerals. */
@@ -19,6 +20,8 @@ export function Closing() {
         </h2>
         <p className="lbl sv-sub" data-fade data-delay="0.6">Open 24 hours</p>
       </section>
+
+      <InsightsPreview />
 
       <section id="contact" className="cl" data-tone="dark">
         <div className="cl-contact">

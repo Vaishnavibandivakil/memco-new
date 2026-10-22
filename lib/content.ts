@@ -29,12 +29,14 @@ export const REASONS = [
 ];
 
 export const AMENITY_SLIDES = [
-  { name: "Skyline Aqua Lounge", label: "Level 22 · 2,600 sq ft", body: "Rooftop pool with panoramic skyline views. 56 ft length, 24/7 access.", photo: "/images/swimming-pool.webp" },
+  { name: "Skyline Aqua Lounge", label: "Level 22 · 2,600 sq ft", body: "Rooftop pool with panoramic skyline views. 56 ft length, 24/7 access.", photo: "/images/amenity-pool.jpg" },
   { name: "Skyline Sports Deck", label: "Rooftop · 18,800 sq ft", body: "Rooftop multi-sport facilities. Pickleball, box cricket and squash.", photo: "/images/rooftop-futsal.jpg" },
-  { name: "Wellness Hub", label: "Podium · 12,800 sq ft", body: "Fully equipped gym, Pilates studio, indoor sports and fitness classes.", photo: "/images/sports-gym.jpg" },
-  { name: "Recovery Zone", label: "Wellness & recovery", body: "Yoga and Zumba studio, a recovery zone and meditation zones inside the Hub.", photo: "/images/recovery-zone.webp" },
-  { name: "Culinary Studios", label: "6,000 sq ft", body: "Shared kitchen and dining spaces. Community kitchen and private dining.", photo: "/images/club-community-kitchen.webp" },
-  { name: "Creator Studios", label: "Clubrooms · 4,000 sq ft", body: "Podcasting room, DJ studios, co-working and community dining.", photo: "/images/club-podcast.jpg" },
+  { name: "Indoor Games", label: "Sports & leisure", body: "Table tennis and places to play and spend time together.", photo: "/images/amenity-indoor-sports.jpg" },
+  { name: "Wellness Hub", label: "Podium · 12,800 sq ft", body: "Yoga, Pilates and fitness spaces for everyday wellbeing.", photo: "/images/amenity-yoga.jpg" },
+  { name: "Recovery Zone", label: "Wellness & recovery", body: "A quiet space to slow down and recharge within the Hub.", photo: "/images/amenity-recovery.jpg" },
+  { name: "Culinary Studios", label: "6,000 sq ft", body: "Shared kitchen and dining spaces. Community kitchen and private dining.", photo: "/images/amenity-culinary.jpg" },
+  { name: "Rooftop BBQ Lounge", label: "Open-air social space", body: "Outdoor dining and barbecue seating above the city.", photo: "/images/amenity-rooftop-dining.jpg" },
+  { name: "Creator Studios", label: "Clubrooms · 4,000 sq ft", body: "Podcasting room, DJ studios, co-working and community dining.", photo: "/images/amenity-creator-studio.jpg" },
   { name: "Experience Arena", label: "2,800 sq ft", body: "AV-enabled events and screenings. Events, concerts and movie nights.", photo: "/images/experience-arena.webp" },
 ];
 

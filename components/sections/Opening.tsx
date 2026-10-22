@@ -1,52 +1,18 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Chars } from "@/components/Chars";
-import { gsap, ScrollTrigger, useScene, charsIn, charsOut, lenis } from "@/lib/motion";
+import { gsap, ScrollTrigger, useScene, charsIn, charsOut } from "@/lib/motion";
 import { HOTSPOTS, REASONS } from "@/lib/content";
 import { openHomes } from "@/components/sections/Homes";
 
-/* Reference 00:00–00:48.
-   Intro: an arch window opens on the render, then the title letters surface.
-   Scroll: the photo stays put (sticky) while the title scrolls away with the page; the hotspots come up;
-   then the pale dome — curved "three reasons" type on its rim — scrolls up over the photo and carries the
-   reasons carousel. Nothing here is scrubbed except the photo's slow zoom. */
+/* The landing page opens directly on the existing, scroll-led tower scene. */
 export function Opening() {
   const root = useRef<HTMLElement>(null);
   const [spot, setSpot] = useState<string | null>(null);
   const [spotsOn, setSpotsOn] = useState(false);
 
-  useScene(root, ({ reduced }) => {
-    if (reduced) { setSpotsOn(true); return; }
+  useScene(root, () => {
     const q = gsap.utils.selector(root);
-    const l = lenis();
-
-    /* intro — arch opens (numeric proxy: browsers collapse inset() shorthands), then the letters settle */
-    l?.stop();
-    window.scrollTo(0, 0);
-    const clip = q(".op-clip")[0] as HTMLElement;
-    const arch = { t: 70, s: 43, r: 7 };
-    const draw = () => { clip.style.clipPath = `inset(${arch.t}% ${arch.s}% 0% ${arch.s}% round ${arch.r}vw ${arch.r}vw 0vw 0vw)`; };
-    draw();
-    gsap.set(q(".op-title .ch"), { opacity: 0 });
-    gsap.set(q(".op-script, .op-row > *, .op-view"), { opacity: 0 });
-    const intro = gsap.timeline({ onComplete: () => { clip.style.clipPath = "none"; l?.start(); } });
-    intro
-      .set(q(".op-media"), { scale: 1.4 })
-      /* the green intro screen carries the wordmark: MEMCO / SKYLINE surfaces first, then lifts away as the arch opens */
-      .add(charsIn(q(".op-intro .ch"), { duration: 1, stagger: { amount: 0.6, from: "random" } }), 0.1)
-      .fromTo(q(".op-intro .lbl"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.2)
-      .to(arch, { t: 36, s: 38, r: 12, duration: 1.2, ease: "power3.inOut", onUpdate: draw }, 0.55)
-      .addLabel("open", ">-0.1")
-      /* as the arch opens to full screen the halves part outward and fade */
-      .to(q(".oi-sky"), { xPercent: -45, opacity: 0, duration: 1, ease: "power2.in" }, "open")
-      .to(q(".oi-line"), { xPercent: 45, opacity: 0, duration: 1, ease: "power2.in" }, "open")
-      .to(q(".oi-kicker"), { opacity: 0, y: -20, duration: 0.6, ease: "power2.in" }, "open")
-      .to(arch, { t: 0, s: 0, r: 0, duration: 1.4, ease: "expo.inOut", onUpdate: draw }, "<")
-      .to(q(".op-media"), { scale: 1.12, duration: 2.6, ease: "expo.out" }, "<")
-      .add(charsIn(q(".op-title .ch"), { duration: 1.3, stagger: { amount: 0.9, from: "random" } }), "-=1.7")
-      .fromTo(q(".op-script"), { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "power2.inOut" }, "-=0.9")
-      .fromTo(q(".op-row > *, .op-view"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: "power3.out" }, "-=1.1");
-
     /* the photo eases from 1.12 to 1 across the whole hero — the only scrubbed thing here */
     gsap.fromTo(q(".op-media"), { scale: 1.12 }, { scale: 1, ease: "none", immediateRender: false, scrollTrigger: { trigger: root.current, start: "top top", end: "bottom bottom", scrub: 1.2 } });
     /* the title drifts a touch faster than the page as it leaves */
@@ -54,19 +20,12 @@ export function Opening() {
     /* hotspots live between "title gone" and "dome arriving" */
     ScrollTrigger.create({ start: () => window.innerHeight * 0.55, end: () => window.innerHeight * 2.15, onToggle: (s) => setSpotsOn(s.isActive) });
 
-    return () => { intro.kill(); l?.start(); };
   });
 
   return (
     <>
       <section id="top" ref={root} className="op" data-tone="dark">
         <div className="op-sticky">
-          {/* intro wordmark on the green screen: SKY | arch | LINE — the tower window opens between the two halves */}
-          <div className="op-intro" aria-hidden>
-            <span className="lbl oi-kicker">Jutaku <i>·</i> Urban lifestyle ecosystem</span>
-            <span className="disp oi-sky"><Chars text="SKY" /></span>
-            <span className="disp oi-line"><Chars text="LINE" /></span>
-          </div>
           <div className="op-clip">
             <div className="op-media">
               <div className="cover" style={{ ["--ar" as string]: 2000 / 1199 }}>
