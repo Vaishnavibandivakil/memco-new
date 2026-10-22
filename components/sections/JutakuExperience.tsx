@@ -16,7 +16,7 @@ export function JutakuExperience() {
           </h2>
           <div className="jx-actions">
             <Link href="/book-visit" className="pill lbl jx-book-btn">Book now</Link>
-            <Link href="/brochure" className="pill lbl jx-brochure-btn">Download brochure</Link>
+            <Link href="/brochure" className="pill lbl jx-brochure-btn">Request details</Link>
           </div>
         </div>
       </div>

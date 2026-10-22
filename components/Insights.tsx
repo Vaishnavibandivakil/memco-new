@@ -57,17 +57,17 @@ export function InsightsPreview() {
         <div className="insights-spread-cover">
           <button type="button" className="insights-cover-film" onClick={() => setPlaying(videos[0])} aria-label={`Watch ${videos[0].title}`}>
             <InsightImage video={videos[0]} />
-            <span className="insights-cover-shade" aria-hidden="true" />
-            <span className="insights-cover-watch lbl">Play film <Play size={13} fill="currentColor" aria-hidden="true" /></span>
+            <span className="insights-cover-play" aria-hidden="true"><Play size={18} fill="currentColor" /></span>
           </button>
-          <div className="insights-cover-top lbl"><span>Jutaku / Films</span><span>01—03</span></div>
-          <div className="insights-cover-title"><span className="lbl">01 / {videos[0].category}</span><strong>Inside<br />Jutaku.</strong></div>
-          <div className="insights-cover-bottom lbl"><span>MEMCO Skyline</span></div>
         </div>
         <div className="insights-spread-page">
           <div className="insights-spread-top lbl"><span>Jutaku / Insights</span><Link href="/insights">View all films</Link></div>
           <h2 id="insights-title">The Jutaku<br />journal.</h2>
           <p className="insights-spread-intro">Films from the Experience Centre, its people and the spaces taking shape.</p>
+          <button type="button" className="insights-spread-feature" onClick={() => setPlaying(videos[0])} aria-label={`Watch ${videos[0].title}`}>
+            <span><small>01 / {videos[0].category}</small><strong>Inside Jutaku</strong></span>
+            <span className="insights-spread-feature-action">Watch film <Play size={11} fill="currentColor" aria-hidden="true" /></span>
+          </button>
           <div className="insights-spread-films" aria-label="More featured films">
             {videos.slice(1).map((video, index) => (
               <button type="button" className="insights-spread-film" key={video.id} onClick={() => setPlaying(video)} aria-label={`Watch ${video.title}`}>
