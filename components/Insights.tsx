@@ -57,26 +57,24 @@ export function InsightsPreview() {
         <div className="insights-spread-cover">
           <button type="button" className="insights-cover-film" onClick={() => setPlaying(videos[0])} aria-label={`Watch ${videos[0].title}`}>
             <InsightImage video={videos[0]} />
-            <span className="insights-cover-play" aria-hidden="true"><Play size={18} fill="currentColor" /></span>
+            <span className="insights-cover-details" aria-hidden="true">
+              <span className="insights-cover-category">01 / {videos[0].category}</span>
+              <span className="insights-cover-bottom"><strong>Inside Jutaku</strong><span>Watch film <Play size={12} fill="currentColor" /></span></span>
+            </span>
           </button>
         </div>
         <div className="insights-spread-page">
           <div className="insights-spread-top lbl"><span>Jutaku / Insights</span><Link href="/insights">View all films</Link></div>
           <h2 id="insights-title">The Jutaku<br />journal.</h2>
           <p className="insights-spread-intro">Films from the Experience Centre, its people and the spaces taking shape.</p>
-          <button type="button" className="insights-spread-feature" onClick={() => setPlaying(videos[0])} aria-label={`Watch ${videos[0].title}`}>
-            <span><small>01 / {videos[0].category}</small><strong>Inside Jutaku</strong></span>
-            <span className="insights-spread-feature-action">Watch film <Play size={11} fill="currentColor" aria-hidden="true" /></span>
-          </button>
           <div className="insights-spread-films" aria-label="More featured films">
             {videos.slice(1).map((video, index) => (
               <button type="button" className="insights-spread-film" key={video.id} onClick={() => setPlaying(video)} aria-label={`Watch ${video.title}`}>
-                <span className="insights-spread-film-image"><InsightImage video={video} /><span className="insights-film-play" aria-hidden="true"><Play size={15} fill="currentColor" /></span></span>
                 <span className="insights-spread-film-caption"><small>0{index + 2} / {video.category}</small><strong>{video.previewTitle ?? video.title}</strong></span>
+                <span className="insights-spread-film-image"><InsightImage video={video} /><span className="insights-film-play" aria-hidden="true"><Play size={15} fill="currentColor" /></span></span>
               </button>
             ))}
           </div>
-          <div className="insights-spread-bottom lbl"><span>Stories from Jutaku</span><span>Begur, Bengaluru</span></div>
         </div>
       </div>
       <VideoModal video={playing} onClose={() => setPlaying(null)} />

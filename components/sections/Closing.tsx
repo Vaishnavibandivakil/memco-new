@@ -1,6 +1,7 @@
 import { Chars } from "@/components/Chars";
 import { PHONE, EMAIL, ADDRESS, RERA } from "@/lib/data";
 import { InsightsPreview } from "@/components/Insights";
+import Link from "next/link";
 
 /* Reference 01:38–01:44 — "PERFECT SEA VIEWS": a full-bleed photograph scrolls in with its title surfacing
    on top; the deep contact page follows and the phone number writes itself in giant condensed numerals. */
@@ -43,6 +44,10 @@ export function Closing() {
             <img className="cl-jutaku" src="/brand/jutaku-white.png" alt="Jutaku" width={379} height={260} />
           </div>
           <p className="lbl cl-legal">MEMCO Skyline · Jutaku<br /><span className="dim">RERA {RERA}</span></p>
+          <nav className="cl-policy-links lbl" aria-label="Legal information">
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/terms-and-conditions">Terms &amp; Conditions</Link>
+          </nav>
           <p className="lbl cl-right">© 2026 MEMCO<br /><span className="dim">All rights reserved</span></p>
         </footer>
       </section>

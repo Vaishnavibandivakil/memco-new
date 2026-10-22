@@ -192,6 +192,8 @@ export function ChatAssistant() {
     }
   }
 
+  if (pathname === "/privacy-policy" || pathname === "/terms-and-conditions") return null;
+
   return (
     <div className="chat-root">
       {open && (
