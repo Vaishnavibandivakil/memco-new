@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import { ArrowUp, ArrowUpRight, Coins, Grid2X2, House, Layers, MapPin, Mic, Train, TrendingUp, X } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Coins, Grid2X2, House, Layers, MapPin, MessageCircle, Mic, Train, TrendingUp, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { answerChat, type ChatReply } from "@/lib/chat";
 
@@ -280,7 +280,7 @@ export function ChatAssistant() {
       )}
       {launcherVisible && (
         <button ref={launcher} type="button" className={`chat-launcher${open ? " is-open" : ""}`} onClick={() => open ? closeChat() : setOpen(true)} aria-expanded={open} aria-controls="jutaku-chat-panel" aria-label={open ? "Close chat" : "Open sales chat"}>
-          {open ? <X size={20} strokeWidth={1.6} /> : <ChatOrb />}
+          {open ? <X size={22} strokeWidth={2} aria-hidden="true" /> : <MessageCircle size={25} strokeWidth={2} aria-hidden="true" />}
         </button>
       )}
     </div>
