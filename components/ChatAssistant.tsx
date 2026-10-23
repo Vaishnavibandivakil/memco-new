@@ -87,6 +87,13 @@ export function ChatAssistant() {
   useEffect(() => () => { speech.current?.abort(); }, []);
 
   useEffect(() => {
+    if (pathname === "/location") {
+      const frame = window.requestAnimationFrame(() => {
+        setLauncherVisible(false);
+        closeChat();
+      });
+      return () => window.cancelAnimationFrame(frame);
+    }
     const hero = pathname === "/" ? document.querySelector<HTMLElement>(".op") : null;
     if (!hero) {
       const frame = window.requestAnimationFrame(() => setLauncherVisible(true));
@@ -201,7 +208,7 @@ export function ChatAssistant() {
     }
   }
 
-  if (pathname === "/privacy-policy" || pathname === "/terms-and-conditions") return null;
+  if (pathname === "/privacy-policy" || pathname === "/terms-and-conditions" || pathname === "/location") return null;
 
   return (
     <div className="chat-root">

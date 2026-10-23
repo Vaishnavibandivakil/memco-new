@@ -58,7 +58,7 @@ export function Amenities() {
           </div>
         ))}
       </div>
-      <Link className="am-book lbl" href="/book-visit">Book a visit<br />now</Link>
+      <Link className="am-book" href="/book-visit">Book a visit</Link>
     </section>
   );
 }

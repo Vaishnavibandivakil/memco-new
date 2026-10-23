@@ -10,8 +10,9 @@ export function SmoothScroll() {
       document.documentElement.classList.add("reduced");
       return;
     }
-    const l = new Lenis({ lerp: 0.085, wheelMultiplier: 0.9 });
+    const l = new Lenis({ lerp: 0.13, wheelMultiplier: 1 });
     window.__lenis = l;
+    if (document.documentElement.classList.contains("intro-active")) l.stop();
     l.on("scroll", ScrollTrigger.update);
     const tick = (t: number) => l.raf(t * 1000);
     gsap.ticker.add(tick);
@@ -42,6 +43,16 @@ export function SmoothScroll() {
         frame = window.requestAnimationFrame(() => {
           const target = document.getElementById(id);
           if (!target) return;
+          if (id === "location") {
+            const project = document.getElementById("project");
+            const horizontal = ScrollTrigger.getAll().find((trigger) => trigger.trigger === project && trigger.pin);
+            if (horizontal) {
+              const destination = horizontal.end - 2;
+              if (window.__lenis) window.__lenis.scrollTo(destination, { immediate: true });
+              else window.scrollTo(0, destination);
+              return;
+            }
+          }
           if (window.__lenis) window.__lenis.scrollTo(target, { immediate: true });
           else target.scrollIntoView({ behavior: "auto", block: "start" });
         });

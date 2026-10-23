@@ -20,7 +20,7 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
   },
   location: {
     text: `The site is ${ADDRESS}. Singasandra Metro is about 600 m away, Hosa Road Metro 1.2 km and Electronic City 3 km.`,
-    action: { label: "Explore the location", href: "/#location" },
+    action: { label: "Explore the location", href: "/location" },
   },
   pricing: {
     text: "Homes start from ₹68.5 lakhs. The final price depends on the floor and unit; floor rise, corner and east-facing premiums may apply. The team can confirm current pricing and availability.",

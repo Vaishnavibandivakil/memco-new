@@ -31,17 +31,28 @@ export function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
   const l = lenis();
-  if (l) l.scrollTo(el, { duration: 1.8 });
-  else el.scrollIntoView({ behavior: "smooth" });
+  if (id === "location") {
+    const project = document.getElementById("project");
+    const horizontal = ScrollTrigger.getAll()
+      .filter((trigger) => trigger.trigger === project)
+      .sort((a, b) => (b.end - b.start) - (a.end - a.start))[0];
+    if (horizontal) {
+      const destination = horizontal.end - 2;
+      if (l) l.scrollTo(destination, { duration: 1.2 });
+      else window.scrollTo({ top: destination, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+      return;
+    }
+  }
+  if (l) l.scrollTo(el, { duration: 1.2 });
+  else el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
 }
 
-/* The reel's letter reveal: letters surface in random order out of a soft blur, slightly stretched,
-   and settle. Timed (not scrubbed), so it always plays at the same calm speed. */
+/* Readable, left-to-right type motion. Keep it transform/opacity only for smooth frames. */
 export function charsIn(chars: Element[] | NodeListOf<Element>, opts: gsap.TweenVars = {}) {
   return gsap.fromTo(chars,
-    { opacity: 0, scaleY: 1.35, yPercent: 12, filter: "blur(10px)" },
-    { opacity: 1, scaleY: 1, yPercent: 0, filter: "blur(0px)", duration: 1.15, ease: "power2.out", stagger: { amount: 0.75, from: "random" }, ...opts });
+    { opacity: 0, yPercent: 22 },
+    { opacity: 1, yPercent: 0, duration: 0.7, ease: "power3.out", stagger: { amount: 0.32, from: "start" }, ...opts });
 }
 export function charsOut(chars: Element[] | NodeListOf<Element>, opts: gsap.TweenVars = {}) {
-  return gsap.to(chars, { opacity: 0, scaleY: 1.3, filter: "blur(10px)", duration: 0.55, ease: "power2.in", stagger: { amount: 0.3, from: "random" }, ...opts });
+  return gsap.to(chars, { opacity: 0, yPercent: -12, duration: 0.32, ease: "power2.in", stagger: { amount: 0.16, from: "start" }, ...opts });
 }

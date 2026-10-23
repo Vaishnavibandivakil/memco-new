@@ -13,12 +13,14 @@ import { Reveals } from "@/components/Reveals";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Chrome } from "@/components/Chrome";
 import { LifestylePopup } from "@/components/LifestylePopup";
+import { IntroLoader } from "@/components/IntroLoader";
 
 /* Order follows the reference reel: arrival → reasons → quote → design/concept/place (horizontal) → Living → amenities →
    Jutaku booking → interiors → credentials → contact. The home finder is a panel opened from any "view homes" button. */
 export default function Home() {
   return (
     <>
+    <IntroLoader />
     <SmoothScroll />
     <main>
       <Opening />

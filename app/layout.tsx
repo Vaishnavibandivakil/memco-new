@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { themeColor: "#006e42", width: "device-width", initialScale: 1 };
 
-const boot = "var d=document.documentElement;d.classList.add('js');if(matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('reduced');";
+const boot = "var d=document.documentElement;d.classList.add('js');if(matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('reduced');if(location.pathname==='/')d.classList.add(!location.hash&&!d.classList.contains('reduced')?'intro-active':'intro-seen');";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

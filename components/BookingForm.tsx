@@ -7,9 +7,15 @@ import { SubpageHeader } from "@/components/SubpageHeader";
 
 type VisitDate = { iso: string; day: string; label: string; year: number };
 
+function istClock() {
+  const now = new Date(Date.now() + 330 * 60 * 1_000);
+  return { year: now.getUTCFullYear(), month: now.getUTCMonth(), day: now.getUTCDate(), hour: now.getUTCHours() };
+}
+
 function upcomingDates(): VisitDate[] {
-  const today = new Date();
-  today.setHours(12, 0, 0, 0);
+  const current = istClock();
+  const today = new Date(current.year, current.month, current.day, 12);
+  if (current.hour >= 17) today.setDate(today.getDate() + 1);
   const dates: VisitDate[] = [];
   for (const date = new Date(today); date.getFullYear() === today.getFullYear(); date.setDate(date.getDate() + 1)) {
     dates.push({
@@ -77,9 +83,9 @@ export function BookingForm() {
       </aside>
 
       <div className="bk-main">
-        <SubpageHeader label="Jutaku / Visit" closeHref="/#jutaku-experience" closeLabel="Jutaku Experience" />
+        <SubpageHeader closeHref="/#jutaku-experience" closeLabel="Jutaku Experience" />
         <header className="bk-heading">
-          <h1>See JUTAKU<br /><span>in person.</span></h1>
+          <h1>See Jutaku<br /><span>in person.</span></h1>
           <p>Visit the Experience Centre in Singasandra. Choose a day and time for your one-hour walkthrough.</p>
         </header>
 
@@ -101,8 +107,7 @@ export function BookingForm() {
             <legend>Choose a time <span>{chosenDate.day}, {chosenDate.label}</span></legend>
             <div className="bk-slots">
               {Array.from({ length: 9 }, (_, index) => index + 9).map((hour) => {
-                const now = new Date();
-                const past = selectedDate === dates[0].iso && hour <= now.getHours();
+                const past = selectedDate === dates[0].iso && hour <= istClock().hour;
                 return <button key={hour} type="button" disabled={past} className={`bk-slot${selectedSlot === hour ? " is-selected" : ""}`} aria-pressed={selectedSlot === hour} aria-label={slotLabel(hour)} onClick={() => { setSelectedSlot(hour); setSubmitStatus("idle"); }}>{`${hour % 12 || 12}:00 ${hour < 12 ? "AM" : "PM"}`}</button>;
               })}
             </div>

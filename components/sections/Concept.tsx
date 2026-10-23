@@ -122,12 +122,11 @@ export function Concept() {
           <div className="ds-body">
             <p className="lbl ds-kicker ds-fade">01 / Design</p>
             <h2 className="caps-serif ds-statement">Built around <span>real life</span></h2>
-            <p className="ds-intro ds-fade">MEMCO Skyline is planned around everyday use: natural light, functional layouts and shared places that extend life beyond your home.</p>
+            <p className="ds-intro ds-fade">Natural light, practical layouts and shared spaces give everyday life a little more room.</p>
           </div>
           <figure className="ds-hero ds-fade">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/design-living.webp" alt="A light filled living room with a considered, functional layout" loading="lazy" />
-            <figcaption className="lbl">JUTAKU · MEMCO Skyline</figcaption>
+            <img src="/images/intro/living.webp" alt="Jutaku living room with a light, functional layout" loading="lazy" />
           </figure>
         </div>
 
@@ -136,18 +135,18 @@ export function Concept() {
             <div className="dp-heading">
               <p className="lbl" data-hfade>02 / Our approach</p>
               <h2 className="caps-serif" data-hfade>Design principles</h2>
-              <p data-hfade>Every aspect of MEMCO Skyline is thoughtfully crafted to deliver maximum value and experience.</p>
+              <p data-hfade>Each space has a job to do, from quiet mornings at home to time spent together.</p>
             </div>
             <ol className="dp-list" aria-label="Design principles">
-              <li data-hfade><span>01</span><div><h3>Purpose-led design</h3><p>Spaces designed around everyday use, not just visuals.</p></div></li>
-              <li data-hfade><span>02</span><div><h3>Functional flow</h3><p>Layouts planned with purpose for how you actually live.</p></div></li>
-              <li data-hfade><span>03</span><div><h3>Experience-driven planning</h3><p>Built around real life, not just architectural aesthetics.</p></div></li>
-              <li data-hfade><span>04</span><div><h3>Integrated ecosystem planning</h3><p>Spaces designed to serve multiple purposes: work, play and create.</p></div></li>
+              <li data-hfade><span>01</span><div><h3>Useful by design</h3><p>Rooms made for the things you do every day.</p></div></li>
+              <li data-hfade><span>02</span><div><h3>Room to move</h3><p>Simple layouts that make good use of every metre.</p></div></li>
+              <li data-hfade><span>03</span><div><h3>Places to pause</h3><p>Comfortable corners to meet, sit or take a break.</p></div></li>
+              <li data-hfade><span>04</span><div><h3>More under one roof</h3><p>Space for work, exercise and time with neighbours.</p></div></li>
             </ol>
           </div>
           <figure className="dp-photo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/balcony-exterior.webp" alt="Open balconies and warm architectural details at MEMCO Skyline" loading="lazy" />
+            <img src="/images/intro/kitchen.webp" alt="Shared kitchen at Jutaku" loading="lazy" />
           </figure>
         </div>
 
@@ -158,11 +157,11 @@ export function Concept() {
               <span className="cc-line-mask"><span className="cc-line">A smarter way</span></span>
               <span className="cc-line-mask"><span className="cc-line">to own space.</span></span>
             </h2>
-            <p className="cc-intro" data-hfade>Private space, with more of life within reach. JUTAKU brings your home together with places to work, meet and unwind.</p>
+            <p className="cc-intro" data-hfade>Your own place, with room to work, meet and unwind close by.</p>
           </div>
           <figure className="cc-hero">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/walking-trails.jpg" alt="Tree-lined walking trails at MEMCO Skyline" loading="lazy" />
+            <img src="/images/intro/creator-studio.webp" alt="Jutaku creator studio with space to meet and work" loading="lazy" />
           </figure>
         </div>
 
@@ -170,12 +169,12 @@ export function Concept() {
           <div className="cp-content">
             <div className="cp-heading">
               <p className="lbl" data-hfade>04 / What this means</p>
-              <h2 className="caps-serif" data-hfade>A complete lifestyle solution</h2>
+              <h2 className="caps-serif" data-hfade>More room for every day</h2>
             </div>
             <div className="cc-points">
-              <article data-hfade><span>01</span><div><h3>An urban lifestyle private space</h3><p>A personal sanctuary designed for comfort and efficiency.</p></div></article>
-              <article data-hfade><span>02</span><div><h3>A larger community ecosystem</h3><p>50,000 sq ft of shared experiences and amenities.</p></div></article>
-              <article data-hfade><span>03</span><div><h3>Access to work and community</h3><p>Places to live, work, play and grow, all within reach.</p></div></article>
+              <article data-hfade><span>01</span><div><h3>A place of your own</h3><p>Private space to settle in and make yours.</p></div></article>
+              <article data-hfade><span>02</span><div><h3>Shared space nearby</h3><p>50,000 sq ft of places to use beyond your front door.</p></div></article>
+              <article data-hfade><span>03</span><div><h3>Easy to spend time together</h3><p>Meet, work or take a break without a long trip.</p></div></article>
             </div>
           </div>
         </div>
@@ -190,7 +189,7 @@ export function Concept() {
           </h2>
           <figure className="gm-pic">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/design-living.webp" alt="Living room, MEMCO Skyline" loading="lazy" />
+            <img src="/images/intro/rooftop.webp" alt="Jutaku rooftop social space" loading="lazy" />
           </figure>
           <div className="gm-side">
             <h3 className="caps-serif" data-hfade>Between Singasandra and Hosa Road</h3>
@@ -203,7 +202,7 @@ export function Concept() {
         </div>
 
         {/* the road */}
-        <div className="hz-panel rc">
+        <div id="location" className="hz-panel rc">
           <h2 className="disp rc-title">
             <span data-hchars><Chars text="EVERYTHING" /></span>
             <span className="script" data-hfade data-delay="0.5">within</span>
@@ -232,7 +231,7 @@ export function Concept() {
               <li className="pl-stop pl-home" aria-label="MEMCO Skyline"><span className="pl-lab"><span className="mark" /></span><i /></li>
             </ol>
           </div>
-          <a className="rc-directions" href="https://www.google.com/maps/dir/?api=1&destination=12.874382129106094%2C77.6407185246645" target="_blank" rel="noopener noreferrer" aria-label="Get directions to Jutaku on Google Maps">Get directions to Jutaku</a>
+          <a className="rc-directions" href="/location" aria-label="Explore Jutaku's location">Explore the location</a>
         </div>
       </div>
     </section>

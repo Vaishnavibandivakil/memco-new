@@ -27,13 +27,21 @@ export async function POST(request: Request) {
   const nameValue = typeof name === "string" ? name.trim() : "";
   const phoneValue = typeof phone === "string" ? phone.trim() : "";
   const emailValue = typeof email === "string" ? email.trim() : "";
-  const validDate = /^\d{4}-\d{2}-\d{2}$/.test(dateValue) && !Number.isNaN(Date.parse(`${dateValue}T00:00:00Z`));
+  const istNow = new Date(Date.now() + 330 * 60 * 1_000);
+  const todayIst = `${istNow.getUTCFullYear()}-${String(istNow.getUTCMonth() + 1).padStart(2, "0")}-${String(istNow.getUTCDate()).padStart(2, "0")}`;
+  const parsedDate = new Date(`${dateValue}T00:00:00Z`);
+  const validDate = /^\d{4}-\d{2}-\d{2}$/.test(dateValue)
+    && !Number.isNaN(parsedDate.getTime())
+    && parsedDate.toISOString().slice(0, 10) === dateValue
+    && dateValue >= todayIst;
   const validHour = Number.isInteger(hour) && Number(hour) >= 9 && Number(hour) <= 17;
+  const validSlot = validDate && validHour && (dateValue > todayIst || Number(hour) > istNow.getUTCHours());
   const validGuests = Number.isInteger(guests) && Number(guests) >= 1 && Number(guests) <= 12;
   const validName = nameValue.length >= 2 && nameValue.length <= 100;
-  const validPhone = /^[+\d()\s-]{10,24}$/.test(phoneValue);
+  const phoneDigits = phoneValue.replace(/\D/g, "");
+  const validPhone = /^[+\d()\s-]{10,24}$/.test(phoneValue) && phoneDigits.length >= 10 && phoneDigits.length <= 15;
   const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue) && emailValue.length <= 254;
-  if (!validDate || !validHour || !validGuests || !validName || !validPhone || !validEmail) {
+  if (!validSlot || !validGuests || !validName || !validPhone || !validEmail) {
     return Response.json({ error: "Please check your details and choose a date and time." }, { status: 400 });
   }
 

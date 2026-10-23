@@ -13,8 +13,8 @@ export function Opening() {
 
   useScene(root, () => {
     const q = gsap.utils.selector(root);
-    /* the photo eases from 1.12 to 1 across the whole hero — the only scrubbed thing here */
-    gsap.fromTo(q(".op-media"), { scale: 1.12 }, { scale: 1, ease: "none", immediateRender: false, scrollTrigger: { trigger: root.current, start: "top top", end: "bottom bottom", scrub: 1.2 } });
+    /* Start at the same crop as the final intro frame, then reveal more of the photo on scroll. */
+    gsap.fromTo(q(".op-media"), { scale: 1.06 }, { scale: 1, ease: "none", immediateRender: false, scrollTrigger: { trigger: root.current, start: "top top", end: "bottom bottom", scrub: 1.2 } });
     /* the title drifts a touch faster than the page as it leaves */
     gsap.to(q(".op-titlewrap"), { yPercent: -18, ease: "none", scrollTrigger: { trigger: root.current, start: "top top", end: "+=100%", scrub: true } });
     /* hotspots live between "title gone" and "dome arriving" */
@@ -28,12 +28,12 @@ export function Opening() {
         <div className="op-sticky">
           <div className="op-clip">
             <div className="op-media">
-              <div className="cover" style={{ ["--ar" as string]: 2000 / 1199 }}>
+              <div className="cover" style={{ ["--ar" as string]: 1672 / 940 }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/tower-hero.webp" alt="MEMCO Skyline tower at dusk, Begur" fetchPriority="high" />
+                <img src="/images/jutaku-exterior-hero.webp" alt="Jutaku residential tower and experience centre in daylight" fetchPriority="high" />
                 <div className={`spots${spotsOn ? " is-on" : ""}`}>
                   {HOTSPOTS.map((h, i) => (
-                    <div key={h.id} className={`spot${spot === h.id ? " is-open" : ""}${h.x > 55 ? " flip" : ""}`} style={{ left: `${h.x}%`, top: `${h.y}%`, ["--i" as string]: i }}
+                    <div key={h.id} data-spot={h.id} className={`spot${spot === h.id ? " is-open" : ""}${h.x > 55 ? " flip" : ""}`} style={{ left: `${h.x}%`, top: `${h.y}%`, ["--i" as string]: i }}
                       onMouseEnter={() => setSpot(h.id)} onMouseLeave={() => setSpot(null)}>
                       <button type="button" className="spot-dot" aria-expanded={spot === h.id} aria-label={h.title}
                         onClick={() => setSpot(spot === h.id ? null : h.id)} onFocus={() => setSpot(h.id)} onBlur={() => setSpot(null)}>

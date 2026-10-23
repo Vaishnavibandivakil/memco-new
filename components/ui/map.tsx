@@ -193,7 +193,7 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
   const isControlled = viewport !== undefined && onViewportChange !== undefined;
 
   const onViewportChangeRef = useRef(onViewportChange);
-  onViewportChangeRef.current = onViewportChange;
+  useEffect(() => { onViewportChangeRef.current = onViewportChange; }, [onViewportChange]);
 
   const mapStyles = useMemo(
     () => ({
@@ -400,14 +400,9 @@ function MapMarker({
     onDrag,
     onDragEnd,
   });
-  callbacksRef.current = {
-    onClick,
-    onMouseEnter,
-    onMouseLeave,
-    onDragStart,
-    onDrag,
-    onDragEnd,
-  };
+  useEffect(() => {
+    callbacksRef.current = { onClick, onMouseEnter, onMouseLeave, onDragStart, onDrag, onDragEnd };
+  }, [onClick, onMouseEnter, onMouseLeave, onDragStart, onDrag, onDragEnd]);
 
   const marker = useMemo(() => {
     const markerInstance = new MapLibreGL.Marker({
@@ -416,41 +411,51 @@ function MapMarker({
       draggable,
     }).setLngLat([longitude, latitude]);
 
+    return markerInstance;
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     const handleClick = (e: MouseEvent) => callbacksRef.current.onClick?.(e);
     const handleMouseEnter = (e: MouseEvent) =>
       callbacksRef.current.onMouseEnter?.(e);
     const handleMouseLeave = (e: MouseEvent) =>
       callbacksRef.current.onMouseLeave?.(e);
 
-    markerInstance.getElement()?.addEventListener("click", handleClick);
-    markerInstance
+    marker.getElement()?.addEventListener("click", handleClick);
+    marker
       .getElement()
       ?.addEventListener("mouseenter", handleMouseEnter);
-    markerInstance
+    marker
       .getElement()
       ?.addEventListener("mouseleave", handleMouseLeave);
 
     const handleDragStart = () => {
-      const lngLat = markerInstance.getLngLat();
+      const lngLat = marker.getLngLat();
       callbacksRef.current.onDragStart?.({ lng: lngLat.lng, lat: lngLat.lat });
     };
     const handleDrag = () => {
-      const lngLat = markerInstance.getLngLat();
+      const lngLat = marker.getLngLat();
       callbacksRef.current.onDrag?.({ lng: lngLat.lng, lat: lngLat.lat });
     };
     const handleDragEnd = () => {
-      const lngLat = markerInstance.getLngLat();
+      const lngLat = marker.getLngLat();
       callbacksRef.current.onDragEnd?.({ lng: lngLat.lng, lat: lngLat.lat });
     };
 
-    markerInstance.on("dragstart", handleDragStart);
-    markerInstance.on("drag", handleDrag);
-    markerInstance.on("dragend", handleDragEnd);
-
-    return markerInstance;
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    marker.on("dragstart", handleDragStart);
+    marker.on("drag", handleDrag);
+    marker.on("dragend", handleDragEnd);
+    return () => {
+      marker.getElement()?.removeEventListener("click", handleClick);
+      marker.getElement()?.removeEventListener("mouseenter", handleMouseEnter);
+      marker.getElement()?.removeEventListener("mouseleave", handleMouseLeave);
+      marker.off("dragstart", handleDragStart);
+      marker.off("drag", handleDrag);
+      marker.off("dragend", handleDragEnd);
+    };
+  }, [marker]);
 
   useEffect(() => {
     if (!map) return;
@@ -568,18 +573,13 @@ function MarkerPopup({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 
-  if (popup.isOpen()) {
+  useEffect(() => {
+    if (!popup.isOpen()) return;
     const prev = prevPopupOptions.current;
-
-    if (prev.offset !== popupOptions.offset) {
-      popup.setOffset(popupOptions.offset ?? 16);
-    }
-    if (prev.maxWidth !== popupOptions.maxWidth && popupOptions.maxWidth) {
-      popup.setMaxWidth(popupOptions.maxWidth ?? "none");
-    }
-
+    if (prev.offset !== popupOptions.offset) popup.setOffset(popupOptions.offset ?? 16);
+    if (prev.maxWidth !== popupOptions.maxWidth && popupOptions.maxWidth) popup.setMaxWidth(popupOptions.maxWidth);
     prevPopupOptions.current = popupOptions;
-  }
+  });
 
   const handleClose = () => popup.remove();
 
@@ -660,18 +660,13 @@ function MarkerTooltip({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 
-  if (tooltip.isOpen()) {
+  useEffect(() => {
+    if (!tooltip.isOpen()) return;
     const prev = prevTooltipOptions.current;
-
-    if (prev.offset !== popupOptions.offset) {
-      tooltip.setOffset(popupOptions.offset ?? 16);
-    }
-    if (prev.maxWidth !== popupOptions.maxWidth && popupOptions.maxWidth) {
-      tooltip.setMaxWidth(popupOptions.maxWidth ?? "none");
-    }
-
+    if (prev.offset !== popupOptions.offset) tooltip.setOffset(popupOptions.offset ?? 16);
+    if (prev.maxWidth !== popupOptions.maxWidth && popupOptions.maxWidth) tooltip.setMaxWidth(popupOptions.maxWidth);
     prevTooltipOptions.current = popupOptions;
-  }
+  });
 
   return createPortal(
     <div
@@ -965,7 +960,7 @@ function MapPopup({
   const { map } = useMap();
   const popupOptionsRef = useRef(popupOptions);
   const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+  useEffect(() => { onCloseRef.current = onClose; }, [onClose]);
   const container = useMemo(() => document.createElement("div"), []);
 
   const popup = useMemo(() => {
@@ -1000,24 +995,14 @@ function MapPopup({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 
-  if (popup.isOpen()) {
+  useEffect(() => {
+    if (!popup.isOpen()) return;
     const prev = popupOptionsRef.current;
-
-    if (
-      popup.getLngLat().lng !== longitude ||
-      popup.getLngLat().lat !== latitude
-    ) {
-      popup.setLngLat([longitude, latitude]);
-    }
-
-    if (prev.offset !== popupOptions.offset) {
-      popup.setOffset(popupOptions.offset ?? 16);
-    }
-    if (prev.maxWidth !== popupOptions.maxWidth && popupOptions.maxWidth) {
-      popup.setMaxWidth(popupOptions.maxWidth ?? "none");
-    }
+    if (popup.getLngLat().lng !== longitude || popup.getLngLat().lat !== latitude) popup.setLngLat([longitude, latitude]);
+    if (prev.offset !== popupOptions.offset) popup.setOffset(popupOptions.offset ?? 16);
+    if (prev.maxWidth !== popupOptions.maxWidth && popupOptions.maxWidth) popup.setMaxWidth(popupOptions.maxWidth);
     popupOptionsRef.current = popupOptions;
-  }
+  });
 
   const handleClose = () => {
     popup.remove();

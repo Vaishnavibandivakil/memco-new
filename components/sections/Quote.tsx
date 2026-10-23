@@ -10,7 +10,7 @@ export function Quote() {
   useScene(root, ({ reduced }) => {
     if (reduced) return;
     const q = gsap.utils.selector(root);
-    gsap.fromTo(q(".st-wide"), { clipPath: "inset(0% 9% 0% 9%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: q(".st-wide")[0], start: "top 95%", end: "top 20%", scrub: 1 } });
+    gsap.fromTo(q(".st-wide"), { clipPath: "inset(25% 34% 25% 34%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: q(".st-wide")[0], start: "top 95%", end: "top 12%", scrub: 1 } });
   });
   return (
     <section ref={root} className="st" data-tone="light">
@@ -23,7 +23,7 @@ export function Quote() {
         </div>
         <figure className="st-pic" data-rise>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/design-lobby.webp" alt="Lobby, MEMCO Skyline" loading="lazy" data-parallax="8" />
+          <img src="/images/chandelier-atrium.webp" alt="Chandelier above the Jutaku atrium" loading="lazy" data-parallax="8" />
         </figure>
       </div>
       <div className="st-wide">

@@ -1,35 +1,60 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
-import { lenis, scrollToId } from "@/lib/motion";
+import { lenis } from "@/lib/motion";
 
-const DISMISSED_KEY = "jutaku-lifestyle-dismissed";
+const NEXT_PROMPT_KEY = "jutaku-find-your-fit-next-prompt-v4";
+const PROMPT_COOLDOWN = 4 * 24 * 60 * 60 * 1_000;
+const promptOnCooldown = () => {
+  try { return Number(window.localStorage.getItem(NEXT_PROMPT_KEY)) > Date.now(); }
+  catch { return false; }
+};
+const rememberPrompt = () => {
+  try { window.localStorage.setItem(NEXT_PROMPT_KEY, String(Date.now() + PROMPT_COOLDOWN)); }
+  catch { /* Private browsing can block storage; the current visit still prompts only once. */ }
+};
 export const openLifestylePopup = () => window.dispatchEvent(new Event("lifestyle:open"));
 
 export function LifestylePopup() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const closeButton = useRef<HTMLButtonElement>(null);
   const previousFocus = useRef<HTMLElement | null>(null);
+  const promptedThisVisit = useRef(false);
 
   useEffect(() => {
     let timer: number | undefined;
-    const show = () => {
+    const show = (manual = false) => {
+      if (!manual && (promptedThisVisit.current || promptOnCooldown())) return;
+      if (document.querySelector(".lifestyle-dialog")) return;
+      window.clearTimeout(timer);
+      promptedThisVisit.current = true;
+      rememberPrompt();
       previousFocus.current = document.activeElement as HTMLElement;
       setOpen(true);
     };
-    const onFirstScroll = () => {
-      if (window.scrollY < 80 || sessionStorage.getItem(DISMISSED_KEY)) return;
-      window.removeEventListener("scroll", onFirstScroll);
-      timer = window.setTimeout(() => {
-        if (!sessionStorage.getItem(DISMISSED_KEY) && !document.documentElement.classList.contains("panel-open")) show();
-      }, 40_000);
+    const showWhenAvailable = () => {
+      if (promptedThisVisit.current || promptOnCooldown()) return;
+      if (document.hidden || document.documentElement.classList.contains("panel-open") || document.documentElement.classList.contains("intro-active")) {
+        timer = window.setTimeout(showWhenAvailable, 1_000);
+        return;
+      }
+      show();
     };
-    window.addEventListener("lifestyle:open", show);
+    const onFirstScroll = () => {
+      if (window.scrollY < 80) return;
+      window.removeEventListener("scroll", onFirstScroll);
+      if (promptOnCooldown()) return;
+      timer = window.setTimeout(showWhenAvailable, 10_000);
+    };
+    const onManualOpen = () => show(true);
+    window.addEventListener("lifestyle:open", onManualOpen);
     window.addEventListener("scroll", onFirstScroll, { passive: true });
     return () => {
       window.clearTimeout(timer);
-      window.removeEventListener("lifestyle:open", show);
+      window.removeEventListener("lifestyle:open", onManualOpen);
       window.removeEventListener("scroll", onFirstScroll);
     };
   }, []);
@@ -39,7 +64,9 @@ export function LifestylePopup() {
     lenis()?.stop();
     closeButton.current?.focus();
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
       if (event.key !== "Tab") return;
       const items = document.querySelectorAll<HTMLElement>(".lifestyle-dialog button");
       const first = items[0], last = items[items.length - 1];
@@ -55,42 +82,43 @@ export function LifestylePopup() {
   }, [open]);
 
   const close = () => {
-    sessionStorage.setItem(DISMISSED_KEY, "1");
     setOpen(false);
   };
-  const choose = (section: string) => {
+  const choose = (page: "/individual-living" | "/modern-couple") => {
     close();
-    window.setTimeout(() => scrollToId(section), 80);
+    router.push(page);
   };
 
   if (!open) return null;
   return (
     <div className="lifestyle-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}>
       <section className="lifestyle-dialog" role="dialog" aria-modal="true" aria-labelledby="lifestyle-title" aria-describedby="lifestyle-description">
-        <div className="lifestyle-topline">
-          <span className="lifestyle-eyebrow">Welcome / Jutaku</span>
-          <button ref={closeButton} className="lifestyle-close" type="button" aria-label="Close preferences" onClick={close}><X size={20} strokeWidth={1.6} /></button>
+        <div className="lifestyle-image">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/interior-bedroom-open-plan.jpg" alt="A light-filled home at Jutaku" />
         </div>
-        <div className="lifestyle-copy">
-          <span className="lifestyle-index">01 — 02</span>
-          <h2 id="lifestyle-title">What are you<br /><em>looking for?</em></h2>
-          <p id="lifestyle-description">Let us personalise your Skyline experience.</p>
+        <div className="lifestyle-content">
+          <div className="lifestyle-topline">
+            <span className="lifestyle-eyebrow">A home that fits you</span>
+            <button ref={closeButton} className="lifestyle-close" type="button" aria-label="Close preferences" onClick={close}><X size={19} strokeWidth={1.6} /></button>
+          </div>
+          <div className="lifestyle-copy">
+            <h2 id="lifestyle-title">What are you<br />looking for?</h2>
+            <p id="lifestyle-description">Let us personalise your Skyline experience.</p>
+          </div>
+          <div className="lifestyle-choices">
+            <button type="button" onClick={() => choose("/individual-living")}>
+              <span className="lifestyle-choice-no">01</span>
+              <span className="lifestyle-choice-text"><strong>Individual living</strong><small>A private space, connected to more.</small></span>
+              <span className="lifestyle-choice-mark" aria-hidden="true" />
+            </button>
+            <button type="button" onClick={() => choose("/modern-couple")}>
+              <span className="lifestyle-choice-no">02</span>
+              <span className="lifestyle-choice-text"><strong>Modern couple</strong><small>Your place together, with more within reach.</small></span>
+              <span className="lifestyle-choice-mark" aria-hidden="true" />
+            </button>
+          </div>
         </div>
-        <div className="lifestyle-choices">
-          <button type="button" onClick={() => choose("living")}>
-            <span className="lifestyle-choice-no">01</span>
-            <span className="lifestyle-choice-title">Individual Living</span>
-            <span className="lifestyle-choice-desc">A private space, connected to more.</span>
-            <span className="lifestyle-choice-action">Explore</span>
-          </button>
-          <button type="button" onClick={() => choose("amenities")}>
-            <span className="lifestyle-choice-no">02</span>
-            <span className="lifestyle-choice-title">Modern Couple</span>
-            <span className="lifestyle-choice-desc">Your place together, with more within reach.</span>
-            <span className="lifestyle-choice-action">Explore</span>
-          </button>
-        </div>
-        <p className="lifestyle-foot">MEMCO Skyline · Jutaku</p>
       </section>
     </div>
   );

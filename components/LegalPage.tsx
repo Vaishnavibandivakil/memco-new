@@ -8,7 +8,6 @@ type LegalSection = {
 };
 
 type LegalPageProps = {
-  label: string;
   title: string;
   introduction: string;
   sections: LegalSection[];
@@ -16,7 +15,7 @@ type LegalPageProps = {
   relatedLabel: string;
 };
 
-export function LegalPage({ label, title, introduction, sections, relatedHref, relatedLabel }: LegalPageProps) {
+export function LegalPage({ title, introduction, sections, relatedHref, relatedLabel }: LegalPageProps) {
   return (
     <main className="legal-page" data-tone="light">
       <aside className="legal-scene">
@@ -34,7 +33,7 @@ export function LegalPage({ label, title, introduction, sections, relatedHref, r
 
       <div className="legal-main">
         <div className="legal-shell">
-          <SubpageHeader label={`Jutaku / ${label}`} closeHref="/#contact" closeLabel="Contact" />
+          <SubpageHeader closeHref="/#contact" closeLabel="Contact" />
           <header className="legal-heading">
             <h1>{title}</h1>
             <p>{introduction}</p>

@@ -12,11 +12,13 @@ export function JutakuExperience() {
           <h2 id="jutaku-experience-title">
             <span className="jx-title-lead">Book your</span>
             <span className="jx-title-main">Jutaku</span>
-            <span className="jx-title-main">Experience</span>
+            <span className="jx-title-main">experience.</span>
           </h2>
           <div className="jx-actions">
-            <Link href="/book-visit" className="pill lbl jx-book-btn">Book now</Link>
-            <Link href="/brochure" className="pill lbl jx-brochure-btn">Request details</Link>
+            <Link href="/book-visit" className="pill lbl jx-book-btn">Book a visit</Link>
+            <Link href="/brochure" className="pill lbl jx-brochure-btn">
+              Request details <span aria-hidden="true">↗</span>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { gsap, ScrollTrigger, scrollToId } from "@/lib/motion";
 import { openHomes } from "@/components/sections/Homes";
 import { openLifestylePopup } from "@/components/LifestylePopup";
@@ -7,7 +8,14 @@ import { openLifestylePopup } from "@/components/LifestylePopup";
 /* Fixed chrome: a rounded header bar with the MEMCO + Jutaku logos, links and the "Select a home" action,
    and the hairline progress rail with section number (left).
    Colour follows the section under the logo: its data-tone ("dark" | "light") is copied to html[data-tone]. */
-const LINKS: [string, string][] = [["top", "Home"], ["project", "The Project"], ["living", "Living"], ["pricing", "Pricing"], ["insights", "Insights"]];
+const LINKS = [
+  { label: "Home", section: "top" },
+  { label: "The Project", section: "project" },
+  { label: "Location", section: "location" },
+  { label: "Living", section: "living" },
+  { label: "Pricing", section: "pricing" },
+  { label: "Insights", section: "insights" },
+];
 
 export function Chrome() {
   const bar = useRef<HTMLSpanElement>(null);
@@ -48,31 +56,40 @@ export function Chrome() {
     return () => { clearTimeout(id); triggers.forEach((t) => t.kill()); };
   }, []);
 
-  useEffect(() => { gsap.fromTo(".chrome", { opacity: 0 }, { opacity: 1, duration: 1, delay: 2.6 }); }, []);
+  useEffect(() => {
+    // A link back from a subpage lands on a named section. Show its navigation
+    // immediately instead of replaying the opening-page delay over that section.
+    if (window.location.hash) {
+      gsap.set(".chrome", { opacity: 1 });
+      return;
+    }
+    const entrance = gsap.fromTo(".chrome", { opacity: 0 }, { opacity: 1, duration: 1, delay: 2.6 });
+    return () => { entrance.kill(); };
+  }, []);
 
   return (
     <div className="chrome">
       {/* a normal header: one rounded bar — both logos, section links, the primary action */}
       <header className={`hdr${open ? " is-open" : ""}`}>
-        {/* the logo is the switch: the pill opens outward to reveal the links and the action, and stays
-            open until the visitor closes it again (logo / ✕ or Esc) — links and the action don't close it */}
-        <button type="button" className="hdr-brand" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="hdr-more" aria-label={open ? "Close menu" : "Open menu"}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="hdr-memco" src="/brand/lockup-h.png" alt="MEMCO Skyline" width={856} height={243} />
-          <span className="hdr-div" aria-hidden />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="hdr-jutaku" src="/brand/jutaku.png" alt="Jutaku" width={379} height={260} />
-          <span className="hdr-plus" aria-hidden />
-        </button>
+        <div className="hdr-brand">
+          <Link className="hdr-brand-link" href="/#top" aria-label="Go to homepage" onClick={(event) => { event.preventDefault(); setOpen(false); scrollToId("top"); window.history.replaceState(null, "", "/#top"); }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="hdr-memco" src="/brand/lockup-h.png" alt="MEMCO Skyline" width={856} height={243} />
+            <span className="hdr-div" aria-hidden />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="hdr-jutaku" src="/brand/jutaku.png" alt="Jutaku" width={379} height={260} />
+          </Link>
+          <button type="button" className="hdr-plus" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="hdr-more" aria-label={open ? "Close menu" : "Open menu"} />
+        </div>
         <div className="hdr-more" id="hdr-more" inert={!open}>
           <div className="hdr-inner">
             <nav className="hdr-nav" aria-label="Primary">
-              {LINKS.map(([id, label], i) => (
-                <a key={id} href={`#${id}`} style={{ ["--i" as string]: i }} onClick={(e) => { e.preventDefault(); scrollToId(id); }}>{label}</a>
+              {LINKS.map((item, i) => (
+                <a key={item.label} href={`#${item.section}`} style={{ ["--i" as string]: i }} onClick={(e) => { e.preventDefault(); setOpen(false); scrollToId(item.section); }}>{item.label}</a>
               ))}
               <button type="button" style={{ ["--i" as string]: LINKS.length }} onClick={() => { setOpen(false); openLifestylePopup(); }}>Find your fit</button>
             </nav>
-            <button type="button" className="hdr-cta" style={{ ["--i" as string]: LINKS.length + 1 }} onClick={openHomes}>Select a home</button>
+            <button type="button" className="hdr-cta" style={{ ["--i" as string]: LINKS.length + 1 }} onClick={() => { setOpen(false); openHomes(); }}>Select a home</button>
           </div>
         </div>
       </header>

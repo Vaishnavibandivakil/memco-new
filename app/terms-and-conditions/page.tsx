@@ -34,5 +34,5 @@ const sections = [
 ];
 
 export default function TermsAndConditionsPage() {
-  return <LegalPage label="Terms & Conditions" title="Terms & Conditions" introduction="Please read this information when using the Jutaku website and considering the project." sections={sections} relatedHref="/privacy-policy" relatedLabel="Read Privacy Policy" />;
+  return <LegalPage title="Terms & Conditions" introduction="Please read this information when using the Jutaku website and considering the project." sections={sections} relatedHref="/privacy-policy" relatedLabel="Read Privacy Policy" />;
 }

@@ -63,6 +63,16 @@ export const NEARBY: [string, string][] = [
   ["MG Road", "12 km"],
 ];
 
+/* Distances published in MEMCO Skyline's location highlights. */
+export const LOCATION_HIGHLIGHTS = [
+  { name: "Singasandra Metro", distance: "0.6 km", type: "Transit" },
+  { name: "Manipal Clinics", distance: "1 km", type: "Healthcare" },
+  { name: "Hosa Road Metro", distance: "1.2 km", type: "Transit" },
+  { name: "AMR Tech Park", distance: "2.5 km", type: "Work" },
+  { name: "Electronic City", distance: "3 km", type: "Work" },
+  { name: "MG Road", distance: "12 km", type: "City" },
+] as const;
+
 /* "Explore Nearby" category counts from the site's location data */
 export const COUNTS: [string, number][] = [
   ["Healthcare", 10], ["IT Parks", 4], ["Commercial", 7], ["Metro", 14], ["Areas", 3], ["Hotels", 1], ["Education", 9],

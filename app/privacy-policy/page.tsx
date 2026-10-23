@@ -13,11 +13,11 @@ const sections = [
   },
   {
     title: "Information you choose to share",
-    paragraphs: ["When you enquire, you may provide your name, phone number, email address and whether you are interested in a home for self use or investment. When you prepare a visit request, you may also provide your preferred date, time and number of guests. Please share only the details needed for your enquiry."],
+    paragraphs: ["When you enquire, you may provide your name, phone number, email address and whether you are interested in a home for self use or investment. When you submit a visit request, you may also provide your preferred date, time and number of guests. Please share only the details needed for your enquiry."],
   },
   {
     title: "How enquiries are sent",
-    paragraphs: ["The enquiry form opens WhatsApp with a message containing the details you entered. The visit form prepares an email for you to review and send. These forms do not submit your details to a database on this website. If you send a message, MEMCO Skyline receives the information through the communication service you use and may use it to respond and arrange a visit or follow up about your enquiry.", "The on-page sales chat answers questions from information built into the website. Its conversation stays in your current browser session and is cleared when you close the chat."],
+    paragraphs: ["The enquiry form opens WhatsApp with a message containing the details you entered; you choose whether to send it. The visit form sends your details to this website's server, which uses an email delivery provider to forward the request to MEMCO Skyline. The site does not store either form in its own database. MEMCO Skyline may use information you send to respond and arrange a visit or follow up about your enquiry.", "The on-page sales chat answers questions from information built into the website. Its conversation stays in your current browser session and is cleared when you close the chat. The Find your fit prompt stores a date in your browser so it does not appear again for four days."],
   },
   {
     title: "Other services on the site",
@@ -25,7 +25,7 @@ const sections = [
   },
   {
     title: "Your choices",
-    paragraphs: ["You can choose whether to send a prepared WhatsApp message or email. If you have contacted MEMCO Skyline and want to update your details, ask about information held in your enquiry or stop further contact, write to info@memcoskyline.com. We will respond in line with applicable requirements."],
+    paragraphs: ["You can choose whether to send a prepared WhatsApp message or submit a visit request. If you have contacted MEMCO Skyline and want to update your details, ask about information held in your enquiry or stop further contact, write to info@memcoskyline.com. We will respond in line with applicable requirements."],
   },
   {
     title: "Updates",
@@ -34,5 +34,5 @@ const sections = [
 ];
 
 export default function PrivacyPolicyPage() {
-  return <LegalPage label="Privacy Policy" title="Privacy Policy" introduction="A clear view of what happens when you explore Jutaku or contact the MEMCO Skyline team." sections={sections} relatedHref="/terms-and-conditions" relatedLabel="Read Terms & Conditions" />;
+  return <LegalPage title="Privacy Policy" introduction="A clear view of what happens when you explore Jutaku or contact the MEMCO Skyline team." sections={sections} relatedHref="/terms-and-conditions" relatedLabel="Read Terms & Conditions" />;
 }

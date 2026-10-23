@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import SplitType from "split-type";
 import { gsap, ScrollTrigger, charsIn } from "@/lib/motion";
 
-/* One pass over the page wiring the reel's text behaviours plus image motion:
-   [data-chars]    letters of <Chars/> surface in random order out of a blur
+/* One pass over the page wiring readable type reveals plus image motion:
+   [data-chars]    letters of <Chars/> rise in reading order
    [data-lines]    statement lines rise out of their masks, one after another
    [data-fade]     small labels / buttons fade up
    [data-draw]     hairlines draw downward
@@ -40,28 +40,28 @@ export function Reveals() {
         s.lines?.forEach((l) => { const m = document.createElement("span"); m.className = "ln-mask"; l.parentNode!.insertBefore(m, l); m.appendChild(l); });
         el.style.visibility = "visible";
         reveal(el,
-          () => gsap.fromTo(s.lines!, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.3, ease: "power3.out", stagger: 0.12, delay: delay(el), overwrite: true }),
+          () => gsap.fromTo(s.lines!, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.85, ease: "power3.out", stagger: 0.1, delay: delay(el), overwrite: true }),
           () => gsap.set(s.lines!, { yPercent: 110, opacity: 0, overwrite: true }));
       });
 
       document.querySelectorAll<HTMLElement>("[data-fade]").forEach((el) => {
         if (skip(el)) return;
         reveal(el,
-          () => gsap.fromTo(el, { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 1.1, ease: "power3.out", delay: delay(el), overwrite: true }),
-          () => gsap.set(el, { opacity: 0, y: 22, overwrite: true }), "top 90%");
+          () => gsap.fromTo(el, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.75, ease: "power3.out", delay: delay(el), overwrite: true }),
+          () => gsap.set(el, { opacity: 0, y: 14, overwrite: true }), "top 90%");
       });
 
       document.querySelectorAll<HTMLElement>("[data-draw]").forEach((el) => {
         if (skip(el)) return;
         reveal(el,
-          () => gsap.fromTo(el, { scaleY: 0 }, { scaleY: 1, duration: 1.6, ease: "power3.inOut", delay: delay(el), overwrite: true }),
+          () => gsap.fromTo(el, { scaleY: 0 }, { scaleY: 1, duration: 1.1, ease: "power3.inOut", delay: delay(el), overwrite: true }),
           () => gsap.set(el, { scaleY: 0, overwrite: true }), "top 88%");
       });
 
       document.querySelectorAll<HTMLElement>("[data-rise]").forEach((el) => {
         if (skip(el)) return;
         reveal(el,
-          () => gsap.fromTo(el, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.6, ease: "expo.out", delay: delay(el), overwrite: true }),
+          () => gsap.fromTo(el, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.15, ease: "power3.out", delay: delay(el), overwrite: true }),
           () => gsap.set(el, { clipPath: "inset(100% 0% 0% 0%)", overwrite: true }), "top 92%");
       });
 

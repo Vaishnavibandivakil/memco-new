@@ -15,12 +15,12 @@ const COLLAGE = [
 const FEATURE = { src: FEATURE_IMAGE, label: "MEMCO Skyline tower" };
 type Photo = (typeof COLLAGE)[number];
 const FACTS = [
-  { value: "600 M", label: "Singasandra Metro", note: "The closest metro connection." },
-  { value: "1.2 KM", label: "Hosa Road Metro", note: "Another station within easy reach." },
-  { value: "3 KM", label: "Electronic City", note: "A major work hub close to home." },
-  { value: "10", label: "Healthcare", note: "Healthcare destinations nearby." },
-  { value: "9", label: "Education", note: "Education destinations nearby." },
-  { value: "4", label: "IT Parks", note: "Work districts in the neighbourhood." },
+  { value: "4", label: "Metro stations", range: "Within 4 km", note: "Singasandra, Hosa Road, Kudlu Gate and Hongasandra." },
+  { value: "9", label: "Schools & colleges", range: "Within 9 km", note: "Including Oxford College, Dayananda Sagar University and National Public School." },
+  { value: "10", label: "Healthcare options", range: "Within 8.5 km", note: "Clinics and hospitals including Pralaksha, Manipal and Apollo." },
+  { value: "4", label: "Work destinations", range: "Within 7 km", note: "Infosys, Bosch, HSBC and Kalyani Magnum Infotech Park." },
+  { value: "7", label: "Shopping & leisure", range: "Within 9.5 km", note: "Malls, shops and a cinema for the everyday and the weekend." },
+  { value: "3", label: "Neighbourhoods", range: "Within 11 km", note: "HSR Layout, Koramangala and Jaya Nagar." },
 ];
 
 /* The chosen collage image fills the next scroll scene beneath the headline and cards. */
@@ -185,7 +185,7 @@ export function Nearby() {
 
   return (
     <section id="living" ref={root} className="nb" data-tone="light" data-own-reveals aria-label="Living and location">
-      <div id="location" className="nb-stage">
+      <div className="nb-stage">
         <div className="nb-gallery">
           <div className="nb-collage">
             {COLLAGE.map((photo, index) => (
@@ -230,7 +230,7 @@ export function Nearby() {
           <li className="nb-fact" key={fact.label}>
             <span className="nb-fact-value disp">{fact.value}</span>
             <span className="nb-fact-label">{fact.label}</span>
-            <span className="nb-fact-note lbl">Begur · South Bengaluru</span>
+            <span className="nb-fact-note lbl">{fact.range}</span>
             <p className="nb-fact-desc">{fact.note}</p>
           </li>
         ))}
