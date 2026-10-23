@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
 export function JutakuExperience() {
   return (
@@ -17,7 +18,7 @@ export function JutakuExperience() {
           <div className="jx-actions">
             <Link href="/book-visit" className="pill lbl jx-book-btn">Book a visit</Link>
             <Link href="/brochure" className="pill lbl jx-brochure-btn">
-              Request details <span aria-hidden="true">↗</span>
+              Request details <ArrowUpRight size={17} strokeWidth={1.8} aria-hidden="true" />
             </Link>
           </div>
         </div>

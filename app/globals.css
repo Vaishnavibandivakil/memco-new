@@ -34,7 +34,7 @@
 html[data-tone="light"] { --chrome: var(--ink); }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { -webkit-text-size-adjust: 100%; background: var(--deep); }
+html { -webkit-text-size-adjust: 100%; background: var(--deep); overflow-x: clip; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
@@ -218,7 +218,7 @@ html.js:not(.reduced) [data-rise] { clip-path: inset(100% 0% 0% 0%); }
 .rs-pics img.is-on { z-index: 3; animation: open-mid 1.4s var(--e-out) .35s both; }
 @keyframes open-mid { from { clip-path: inset(50% 50% 50% 50%); } to { clip-path: inset(0% 0% 0% 0%); } }
 .rs-pager { display: flex; align-items: center; gap: 16px; margin-top: 6vh; font-family: var(--ff-disp); font-size: 15px; }
-.rs-pager button { padding: 4px 8px; transition: opacity .3s; }
+.rs-pager button { display: grid; place-items: center; width: 44px; height: 44px; transition: opacity .3s; }
 .rs-pager button:hover { opacity: .5; }
 .rs-pager i { position: relative; width: 120px; height: 1px; background: var(--rule); }
 .rs-pager b { position: absolute; inset: 0; background: var(--ink); transform-origin: left; transform: scaleX(var(--from)); animation: rs-timer var(--ms) linear forwards; }
@@ -414,7 +414,6 @@ html.reduced .pl-stop { opacity: 1; transform: none; }
 .hm-scroll { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; padding: 18vh var(--side) 14vh; }
 .hm-close { position: absolute; z-index: 2; top: 28px; right: 32px; display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; padding: 0; border: 1px solid var(--ink); border-radius: 50%; background: var(--paper); transition: background .4s, color .4s; }
 .hm-close:hover { border-color: var(--green); background: var(--green); color: #fff; }
-.hm-close span { font-size: 12px; letter-spacing: 0; }
 html.panel-open, html.panel-open body { overflow: hidden; }
 html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .hm-bloom { position: absolute; right: 22vw; top: 0; z-index: 0; width: 11vw; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 0 0 50vw 50vw; }
@@ -576,9 +575,9 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .jx-book-btn { background: var(--paper-2); color: var(--green); border-color: var(--paper-2); }
 .jx-book-btn:hover, .jx-book-btn:focus-visible { background: var(--green); color: var(--paper-2); border-color: var(--green); }
 .jx-brochure-btn { gap: 10px; border-color: rgba(255,255,255,.7); color: #fff; background: rgba(255,255,255,.16); backdrop-filter: blur(8px); box-shadow: inset 0 1px 0 rgba(255,255,255,.15); }
-.jx-brochure-btn span { font-size: 17px; line-height: 0; transition: transform .25s var(--e-out); }
+.jx-brochure-btn svg { flex: none; transition: transform .25s var(--e-out); }
 .jx-brochure-btn:hover, .jx-brochure-btn:focus-visible { background: #fff; color: var(--green); border-color: #fff; }
-.jx-brochure-btn:hover span, .jx-brochure-btn:focus-visible span { transform: translate(2px, -2px); }
+.jx-brochure-btn:hover svg, .jx-brochure-btn:focus-visible svg { transform: translate(2px, -2px); }
 .jx-arch { position: absolute; z-index: 2; top: 100vh; top: 100svh; left: 0; right: 0; height: 100vh; height: 100svh; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 30vh var(--side) 0; background: linear-gradient(to bottom, transparent 19vw, var(--paper-2) 19vw); color: var(--ink); }
 .jx-arch::before { content: ""; position: absolute; z-index: -1; top: 0; left: -25vw; width: 150vw; height: 150vw; border-radius: 50%; background: var(--paper-2); pointer-events: none; }
 .jx-arch-title { text-align: center; font-size: clamp(34px, 5.04vw, 94px); }
@@ -588,7 +587,8 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .jx-content { gap: 23px; padding: 0 20px 5vh; }
   .jx-content h2 { font-size: clamp(38px, 8vw, 56px); }
   .jx-actions { gap: 9px; }
-  .jx-book-btn, .jx-brochure-btn { min-width: 0; width: 168px; min-height: var(--action-height); padding-inline: 13px; font-size: 11px; }
+  .jx-actions { width: 100%; }
+  .jx-book-btn, .jx-brochure-btn { min-width: 0; width: min(168px, 100%); min-height: var(--action-height); padding-inline: 13px; font-size: 11px; }
   .jx-arch { padding-top: 32svh; }
 }
 
@@ -759,6 +759,13 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .cl-legal { margin-left: 0; text-align: left; }
   .cl-right { padding-left: 0; text-align: left; }
   .cl-policy-links { justify-content: flex-start; }
+}
+@media (max-width: 390px) {
+  .split .disp { min-width: 0; font-size: clamp(24px, 8vw, 31px); white-space: normal; overflow-wrap: normal; }
+  .jx-actions { flex-direction: column; }
+  .jx-book-btn, .jx-brochure-btn { width: min(100%, 220px); }
+  .jx-dialog h2 span { white-space: normal; }
+  .cl-phone { font-size: clamp(24px, 7.6vw, 31px); white-space: normal; overflow-wrap: anywhere; }
 }
 @media (min-width: 761px) and (max-width: 1100px) {
   .hm-grid { grid-template-columns: repeat(2, 1fr); }

@@ -83,7 +83,8 @@
   .location-head { padding-right: 18px; padding-left: 18px; }
   .location-back { right: 18px; }
   .location-map { min-height: 330px; }
-  .location-card { grid-template-columns: 36% 64%; height: 175px; margin-right: 16px; margin-left: 16px; }
+  .location-card { grid-template-columns: minmax(0, 36%) minmax(0, 64%); height: auto; min-height: 175px; margin-right: 16px; margin-left: 16px; }
+  .location-card-image { min-height: 175px; }
   .location-card-copy { padding: 16px; }
   .location-card h2 { font-size: 18px; }
   .location-card-copy > p { font-size: 9px; }

@@ -4,6 +4,7 @@ import { Chars } from "@/components/Chars";
 import { gsap, ScrollTrigger, useScene, charsIn, charsOut } from "@/lib/motion";
 import { HOTSPOTS, REASONS } from "@/lib/content";
 import { openHomes } from "@/components/sections/Homes";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 /* The landing page opens directly on the existing, scroll-led tower scene. */
 export function Opening() {
@@ -161,12 +162,12 @@ function Reasons() {
             ))}
           </div>
           <div className="rs-pager" data-fade>
-            <button type="button" onClick={() => { go(-1); }} aria-label="Previous reason">‹</button>
+            <button type="button" onClick={() => { go(-1); }} aria-label="Previous reason"><ChevronLeft size={20} strokeWidth={1.8} aria-hidden="true" /></button>
             <i>
               {/* timer: fills this slide's third of the bar over SLIDE_MS; key restarts it on every slide */}
               <b key={`${i}-${tick}`} style={{ ["--from" as string]: i / REASONS.length, ["--to" as string]: (i + 1) / REASONS.length, ["--ms" as string]: `${SLIDE_MS}ms` }} />
             </i>
-            <button type="button" onClick={() => go(1)} aria-label="Next reason">›</button>
+            <button type="button" onClick={() => go(1)} aria-label="Next reason"><ChevronRight size={20} strokeWidth={1.8} aria-hidden="true" /></button>
           </div>
           <div className="rs-copies">
             {REASONS.map((r, k) => (

@@ -5,6 +5,7 @@ import { Chars } from "@/components/Chars";
 import { HomePlanSvg } from "@/components/HomePlanSvg";
 import { getInventory, typeName } from "@/lib/inventory";
 import { gsap, charsIn, lenis } from "@/lib/motion";
+import { X } from "lucide-react";
 
 export const openHomes = () => window.dispatchEvent(new Event("homes:open"));
 
@@ -52,7 +53,7 @@ export function Homes() {
 
   return (
     <section id="homes" ref={root} className="hm" role="dialog" aria-modal="true" aria-label="Home plans" aria-hidden={!open} data-own-reveals>
-      <button type="button" className="hm-close lbl" onClick={() => setOpen(false)} aria-label="Close homes"><span aria-hidden>✕</span></button>
+      <button type="button" className="hm-close lbl" onClick={() => setOpen(false)} aria-label="Close homes"><X size={19} strokeWidth={1.8} aria-hidden="true" /></button>
       <div className="hm-scroll" ref={scroller} data-lenis-prevent>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="hm-bloom" src="/images/gazebos.webp" alt="" loading="lazy" />
