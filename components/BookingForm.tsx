@@ -45,6 +45,8 @@ export function BookingForm() {
   const [submitError, setSubmitError] = useState("");
 
   const chosenDate = dates.find((date) => date.iso === selectedDate) ?? dates[0];
+  const current = istClock();
+  const todayIso = `${current.year}-${String(current.month + 1).padStart(2, "0")}-${String(current.day).padStart(2, "0")}`;
 
   async function submitVisit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -107,7 +109,7 @@ export function BookingForm() {
             <legend>Choose a time <span>{chosenDate.day}, {chosenDate.label}</span></legend>
             <div className="bk-slots">
               {Array.from({ length: 9 }, (_, index) => index + 9).map((hour) => {
-                const past = selectedDate === dates[0].iso && hour <= istClock().hour;
+                const past = selectedDate === todayIso && hour <= current.hour;
                 return <button key={hour} type="button" disabled={past} className={`bk-slot${selectedSlot === hour ? " is-selected" : ""}`} aria-pressed={selectedSlot === hour} aria-label={slotLabel(hour)} onClick={() => { setSelectedSlot(hour); setSubmitStatus("idle"); }}>{`${hour % 12 || 12}:00 ${hour < 12 ? "AM" : "PM"}`}</button>;
               })}
             </div>

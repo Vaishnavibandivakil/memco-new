@@ -933,15 +933,20 @@ body:has(.bk-page) .chrome { display: none; }
   .bk-scene-brand img:last-child { width: 44px; }
   .bk-scene-foot { right: 20px; bottom: 16px; left: 20px; font-size: 8px; }
   .bk-main { padding: 20px 20px 40px; }
+  .bk-main, .bk-form { min-width: 0; }
   .bk-heading { padding: 28px 0 23px; }
   .bk-heading h1 { font-size: clamp(38px, 9vw, 50px); }
   .bk-heading > p:last-child { font-size: 13px; }
   .bk-form { padding: 22px 20px; border-radius: 24px; }
   .bk-card-heading { padding-bottom: 18px; }
+  .bk-group legend { flex-wrap: wrap; column-gap: 8px; row-gap: 2px; }
+  .bk-group legend span { max-width: 100%; }
   .bk-date { flex-basis: 72px; }
+  .bk-slot { min-height: 44px; }
   .bk-guest-seats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .bk-fields { grid-template-columns: 1fr; }
   .bk-fields .bk-email { grid-column: auto; }
+  .bk-fields input { font-size: 16px; }
 }
 @media (max-width: 390px) { .bk-slots { grid-template-columns: repeat(2, minmax(0, 1fr)); } .bk-scene-foot span:last-child { display: none; } }
 
@@ -1020,6 +1025,7 @@ body:has(.bk-page) .chrome { display: none; }
   .br-content { padding-block: 46px 38px; }
   .br-content h1 { font-size: clamp(35px, 9vw, 48px); }
   .br-form { margin-top: 22px; }
+  .br-form > input, .br-phone-row input, .br-phone-row select { font-size: 16px; }
 }
 
 /* ── Jutaku site guide ──────────────────────────────────────── */
@@ -1101,6 +1107,7 @@ body:has(.bk-page) .chrome { display: none; }
 @media (max-width: 760px) {
   .chat-root { right: 14px; bottom: 14px; }
   .chat-panel { height: min(600px, calc(100dvh - 90px)); margin-bottom: 10px; }
+  .chat-form input { font-size: 16px; }
   .chat-launcher { width: 52px; height: 52px; }
   .chat-launcher .chat-orb { width: 43px; height: 43px; }
   .chat-launcher .chat-orb-dots { transform: scale(.36); }
@@ -1189,6 +1196,8 @@ body:has(.bk-page) .chrome { display: none; }
   .insights-spread-page { min-height: 430px; padding: 25px; }
   .insights-spread-page h2 { margin-top: 42px; font-size: clamp(35px, 9vw, 49px); }
   .insights-spread-films { width: min(100%, 340px); margin-top: auto; padding-top: 28px; }
+  .insights-cover-bottom { flex-wrap: wrap; }
+  .insights-cover-bottom > span { white-space: normal; }
   .insights-page-intro { grid-template-columns: 1fr; gap: 19px; padding-top: 80px; }
   .insights-page-intro .insights-eyebrow { grid-column: 1; margin-bottom: 0; }
   .insights-page-intro h1 { font-size: clamp(40px, 10vw, 66px); }
