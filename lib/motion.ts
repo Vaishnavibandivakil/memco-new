@@ -28,24 +28,29 @@ export function useScene(ref: RefObject<HTMLElement | null>, build: (c: SceneCtx
 declare global { interface Window { __lenis?: Lenis } }
 export const lenis = () => (typeof window !== "undefined" ? window.__lenis : undefined);
 
-/** Align an anchor inside the phone-sized project carousel without pinning the page. */
-export function scrollMobileProjectPanel(el: HTMLElement, immediate = false): HTMLElement | null {
+/** Resolve a project panel to the vertical scroll position that brings it into view. */
+export function mobileProjectScrollTarget(el: HTMLElement): number | null {
   if (!matchMedia("(max-width: 760px)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return null;
   const project = document.getElementById("project");
-  if (!project || el === project || !project.contains(el)) return null;
-  const left = project.scrollLeft + el.getBoundingClientRect().left - project.getBoundingClientRect().left;
-  project.scrollTo({ left, behavior: immediate ? "auto" : "smooth" });
-  return project;
+  if (!project || !project.contains(el)) return null;
+  const horizontal = ScrollTrigger.getAll().find((trigger) => trigger.trigger === project && trigger.pin);
+  if (!horizontal) return null;
+  const track = project.querySelector<HTMLElement>(".hz-track");
+  const panel = el.closest<HTMLElement>(".hz-panel");
+  if (!track || !panel) return horizontal.start;
+  const distance = Math.max(1, track.scrollWidth - window.innerWidth);
+  const progress = Math.min(1, Math.max(0, panel.offsetLeft / distance));
+  return horizontal.start + progress * (horizontal.end - horizontal.start);
 }
 
 export function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
   const l = lenis();
-  const mobileProject = scrollMobileProjectPanel(el);
-  if (mobileProject) {
-    if (l) l.scrollTo(mobileProject, { duration: 1.2 });
-    else mobileProject.scrollIntoView({ behavior: "smooth", block: "start" });
+  const mobileProjectTop = mobileProjectScrollTarget(el);
+  if (mobileProjectTop !== null) {
+    if (l) l.scrollTo(mobileProjectTop, { duration: 1.2 });
+    else window.scrollTo({ top: mobileProjectTop, behavior: "smooth" });
     return;
   }
   if (id === "location") {

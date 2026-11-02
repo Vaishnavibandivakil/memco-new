@@ -2,7 +2,7 @@
 .location-stage { position: relative; min-height: 100svh; overflow: hidden; background: #eef1eb; }
 .location-map { position: absolute; inset: 0; }
 .location-map-canvas { width: 100%; height: 100%; }
-.location-map .maplibregl-canvas { filter: grayscale(.8) saturate(.35) brightness(1.04); }
+.location-map .maplibregl-canvas { filter: brightness(1.04); }
 .location-map .maplibregl-ctrl-bottom-right { bottom: 8px; right: 10px; }
 .location-map .maplibregl-ctrl-attrib { color: #66766e; background: rgba(255,255,255,.88); }
 
@@ -54,29 +54,64 @@
 .location-metro-close:hover, .location-metro-close:focus-visible { background: var(--green); color: white; }
 .location-metro-panel-intro { margin: 13px 0 20px; color: #66766e; font-size: 12px; line-height: 1.5; }
 .location-metro-panel-routes { display: grid; gap: 9px; }
-.location-metro-option { --line-color: #c69b12; display: block; width: 100%; padding: 15px 16px; border: 1px solid #dde6dd; border-radius: 10px; background: #fff; color: #182620; text-align: left; transition: border-color .2s, background .2s, box-shadow .2s; }
+.location-metro-option { --line-color: #c69b12; width: 100%; overflow: hidden; border: 1px solid #dde6dd; border-radius: 10px; background: #fff; color: #182620; text-align: left; transition: border-color .2s, background .2s, box-shadow .2s; }
+.location-metro-option-trigger { display: block; width: 100%; padding: 15px 16px; text-align: left; }
 .location-metro-option.is-purple, .location-metro-pin.is-purple { --line-color: #7645a5; }
 .location-metro-option.is-pink, .location-metro-pin.is-pink { --line-color: #d26b91; }
 .location-metro-option.is-blue, .location-metro-pin.is-blue { --line-color: #367fb2; }
-.location-metro-option:hover, .location-metro-option:focus-visible, .location-metro-option.is-active { border-color: var(--line-color); background: #f8faf7; }
+.location-metro-option:hover, .location-metro-option:focus-within, .location-metro-option.is-active { border-color: var(--line-color); background: #f8faf7; }
 .location-metro-option.is-active { box-shadow: inset 3px 0 var(--line-color); }
 .location-metro-option-top { display: flex; align-items: center; gap: 10px; }
 .location-metro-line-mark { display: block; flex: none; width: 7px; height: 24px; border-radius: 5px; background: var(--line-color); }
 .location-metro-option-top strong { font-size: 16px; font-weight: 650; }
-.location-metro-option-top svg { margin-left: auto; color: var(--green); }
+.location-metro-option-top small { margin-left: auto; color: #738277; font-size: 10px; font-weight: 600; white-space: nowrap; }
+.location-metro-option-top svg { flex: none; color: var(--green); }
 .location-metro-option-status, .location-metro-option-station { display: block; margin-left: 17px; font-size: 11px; line-height: 1.45; }
 .location-metro-option-status { margin-top: 2px; color: #6a796f; }
 .location-metro-option-station { margin-top: 9px; color: var(--green); font-weight: 650; }
-.location-metro-option-detail { display: block; margin: 14px 0 1px 17px; padding-top: 13px; border-top: 1px solid #e0e7df; color: #627167; font-size: 11px; line-height: 1.5; }
+.location-metro-option-detail { margin: 0 16px 18px; padding-top: 13px; border-top: 1px solid #e0e7df; color: #627167; font-size: 11px; line-height: 1.5; }
 .location-metro-steps { display: flex; flex-wrap: wrap; gap: 5px 8px; margin-bottom: 8px; }
 .location-metro-steps > span { display: inline-flex; align-items: center; gap: 7px; }
 .location-metro-steps b { color: #26382c; font-size: 10px; font-weight: 650; }
 .location-metro-steps svg { color: var(--green); }
+.location-metro-option-detail > p { margin-top: 8px; }
+.location-metro-option-detail h3 { margin-top: 20px; color: #24372a; font-size: 12px; font-weight: 700; letter-spacing: -.015em; }
+.location-metro-journey { display: grid; gap: 0; margin: 11px 0 4px; padding-left: 0; list-style: none; counter-reset: metro-leg; }
+.location-metro-journey li { position: relative; padding: 0 0 17px 30px; border-left: 1px solid #d7e1d8; margin-left: 8px; counter-increment: metro-leg; }
+.location-metro-journey li:last-child { padding-bottom: 0; border-left-color: transparent; }
+.location-metro-journey li::before { position: absolute; top: 0; left: -10px; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--line-color); color: #fff; content: counter(metro-leg); font-size: 9px; font-weight: 700; }
+.location-metro-journey strong, .location-metro-journey span { display: block; }
+.location-metro-journey strong { color: #22342a; font-size: 11px; font-weight: 700; }
+.location-metro-journey span { margin-top: 4px; }
+.location-metro-stations-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-top: 22px; padding-top: 15px; border-top: 1px solid #e0e7df; }
+.location-metro-stations-heading h3 { margin-top: 0; }
+.location-metro-stations-heading > span { color: #7c897f; font-size: 10px; white-space: nowrap; }
+.location-metro-stations-direction { margin: 5px 0 12px; color: #78877b; font-size: 10px; }
+.location-metro-route-diagram { padding: 14px 15px 12px; border: 1px solid #e4e9e3; border-radius: 12px; background: #fff; }
+.location-metro-route-endpoint { display: inline-flex; align-items: center; min-height: 25px; padding: 4px 10px; border: 1px solid var(--line-color); border-radius: 99px; color: #1b3022; font-size: 10px; font-weight: 700; }
+.location-metro-route-endpoint.is-end { margin-top: 2px; }
+.location-metro-stations { position: relative; margin: 0 0 0 14px; padding: 10px 0; list-style: none; }
+.location-metro-stations::before { position: absolute; top: 0; bottom: 0; left: 7px; width: 3px; border-radius: 3px; background: var(--line-color); content: ""; }
+.location-metro-stations li { position: relative; min-height: 34px; }
+.location-metro-stations li button { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 34px; padding: 4px 0; border-radius: 5px; color: #56685b; font-size: 11px; text-align: left; }
+.location-metro-stations li button:hover, .location-metro-stations li button:focus-visible { color: #142c1d; background: #f2f7f1; }
+.location-metro-station-node { position: relative; z-index: 1; flex: none; width: 17px; height: 17px; border: 3px solid var(--line-color); border-radius: 50%; background: #fff; }
+.location-metro-stations li.is-key button { color: #1a5f3e; font-weight: 700; }
+.location-metro-stations li.is-key .location-metro-station-node { background: var(--line-color); box-shadow: inset 0 0 0 3px #fff; }
+.location-metro-stations li.is-current button { color: #142c1d; background: #eef5ed; }
+.location-metro-stations li small { margin-left: auto; color: #738277; font-size: 9px; font-weight: 600; white-space: nowrap; }
 .location-metro-panel-note { margin-top: 20px; color: #77857b; font-size: 10px; line-height: 1.5; }
 .location-metro-panel-note a { display: inline-flex; align-items: center; gap: 3px; color: var(--green); font-weight: 650; }
 .location-metro-panel-note a:hover, .location-metro-panel-note a:focus-visible { text-decoration: underline; }
-.location-metro-pin { --line-color: #c69b12; display: flex; align-items: center; gap: 7px; padding: 6px 10px 6px 6px; border: 1px solid var(--line-color); border-radius: 999px; background: white; color: #182620; font-size: 11px; font-weight: 700; white-space: nowrap; box-shadow: 0 6px 20px rgba(17,36,24,.18); }
-.location-metro-pin > span { width: 13px; height: 13px; border-radius: 50%; background: var(--line-color); }
+.location-route-pin { --line-color: #c69b12; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px; background: transparent; cursor: pointer; }
+.location-route-pin.is-purple { --line-color: #7645a5; }
+.location-route-pin.is-pink { --line-color: #d26b91; }
+.location-route-pin.is-blue { --line-color: #367fb2; }
+.location-route-pin-dot { width: 13px; height: 13px; border: 3px solid #fff; border-radius: 50%; background: var(--line-color); box-shadow: 0 1px 8px rgba(17,36,24,.3); transition: transform .2s, box-shadow .2s; }
+.location-route-pin.is-key .location-route-pin-dot { width: 17px; height: 17px; }
+.location-route-pin.is-selected .location-route-pin-dot, .location-route-pin:hover .location-route-pin-dot, .location-route-pin:focus-visible .location-route-pin-dot { transform: scale(1.2); box-shadow: 0 0 0 5px color-mix(in srgb, var(--line-color) 30%, transparent), 0 1px 8px rgba(17,36,24,.3); }
+.location-route-pin-label { padding: 5px 8px; border: 1px solid var(--line-color); border-radius: 99px; background: #fff; color: #1b3022; font-size: 10px; font-weight: 700; white-space: nowrap; box-shadow: 0 5px 14px rgba(17,36,24,.12); opacity: 0; visibility: hidden; transform: translateY(-3px); transition: opacity .2s, visibility .2s, transform .2s; }
+.location-route-pin.is-selected .location-route-pin-label, .location-route-pin:hover .location-route-pin-label, .location-route-pin:focus-visible .location-route-pin-label { opacity: 1; visibility: visible; transform: translateY(0); }
 
 .location-directory { padding: clamp(64px, 8vw, 112px) clamp(24px, 6vw, 112px) clamp(70px, 8vw, 112px); background: #fff; }
 .location-directory-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; }
@@ -114,6 +149,7 @@
   .location-filters { position: relative; right: auto; bottom: auto; left: auto; order: 2; width: auto; max-width: none; margin: 0 20px 20px; }
   .location-card h2 { font-size: 22px; }
   .location-metro-panel { position: fixed; z-index: 20; top: auto; right: 0; bottom: 0; left: 0; width: 100%; max-height: min(70svh, 690px); padding: 24px 20px max(24px, env(safe-area-inset-bottom)); border-radius: 18px 18px 0 0; animation-name: location-panel-mobile-in; }
+  .location-metro-panel.is-route-active { max-height: min(54svh, 560px); }
   @keyframes location-panel-mobile-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
   .location-directory { padding: 56px 20px 65px; }
 }

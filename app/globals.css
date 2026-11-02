@@ -113,15 +113,12 @@ html:not(.js) .intro-loader, html.intro-seen .intro-loader { display: none; }
 .hdr-brand { display: flex; align-items: center; gap: 14px; flex: none; padding: 4px 12px 4px 18px; border-radius: 999px; transition: background .4s; }
 .hdr-brand:hover { background: rgba(22, 21, 15, .05); }
 .hdr-brand-link { display: flex; align-items: center; gap: 14px; border-radius: 999px; }
-.hdr-brand-link:focus-visible, .hdr-plus:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+.hdr-brand-link:focus-visible, .hdr-menu-toggle:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
 .hdr-memco { height: 30px; width: auto; }
 .hdr-div { width: 1px; height: 26px; background: var(--rule); }
 .hdr-jutaku { height: 30px; width: auto; }   /* same height as the MEMCO lockup (client request) */
-/* plus → cross */
-.hdr-plus { position: relative; width: 30px; height: 30px; margin-left: 4px; border-radius: 50%; border: 1px solid var(--rule); transition: transform .7s var(--e-out), background .4s, border-color .4s; }
-.hdr-plus::before, .hdr-plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 11px; height: 1.2px; margin: -.6px 0 0 -5.5px; background: currentColor; }
-.hdr-plus::after { transform: rotate(90deg); }
-.hdr.is-open .hdr-plus { transform: rotate(135deg); background: var(--deep); border-color: var(--deep); color: var(--paper); }
+.hdr-menu-toggle { min-width: 54px; min-height: 32px; margin-left: 4px; padding: 0 12px; border: 1px solid var(--rule); border-radius: 999px; font-family: var(--ff-sans); font-size: 10px; font-weight: 700; letter-spacing: .02em; transition: background .4s, border-color .4s, color .4s; }
+.hdr-menu-toggle:hover, .hdr.is-open .hdr-menu-toggle { background: var(--deep); border-color: var(--deep); color: var(--paper); }
 /* the expanding part: grid 0fr → 1fr animates to its natural width */
 .hdr-more { display: grid; grid-template-columns: 0fr; transition: grid-template-columns .9s var(--e-out); }
 .hdr.is-open .hdr-more { grid-template-columns: 1fr; }
@@ -684,10 +681,8 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 
 /* ── mobile ─────────────────────────────────────────────────── */
 @media (max-width: 760px) {
-  .hz { overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-  .hz::-webkit-scrollbar { display: none; }
-  .hz-track { will-change: auto; }
-  .hz-panel { scroll-snap-align: start; }
+  .hz { overflow: hidden; }
+  .hz-track { will-change: transform; }
   .hz:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; }
   html.js:not(.reduced) .hz .ds-statement { visibility: visible; }
   html.js:not(.reduced) .hz .ds-fade,
@@ -808,7 +803,7 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .hdr-brand-link { gap: 7px; }
   .hdr-memco, .hdr-jutaku { height: 18px; }
   .hdr-div { height: 18px; }
-  .hdr-plus { margin-left: 0; }
+  .hdr-menu-toggle { min-width: 48px; min-height: 29px; margin-left: 0; padding: 0 9px; font-size: 9px; }
   .split .disp, .chs .split .disp { font-size: 22px; }
   .cr-body { font-size: 22px; }
   .cr-fine { overflow-wrap: anywhere; }

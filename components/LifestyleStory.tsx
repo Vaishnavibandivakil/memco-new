@@ -29,7 +29,7 @@ type Story = {
 export const LIFESTYLE_STORIES: Record<"individual" | "couple", Story> = {
   individual: {
     name: "Individual living", title: "Your space.\nYour pace.",
-    introduction: "A private home of about 500 sq ft, with places to work, train and unwind within the same community.",
+    introduction: "Your own space of about 500 sq ft, plus a co-working room, fitness hub and rooftop places a short walk away.",
     heroImage: "/images/interior-bedroom-open-plan.jpg", heroAlt: "Light-filled Jutaku bedroom with a desk and window seating",
     figures: [
       { value: "~500", label: "sq ft of private space" },
@@ -37,7 +37,7 @@ export const LIFESTYLE_STORIES: Record<"individual" | "couple", Story> = {
       { value: "646", label: "private spaces" },
     ],
     ideaTitle: "A place of your own. More beyond the door.",
-    idea: "MEMCO Skyline brings a compact private home together with useful spaces across the wider Jutaku ecosystem. Move from quiet time at home to work, fitness and open air without leaving the community.",
+    idea: "Start the day in your own home. Take a call in the Clubrooms, head to the gym, or walk through Serenity Park. The spaces you need are part of the same community.",
     sectionTitle: "Make room for every part of your day.",
     spaces: [
       { name: "Work close to home", detail: "The 4,000 sq ft Clubrooms & Creator Studios include co-working and podcasting spaces.", image: "/images/club-cowork.jpg", alt: "Jutaku co-working space", tag: "Work / create" },
@@ -48,7 +48,7 @@ export const LIFESTYLE_STORIES: Record<"individual" | "couple", Story> = {
   },
   couple: {
     name: "Modern couple", title: "Together.\nRoom to live.",
-    introduction: "An efficient private home, with shared places for dinner, downtime and an active weekend just beyond it.",
+    introduction: "A home for two, with room nearby for separate workdays, shared dinners and a swim at the end of the week.",
     heroImage: "/images/residence-living.webp", heroAlt: "Warm, furnished Jutaku living space",
     figures: [
       { value: "~500", label: "sq ft of private space" },
@@ -56,7 +56,7 @@ export const LIFESTYLE_STORIES: Record<"individual" | "couple", Story> = {
       { value: "18,800", label: "sq ft of Skyline Sports Deck" },
     ],
     ideaTitle: "Your home for two. A larger life around it.",
-    idea: "At Jutaku, your private space connects to a 50,000 sq ft ecosystem. Spend an evening cooking together, take a swim above the city or meet friends in the shared spaces.",
+    idea: "Make the private space yours. Outside it, the Culinary Studios, rooftop pool and sports deck give you more ways to spend time together, or find a little space apart.",
     sectionTitle: "More ways to spend time together.",
     spaces: [
       { name: "Cook and gather", detail: "The 6,000 sq ft Culinary Studios include a community kitchen and private dining spaces.", image: "/images/amenity-culinary.jpg", alt: "Jutaku culinary studio and dining area", tag: "Dine / host" },
@@ -134,7 +134,7 @@ export function LifestyleStory({ story }: { story: Story }) {
             <p className="persona-kicker" data-fade>Beyond the highlights</p>
             <div>
               <h2 id="persona-complete-title" data-fade data-delay="0.08">The whole Jutaku experience.</h2>
-              <p data-fade data-delay="0.16">Your home connects to spaces for working, creating, meeting friends, moving and unwinding. These are all nine experience zones published by MEMCO Skyline.</p>
+              <p data-fade data-delay="0.16">From the fitness hub and creator studios to the pool and park, explore the nine shared zones planned around everyday life at Jutaku.</p>
             </div>
           </div>
           <div className="persona-zone-list">
@@ -154,9 +154,9 @@ export function LifestyleStory({ story }: { story: Story }) {
           <div className="persona-bento">
             <div className="persona-bento-heading" data-fade>
               <p>The project</p>
-              <h2 id="persona-details-title">Made for more than the everyday.</h2>
+              <h2 id="persona-details-title">A closer look at Jutaku.</h2>
             </div>
-            <div className="persona-bento-stat" data-fade><span>01 / Private spaces</span><strong>646</strong><p>Homes designed around daily life.</p></div>
+            <div className="persona-bento-stat" data-fade><span>01 / Private spaces</span><strong>646</strong><p>Homes with shared facilities beyond the front door.</p></div>
             <div className="persona-bento-stat" data-fade><span>02 / Site</span><strong>2.78</strong><p>Acres for the wider Jutaku community.</p></div>
             <figure className="persona-bento-image" data-rise>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -170,8 +170,8 @@ export function LifestyleStory({ story }: { story: Story }) {
             <div className="persona-bento-stat" data-fade><span>04 / Landscape</span><strong>290+</strong><p>Trees preserved on the site.</p></div>
             <div className="persona-bento-copy persona-bento-ownership" data-fade>
               <span>05 / Access</span>
-              <h3>More beyond your door.</h3>
-              <p>About 500 sq ft to call your own, connected to 50,000 sq ft of shared experiences. Bookable spaces may offer revenue-sharing opportunities, subject to the project terms.</p>
+              <h3>Your home, and much more.</h3>
+              <p>About 500 sq ft to call your own, with access to roughly 50,000 sq ft of shared places. Ask the MEMCO team how bookings and access work for each space.</p>
             </div>
             <div className="persona-bento-copy persona-bento-safety" data-fade>
               <span>06 / Peace of mind</span>

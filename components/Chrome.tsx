@@ -79,7 +79,7 @@ export function Chrome() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="hdr-jutaku" src="/brand/jutaku.png" alt="Jutaku" width={379} height={260} />
           </Link>
-          <button type="button" className="hdr-plus" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="hdr-more" aria-label={open ? "Close menu" : "Open menu"} />
+          <button type="button" className="hdr-menu-toggle" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="hdr-more" aria-label={open ? "Close menu" : "Open menu"}>{open ? "Close" : "Menu"}</button>
         </div>
         <div className="hdr-more" id="hdr-more" inert={!open}>
           <div className="hdr-inner">

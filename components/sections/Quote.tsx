@@ -14,11 +14,11 @@ export function Quote() {
   });
   return (
     <section ref={root} className="st" data-tone="light">
-      <p className="lbl st-kicker" data-fade>Jutaku <i>·</i> Urban lifestyle ecosystem</p>
+      <p className="lbl st-kicker" data-fade>Jutaku <i>·</i> A home with more beyond it</p>
       <Split left="THE LUXURY" mid={<span className="lbl">MEMCO <i>·</i> 40+ years <i>·</i> Bengaluru</span>} right="OF COMING HOME" />
       <div className="st-grid">
         <div className="st-copy">
-          <p className="caps-serif st-say" data-lines>Every home should be unique and special, just like the people who live in it.</p>
+          <p className="caps-serif st-say" data-lines>A place to close the door and feel at home. A whole community to step into when you want more.</p>
           <p className="lbl" data-fade data-delay="0.3">MEMCO Skyline <i>·</i> Jutaku</p>
         </div>
         <figure className="st-pic" data-rise>

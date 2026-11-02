@@ -3,9 +3,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Building2, GraduationCap, Hospital, Hotel, LayoutGrid, MapPin, Minus, Navigation, Plus, Store, TrainFront, X } from "lucide-react";
-import { Map, MapMarker, MarkerContent, type MapRef } from "@/components/ui/map";
+import { Map, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
 import { ADDRESS, SITE_COORDINATES } from "@/lib/data";
 import { ROUTE } from "@/lib/nearby-route";
+import { METRO_CONNECTIONS } from "@/data/metro-connectivity";
+import { METRO_GREEN_TRANSFER, METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
 import { LOCATION_CATEGORIES, LOCATION_DIRECTORY, type LocationCategory } from "@/data/location-directory";
 
 const CATEGORY_ICONS = {
@@ -31,54 +33,27 @@ const CATEGORY_IMAGES = {
 
 const HOME = { name: "Jutaku", category: "Home", distance: "", position: [SITE_COORDINATES.lng, SITE_COORDINATES.lat] } as const;
 const PLACES = [HOME, ...LOCATION_DIRECTORY] as const;
-const METRO_CONNECTIONS = [
-  {
-    line: "Yellow",
-    status: "In service",
-    station: "Singasandra Metro",
-    position: [77.64485, 12.88082],
-    steps: ["Singasandra / Hosa Road", "Yellow Line"],
-    description: "The nearest line to Jutaku. Ride towards Electronic City or towards RV Road.",
-  },
-  {
-    line: "Purple",
-    status: "In service · two changes",
-    station: "Majestic interchange",
-    position: [77.572836, 12.975692],
-    steps: ["Yellow", "RV Road · Green", "Majestic · Purple"],
-    description: "Change to Green at RV Road, then to Purple at Majestic for MG Road and the east–west corridor.",
-  },
-  {
-    line: "Pink",
-    status: "Planned transfer",
-    station: "Jayadeva Hospital interchange",
-    position: [77.62046475113841, 12.915357172811326],
-    steps: ["Yellow", "Jayadeva Hospital", "Pink"],
-    description: "Jayadeva Hospital is the planned Yellow–Pink interchange. Use this connection once Pink Line passenger service opens.",
-  },
-  {
-    line: "Blue",
-    status: "Planned transfer",
-    station: "Central Silk Board interchange",
-    position: [77.64177517681296, 12.913991612643954],
-    steps: ["Yellow", "Central Silk Board", "Blue"],
-    description: "Central Silk Board is the planned transfer to the Blue Line for the Outer Ring Road and airport corridor once service opens.",
-  },
-] as const;
+const METRO_LINE_COLORS = { Yellow: "#c69b12", Purple: "#7645a5", Pink: "#d26b91", Blue: "#367fb2" } as const;
+const YELLOW_ACCESS_END = { Yellow: 8, Purple: 0, Pink: 2, Blue: 4 } as const;
 
 export function LocationExplorer() {
   const mapRef = useRef<MapRef>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const metroButtonRef = useRef<HTMLButtonElement>(null);
+  const metroPanelRef = useRef<HTMLElement>(null);
   const [selected, setSelected] = useState(0);
   const [category, setCategory] = useState<LocationCategory>("All");
   const [metroPanelOpen, setMetroPanelOpen] = useState(false);
   const [activeMetro, setActiveMetro] = useState<number | null>(null);
+  const [activeStation, setActiveStation] = useState<number | null>(null);
   const selectedPlace = PLACES[selected];
   const activeConnection = activeMetro === null ? null : METRO_CONNECTIONS[activeMetro];
+  const activeRoute = activeConnection ? METRO_ROUTE_POINTS[activeConnection.line] : null;
+  const selectedMetroStation = activeRoute && activeStation !== null ? activeRoute[activeStation] : null;
+  const yellowAccess = activeConnection && activeConnection.line !== "Yellow" ? METRO_ROUTE_POINTS.Yellow.slice(YELLOW_ACCESS_END[activeConnection.line], 9).reverse() : null;
   const visiblePlaces = category === "All" ? LOCATION_DIRECTORY : LOCATION_DIRECTORY.filter((place) => place.category === category);
-  const cardPosition = activeConnection?.position ?? selectedPlace.position;
+  const cardPosition = selectedMetroStation?.position ?? activeConnection?.position ?? selectedPlace.position;
   const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${cardPosition[1]}%2C${cardPosition[0]}`;
   const selectedImage = activeConnection ? CATEGORY_IMAGES.Metro : selectedPlace.category === "Home" ? "/images/jutaku-exterior-hero.webp" : CATEGORY_IMAGES[selectedPlace.category];
 
@@ -86,6 +61,7 @@ export function LocationExplorer() {
     const place = PLACES[index];
     setMetroPanelOpen(false);
     setActiveMetro(null);
+    setActiveStation(null);
     setSelected(index);
     mapRef.current?.flyTo({ center: [...place.position], zoom: index === 0 ? 13.5 : 14.5, duration: 950, essential: true });
     if (scrollToMap) stageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -94,6 +70,7 @@ export function LocationExplorer() {
   const chooseCategory = (next: LocationCategory) => {
     setMetroPanelOpen(false);
     setActiveMetro(null);
+    setActiveStation(null);
     setCategory(next);
     setSelected(0);
     const places = next === "All" ? PLACES : PLACES.filter((place) => place.category === "Home" || place.category === next);
@@ -104,22 +81,40 @@ export function LocationExplorer() {
 
   const showMetroOnMap = (index: number) => {
     const connection = METRO_CONNECTIONS[index];
+    const route = METRO_ROUTE_POINTS[connection.line];
+    const startingStation = route.findIndex((point) => point.name === (connection.line === "Yellow" ? "Singasandra" : connection.line === "Purple" ? "Majestic" : connection.line === "Pink" ? "Jayadeva Hospital" : "Central Silk Board"));
+    setCategory("Metro");
     setActiveMetro(index);
-    mapRef.current?.flyTo({
-      center: [connection.position[0], connection.position[1]],
-      zoom: 14,
-      offset: typeof window !== "undefined" && window.innerWidth > 980 ? [-190, 0] : [0, -90],
+    setActiveStation(startingStation < 0 ? 0 : startingStation);
+    const points = [...route, ...(connection.line === "Purple" ? METRO_GREEN_TRANSFER : []), ...(connection.line === "Yellow" ? [] : METRO_ROUTE_POINTS.Yellow.slice(YELLOW_ACCESS_END[connection.line], 9))];
+    const lngs = points.map((point) => point.position[0]);
+    const lats = points.map((point) => point.position[1]);
+    mapRef.current?.fitBounds([[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]], {
+      padding: window.innerWidth > 980 ? { top: 250, right: 475, bottom: 150, left: 65 } : { top: 65, right: 35, bottom: 110, left: 35 },
+      maxZoom: 12.8,
       duration: 950,
       essential: true,
+    });
+    requestAnimationFrame(() => {
+      const panel = metroPanelRef.current;
+      const option = panel?.querySelector(".location-metro-option.is-active");
+      if (panel && option) panel.scrollTo({ top: option.getBoundingClientRect().top - panel.getBoundingClientRect().top + panel.scrollTop - 12, behavior: "smooth" });
     });
     if (window.innerWidth <= 980) mapContainerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const focusMetroStation = (index: number) => {
+    const point = activeRoute?.[index];
+    if (!point) return;
+    setActiveStation(index);
+    mapRef.current?.flyTo({ center: [...point.position], zoom: 14, offset: window.innerWidth > 980 ? [-190, 0] : [0, -80], duration: 750, essential: true });
+  };
+
   const closeMetroPanel = useCallback(() => {
     setMetroPanelOpen(false);
-    if (activeConnection) mapRef.current?.flyTo({ center: [activeConnection.position[0], activeConnection.position[1]], zoom: 14, duration: 550, essential: true });
+    if (activeConnection) mapRef.current?.flyTo({ center: [cardPosition[0], cardPosition[1]], zoom: 14, duration: 550, essential: true });
     metroButtonRef.current?.focus();
-  }, [activeConnection]);
+  }, [activeConnection, cardPosition]);
 
   const toggleMetroPanel = () => {
     if (metroPanelOpen) {
@@ -146,7 +141,10 @@ export function LocationExplorer() {
       <div ref={stageRef} className="location-stage">
       <div ref={mapContainerRef} className="location-map" aria-label="Map of Jutaku and nearby places">
         <Map ref={mapRef} className="location-map-canvas" theme="light" center={[SITE_COORDINATES.lng, SITE_COORDINATES.lat]} zoom={12.2} minZoom={10} maxZoom={18} attributionControl={{ compact: false }}>
-          {PLACES.map((item, index) => (category === "All" || item.category === "Home" || item.category === category) && (
+          {yellowAccess && <MapRoute id="metro-access-yellow" coordinates={yellowAccess.map((point) => [...point.position])} color={METRO_LINE_COLORS.Yellow} width={4} opacity={0.9} interactive={false} />}
+          {activeConnection?.line === "Purple" && <MapRoute id="metro-transfer-green" coordinates={METRO_GREEN_TRANSFER.map((point) => [...point.position])} color="#00804d" width={4} opacity={0.9} interactive={false} />}
+          {activeRoute && activeConnection && <MapRoute key={activeConnection.line} id={`metro-route-${activeConnection.line.toLowerCase()}`} coordinates={activeRoute.map((point) => [...point.position])} color={METRO_LINE_COLORS[activeConnection.line]} width={4} opacity={0.9} dashArray={activeConnection.line === "Pink" || activeConnection.line === "Blue" ? [2, 2] : undefined} interactive={false} />}
+          {PLACES.map((item, index) => (activeRoute ? index === 0 : category === "All" || item.category === "Home" || item.category === category) && (
             <MapMarker key={item.name} longitude={item.position[0]} latitude={item.position[1]}>
               <MarkerContent>
                 <button type="button" className={`location-pin${selected === index ? " is-active" : ""}${index === 0 ? " is-home" : ""}`} onClick={() => choose(index)} aria-label={`Show ${item.name}`} aria-pressed={selected === index}>
@@ -159,15 +157,15 @@ export function LocationExplorer() {
               </MarkerContent>
             </MapMarker>
           ))}
-          {activeConnection && (
-            <MapMarker key={activeConnection.line} longitude={activeConnection.position[0]} latitude={activeConnection.position[1]}>
+          {activeRoute?.map((point, index) => (
+            <MapMarker key={`${activeConnection?.line}-${point.name}`} longitude={point.position[0]} latitude={point.position[1]}>
               <MarkerContent>
-                <div className={`location-metro-pin is-${activeConnection.line.toLowerCase()}`} aria-label={activeConnection.station}>
-                  <span aria-hidden="true" />{activeConnection.station}
-                </div>
+                <button type="button" className={`location-route-pin is-${activeConnection?.line.toLowerCase()}${activeStation === index ? " is-selected" : ""}${activeConnection?.highlights.some((highlight) => highlight === point.name) ? " is-key" : ""}`} onClick={() => focusMetroStation(index)} aria-label={`Show ${point.name} ${activeConnection?.line} Line station on map`} aria-pressed={activeStation === index}>
+                  <span className="location-route-pin-dot" aria-hidden="true" /><span className="location-route-pin-label">{point.name}</span>
+                </button>
               </MarkerContent>
             </MapMarker>
-          )}
+          ))}
         </Map>
         <div className="location-controls" aria-label="Map controls">
           <button type="button" onClick={() => mapRef.current?.zoomIn({ duration: 450 })} aria-label="Zoom in"><Plus size={18} aria-hidden="true" /></button>
@@ -189,23 +187,37 @@ export function LocationExplorer() {
       </header>
 
       {metroPanelOpen && (
-        <aside id="metro-connectivity" className="location-metro-panel" aria-labelledby="location-metro-title">
+        <aside ref={metroPanelRef} id="metro-connectivity" className={`location-metro-panel${activeMetro !== null ? " is-route-active" : ""}`} aria-labelledby="location-metro-title">
           <div className="location-metro-panel-head">
             <div><span className="location-metro-kicker">Metro connectivity</span><h2 id="location-metro-title">From Jutaku to the city.</h2></div>
             <button type="button" className="location-metro-close" onClick={closeMetroPanel} aria-label="Close metro connections"><X size={19} aria-hidden="true" /></button>
           </div>
-          <p className="location-metro-panel-intro">Singasandra Metro is about {ROUTE[0].distance} away; Hosa Road Metro is about {ROUTE[1].distance}. Select a line to locate its station or interchange on the map.</p>
+          <p className="location-metro-panel-intro">Singasandra Metro is about {ROUTE[0].distance} away; Hosa Road Metro is about {ROUTE[1].distance}. Choose a line to see its connected stations on the map. Tap a stop to zoom in.</p>
           <div className="location-metro-panel-routes">
             {METRO_CONNECTIONS.map((connection, index) => (
-              <button key={connection.line} type="button" className={`location-metro-option is-${connection.line.toLowerCase()}${activeMetro === index ? " is-active" : ""}`} onClick={() => showMetroOnMap(index)} aria-pressed={activeMetro === index}>
-                <span className="location-metro-option-top"><span className="location-metro-line-mark" aria-hidden="true" /><strong>{connection.line} Line</strong><ArrowRight size={18} aria-hidden="true" /></span>
-                <span className="location-metro-option-status">{connection.status}</span>
-                <span className="location-metro-option-station">{activeMetro === index ? "Showing" : "Show"} {connection.station} on map</span>
-                {activeMetro === index && <span className="location-metro-option-detail"><span className="location-metro-steps">{connection.steps.map((step, stepIndex) => <span key={step}>{stepIndex > 0 && <ArrowRight size={13} aria-hidden="true" />}<b>{step}</b></span>)}</span><span>{connection.description}</span></span>}
-              </button>
+              <div key={connection.line} className={`location-metro-option is-${connection.line.toLowerCase()}${activeMetro === index ? " is-active" : ""}`}>
+                <button type="button" className="location-metro-option-trigger" onClick={() => showMetroOnMap(index)} aria-pressed={activeMetro === index} aria-expanded={activeMetro === index} aria-controls={`metro-route-${connection.line.toLowerCase()}`}>
+                  <span className="location-metro-option-top"><span className="location-metro-line-mark" aria-hidden="true" /><strong>{connection.line} Line</strong><small>{connection.stations.length} stations</small><ArrowRight size={18} aria-hidden="true" /></span>
+                  <span className="location-metro-option-status">{connection.status}</span>
+                  <span className="location-metro-option-station">{activeMetro === index ? "Showing" : "Show"} {connection.station} on map</span>
+                </button>
+                {activeMetro === index && <div id={`metro-route-${connection.line.toLowerCase()}`} className="location-metro-option-detail">
+                  <div className="location-metro-steps" aria-label={`${connection.line} Line connection via ${connection.steps.join(", then ")}`}>{connection.steps.map((step, stepIndex) => <span key={step}>{stepIndex > 0 && <ArrowRight size={13} aria-hidden="true" />}<b>{step}</b></span>)}</div>
+                  <p>{connection.description}</p>
+                  <h3>How the route works</h3>
+                  <ol className="location-metro-journey">{connection.journey.map((leg) => <li key={leg.title}><strong>{leg.title}</strong><span>{leg.detail}</span></li>)}</ol>
+                  <div className="location-metro-stations-heading"><h3>Station map</h3><span>{connection.stations.length} stops</span></div>
+                  <p className="location-metro-stations-direction">{connection.stationsLabel}. Tap any stop to find it on the map.</p>
+                  <div className="location-metro-route-diagram" aria-label={`${connection.line} Line station route diagram`}>
+                    <div className="location-metro-route-endpoint">{connection.stations[0]}</div>
+                    <ol className="location-metro-stations">{connection.stations.map((station, stationIndex) => <li key={station} className={`${connection.highlights.some((highlight) => highlight === station) ? "is-key" : ""}${activeStation === stationIndex ? " is-current" : ""}`}><button type="button" onClick={() => focusMetroStation(stationIndex)} aria-label={`Show ${station} on the map`} aria-current={activeStation === stationIndex ? "location" : undefined}><span className="location-metro-station-node" aria-hidden="true" /><span>{station}</span>{connection.highlights.some((highlight) => highlight === station) && <small>{station === "Singasandra" || station === "Hosa Road" ? "Near Jutaku" : "Connection"}</small>}</button></li>)}</ol>
+                    <div className="location-metro-route-endpoint is-end">{connection.stations[connection.stations.length - 1]}</div>
+                  </div>
+                </div>}
+              </div>
             ))}
           </div>
-          <p className="location-metro-panel-note">Distances are approximate straight-line measurements. Pink and Blue transfers depend on those lines and interchange facilities opening. <a href="https://english.bmrc.co.in/phase122A2Bmap/" target="_blank" rel="noopener noreferrer">BMRCL network plan <ArrowRight size={13} aria-hidden="true" /></a></p>
+          <p className="location-metro-panel-note">Map lines connect station points for orientation; they do not trace the exact tracks or walking route. Distances are straight-line estimates. Pink and Blue stations and transfers are planned and may change before opening. Station positions: OpenStreetMap contributors. <a href="https://english.bmrc.co.in/phase122A2Bmap/" target="_blank" rel="noopener noreferrer">BMRCL network plan <ArrowRight size={13} aria-hidden="true" /></a></p>
         </aside>
       )}
 
@@ -217,8 +229,8 @@ export function LocationExplorer() {
         </figure>
         <div className="location-card-copy" aria-live="polite">
           <span className="location-card-index">{activeConnection ? `${activeConnection.line} Line · ${activeConnection.status}` : selectedPlace.category === "Home" ? "Visit Jutaku" : selectedPlace.category}</span>
-          <h2>{activeConnection?.station ?? (selectedPlace.category === "Home" ? "See it for yourself." : selectedPlace.name)}</h2>
-          <p>{activeConnection ? activeConnection.description : selectedPlace.category === "Home" ? "On Manipal County Road beside India Oil Petrol Pump, Singasandra." : `${selectedPlace.distance} from Jutaku.`}</p>
+          <h2>{selectedMetroStation?.name ?? activeConnection?.station ?? (selectedPlace.category === "Home" ? "See it for yourself." : selectedPlace.name)}</h2>
+          <p>{activeConnection ? `${activeConnection.line} Line ${activeConnection.status === "In service" || activeConnection.status.startsWith("In service") ? "station" : "planned station"}. Select Get directions to view the location.` : selectedPlace.category === "Home" ? "On Manipal County Road beside India Oil Petrol Pump, Singasandra." : `${selectedPlace.distance} from Jutaku.`}</p>
           <div className="location-card-actions">
             <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> Get directions</a>
           </div>

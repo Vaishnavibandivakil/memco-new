@@ -13,8 +13,7 @@ const ROAD_X = [288, 1510];
 const DOTS: [number, number][] = [[490, 230], [684, 245], [1117, 232], [1301, 221]];
 const HOME: [number, number] = [900, 242];
 
-/* One horizontal project sequence. Desktop scroll drives the track; on phones the
-   same panels use native sideways scrolling so vertical page scrolling stays free. */
+/* The page scroll drives one horizontal project sequence on desktop and mobile. */
 export function Concept() {
   const root = useRef<HTMLElement>(null);
   useScene(root, ({ reduced, mobile }) => {
@@ -22,10 +21,16 @@ export function Concept() {
     const stops = q(".pl-stop") as HTMLElement[];
     const at = [...DOTS, HOME];
     stops.forEach((el, k) => { el.style.left = `${((at[k][0] - VB.x) / VB.w) * 100}%`; el.style.top = `${((at[k][1] - VB.y) / VB.h) * 100}%`; });
-    if (reduced || mobile) return;
-
     const track = q(".hz-track")[0] as HTMLElement;
     const dist = () => track.scrollWidth - window.innerWidth;
+    if (reduced) return;
+    if (mobile) {
+      gsap.to(track, {
+        x: () => -dist(), ease: "none",
+        scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${dist()}`, pin: true, scrub: 0.45, invalidateOnRefresh: true, anticipatePin: 1 },
+      });
+      return;
+    }
     const move = gsap.to(track, {
       x: () => -dist(), ease: "none",
       scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${dist()}`, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
@@ -112,7 +117,7 @@ export function Concept() {
           <div className="ds-body">
             <p className="lbl ds-kicker ds-fade">01 / Design</p>
             <h2 className="caps-serif ds-statement">Built around <span>real life</span></h2>
-            <p className="ds-intro ds-fade">Natural light, practical layouts and shared spaces give everyday life a little more room.</p>
+            <p className="ds-intro ds-fade">A private home for the quiet parts of your day, with work, fitness and open air just beyond the door.</p>
           </div>
           <figure className="ds-hero ds-fade">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -125,13 +130,13 @@ export function Concept() {
             <div className="dp-heading">
               <p className="lbl" data-hfade>02 / Our approach</p>
               <h2 className="caps-serif" data-hfade>Design principles</h2>
-              <p data-hfade>Each space has a job to do, from quiet mornings at home to time spent together.</p>
+              <p data-hfade>Jutaku pairs compact homes with useful places for work, movement, cooking and time together.</p>
             </div>
             <ol className="dp-list" aria-label="Design principles">
-              <li data-hfade><span>01</span><div><h3>Useful by design</h3><p>Rooms made for the things you do every day.</p></div></li>
-              <li data-hfade><span>02</span><div><h3>Room to move</h3><p>Simple layouts that make good use of every metre.</p></div></li>
-              <li data-hfade><span>03</span><div><h3>Places to pause</h3><p>Comfortable corners to meet, sit or take a break.</p></div></li>
-              <li data-hfade><span>04</span><div><h3>More under one roof</h3><p>Space for work, exercise and time with neighbours.</p></div></li>
+              <li data-hfade><span>01</span><div><h3>Space that earns its place</h3><p>Home layouts planned around the way a day actually works.</p></div></li>
+              <li data-hfade><span>02</span><div><h3>Light and flow</h3><p>Functional rooms that feel open and easy to use.</p></div></li>
+              <li data-hfade><span>03</span><div><h3>Room to recharge</h3><p>From the wellness hub to landscaped walking paths.</p></div></li>
+              <li data-hfade><span>04</span><div><h3>People and possibility</h3><p>Studios, dining rooms and courts bring neighbours together.</p></div></li>
             </ol>
           </div>
           <figure className="dp-photo">
@@ -147,7 +152,7 @@ export function Concept() {
               <span className="cc-line-mask"><span className="cc-line">A smarter way</span></span>
               <span className="cc-line-mask"><span className="cc-line">to own space.</span></span>
             </h2>
-            <p className="cc-intro" data-hfade>Your own place, with room to work, meet and unwind close by.</p>
+            <p className="cc-intro" data-hfade>Own a place of your own and make use of the much larger community around it.</p>
           </div>
           <figure className="cc-hero">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -159,12 +164,12 @@ export function Concept() {
           <div className="cp-content">
             <div className="cp-heading">
               <p className="lbl" data-hfade>04 / What this means</p>
-              <h2 className="caps-serif" data-hfade>More room for every day</h2>
+              <h2 className="caps-serif" data-hfade>Your home is just the beginning</h2>
             </div>
             <div className="cc-points">
-              <article data-hfade><span>01</span><div><h3>A place of your own</h3><p>Private space to settle in and make yours.</p></div></article>
-              <article data-hfade><span>02</span><div><h3>Shared space nearby</h3><p>50,000 sq ft of places to use beyond your front door.</p></div></article>
-              <article data-hfade><span>03</span><div><h3>Easy to spend time together</h3><p>Meet, work or take a break without a long trip.</p></div></article>
+              <article data-hfade><span>01</span><div><h3>Your own front door</h3><p>About 500 sq ft of private space for your daily routine.</p></div></article>
+              <article data-hfade><span>02</span><div><h3>50,000 sq ft beyond it</h3><p>Swim, train, create, cook or sit among the trees.</p></div></article>
+              <article data-hfade><span>03</span><div><h3>More reasons to stay</h3><p>Make plans with neighbours without planning a journey.</p></div></article>
             </div>
           </div>
         </div>

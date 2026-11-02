@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import Lenis from "lenis";
-import { gsap, ScrollTrigger, scrollMobileProjectPanel } from "@/lib/motion";
+import { gsap, ScrollTrigger, mobileProjectScrollTarget } from "@/lib/motion";
 
 /* Lenis on window, driven by the GSAP ticker so ScrollTrigger and smooth scroll share one clock. */
 export function SmoothScroll() {
@@ -43,10 +43,10 @@ export function SmoothScroll() {
         frame = window.requestAnimationFrame(() => {
           const target = document.getElementById(id);
           if (!target) return;
-          const mobileProject = scrollMobileProjectPanel(target, true);
-          if (mobileProject) {
-            if (window.__lenis) window.__lenis.scrollTo(mobileProject, { immediate: true });
-            else mobileProject.scrollIntoView({ behavior: "auto", block: "start" });
+          const mobileProjectTop = mobileProjectScrollTarget(target);
+          if (mobileProjectTop !== null) {
+            if (window.__lenis) window.__lenis.scrollTo(mobileProjectTop, { immediate: true });
+            else window.scrollTo(0, mobileProjectTop);
             return;
           }
           if (id === "location") {

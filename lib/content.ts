@@ -1,5 +1,4 @@
-/* Section copy for the editorial build. Every sentence is MEMCO's own (memcoskyline.com, via lib/data.ts
-   and the previous build); only the layout around it is new. */
+/* Project facts follow memcoskyline.com; editorial copy is written for this site. */
 
 export const HOTSPOTS = [
   { id: "roof", x: 27, y: 10, mobileX: 50, mobileY: 43, title: "Skyline Aqua Lounge", body: "A 56 ft pool on level 22. Open 24 hours.", photo: "/images/rooftop-pool.jpg" },
@@ -11,33 +10,33 @@ export const REASONS = [
   {
     title: "Everything within reach",
     photo: "/images/balcony-exterior.webp",
-    body: "Singasandra and Hosa Road Metro are close to home, with Electronic City to the south-east.",
+    body: "On Manipal County Road, with Singasandra and Hosa Road Metro nearby. Work, daily errands and the rest of Bengaluru are easier to reach.",
     tag: "Singasandra, South Bengaluru",
   },
   {
     title: "Own 500. Experience 50,000",
     photo: "/images/rooftop-court.jpg",
-    body: "A new way of living where your private space connects to a much larger ecosystem. 50,000 sq ft of professionally managed spaces, shared by 646 homes.",
-    tag: "Less space, more possibility",
+    body: "Keep your own place, then step out to a pool, sports deck, studios, dining spaces and gardens. Around 50,000 sq ft of shared space serves 646 homes.",
+    tag: "Private home · Shared spaces",
   },
   {
     title: "Zero trees lost",
     photo: "/images/design-trees.webp",
-    body: "348 trees surveyed. 115 stood in the construction path. Every one transplanted, zero lost.",
+    body: "Of 348 trees surveyed, 115 stood in the construction path and were transplanted. Serenity Park adds 12,000 sq ft of space to walk, sit and slow down.",
     tag: "Serenity Park · 12,000 sq ft",
   },
 ];
 
 export const AMENITY_SLIDES = [
-  { name: "Skyline Aqua Lounge", label: "Level 22 · 2,600 sq ft", body: "Rooftop pool with panoramic skyline views. 56 ft length, 24/7 access.", photo: "/images/amenity-pool.jpg" },
-  { name: "Skyline Sports Deck", label: "Rooftop · 18,800 sq ft", body: "Rooftop multi-sport facilities. Pickleball, box cricket and squash.", photo: "/images/rooftop-futsal.jpg" },
-  { name: "Indoor Games", label: "Sports & leisure", body: "Table tennis and places to play and spend time together.", photo: "/images/amenity-indoor-sports.jpg" },
-  { name: "Wellness Hub", label: "Podium · 12,800 sq ft", body: "Yoga, Pilates and fitness spaces for everyday wellbeing.", photo: "/images/amenity-yoga.jpg" },
-  { name: "Recovery Zone", label: "Wellness & recovery", body: "A quiet space to slow down and recharge within the Hub.", photo: "/images/amenity-recovery.jpg" },
-  { name: "Culinary Studios", label: "6,000 sq ft", body: "Shared kitchen and dining spaces. Community kitchen and private dining.", photo: "/images/amenity-culinary.jpg" },
-  { name: "Rooftop BBQ Lounge", label: "Open-air social space", body: "Outdoor dining and barbecue seating above the city.", photo: "/images/amenity-rooftop-dining.jpg" },
-  { name: "Creator Studios", label: "Clubrooms · 4,000 sq ft", body: "Podcasting room, DJ studios, co-working and community dining.", photo: "/images/amenity-creator-studio.jpg" },
-  { name: "Experience Arena", label: "2,800 sq ft", body: "AV-enabled events and screenings. Events, concerts and movie nights.", photo: "/images/experience-arena.webp" },
+  { name: "Skyline Aqua Lounge", label: "Level 22 · 2,600 sq ft", body: "Swim before work or after dark in the planned 56 ft rooftop pool, with access around the clock.", photo: "/images/amenity-pool.jpg" },
+  { name: "Skyline Sports Deck", label: "Rooftop · 18,800 sq ft", body: "Make room for a game of pickleball, box cricket or squash without leaving the community.", photo: "/images/rooftop-futsal.jpg" },
+  { name: "Indoor Games", label: "Sports & leisure", body: "An easy place to meet for table tennis and a little friendly competition.", photo: "/images/amenity-indoor-sports.jpg" },
+  { name: "Wellness Hub", label: "Podium · 12,800 sq ft", body: "A gym, Pilates studio and fitness classes give every kind of routine a place here.", photo: "/images/amenity-yoga.jpg" },
+  { name: "Recovery Zone", label: "Wellness & recovery", body: "After a busy day or a hard session, take time to rest in the Hub's recovery spaces.", photo: "/images/amenity-recovery.jpg" },
+  { name: "Culinary Studios", label: "6,000 sq ft", body: "Cook with neighbours in the community kitchen, or gather around a table in the private dining rooms.", photo: "/images/amenity-culinary.jpg" },
+  { name: "Rooftop BBQ Lounge", label: "Open-air social space", body: "Dinner can move outdoors, with barbecue seating and a view across the city.", photo: "/images/amenity-rooftop-dining.jpg" },
+  { name: "Creator Studios", label: "Clubrooms · 4,000 sq ft", body: "Settle in to work, record a podcast or use the DJ studio, all within the shared clubrooms.", photo: "/images/amenity-creator-studio.jpg" },
+  { name: "Experience Arena", label: "2,800 sq ft", body: "A dedicated space for film nights, performances and community events.", photo: "/images/experience-arena.webp" },
 ];
 
 export const PRICE = "₹68.5 Lakhs*";
