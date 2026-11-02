@@ -63,6 +63,8 @@ export function ChatAssistant() {
   const [launcherVisible, setLauncherVisible] = useState(false);
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const [sending, setSending] = useState(false);
+  const [answerMode, setAnswerMode] = useState<"ai" | "curated" | null>(null);
   const [listening, setListening] = useState(false);
   const [speechStatus, setSpeechStatus] = useState("");
   const nextId = useRef(1);
@@ -71,20 +73,27 @@ export function ChatAssistant() {
   const launcher = useRef<HTMLButtonElement>(null);
   const transcript = useRef<HTMLDivElement>(null);
   const hasOpened = useRef(false);
+  const pending = useRef(false);
+  const chatRequest = useRef<AbortController | null>(null);
   const isWelcome = messages.length === 0;
 
   const closeChat = useCallback(() => {
+    chatRequest.current?.abort();
+    chatRequest.current = null;
+    pending.current = false;
     speech.current?.abort();
     speech.current = null;
     setOpen(false);
     setDraft("");
     setMessages([]);
+    setSending(false);
+    setAnswerMode(null);
     setListening(false);
     setSpeechStatus("");
     nextId.current = 1;
   }, []);
 
-  useEffect(() => () => { speech.current?.abort(); }, []);
+  useEffect(() => () => { speech.current?.abort(); chatRequest.current?.abort(); }, []);
 
   useEffect(() => {
     if (pathname === "/location") {
@@ -139,17 +148,42 @@ export function ChatAssistant() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open, closeChat]);
 
-  function send(question: string) {
+  async function send(question: string) {
     const text = question.trim();
-    if (!text) return;
-    const reply = answerChat(text);
-    setMessages((current) => [
-      ...current,
-      { id: nextId.current++, role: "visitor", text },
-      { id: nextId.current++, role: "assistant", text: reply.text, details: reply.details, sections: reply.sections, action: reply.action },
-    ]);
+    if (!text || pending.current) return;
+    pending.current = true;
+    setSending(true);
+    const history = messages.slice(-8).map(({ role, text: content }) => ({ role: role === "visitor" ? "user" : "assistant", content }));
+    setMessages((current) => [...current, { id: nextId.current++, role: "visitor", text }]);
     setDraft("");
     input.current?.focus();
+    const controller = new AbortController();
+    chatRequest.current = controller;
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: [...history, { role: "user", content: text }] }),
+        signal: controller.signal,
+      });
+      if (!response.ok) throw new Error("Chat request failed");
+      const result = await response.json() as { reply: ChatReply; mode: "ai" | "curated" };
+      if (controller.signal.aborted || typeof result.reply?.text !== "string") return;
+      const reply = result.reply;
+      setAnswerMode(result.mode);
+      setMessages((current) => [...current, { id: nextId.current++, role: "assistant", text: reply.text, details: reply.details, sections: reply.sections, action: reply.action }]);
+    } catch {
+      if (controller.signal.aborted) return;
+      const reply = answerChat(text);
+      setAnswerMode("curated");
+      setMessages((current) => [...current, { id: nextId.current++, role: "assistant", text: reply.text, details: reply.details, sections: reply.sections, action: reply.action }]);
+    } finally {
+      if (!controller.signal.aborted) {
+        pending.current = false;
+        chatRequest.current = null;
+        setSending(false);
+      }
+    }
   }
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -213,9 +247,9 @@ export function ChatAssistant() {
   return (
     <div className="chat-root">
       {open && (
-        <section className={`chat-panel${isWelcome ? " is-welcome" : " is-conversation"}`} id="jutaku-chat-panel" role="dialog" aria-modal="false" aria-label="Jutaku sales chat" data-lenis-prevent>
+        <section className={`chat-panel${isWelcome ? " is-welcome" : " is-conversation"}`} id="jutaku-chat-panel" role="dialog" aria-modal="false" aria-label="Jutaku assistant" data-lenis-prevent>
           <header className="chat-head">
-            <div className="chat-identity"><strong>Sales chat</strong><span>Jutaku</span></div>
+            <div className="chat-identity"><strong>Jutaku assistant</strong><span>{answerMode === "ai" ? "AI guide" : "Website guide"}</span></div>
             <button type="button" className="chat-close" onClick={closeChat} aria-label="Close chat"><X size={18} strokeWidth={1.6} /></button>
           </header>
 
@@ -259,6 +293,7 @@ export function ChatAssistant() {
                   </div>
                 </div>
               ))}
+              {sending && <div className="chat-message is-assistant"><div className="chat-message-content"><p role="status">Thinking…</p></div></div>}
             </div>
           )}
 
@@ -272,14 +307,14 @@ export function ChatAssistant() {
               <label className="sr-only" htmlFor="jutaku-chat-input">Your question</label>
               <input ref={input} id="jutaku-chat-input" value={draft} onChange={(event) => setDraft(event.target.value)} maxLength={300} placeholder="Ask about Jutaku…" autoComplete="off" />
               <button type="button" className={`chat-mic${listening ? " is-listening" : ""}`} onClick={toggleMicrophone} aria-label={listening ? "Stop listening" : "Speak your question"} aria-pressed={listening} title={listening ? "Stop listening" : "Speak your question"}><Mic size={17} strokeWidth={1.8} /></button>
-              <button type="submit" aria-label="Send question" disabled={!draft.trim()}><ArrowUp size={18} strokeWidth={1.8} /></button>
+              <button type="submit" aria-label="Send question" disabled={!draft.trim() || sending}><ArrowUp size={18} strokeWidth={1.8} /></button>
             </form>
-            {speechStatus ? <p className="chat-voice-status" role="status">{speechStatus}</p> : <p className="chat-note">For current availability and prices, please confirm with the team.</p>}
+            {speechStatus ? <p className="chat-voice-status" role="status">{speechStatus}</p> : <p className="chat-note">AI answers can be incomplete. Don’t share private details; confirm prices with the team.</p>}
           </div>
         </section>
       )}
       {launcherVisible && (
-        <button ref={launcher} type="button" className={`chat-launcher${open ? " is-open" : ""}`} onClick={() => open ? closeChat() : setOpen(true)} aria-expanded={open} aria-controls="jutaku-chat-panel" aria-label={open ? "Close chat" : "Open sales chat"}>
+        <button ref={launcher} type="button" className={`chat-launcher${open ? " is-open" : ""}`} onClick={() => open ? closeChat() : setOpen(true)} aria-expanded={open} aria-controls="jutaku-chat-panel" aria-label={open ? "Close chat" : "Open Jutaku assistant"}>
           {open ? <X size={22} strokeWidth={2} aria-hidden="true" /> : <MessageCircle size={25} strokeWidth={2} aria-hidden="true" />}
         </button>
       )}
