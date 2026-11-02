@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowUp, ArrowUpRight, Coins, Grid2X2, House, Layers, MapPin, MessageCircle, Mic, Train, TrendingUp, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { answerChat, type ChatReply } from "@/lib/chat";
+import type { ChatReply } from "@/lib/chat";
 
 type Message = {
   id: number;
@@ -174,7 +174,7 @@ export function ChatAssistant() {
       setMessages((current) => [...current, { id: nextId.current++, role: "assistant", text: reply.text, details: reply.details, sections: reply.sections, action: reply.action }]);
     } catch {
       if (controller.signal.aborted) return;
-      const reply = answerChat("unrelated question");
+      const reply: ChatReply = { topic: "other", text: "I’m having trouble answering right now. Please try again in a moment." };
       setAnswerMode("curated");
       setMessages((current) => [...current, { id: nextId.current++, role: "assistant", text: reply.text, details: reply.details, sections: reply.sections, action: reply.action }]);
     } finally {
@@ -263,7 +263,7 @@ export function ChatAssistant() {
                   ))}
                 </div>
               </div>
-              <div className="chat-welcome-copy"><p>Welcome to Jutaku</p><h2>How can I help you?</h2><span>Explore the homes, the neighbourhood, and life here.</span></div>
+              <div className="chat-welcome-copy"><p>Welcome to Jutaku</p><h2>How can I help you?</h2><span>Ask about MEMCO, Jutaku and life here.</span></div>
             </div>
           ) : (
             <div className="chat-transcript" ref={transcript} role="log" aria-live="polite" aria-relevant="additions text">
