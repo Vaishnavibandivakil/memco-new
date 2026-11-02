@@ -12,6 +12,7 @@ import {
 import pLimit from "p-limit";
 import type * as GeoJSON from "geojson";
 import poidata from "@/data/poi.json";
+import { SITE_COORDINATES } from "@/lib/data";
 import { Map as MapView,
   MapMarker,
   MarkerContent,
@@ -99,8 +100,7 @@ type MapDisplayMode = "normal" | "carto" | "3d";
 
 const centerPlace = {
   name: "MEMCO Skyline",
-  lng: 77.6407185246645,
-  lat: 12.874382129106094,
+  ...SITE_COORDINATES,
 };
 
 const pois : Poi[] = poidata as Poi[];

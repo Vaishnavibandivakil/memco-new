@@ -2,17 +2,17 @@
    and the previous build); only the layout around it is new. */
 
 export const HOTSPOTS = [
-  { id: "roof", x: 52, y: 13, title: "Skyline Aqua Lounge", body: "A 56 ft pool on level 22. Open 24 hours.", photo: "/images/rooftop-pool.jpg" },
-  { id: "homes", x: 45, y: 42, title: "Urban Units · 646", body: "Private homes of about 500 sq ft each, opening onto 50,000 sq ft you share with your neighbours.", photo: "/images/interior-bedroom.jpg" },
-  { id: "park", x: 24, y: 80, title: "Serenity Park", body: "12,000 sq ft of park inside the compound, with walking trails, garden spaces and meditation zones.", photo: "/images/walking-trails.jpg" },
+  { id: "roof", x: 27, y: 10, mobileX: 50, mobileY: 43, title: "Skyline Aqua Lounge", body: "A 56 ft pool on level 22. Open 24 hours.", photo: "/images/rooftop-pool.jpg" },
+  { id: "homes", x: 29, y: 39, mobileX: 51, mobileY: 58, title: "Urban Units · 646", body: "Private homes of about 500 sq ft each, opening onto 50,000 sq ft you share with your neighbours.", photo: "/images/interior-bedroom.jpg" },
+  { id: "park", x: 24, y: 80, mobileX: 50, mobileY: 73, title: "Serenity Park", body: "12,000 sq ft of park inside the compound, with walking trails, garden spaces and meditation zones.", photo: "/images/walking-trails.jpg" },
 ];
 
 export const REASONS = [
   {
     title: "Everything within reach",
     photo: "/images/balcony-exterior.webp",
-    body: "Singasandra Metro is 600 m away, Hosa Road Metro 1.2 km, Electronic City 3 km.",
-    tag: "Begur, South Bengaluru",
+    body: "Singasandra and Hosa Road Metro are close to home, with Electronic City to the south-east.",
+    tag: "Singasandra, South Bengaluru",
   },
   {
     title: "Own 500. Experience 50,000",
@@ -38,13 +38,6 @@ export const AMENITY_SLIDES = [
   { name: "Rooftop BBQ Lounge", label: "Open-air social space", body: "Outdoor dining and barbecue seating above the city.", photo: "/images/amenity-rooftop-dining.jpg" },
   { name: "Creator Studios", label: "Clubrooms · 4,000 sq ft", body: "Podcasting room, DJ studios, co-working and community dining.", photo: "/images/amenity-creator-studio.jpg" },
   { name: "Experience Arena", label: "2,800 sq ft", body: "AV-enabled events and screenings. Events, concerts and movie nights.", photo: "/images/experience-arena.webp" },
-];
-
-export const ROUTE = [
-  { name: "Singasandra Metro", dist: "0.6 km" },
-  { name: "Hosa Road Metro", dist: "1.2 km" },
-  { name: "Electronic City", dist: "3 km" },
-  { name: "MG Road", dist: "12 km" },
 ];
 
 export const PRICE = "₹68.5 Lakhs*";

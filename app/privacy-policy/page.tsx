@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const sections = [
   {
     title: "Who we are",
-    paragraphs: ["This website presents MEMCO Skyline and Jutaku in Begur, Bengaluru. MEMCO Skyline is the point of contact for questions about this website and enquiries submitted through it."],
+    paragraphs: ["This website presents MEMCO Skyline and Jutaku in Singasandra, Bengaluru. MEMCO Skyline is the point of contact for questions about this website and enquiries submitted through it."],
   },
   {
     title: "Information you choose to share",

@@ -28,7 +28,7 @@ export function LegalPage({ title, introduction, sections, relatedHref, relatedL
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/jutaku.png" alt="Jutaku" />
         </Link>
-        <p className="legal-scene-caption lbl">Jutaku · Begur, South Bengaluru</p>
+        <p className="legal-scene-caption lbl">Jutaku · Singasandra, South Bengaluru</p>
       </aside>
 
       <div className="legal-main">

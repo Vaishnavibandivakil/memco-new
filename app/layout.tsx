@@ -9,8 +9,8 @@ import "./globals.css";
 const sans = localFont({ src: "./fonts/montserrat-var.woff2", weight: "300 800", variable: "--font-sans", display: "swap", fallback: ["Arial", "Helvetica", "sans-serif"] });
 
 export const metadata: Metadata = {
-  title: "MEMCO Skyline · Jutaku, Begur, South Bengaluru",
-  description: "Own 500 sq.ft. Experience 50,000 sq.ft. 646 private spaces between Singasandra and Hosa Road Metro, Begur, South Bengaluru.",
+  title: "MEMCO Skyline · Jutaku, Singasandra, South Bengaluru",
+  description: "Own 500 sq.ft. Experience 50,000 sq.ft. 646 private spaces on Manipal County Road in Singasandra, South Bengaluru.",
 };
 export const viewport: Viewport = { themeColor: "#006e42", width: "device-width", initialScale: 1 };
 

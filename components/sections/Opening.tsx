@@ -34,7 +34,7 @@ export function Opening() {
                 <img src="/images/jutaku-exterior-hero.webp" alt="Jutaku residential tower and experience centre in daylight" fetchPriority="high" />
                 <div className={`spots${spotsOn ? " is-on" : ""}`}>
                   {HOTSPOTS.map((h, i) => (
-                    <div key={h.id} data-spot={h.id} className={`spot${spot === h.id ? " is-open" : ""}${h.x > 55 ? " flip" : ""}`} style={{ left: `${h.x}%`, top: `${h.y}%`, ["--i" as string]: i }}
+                    <div key={h.id} data-spot={h.id} className={`spot${spot === h.id ? " is-open" : ""}${h.x > 55 ? " flip" : ""}`} style={{ ["--spot-x" as string]: `${h.x}%`, ["--spot-y" as string]: `${h.y}%`, ["--spot-mobile-x" as string]: `${h.mobileX}%`, ["--spot-mobile-y" as string]: `${h.mobileY}%`, ["--i" as string]: i }}
                       onMouseEnter={() => setSpot(h.id)} onMouseLeave={() => setSpot(null)}>
                       <button type="button" className="spot-dot" aria-expanded={spot === h.id} aria-label={h.title}
                         onClick={() => setSpot(spot === h.id ? null : h.id)} onFocus={() => setSpot(h.id)} onBlur={() => setSpot(null)}>
@@ -70,7 +70,7 @@ export function Opening() {
           </h1>
           <div className="op-row">
             <span className="caps-serif">The luxury</span>
-            <span className="lbl">Begur <i>·</i> South Bengaluru</span>
+            <span className="lbl">Singasandra <i>·</i> South Bengaluru</span>
             <span className="caps-serif">of coming home</span>
           </div>
         </div>
@@ -148,7 +148,7 @@ function Reasons() {
       </div>
       <div className="rs-body">
         <div className="rs-emblem" data-fade>
-          <span className="lbl">Begur</span><span className="mark" /><span className="lbl">Bengaluru</span>
+          <span className="lbl">Singasandra</span><span className="mark" /><span className="lbl">Bengaluru</span>
         </div>
         <i className="rs-line" aria-hidden />
         <p className="lbl rs-kicker" data-fade>The luxury of coming home<br /><span className="dim">Own 500 · Experience 50,000</span></p>

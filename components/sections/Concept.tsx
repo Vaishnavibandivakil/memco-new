@@ -3,28 +3,26 @@ import { useRef } from "react";
 import SplitType from "split-type";
 import { Chars } from "@/components/Chars";
 import { gsap, ScrollTrigger, useScene, charsIn } from "@/lib/motion";
-import { ROUTE } from "@/lib/content";
+import { ROUTE } from "@/lib/nearby-route";
 import { openHomes } from "@/components/sections/Homes";
 
-/* The coast road, traced point for point from the ERA reel (01:01): a calligraphic stroke that sweeps up
-   from the lower left, folds back on itself three times (switchbacks), runs a soft wave through the middle,
-   drops into one deep dip and trails off. Coordinates are the reel frame's own pixels (viewBox below). */
+/* Decorative road path retained from the original location panel. */
 const VB = { x: 280, y: 150, w: 1240, h: 180 };
 const ROAD = "M288,318 C360,305 460,285 505,265 C520,258 505,252 490,249 C500,244 560,244 610,245 C640,246 650,256 634,264 C640,270 690,266 730,262 C780,257 815,252 835,258 C842,264 820,270 816,273 C860,276 900,268 960,270 C1010,273 1060,276 1100,262 C1120,254 1135,258 1160,274 C1190,293 1215,313 1238,308 C1258,302 1256,270 1275,252 C1295,240 1350,244 1400,249 C1440,253 1480,260 1510,265";
 const ROAD_X = [288, 1510];
-/* dots float just above the road, as in the reel; ROUTE order, then the MEMCO mark in the middle */
 const DOTS: [number, number][] = [[490, 230], [684, 245], [1117, 232], [1301, 221]];
 const HOME: [number, number] = [900, 242];
 
-
-/* One horizontal project sequence: Design → Concept → location → connectivity.
-   Vertical scroll drives the track; each block plays its own timed reveal as it slides into view.
-   Type always sits above the photographs. */
+/* One horizontal project sequence. Desktop scroll drives the track; on phones the
+   same panels use native sideways scrolling so vertical page scrolling stays free. */
 export function Concept() {
   const root = useRef<HTMLElement>(null);
   useScene(root, ({ reduced, mobile }) => {
     const q = gsap.utils.selector(root);
-    if (reduced) return;
+    const stops = q(".pl-stop") as HTMLElement[];
+    const at = [...DOTS, HOME];
+    stops.forEach((el, k) => { el.style.left = `${((at[k][0] - VB.x) / VB.w) * 100}%`; el.style.top = `${((at[k][1] - VB.y) / VB.h) * 100}%`; });
+    if (reduced || mobile) return;
 
     const track = q(".hz-track")[0] as HTMLElement;
     const dist = () => track.scrollWidth - window.innerWidth;
@@ -83,19 +81,12 @@ export function Concept() {
     /* the photo opens as it slides in */
     gsap.fromTo(q(".gm-pic"), { clipPath: "inset(0% 0% 0% 100%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: q(".gm-pic")[0], containerAnimation: move, start: "left 100%", end: "left 45%", scrub: true } });
     gsap.fromTo(q(".gm-pic img"), { xPercent: 12, scale: 1.15 }, { xPercent: -6, scale: 1.05, ease: "none", scrollTrigger: { trigger: q(".gm-pic")[0], containerAnimation: move, start: "left 100%", end: "right 0%", scrub: true } });
-    /* stops are placed from the traced coordinates; each lights up as the drawn line reaches it */
     const path = q(".pl-road")[0];
-    const stops = q(".pl-stop") as HTMLElement[];
-    const at = [...DOTS, HOME];
-    stops.forEach((el, k) => { el.style.left = `${((at[k][0] - VB.x) / VB.w) * 100}%`; el.style.top = `${((at[k][1] - VB.y) / VB.h) * 100}%`; });
-    const reach = at.map(([x]) => (x - ROAD_X[0]) / (ROAD_X[1] - ROAD_X[0]));
-    /* animated, not scrubbed: when the panel is on screen the pen draws the whole road in one timed stroke,
-       lighting each stop as it passes; a soft highlight then keeps travelling along the line.
-       Leaving back to the left resets it so it draws again next time. */
     const glow = q(".pl-glow")[0];
+    const reach = at.map(([x]) => (x - ROAD_X[0]) / (ROAD_X[1] - ROAD_X[0]));
     const drawn = { p: 0 };
     const paint = () => {
-      (path as HTMLElement).style.strokeDashoffset = String(1 - drawn.p); // raw: GSAP would round these fractional units
+      (path as HTMLElement).style.strokeDashoffset = String(1 - drawn.p);
       stops.forEach((el, k) => el.classList.toggle("is-on", drawn.p >= reach[k] - 0.03));
     };
     const draw = gsap.timeline({ paused: true })
@@ -111,12 +102,11 @@ export function Concept() {
       onLeave: () => flow.pause(),
       onLeaveBack: () => { draw.pause(0); drawn.p = 0; paint(); flow.pause(); },
     });
-    if (mobile) ScrollTrigger.refresh();
     return () => s.revert();
   });
 
   return (
-    <section id="project" ref={root} className="hz" data-tone="light" data-own-reveals>
+    <section id="project" ref={root} className="hz" data-tone="light" data-own-reveals tabIndex={0} aria-label="Project, swipe sideways to explore sections">
       <div className="hz-track">
         <div id="design" className="hz-panel ds">
           <div className="ds-body">
@@ -179,11 +169,42 @@ export function Concept() {
           </div>
         </div>
 
-        {/* the place */}
+        {/* Original location road artwork, with distances and bearings checked against the project pin. */}
+        <div id="location" className="hz-panel rc">
+          <h2 className="disp rc-title">
+            <span data-hchars><Chars text="EVERYTHING" /></span>
+            <span className="script" data-hfade data-delay="0.5">within</span>
+            <span data-hchars data-delay="0.2"><Chars text="REACH" /></span>
+          </h2>
+          <div className="pl-maprow">
+            <svg className="pl-map" viewBox={`${VB.x} ${VB.y} ${VB.w} ${VB.h}`} aria-hidden="true">
+              <defs>
+                <linearGradient id="road-taper" gradientUnits="userSpaceOnUse" x1={ROAD_X[0]} x2={ROAD_X[1]} y1="0" y2="0">
+                  <stop offset="0" stopColor="#fff" stopOpacity="0.1" /><stop offset="0.07" stopColor="#fff" />
+                  <stop offset="0.93" stopColor="#fff" /><stop offset="1" stopColor="#fff" stopOpacity="0.05" />
+                </linearGradient>
+                <mask id="road-mask" maskUnits="userSpaceOnUse" x={VB.x} y={VB.y} width={VB.w} height={VB.h}><rect x={VB.x} y={VB.y} width={VB.w} height={VB.h} fill="url(#road-taper)" /></mask>
+              </defs>
+              <path className="pl-road" d={ROAD} pathLength={1} mask="url(#road-mask)" />
+              <path className="pl-glow" d={ROAD} pathLength={1} mask="url(#road-mask)" />
+            </svg>
+            <ol className="pl-stops">
+              {ROUTE.map((r) => (
+                <li key={r.name} className="pl-stop">
+                  <span className="pl-lab"><b>{r.name}</b><span>≈{r.distance} · {r.direction}</span></span><i />
+                </li>
+              ))}
+              <li className="pl-stop pl-home" aria-label="MEMCO Skyline"><span className="pl-lab"><span className="mark" /></span><i /></li>
+            </ol>
+          </div>
+          <a className="rc-directions" href="/location" aria-label="Explore Jutaku's location">Explore the location</a>
+        </div>
+
+        {/* The place follows the nearby-stations graphic. */}
         <div className="hz-panel gm">
           <span className="gm-country lbl" data-hfade>I n d i a</span>
-          <h2 className="gm-words disp" aria-label="Begur, South Bengaluru">
-            <span className="gm-w1" data-hchars><Chars text="BEGUR," /></span>
+          <h2 className="gm-words disp" aria-label="Singasandra, South Bengaluru">
+            <span className="gm-w1" data-hchars><Chars text="SINGASANDRA," /></span>
             <span className="gm-w2" data-hchars data-delay="0.15"><Chars text="SOUTH" /></span>
             <span className="gm-w3" data-hchars data-delay="0.3"><Chars text="BENGALURU" /></span>
           </h2>
@@ -192,46 +213,13 @@ export function Concept() {
             <img src="/images/intro/rooftop.webp" alt="Jutaku rooftop social space" loading="lazy" />
           </figure>
           <div className="gm-side">
-            <h3 className="caps-serif" data-hfade>Between Singasandra and Hosa Road</h3>
-            <p data-hfade data-delay="0.1">Singasandra Metro is 600 m away, Hosa Road Metro 1.2 km, Electronic City 3 km. Off NH7 on Manipal County Road.</p>
+            <h3 className="caps-serif" data-hfade>The metro, close to home</h3>
+            <p data-hfade data-delay="0.1">Singasandra Metro is about {ROUTE[0].distance} away, Hosa Road Metro about {ROUTE[1].distance}, and Electronic City Metro about {ROUTE[2].distance}. These are straight-line distances from Jutaku on Manipal County Road.</p>
           </div>
           <button type="button" className="round gm-view" data-hfade onClick={() => openHomes()}>
             <svg viewBox="0 0 100 100" aria-hidden><circle cx="50" cy="50" r="48" /></svg>
             <span className="lbl">View available<br />homes</span>
           </button>
-        </div>
-
-        {/* the road */}
-        <div id="location" className="hz-panel rc">
-          <h2 className="disp rc-title">
-            <span data-hchars><Chars text="EVERYTHING" /></span>
-            <span className="script" data-hfade data-delay="0.5">within</span>
-            <span data-hchars data-delay="0.2"><Chars text="REACH" /></span>
-          </h2>
-          <div className="pl-maprow">
-            <svg className="pl-map" viewBox={`${VB.x} ${VB.y} ${VB.w} ${VB.h}`} role="img" aria-label="Distances from MEMCO Skyline">
-              <defs>
-                {/* brush taper: the stroke thins out at both ends */}
-                <linearGradient id="road-taper" gradientUnits="userSpaceOnUse" x1={ROAD_X[0]} x2={ROAD_X[1]} y1="0" y2="0">
-                  <stop offset="0" stopColor="#fff" stopOpacity="0.1" /><stop offset="0.07" stopColor="#fff" />
-                  <stop offset="0.93" stopColor="#fff" /><stop offset="1" stopColor="#fff" stopOpacity="0.05" />
-                </linearGradient>
-                <mask id="road-mask" maskUnits="userSpaceOnUse" x={VB.x} y={VB.y} width={VB.w} height={VB.h}><rect x={VB.x} y={VB.y} width={VB.w} height={VB.h} fill="url(#road-taper)" /></mask>
-              </defs>
-              <path className="pl-road" d={ROAD} pathLength={1} mask="url(#road-mask)" />
-              {/* light travelling along the drawn road */}
-              <path className="pl-glow" d={ROAD} pathLength={1} mask="url(#road-mask)" />
-            </svg>
-            <ol className="pl-stops">
-              {ROUTE.map((r) => (
-                <li key={r.name} className="pl-stop">
-                    <span className="pl-lab"><b>{r.name}</b><span>{r.dist}</span></span><i />
-                  </li>
-              ))}
-              <li className="pl-stop pl-home" aria-label="MEMCO Skyline"><span className="pl-lab"><span className="mark" /></span><i /></li>
-            </ol>
-          </div>
-          <a className="rc-directions" href="/location" aria-label="Explore Jutaku's location">Explore the location</a>
         </div>
       </div>
     </section>

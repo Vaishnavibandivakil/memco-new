@@ -81,7 +81,9 @@ export const COUNTS: [string, number][] = [
 export const PHONE = "+91-9187224980";
 export const EMAIL = "info@memcoskyline.com";
 export const RERA = "PRM/KA/RERA/1251/310/PR/240426/008602";
-export const ADDRESS = "Off NH7 on Manipal County Road, Bengaluru 560068";
+// Project pin and address supplied for MEMCO Skyline Jutaku.
+export const SITE_COORDINATES = { lng: 77.6407966, lat: 12.8742426 } as const;
+export const ADDRESS = "Sy. No. 115/2, Manipal County Rd, next to India Oil Petrol Pump, Aishwarya Crystal Layout, Singasandra, Bengaluru, Karnataka 560114";
 
 export type Post = { slug: string; kicker: string; title: string; excerpt: string; meta?: string; photo: string; alt: string };
 

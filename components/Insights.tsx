@@ -97,7 +97,7 @@ export function InsightsLibrary() {
           </button>
         ))}
       </div>
-      <footer className="insights-page-footer"><span>Jutaku, Begur · South Bengaluru</span><Link href="/book-visit">Visit the Experience Centre <ArrowUpRight size={16} aria-hidden="true" /></Link></footer>
+      <footer className="insights-page-footer"><span>Jutaku, Singasandra · South Bengaluru</span><Link href="/book-visit">Visit the Experience Centre <ArrowUpRight size={16} aria-hidden="true" /></Link></footer>
       <VideoModal video={playing} onClose={() => setPlaying(null)} />
     </main>
   );

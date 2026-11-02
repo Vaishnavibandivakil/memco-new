@@ -4,7 +4,8 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Building2, GraduationCap, Hospital, Hotel, LayoutGrid, MapPin, Minus, Navigation, Plus, Store, TrainFront, X } from "lucide-react";
 import { Map, MapMarker, MarkerContent, type MapRef } from "@/components/ui/map";
-import { ADDRESS } from "@/lib/data";
+import { ADDRESS, SITE_COORDINATES } from "@/lib/data";
+import { ROUTE } from "@/lib/nearby-route";
 import { LOCATION_CATEGORIES, LOCATION_DIRECTORY, type LocationCategory } from "@/data/location-directory";
 
 const CATEGORY_ICONS = {
@@ -28,8 +29,34 @@ const CATEGORY_IMAGES = {
   Hotels: "/images/location/hotels.webp",
 } as const;
 
-const HOME = { name: "Jutaku", category: "Home", distance: "", position: [77.662, 12.878] } as const;
+const HOME = { name: "Jutaku", category: "Home", distance: "", position: [SITE_COORDINATES.lng, SITE_COORDINATES.lat] } as const;
 const PLACES = [HOME, ...LOCATION_DIRECTORY] as const;
+const METRO_CONNECTIONS = [
+  {
+    line: "Yellow",
+    status: "In service",
+    steps: ["Singasandra / Hosa Road", "Yellow Line"],
+    description: "The nearest line to Jutaku. Ride towards Electronic City or towards RV Road.",
+  },
+  {
+    line: "Purple",
+    status: "In service · two changes",
+    steps: ["Yellow", "RV Road · Green", "Majestic · Purple"],
+    description: "Change to Green at RV Road, then to Purple at Majestic for MG Road and the east–west corridor.",
+  },
+  {
+    line: "Pink",
+    status: "Planned transfer",
+    steps: ["Yellow", "Jayadeva Hospital", "Pink"],
+    description: "Jayadeva Hospital is the planned Yellow–Pink interchange. Use this connection once Pink Line passenger service opens.",
+  },
+  {
+    line: "Blue",
+    status: "Planned transfer",
+    steps: ["Yellow", "Central Silk Board", "Blue"],
+    description: "Central Silk Board is the planned transfer to the Blue Line for the Outer Ring Road and airport corridor once service opens.",
+  },
+] as const;
 
 export function LocationExplorer() {
   const mapRef = useRef<MapRef>(null);
@@ -61,7 +88,7 @@ export function LocationExplorer() {
     <main className="location-page" data-tone="light">
       <div ref={stageRef} className="location-stage">
       <div className="location-map" aria-label="Map of Jutaku and nearby places">
-        <Map ref={mapRef} className="location-map-canvas" theme="light" center={[77.64, 12.885]} zoom={12.2} minZoom={10} maxZoom={18} attributionControl={{ compact: false }}>
+        <Map ref={mapRef} className="location-map-canvas" theme="light" center={[SITE_COORDINATES.lng, SITE_COORDINATES.lat]} zoom={12.2} minZoom={10} maxZoom={18} attributionControl={{ compact: false }}>
           {PLACES.map((item, index) => (category === "All" || item.category === "Home" || item.category === category) && (
             <MapMarker key={item.name} longitude={item.position[0]} latitude={item.position[1]}>
               <MarkerContent>
@@ -85,9 +112,12 @@ export function LocationExplorer() {
       <header className="location-head">
         <div>
           <h1>Closer to everything.</h1>
-          <p className="location-summary">Between Singasandra and Hosa Road metro, with everyday essentials close by.</p>
+          <p className="location-summary">Singasandra and Hosa Road are the nearby Yellow Line stations, with everyday essentials close by.</p>
           <p className="location-intro">{ADDRESS}</p>
-          <Link href="/book-visit" className="location-book">Book a visit <ArrowRight size={16} aria-hidden="true" /></Link>
+          <div className="location-head-actions">
+            <Link href="/book-visit" className="location-book">Book a visit <ArrowRight size={16} aria-hidden="true" /></Link>
+            <a href="#metro-connectivity" className="location-metro-jump">See metro connections <ArrowRight size={16} aria-hidden="true" /></a>
+          </div>
         </div>
         <Link className="location-back" href="/#location" aria-label="Close location page and return to the location section"><X size={20} strokeWidth={1.7} aria-hidden="true" /></Link>
       </header>
@@ -101,7 +131,7 @@ export function LocationExplorer() {
         <div className="location-card-copy" aria-live="polite">
           <span className="location-card-index">{selectedPlace.category === "Home" ? "Visit Jutaku" : selectedPlace.category}</span>
           <h2>{selectedPlace.category === "Home" ? "See it for yourself." : selectedPlace.name}</h2>
-          <p>{selectedPlace.category === "Home" ? "The Experience Centre is on Manipal County Road, between Singasandra and Hosa Road." : `${selectedPlace.distance} from Jutaku.`}</p>
+          <p>{selectedPlace.category === "Home" ? "On Manipal County Road beside India Oil Petrol Pump, Singasandra." : `${selectedPlace.distance} from Jutaku.`}</p>
           <div className="location-card-actions">
             <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> Get directions</a>
           </div>
@@ -115,6 +145,37 @@ export function LocationExplorer() {
         })}
       </div>
       </div>
+
+      <section id="metro-connectivity" className="location-metro" aria-labelledby="location-metro-title">
+        <div className="location-metro-heading">
+          <div>
+            <span className="location-metro-kicker">Metro connectivity</span>
+            <h2 id="location-metro-title">From Jutaku to the city.</h2>
+          </div>
+          <p>Start at the Yellow Line. These are the current and planned ways it connects you to Bengaluru&apos;s wider metro network.</p>
+        </div>
+        <div className="location-metro-access" aria-label="Nearest Yellow Line stations">
+          <div><span>Nearest stations · Yellow Line</span><strong>Singasandra Metro</strong><small>About {ROUTE[0].distance} from Jutaku</small></div>
+          <div><span>Another nearby station</span><strong>Hosa Road Metro</strong><small>About {ROUTE[1].distance} from Jutaku</small></div>
+        </div>
+        <ol className="location-metro-routes">
+          {METRO_CONNECTIONS.map((connection) => (
+            <li key={connection.line} className={`location-metro-route is-${connection.line.toLowerCase()}`}>
+              <div className="location-metro-route-name"><span className="location-metro-line-mark" aria-hidden="true" /><h3>{connection.line} Line</h3><small>{connection.status}</small></div>
+              <div className="location-metro-route-detail">
+                <div className="location-metro-steps" aria-label={`${connection.line} Line connection via ${connection.steps.join(", then ")}`}>
+                  {connection.steps.map((step, index) => <span key={step}>{index > 0 && <ArrowRight size={14} strokeWidth={1.8} aria-hidden="true" />}<b>{step}</b></span>)}
+                </div>
+                <p>{connection.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <div className="location-metro-foot">
+          <p>Station distances are approximate straight-line measurements; walking and driving routes differ. Pink and Blue transfers depend on those lines and interchange facilities opening.</p>
+          <a href="https://english.bmrc.co.in/phase122A2Bmap/" target="_blank" rel="noopener noreferrer">See BMRCL network plan <ArrowRight size={15} aria-hidden="true" /></a>
+        </div>
+      </section>
 
       <section className="location-directory" aria-labelledby="location-directory-title">
         <div className="location-directory-heading">
@@ -130,7 +191,7 @@ export function LocationExplorer() {
             </li>
           ))}
         </ul>
-        <p className="location-directory-note">Distances are approximate.</p>
+        <p className="location-directory-note">Distances are approximate straight-line measurements between map pins; travel routes may differ.</p>
       </section>
     </main>
   );

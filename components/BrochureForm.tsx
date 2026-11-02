@@ -88,7 +88,7 @@ export function BrochureForm() {
               <Link className="br-visit" href="/book-visit"><CalendarDays size={18} strokeWidth={1.8} aria-hidden="true" /> Book a site visit</Link>
             </form>
           </div>
-          <p className="br-foot lbl">Jutaku · Begur, South Bengaluru</p>
+          <p className="br-foot lbl">Jutaku · Singasandra, South Bengaluru</p>
         </div>
       </div>
     </main>
