@@ -1,12 +1,21 @@
 export type OmegaTurn = { role: "user" | "assistant"; content: string };
 
-export function omegaChatRequest(instructions: string, turns: OmegaTurn[], model = "omega-plus") {
+export function omegaChatRequest(instructions: string, turns: OmegaTurn[], model = "omega-plus", maxTokens = 600) {
   return {
     model,
-    max_tokens: 600,
+    max_tokens: maxTokens,
     stream: false,
     messages: [{ role: "system", content: instructions }, ...turns],
   };
+}
+
+export function omegaScope(payload: unknown): "project" | "other" {
+  return omegaChatText(payload).trim().toUpperCase() === "PROJECT" ? "project" : "other";
+}
+
+export function isPlainCalculation(question: string): boolean {
+  const expression = question.trim().replace(/^(?:what(?:'s| is)\s+)/i, "");
+  return /\d/.test(expression) && /^[\d\s+*/^%().=\-]+\??$/.test(expression);
 }
 
 export function omegaChatText(payload: unknown): string {

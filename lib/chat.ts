@@ -73,8 +73,7 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
     action: { label: "Read the concept", href: "/#project" },
   },
   other: {
-    text: "I can help with homes, pricing, amenities, location and visits. For a specific question, the MEMCO Skyline team can help directly.",
-    action: { label: "Contact the team", href: `mailto:${EMAIL}` },
+    text: "I can only answer questions about MEMCO Skyline and Jutaku, including the homes, amenities, pricing, location and visits.",
   },
 };
 

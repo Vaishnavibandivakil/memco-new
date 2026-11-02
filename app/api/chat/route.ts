@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { answerChat } from "@/lib/chat";
-import { CHAT_INSTRUCTIONS } from "@/lib/chat-knowledge";
-import { omegaChatRequest, omegaChatText, type OmegaTurn } from "@/lib/omega-chat";
+import { CHAT_INSTRUCTIONS, CHAT_SCOPE_INSTRUCTIONS } from "@/lib/chat-knowledge";
+import { isPlainCalculation, omegaChatRequest, omegaChatText, omegaScope, type OmegaTurn } from "@/lib/omega-chat";
 
 export const runtime = "nodejs";
 
@@ -54,27 +54,34 @@ export async function POST(request: Request) {
 
   const lastQuestion = turns.at(-1)!.content;
   const curated = answerChat(lastQuestion);
+  const outOfScope = () => NextResponse.json({ reply: answerChat("unrelated question"), mode: "curated" }, { headers: { "Cache-Control": "no-store" } });
+  if (isPlainCalculation(lastQuestion)) return outOfScope();
   const fallback = () => NextResponse.json({ reply: curated, mode: "curated" }, { headers: { "Cache-Control": "no-store" } });
   const key = process.env.OMEGA_API_KEY;
   if (!key) return fallback();
 
+  let projectVerified = false;
   try {
-    const upstream = await fetch("https://api.omegaplusapi.com/api/v1/chat/completions", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify(omegaChatRequest(CHAT_INSTRUCTIONS, turns, process.env.OMEGA_CHAT_MODEL || "omega-plus")),
-      cache: "no-store",
-      signal: AbortSignal.timeout(25_000),
-    });
-    if (!upstream.ok) {
-      console.error("Jutaku chat API error:", upstream.status);
-      return fallback();
-    }
-    const text = omegaChatText(await upstream.json());
+    const model = process.env.OMEGA_CHAT_MODEL || "omega-plus";
+    const callOmega = async (instructions: string, history: OmegaTurn[], maxTokens: number, timeout: number) => {
+      const upstream = await fetch("https://api.omegaplusapi.com/api/v1/chat/completions", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+        body: JSON.stringify(omegaChatRequest(instructions, history, model, maxTokens)),
+        cache: "no-store",
+        signal: AbortSignal.timeout(timeout),
+      });
+      if (!upstream.ok) throw new Error(`Omega API returned ${upstream.status}`);
+      return upstream.json();
+    };
+    const scope = omegaScope(await callOmega(CHAT_SCOPE_INSTRUCTIONS, turns.slice(-5), 16, 15_000));
+    if (scope === "other") return outOfScope();
+    projectVerified = true;
+    const text = omegaChatText(await callOmega(CHAT_INSTRUCTIONS, turns, 600, 25_000));
     if (!text) return fallback();
     return NextResponse.json({ reply: { topic: curated.topic, text: text.slice(0, 2000), action: curated.action }, mode: "ai" }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
-    console.error("Jutaku chat request failed:", error instanceof Error ? error.name : "unknown");
-    return fallback();
+    console.error("Jutaku chat request failed:", error instanceof Error ? error.message : "unknown");
+    return projectVerified ? fallback() : outOfScope();
   }
 }

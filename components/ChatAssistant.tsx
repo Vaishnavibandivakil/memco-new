@@ -174,7 +174,7 @@ export function ChatAssistant() {
       setMessages((current) => [...current, { id: nextId.current++, role: "assistant", text: reply.text, details: reply.details, sections: reply.sections, action: reply.action }]);
     } catch {
       if (controller.signal.aborted) return;
-      const reply = answerChat(text);
+      const reply = answerChat("unrelated question");
       setAnswerMode("curated");
       setMessages((current) => [...current, { id: nextId.current++, role: "assistant", text: reply.text, details: reply.details, sections: reply.sections, action: reply.action }]);
     } finally {
