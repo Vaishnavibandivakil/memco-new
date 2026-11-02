@@ -1,32 +1,23 @@
 import { NextResponse } from "next/server";
 import { answerChat } from "@/lib/chat";
 import { CHAT_INSTRUCTIONS } from "@/lib/chat-knowledge";
+import { omegaChatRequest, omegaChatText, type OmegaTurn } from "@/lib/omega-chat";
 
 export const runtime = "nodejs";
 
-type Turn = { role: "user" | "assistant"; content: string };
 const MAX_BODY = 6000;
 const MAX_TURNS = 9;
 const WINDOW_MS = 60_000;
 const LIMIT = 12;
 const requests = new Map<string, { count: number; reset: number }>();
 
-function validTurns(value: unknown): value is Turn[] {
+function validTurns(value: unknown): value is OmegaTurn[] {
   return Array.isArray(value) && value.length > 0 && value.length <= MAX_TURNS &&
     value.every((turn) => turn && typeof turn === "object" &&
       (turn.role === "user" || turn.role === "assistant") &&
       typeof turn.content === "string" && turn.content.trim().length > 0 &&
       turn.content.length <= (turn.role === "user" ? 300 : 1500)) &&
     value.at(-1)?.role === "user";
-}
-
-function responseText(payload: unknown): string {
-  if (!payload || typeof payload !== "object") return "";
-  const result = payload as { output_text?: unknown; output?: { type?: string; content?: { type?: string; text?: string }[] }[] };
-  if (typeof result.output_text === "string") return result.output_text.trim();
-  return result.output?.flatMap((item) => item.type === "message" ? item.content ?? [] : [])
-    .filter((item) => item.type === "output_text" && typeof item.text === "string")
-    .map((item) => item.text!.trim()).join("\n").trim() ?? "";
 }
 
 export async function POST(request: Request) {
@@ -64,29 +55,22 @@ export async function POST(request: Request) {
   const lastQuestion = turns.at(-1)!.content;
   const curated = answerChat(lastQuestion);
   const fallback = () => NextResponse.json({ reply: curated, mode: "curated" }, { headers: { "Cache-Control": "no-store" } });
-  const key = process.env.OPENAI_API_KEY;
+  const key = process.env.OMEGA_API_KEY;
   if (!key) return fallback();
 
   try {
-    const upstream = await fetch("https://api.openai.com/v1/responses", {
+    const upstream = await fetch("https://api.omegaplusapi.com/api/v1/chat/completions", {
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: process.env.OPENAI_CHAT_MODEL || "gpt-6-luna",
-        instructions: CHAT_INSTRUCTIONS,
-        input: turns,
-        reasoning: { effort: "none" },
-        max_output_tokens: 420,
-        store: false,
-      }),
+      body: JSON.stringify(omegaChatRequest(CHAT_INSTRUCTIONS, turns, process.env.OMEGA_CHAT_MODEL || "omega-plus")),
       cache: "no-store",
-      signal: AbortSignal.timeout(18_000),
+      signal: AbortSignal.timeout(25_000),
     });
     if (!upstream.ok) {
       console.error("Jutaku chat API error:", upstream.status);
       return fallback();
     }
-    const text = responseText(await upstream.json());
+    const text = omegaChatText(await upstream.json());
     if (!text) return fallback();
     return NextResponse.json({ reply: { topic: curated.topic, text: text.slice(0, 2000), action: curated.action }, mode: "ai" }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
