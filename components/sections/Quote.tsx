@@ -18,7 +18,7 @@ export function Quote() {
       <Split left="THE LUXURY" mid={<span className="lbl">MEMCO <i>·</i> 40+ years <i>·</i> Bengaluru</span>} right="OF COMING HOME" />
       <div className="st-grid">
         <div className="st-copy">
-          <p className="caps-serif st-say" data-lines>A private home is the starting point. The pool, park, studios and dining spaces make it Jutaku.</p>
+          <p className="caps-serif st-say" data-lines>Your own front door. Beyond it: a rooftop pool, studios, courts and a park.</p>
           <p className="lbl" data-fade data-delay="0.3">MEMCO Skyline <i>·</i> Jutaku</p>
         </div>
         <figure className="st-pic" data-rise>

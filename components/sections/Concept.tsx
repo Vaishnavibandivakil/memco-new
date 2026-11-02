@@ -117,7 +117,7 @@ export function Concept() {
           <div className="ds-body">
             <p className="lbl ds-kicker ds-fade">01 / Design</p>
             <h2 className="caps-serif ds-statement">Built around <span>real life</span></h2>
-            <p className="ds-intro ds-fade">Urban Units of around 500 sq ft sit within a larger plan for work, fitness, dining and time outdoors.</p>
+            <p className="ds-intro ds-fade">An Urban Unit of around 500 sq ft, with a rooftop pool, studios, courts and a park across the wider site.</p>
           </div>
           <figure className="ds-hero ds-fade">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -130,13 +130,13 @@ export function Concept() {
             <div className="dp-heading">
               <p className="lbl" data-hfade>02 / Our approach</p>
               <h2 className="caps-serif" data-hfade>Design principles</h2>
-              <p data-hfade>Backed by MEMCO&apos;s 40+ years in engineering, the plan gives private rooms and shared spaces a clear purpose.</p>
+              <p data-hfade>MEMCO brings four decades of engineering to a simple idea: keep the home personal, and give every shared space a purpose.</p>
             </div>
             <ol className="dp-list" aria-label="Design principles">
-              <li data-hfade><span>01</span><div><h3>Functional layouts</h3><p>Private space planned around everyday use.</p></div></li>
-              <li data-hfade><span>02</span><div><h3>Light and ventilation</h3><p>Natural light and airflow are part of the interior plan.</p></div></li>
-              <li data-hfade><span>03</span><div><h3>Purposeful shared space</h3><p>Studios, courts, kitchens and wellness spaces serve different needs.</p></div></li>
-              <li data-hfade><span>04</span><div><h3>Considered outdoors</h3><p>Tree preservation and a 12,000 sq ft park shape the landscape.</p></div></li>
+              <li data-hfade><span>01</span><div><h3>Living, considered</h3><p>A compact private home with room to sleep, cook and settle in.</p></div></li>
+              <li data-hfade><span>02</span><div><h3>Light as a starting point</h3><p>Natural light and ventilation guide the interior plan.</p></div></li>
+              <li data-hfade><span>03</span><div><h3>Places to come together</h3><p>Studios, courts, kitchens and wellness rooms each have a role.</p></div></li>
+              <li data-hfade><span>04</span><div><h3>Nature kept close</h3><p>Preserved trees and the planned 12,000 sq ft park shape the grounds.</p></div></li>
             </ol>
           </div>
           <figure className="dp-photo">
@@ -152,7 +152,7 @@ export function Concept() {
               <span className="cc-line-mask"><span className="cc-line">A smarter way</span></span>
               <span className="cc-line-mask"><span className="cc-line">to own space.</span></span>
             </h2>
-            <p className="cc-intro" data-hfade>Own your private space. Use the pool, sports deck, studios, kitchens and park as part of one wider address.</p>
+            <p className="cc-intro" data-hfade>A private home to make your own, with the pool, sports deck, studios, kitchens and park all part of the same address.</p>
           </div>
           <figure className="cc-hero">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -167,9 +167,9 @@ export function Concept() {
               <h2 className="caps-serif" data-hfade>What comes with your home</h2>
             </div>
             <div className="cc-points">
-              <article data-hfade><span>01</span><div><h3>Private ownership</h3><p>An Urban Unit of around 500 sq ft to make your own.</p></div></article>
-              <article data-hfade><span>02</span><div><h3>Shared access</h3><p>About 50,000 sq ft across work, sport, food and leisure spaces.</p></div></article>
-              <article data-hfade><span>03</span><div><h3>One community</h3><p>Facilities and open areas planned for 646 private homes.</p></div></article>
+              <article data-hfade><span>01</span><div><h3>A place that is yours</h3><p>An Urban Unit of around 500 sq ft to make your own.</p></div></article>
+              <article data-hfade><span>02</span><div><h3>Room to share</h3><p>About 50,000 sq ft planned for work, sport, food and leisure.</p></div></article>
+              <article data-hfade><span>03</span><div><h3>One connected address</h3><p>Facilities and open areas planned for 646 private homes.</p></div></article>
             </div>
           </div>
         </div>

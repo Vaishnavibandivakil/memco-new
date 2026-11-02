@@ -28,40 +28,40 @@ type Story = {
 // Project facts and named spaces follow MEMCO Skyline's published project page.
 export const LIFESTYLE_STORIES: Record<"individual" | "couple", Story> = {
   individual: {
-    name: "Individual living", title: "Your own space.\nA wider life.",
-    introduction: "An Urban Unit of around 500 sq ft, with co-working, fitness and outdoor spaces within the same development.",
+    name: "Individual living", title: "Your space.\nYour pace.",
+    introduction: "A private Urban Unit for the hours you keep to yourself. Co-working, fitness and open air are close at hand when you step out.",
     heroImage: "/images/interior-bedroom-open-plan.jpg", heroAlt: "Light-filled Jutaku bedroom with a desk and window seating",
     figures: [
       { value: "~500", label: "sq ft of private space" },
       { value: "50,000", label: "sq ft of shared spaces" },
       { value: "646", label: "private spaces" },
     ],
-    ideaTitle: "A private home. Shared places with a purpose.",
-    idea: "The apartment is yours. The Clubrooms & Creator Studios provide space to work and make things; the Performance & Wellness Hub and Serenity Park give you room to move and unwind.",
+    ideaTitle: "A home for the quiet moments. Spaces for the rest.",
+    idea: "Work in the Clubrooms & Creator Studios. Train in the Performance & Wellness Hub. Take the long way home through Serenity Park. Each is part of the same site.",
     sectionTitle: "Work, move and step outside.",
     spaces: [
-      { name: "Clubrooms & Creator Studios", detail: "4,000 sq ft planned for co-working, podcasting and community dining.", image: "/images/club-cowork.jpg", alt: "Jutaku co-working space", tag: "Work / create" },
-      { name: "Performance & Wellness Hub", detail: "12,800 sq ft for the gym, Pilates, indoor sports and fitness classes.", image: "/images/amenity-yoga.jpg", alt: "Wellness and yoga space", tag: "Move / rest" },
-      { name: "Serenity Park", detail: "12,000 sq ft of walking trails, gardens and meditation zones.", image: "/images/walking-trails.jpg", alt: "Tree-lined walking trails", tag: "Open air" },
+      { name: "Clubrooms & Creator Studios", detail: "Co-working, podcasting and community dining across 4,000 sq ft.", image: "/images/club-cowork.jpg", alt: "Jutaku co-working space", tag: "Work / create" },
+      { name: "Performance & Wellness Hub", detail: "A gym, Pilates, indoor sports and fitness classes across 12,800 sq ft.", image: "/images/amenity-yoga.jpg", alt: "Wellness and yoga space", tag: "Move / rest" },
+      { name: "Serenity Park", detail: "12,000 sq ft of trails and gardens, with places to pause among the trees.", image: "/images/walking-trails.jpg", alt: "Tree-lined walking trails", tag: "Open air" },
     ],
     other: { label: "Modern couple", href: "/modern-couple", image: "/images/residence-living.webp" },
   },
   couple: {
     name: "Modern couple", title: "Together.\nRoom for both.",
-    introduction: "A private Urban Unit, with co-working rooms, Culinary Studios, a rooftop pool and sports spaces within Jutaku.",
+    introduction: "A place to return to together. Co-working rooms for separate workdays; Culinary Studios, a rooftop pool and sports spaces for time shared.",
     heroImage: "/images/residence-living.webp", heroAlt: "Warm, furnished Jutaku living space",
     figures: [
       { value: "~500", label: "sq ft of private space" },
       { value: "6,000", label: "sq ft of culinary studios" },
       { value: "18,800", label: "sq ft of Skyline Sports Deck" },
     ],
-    ideaTitle: "One address for two different routines.",
-    idea: "The co-working rooms leave space for separate workdays. Later, the Culinary Studios, Skyline Aqua Lounge and sports deck give you places to share time without leaving the development.",
+    ideaTitle: "Room for two, and room to be yourself.",
+    idea: "When the workday takes you in different directions, co-working rooms are close at hand. Later, meet in the Culinary Studios, by the rooftop pool or on the sports deck.",
     sectionTitle: "Cook, swim and play together.",
     spaces: [
-      { name: "Culinary Studios", detail: "6,000 sq ft with a community kitchen and private dining spaces.", image: "/images/amenity-culinary.jpg", alt: "Jutaku culinary studio and dining area", tag: "Dine / host" },
-      { name: "Skyline Aqua Lounge", detail: "A 56 ft rooftop pool with panoramic views and planned 24/7 access.", image: "/images/amenity-pool.jpg", alt: "Rooftop swimming pool", tag: "Swim / unwind" },
-      { name: "Skyline Sports Deck", detail: "18,800 sq ft planned for pickleball, box cricket and squash.", image: "/images/pickleball.webp", alt: "Jutaku pickleball court", tag: "Play / connect" },
+      { name: "Culinary Studios", detail: "Across 6,000 sq ft, cook together or gather around a private dining table.", image: "/images/amenity-culinary.jpg", alt: "Jutaku culinary studio and dining area", tag: "Dine / host" },
+      { name: "Skyline Aqua Lounge", detail: "A 56 ft pool on the roof, with panoramic views and access planned around the clock.", image: "/images/amenity-pool.jpg", alt: "Rooftop swimming pool", tag: "Swim / unwind" },
+      { name: "Skyline Sports Deck", detail: "Pickleball, box cricket and squash above the city, across 18,800 sq ft.", image: "/images/pickleball.webp", alt: "Jutaku pickleball court", tag: "Play / connect" },
     ],
     other: { label: "Individual living", href: "/individual-living", image: "/images/interior-bedroom-open-plan.jpg" },
   },
@@ -101,24 +101,24 @@ export function LifestyleStory({ story }: { story: Story }) {
       {story.name === "Modern couple" && <section className="persona-couple" aria-labelledby="persona-couple-title">
         <div className="persona-couple-heading" data-fade>
           <p className="persona-kicker">For two working lives</p>
-          <h2 id="persona-couple-title">Space for <em>two routines</em>, together.</h2>
+          <h2 id="persona-couple-title">Room for <em>two routines</em>, together.</h2>
         </div>
         <div className="persona-couple-content"><div className="persona-couple-duo">
           <article data-rise>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/club-cowork.jpg" alt="Quiet work area at Jutaku" loading="lazy" />
-            <div><span>01 / His space</span><h3>His unit.</h3><p>A private base, with co-working space nearby when the day calls for it.</p></div>
+            <div><span>01 / His space</span><h3>His unit.</h3><p>Room for the calls and focused hours, with the Clubrooms a short walk away.</p></div>
           </article>
           <article data-rise>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/kanso-coworking.webp" alt="A second quiet work area at Jutaku" loading="lazy" />
-            <div><span>02 / Her space</span><h3>Her unit.</h3><p>Her own routine, with room to work or create elsewhere in Jutaku.</p></div>
+            <div><span>02 / Her space</span><h3>Her unit.</h3><p>Space for her ideas, with another setting for work in the Creator Studios.</p></div>
           </article>
         </div>
         <div className="persona-couple-together" data-fade>
           <p className="persona-kicker">His & her space, together</p>
           <h3><span>Two workdays.</span><span>One home.</span></h3>
-          <p>Separate workdays, shared places for everything after.</p>
+          <p>Separate workdays. A place to meet again when they end.</p>
           <div aria-label="Spaces for two careers"><span>Private</span><span>Flexible</span><span>Connected</span></div>
         </div></div>
       </section>}
