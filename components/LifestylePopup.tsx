@@ -103,18 +103,18 @@ export function LifestylePopup() {
             <button ref={closeButton} className="lifestyle-close" type="button" aria-label="Close preferences" onClick={close}><X size={19} strokeWidth={1.6} /></button>
           </div>
           <div className="lifestyle-copy">
-            <h2 id="lifestyle-title">What are you<br />looking for?</h2>
-            <p id="lifestyle-description">Let us personalise your Skyline experience.</p>
+            <h2 id="lifestyle-title">How would you<br />live here?</h2>
+            <p id="lifestyle-description">See how a private Urban Unit and Jutaku&apos;s shared spaces could fit your day.</p>
           </div>
           <div className="lifestyle-choices">
             <button type="button" onClick={() => choose("/individual-living")}>
               <span className="lifestyle-choice-no">01</span>
-              <span className="lifestyle-choice-text"><strong>Individual living</strong><small>A private space, connected to more.</small></span>
+              <span className="lifestyle-choice-text"><strong>Individual living</strong><small>Your own home, with work and wellness close by.</small></span>
               <span className="lifestyle-choice-mark" aria-hidden="true" />
             </button>
             <button type="button" onClick={() => choose("/modern-couple")}>
               <span className="lifestyle-choice-no">02</span>
-              <span className="lifestyle-choice-text"><strong>Modern couple</strong><small>Your place together, with more within reach.</small></span>
+              <span className="lifestyle-choice-text"><strong>Modern couple</strong><small>One home for two routines, with shared places nearby.</small></span>
               <span className="lifestyle-choice-mark" aria-hidden="true" />
             </button>
           </div>

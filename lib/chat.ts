@@ -12,11 +12,11 @@ export type ChatReply = {
 
 const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
   homes: {
-    text: "Jutaku has 646 private spaces of about 500 sq ft each. The homes are designed around everyday use, with shared places for work, sport and downtime nearby.",
+    text: "Jutaku plans 646 Urban Units of around 500 sq ft, with access to shared spaces for work, wellness, dining and sport. The available layouts and prices should be confirmed with the MEMCO team.",
     action: { label: "Explore the homes", href: "/#project" },
   },
   amenities: {
-    text: "There are 50,000 sq ft of shared spaces, including a rooftop pool, sports deck, wellness hub, gardens, dining spaces and creator studios.",
+    text: "The amenity plan covers around 50,000 sq ft. It includes a 56 ft rooftop pool, an 18,800 sq ft sports deck, a 12,800 sq ft wellness hub, Culinary Studios, creator rooms and Serenity Park.",
     action: { label: "See the amenities", href: "/#amenities" },
   },
   location: {
@@ -69,7 +69,7 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
     action: { label: "Contact the team", href: `mailto:${EMAIL}` },
   },
   concept: {
-    text: "Jutaku combines a private home with access to a larger shared lifestyle. The idea is a compact place of your own, with more room for work, play and community beyond its walls.",
+    text: "Jutaku's idea is private ownership with shared access: an Urban Unit of around 500 sq ft and a wider 50,000 sq ft amenity plan for work, fitness, food, sport and time outdoors.",
     action: { label: "Read the concept", href: "/#project" },
   },
   other: {

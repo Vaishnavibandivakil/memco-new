@@ -12,8 +12,8 @@ export const openHomes = () => window.dispatchEvent(new Event("homes:open"));
 const PLANS = getInventory().flatMap((level) => level.units).slice(0, 11);
 
 const PHOTO_CARDS = [
-  { image: "/images/club-cowork.jpg", title: "Work, close to home.", detail: "Co-working and creator studios in the shared clubrooms." },
-  { image: "/images/serenity-park.webp", title: "A quieter route home.", detail: "12,000 sq ft of park, garden and walking space." },
+  { image: "/images/club-cowork.jpg", title: "Clubrooms & Creator Studios", detail: "4,000 sq ft planned for co-working and creative work." },
+  { image: "/images/serenity-park.webp", title: "Serenity Park", detail: "12,000 sq ft of walking trails, gardens and open space." },
 ] as const;
 
 export function Homes() {

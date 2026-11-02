@@ -176,7 +176,7 @@ export function LocationExplorer() {
       <header className="location-head">
         <div>
           <h1>Closer to everything.</h1>
-          <p className="location-summary">Singasandra and Hosa Road are the nearby Yellow Line stations, with everyday essentials close by.</p>
+          <p className="location-summary">On Manipal County Road, between the Singasandra and Hosa Road Yellow Line stations.</p>
           <p className="location-intro">{ADDRESS}</p>
           <div className="location-head-actions">
             <Link href="/book-visit" className="location-book">Book a visit <ArrowRight size={16} aria-hidden="true" /></Link>
@@ -248,7 +248,7 @@ export function LocationExplorer() {
       <section className="location-directory" aria-labelledby="location-directory-title">
         <div className="location-directory-heading">
           <div><span>Explore nearby</span><h2 id="location-directory-title">Around Jutaku.</h2></div>
-          <p>Find the places that matter to your everyday life.</p>
+          <p>Explore stations, healthcare, schools, work hubs and shopping around Jutaku.</p>
         </div>
         <div className="location-directory-count" aria-live="polite">{visiblePlaces.length} {visiblePlaces.length === 1 ? "place" : "places"} {category === "All" ? "nearby" : `in ${category}`}</div>
         <ul className="location-directory-list">
