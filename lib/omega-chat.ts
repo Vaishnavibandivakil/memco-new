@@ -10,7 +10,7 @@ export function omegaChatRequest(instructions: string, turns: OmegaTurn[], model
 }
 
 export function omegaScope(payload: unknown): "project" | "other" {
-  return omegaChatText(payload).trim().toUpperCase() === "PROJECT" ? "project" : "other";
+  return /^PROJECT\b/i.test(omegaChatText(payload).trim()) ? "project" : "other";
 }
 
 export function isPlainCalculation(question: string): boolean {

@@ -10,6 +10,15 @@ const MAX_TURNS = 9;
 const WINDOW_MS = 60_000;
 const LIMIT = 12;
 const requests = new Map<string, { count: number; reset: number }>();
+const suggestedProjectQuestions = new Set([
+  "what amenities are there?",
+  "what are the investment advantages?",
+  "what is the pricing?",
+  "how can i book a visit?",
+  "what is the jutaku experience centre?",
+  "tell me about the homes",
+  "where is jutaku?",
+]);
 
 function validTurns(value: unknown): value is OmegaTurn[] {
   return Array.isArray(value) && value.length > 0 && value.length <= MAX_TURNS &&
@@ -75,7 +84,8 @@ export async function POST(request: Request) {
       if (!upstream.ok) throw new Error(`Omega API returned ${upstream.status}`);
       return upstream.json();
     };
-    const scope = omegaScope(await callOmega(CHAT_SCOPE_INSTRUCTIONS, turns.slice(-5), 16, 15_000));
+    const clearlyAboutJutaku = /\b(jutaku|memco skyline)\b/i.test(lastQuestion) || suggestedProjectQuestions.has(lastQuestion.trim().toLowerCase());
+    const scope = clearlyAboutJutaku ? "project" : omegaScope(await callOmega(CHAT_SCOPE_INSTRUCTIONS, turns.slice(-5), 16, 15_000));
     if (scope === "other") return outOfScope();
     projectVerified = true;
     const text = omegaChatText(await callOmega(CHAT_INSTRUCTIONS, turns, 600, 25_000));

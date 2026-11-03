@@ -21,6 +21,7 @@ test("Omega reply extracts only assistant text", () => {
 test("scope gate refuses off-topic classifications and plain arithmetic", () => {
   assert.equal(omegaScope({ choices: [{ message: { content: "OTHER" } }] }), "other");
   assert.equal(omegaScope({ choices: [{ message: { content: "PROJECT" } }] }), "project");
+  assert.equal(omegaScope({ choices: [{ message: { content: "PROJECT." } }] }), "project");
   assert.equal(omegaScope({ choices: [{ message: { content: "2 + 1 = 3" } }] }), "other");
   assert.equal(isPlainCalculation("2+1"), true);
   assert.equal(isPlainCalculation("What is 2 + 1?"), true);
