@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Building2, GraduationCap, Hospital, Hotel, LayoutGrid, MapPin, Minus, Navigation, Plus, Store, TrainFront, X } from "lucide-react";
 import { Map, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
-import { ADDRESS, SITE_COORDINATES } from "@/lib/data";
+import { SITE_COORDINATES } from "@/lib/data";
 import { ROUTE } from "@/lib/nearby-route";
 import { METRO_CONNECTIONS } from "@/data/metro-connectivity";
 import { METRO_GREEN_TRANSFER, METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
@@ -34,8 +34,8 @@ const CATEGORY_IMAGES = {
 
 const HOME = { name: "Jutaku", category: "Home", distance: "", position: [SITE_COORDINATES.lng, SITE_COORDINATES.lat] } as const;
 const PLACES = [HOME, ...LOCATION_DIRECTORY] as const;
-const METRO_LINE_COLORS = { Yellow: "#c69b12", Purple: "#7645a5", Pink: "#d26b91", Blue: "#367fb2" } as const;
-const YELLOW_ACCESS_END = { Yellow: 8, Purple: 0, Pink: 2, Blue: 4 } as const;
+const METRO_LINE_COLORS = { Yellow: "#c69b12", Green: "#00804d", Purple: "#7645a5", Pink: "#d26b91", Blue: "#367fb2" } as const;
+const YELLOW_ACCESS_END = { Yellow: 8, Green: 0, Purple: 0, Pink: 2, Blue: 4 } as const;
 
 export function LocationExplorer() {
   const mapRef = useRef<MapRef>(null);
@@ -83,7 +83,7 @@ export function LocationExplorer() {
   const showMetroOnMap = (index: number) => {
     const connection = METRO_CONNECTIONS[index];
     const route = METRO_ROUTE_POINTS[connection.line];
-    const startingStation = route.findIndex((point) => point.name === (connection.line === "Yellow" ? "Singasandra" : connection.line === "Purple" ? "Majestic" : connection.line === "Pink" ? "Jayadeva Hospital" : "Central Silk Board"));
+    const startingStation = route.findIndex((point) => point.name === (connection.line === "Yellow" ? "Singasandra" : connection.line === "Green" ? "RV Road" : connection.line === "Purple" ? "Majestic" : connection.line === "Pink" ? "Jayadeva Hospital" : "Central Silk Board"));
     setCategory("Metro");
     setActiveMetro(index);
     setActiveStation(startingStation < 0 ? 0 : startingStation);
@@ -178,10 +178,9 @@ export function LocationExplorer() {
         <div>
           <h1>Closer to everything.</h1>
           <p className="location-summary">On Manipal County Road, between the Singasandra and Hosa Road Yellow Line stations.</p>
-          <p className="location-intro">{ADDRESS}</p>
           <div className="location-head-actions">
             <Link href="/book-visit" className="location-book">Book a visit <ArrowRight size={16} aria-hidden="true" /></Link>
-            <button ref={metroButtonRef} type="button" className="location-metro-jump" aria-controls="metro-connectivity" aria-expanded={metroPanelOpen} onClick={toggleMetroPanel}>See metro connections <ArrowRight size={16} aria-hidden="true" /></button>
+            {(category === "All" || category === "Metro") && <button ref={metroButtonRef} type="button" className="location-metro-jump" aria-controls="metro-connectivity" aria-expanded={metroPanelOpen} onClick={toggleMetroPanel}>See metro connections <ArrowRight size={16} aria-hidden="true" /></button>}
           </div>
         </div>
         <ReturnLink className="location-back" href="/#location" aria-label="Close location page and return to the location section"><X size={20} strokeWidth={1.7} aria-hidden="true" /></ReturnLink>
@@ -218,7 +217,7 @@ export function LocationExplorer() {
               </div>
             ))}
           </div>
-          <p className="location-metro-panel-note">Map lines connect station points for orientation; they do not trace the exact tracks or walking route. Distances are straight-line estimates. Pink and Blue stations and transfers are planned and may change before opening. Station positions: OpenStreetMap contributors. <a href="https://english.bmrc.co.in/phase122A2Bmap/" target="_blank" rel="noopener noreferrer">BMRCL network plan <ArrowRight size={13} aria-hidden="true" /></a></p>
+          <p className="location-metro-panel-note">Illustrative station connections, not exact tracks. Distances are straight-line estimates. Pink and Blue routes are planned. Station positions: OpenStreetMap contributors.</p>
         </aside>
       )}
 

@@ -28,9 +28,9 @@ export function useScene(ref: RefObject<HTMLElement | null>, build: (c: SceneCtx
 declare global { interface Window { __lenis?: Lenis } }
 export const lenis = () => (typeof window !== "undefined" ? window.__lenis : undefined);
 
-/** Resolve a project panel to the vertical scroll position that brings it into view. */
-export function mobileProjectScrollTarget(el: HTMLElement): number | null {
-  if (!matchMedia("(max-width: 760px)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return null;
+/** Resolve a horizontally moving project panel to its vertical scroll position. */
+export function projectScrollTarget(el: HTMLElement): number | null {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return null;
   const project = document.getElementById("project");
   if (!project || !project.contains(el)) return null;
   const horizontal = ScrollTrigger.getAll().find((trigger) => trigger.trigger === project && trigger.pin);
@@ -47,23 +47,11 @@ export function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
   const l = lenis();
-  const mobileProjectTop = mobileProjectScrollTarget(el);
-  if (mobileProjectTop !== null) {
-    if (l) l.scrollTo(mobileProjectTop, { duration: 1.2 });
-    else window.scrollTo({ top: mobileProjectTop, behavior: "smooth" });
+  const projectTarget = projectScrollTarget(el);
+  if (projectTarget !== null) {
+    if (l) l.scrollTo(projectTarget, { duration: 1.2 });
+    else window.scrollTo({ top: projectTarget, behavior: "smooth" });
     return;
-  }
-  if (id === "location") {
-    const project = document.getElementById("project");
-    const horizontal = ScrollTrigger.getAll()
-      .filter((trigger) => trigger.trigger === project)
-      .sort((a, b) => (b.end - b.start) - (a.end - a.start))[0];
-    if (horizontal) {
-      const destination = horizontal.end - 2;
-      if (l) l.scrollTo(destination, { duration: 1.2 });
-      else window.scrollTo({ top: destination, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
-      return;
-    }
   }
   if (l) l.scrollTo(el, { duration: 1.2 });
   else el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });

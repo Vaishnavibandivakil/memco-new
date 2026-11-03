@@ -2,7 +2,7 @@
 // OSM data © OpenStreetMap contributors (ODbL). Straight links between nodes are an illustrative guide, not rail track geometry.
 // The future Blue Line Channasandra point is indicative; station locations and names may change.
 export type MetroPoint = { name: string; position: readonly [number, number] };
-export const METRO_ROUTE_POINTS: Record<"Yellow" | "Purple" | "Pink" | "Blue", MetroPoint[]> = {
+export const METRO_ROUTE_POINTS: Record<"Yellow" | "Green" | "Purple" | "Pink" | "Blue", MetroPoint[]> = {
   Yellow: [
     { name: "RV Road", position: [77.5802, 12.92158] },
     { name: "Ragigudda", position: [77.5883, 12.91708] },
@@ -20,6 +20,40 @@ export const METRO_ROUTE_POINTS: Record<"Yellow" | "Purple" | "Pink" | "Blue", M
     { name: "Huskur Road", position: [77.67737, 12.83916] },
     { name: "Hebbagodi", position: [77.68137, 12.82903] },
     { name: "Bommasandra", position: [77.68835, 12.81939] },
+  ],
+  Green: [
+    { name: "Madavara", position: [77.47281, 13.05742] },
+    { name: "Chikkabidarakallu", position: [77.48792, 13.05236] },
+    { name: "Manjunathanagara", position: [77.49445, 13.05009] },
+    { name: "Nagasandra", position: [77.50014, 13.04795] },
+    { name: "Dasarahalli", position: [77.51255, 13.04326] },
+    { name: "Jalahalli", position: [77.51974, 13.03941] },
+    { name: "Peenya Industry", position: [77.52549, 13.03632] },
+    { name: "Peenya", position: [77.5332, 13.03302] },
+    { name: "Goraguntepalya", position: [77.5408, 13.0284] },
+    { name: "Yeshwantpur", position: [77.54988, 13.02327] },
+    { name: "Sandal Soap Factory", position: [77.55398, 13.01465] },
+    { name: "Mahalakshmi", position: [77.54881, 13.00805] },
+    { name: "Rajajinagar", position: [77.54966, 13.00052] },
+    { name: "Mahakavi Kuvempu Road", position: [77.5569, 12.99853] },
+    { name: "Srirampura", position: [77.5632, 12.99653] },
+    { name: "Mantri Square Sampige Road", position: [77.57073, 12.99046] },
+    { name: "Majestic", position: [77.57288, 12.97571] },
+    { name: "Chickpete", position: [77.57456, 12.9669] },
+    { name: "KR Market", position: [77.57466, 12.96088] },
+    { name: "National College", position: [77.57369, 12.95053] },
+    { name: "Lalbagh", position: [77.58002, 12.94653] },
+    { name: "South End Circle", position: [77.58006, 12.93826] },
+    { name: "Jayanagar", position: [77.58014, 12.92951] },
+    { name: "RV Road", position: [77.5802, 12.92158] },
+    { name: "Banashankari", position: [77.5736, 12.91522] },
+    { name: "Jaya Prakash Nagar", position: [77.57313, 12.90747] },
+    { name: "Yelachenahalli", position: [77.57012, 12.89605] },
+    { name: "Konanakunte Cross", position: [77.56267, 12.88897] },
+    { name: "Doddakallasandra", position: [77.55275, 12.88464] },
+    { name: "Vajarahalli", position: [77.54474, 12.87744] },
+    { name: "Thalaghattapura", position: [77.5384, 12.87141] },
+    { name: "Silk Institute", position: [77.52995, 12.86173] },
   ],
   Purple: [
     { name: "Whitefield (Kadugodi)", position: [77.75795, 12.99574] },

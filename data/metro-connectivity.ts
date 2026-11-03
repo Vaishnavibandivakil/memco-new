@@ -12,6 +12,16 @@ const YELLOW_STATIONS = [
   "Huskur Road", "Hebbagodi", "Bommasandra",
 ] as const;
 
+const GREEN_STATIONS = [
+  "Madavara", "Chikkabidarakallu", "Manjunathanagara", "Nagasandra", "Dasarahalli",
+  "Jalahalli", "Peenya Industry", "Peenya", "Goraguntepalya", "Yeshwantpur",
+  "Sandal Soap Factory", "Mahalakshmi", "Rajajinagar", "Mahakavi Kuvempu Road",
+  "Srirampura", "Mantri Square Sampige Road", "Majestic", "Chickpete", "KR Market",
+  "National College", "Lalbagh", "South End Circle", "Jayanagar", "RV Road",
+  "Banashankari", "Jaya Prakash Nagar", "Yelachenahalli", "Konanakunte Cross",
+  "Doddakallasandra", "Vajarahalli", "Thalaghattapura", "Silk Institute",
+] as const;
+
 const PURPLE_STATIONS = [
   "Whitefield (Kadugodi)", "Hopefarm Channasandra", "Kadugodi Tree Park", "Pattandur Agrahara",
   "Sri Sathya Sai Hospital", "Nallurhalli", "Kundalahalli", "Seetharampalya", "Hoodi",
@@ -54,6 +64,21 @@ export const METRO_CONNECTIONS = [
     stations: YELLOW_STATIONS,
     stationsLabel: "All 16 stations · RV Road to Bommasandra",
     highlights: ["RV Road", "Jayadeva Hospital", "Central Silk Board", "Singasandra", "Hosa Road"],
+  },
+  {
+    line: "Green",
+    status: "In service · one change",
+    station: "RV Road interchange",
+    position: [77.5802, 12.92158] as const,
+    steps: ["Singasandra / Hosa Road", "Yellow Line", "RV Road · Green"],
+    description: "Take the Yellow Line towards RV Road, then change to Green for north and south Bengaluru.",
+    journey: [
+      { title: "Yellow · toward RV Road", detail: "Board at Singasandra or Hosa Road and travel towards RV Road." },
+      { title: "Green · change at RV Road", detail: "Travel north through Jayanagar and Majestic towards Madavara, or south through Banashankari towards Silk Institute." },
+    ],
+    stations: GREEN_STATIONS,
+    stationsLabel: "All 32 stations · Madavara to Silk Institute",
+    highlights: ["Majestic", "RV Road"],
   },
   {
     line: "Purple",
