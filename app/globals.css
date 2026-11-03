@@ -1185,6 +1185,20 @@ body:has(.bk-page) .chrome { display: none; }
 .chrome-action:hover, .chrome-action:focus-visible { transform: translateY(-2px); background: var(--green); border-color: var(--green); color: #fff; }
 .chrome-action:focus-visible, .quick-action:focus-visible, .quick-actions-toggle:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
 .quick-actions { display: none; }
+@media (min-width: 1151px) {
+  .chrome .hdr { padding: 7px; }
+  .chrome .hdr, .chrome-action {
+    background: rgba(245, 240, 232, .82);
+    border: 1px solid rgba(255, 255, 255, .66);
+    box-shadow: 0 1px 0 rgba(22, 21, 15, .06), 0 10px 30px rgba(15, 43, 33, .1);
+    -webkit-backdrop-filter: blur(20px) saturate(1.15);
+    backdrop-filter: blur(20px) saturate(1.15);
+  }
+  .chrome-action:hover, .chrome-action:focus-visible {
+    background: var(--green);
+    border-color: var(--green);
+  }
+}
 @media (max-width: 1150px) {
   .chrome .hdr { top: max(10px, env(safe-area-inset-top, 0px) + 8px); width: max-content; max-height: none; overflow: visible; border-radius: 999px; }
   .chrome .hdr.is-open { width: max-content; max-height: none; overflow: visible; }
