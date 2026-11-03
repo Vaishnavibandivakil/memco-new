@@ -1171,15 +1171,16 @@ body:has(.bk-page) .chrome { display: none; }
 }
 
 /* Persistent landing-page navigation and actions. Keep the original brand palette. */
-.chrome .hdr { left: max(18px, env(safe-area-inset-left, 0px) + 12px); right: auto; top: 18px; margin: 0; max-width: calc(100vw - 36px); }
+.chrome { --chrome-top: 18px; --chrome-edge: 18px; --chrome-control-height: 56px; --chrome-control-gap: 14px; }
+.chrome .hdr { left: max(var(--chrome-edge), env(safe-area-inset-left, 0px) + 12px); right: auto; top: var(--chrome-top); min-height: var(--chrome-control-height); margin: 0; max-width: calc(100vw - 36px); }
 .chrome .hdr-more { display: none; position: absolute; top: calc(100% + 8px); left: 0; width: min(290px, calc(100vw - 36px)); padding: 9px; border: 1px solid rgba(0, 74, 44, .12); border-radius: 22px; background: var(--offwhite); box-shadow: 0 16px 45px rgba(15, 43, 33, .17); }
 .chrome .hdr.is-open .hdr-more { display: block; }
 .chrome .hdr-inner { display: flex; flex-direction: column; align-items: stretch; gap: 10px; overflow: visible; }
 .chrome .hdr-nav { display: flex; flex-direction: column; gap: 2px; padding: 4px 12px; font-size: 13px; }
 .chrome .hdr-nav a, .chrome .hdr-nav button { min-height: 36px; text-align: left; }
 .chrome .hdr-cta { margin: 0; }
-.chrome-actions { position: absolute; top: 18px; right: max(20px, env(safe-area-inset-right, 0px) + 12px); display: flex; align-items: center; gap: 10px; }
-.chrome-action { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 56px; padding: 0 26px; border: 1.5px solid var(--offwhite); border-radius: 999px; background: var(--offwhite); color: var(--green); font-size: 13px; font-weight: 600; white-space: nowrap; box-shadow: 0 10px 30px rgba(15, 43, 33, .12); transition: transform .25s, background .25s, color .25s; }
+.chrome-actions { position: absolute; top: var(--chrome-top); right: max(var(--chrome-edge), env(safe-area-inset-right, 0px) + 12px); display: flex; align-items: center; gap: var(--chrome-control-gap); }
+.chrome-action { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: var(--chrome-control-height); padding: 0 26px; border: 1.5px solid var(--offwhite); border-radius: 999px; background: var(--offwhite); color: var(--green); font-size: 13px; font-weight: 600; white-space: nowrap; box-shadow: 0 10px 30px rgba(15, 43, 33, .12); transition: transform .25s, background .25s, color .25s; }
 .chrome-action-secondary { border-color: var(--green); background: var(--offwhite); color: var(--green); }
 .chrome-action:hover, .chrome-action:focus-visible { transform: translateY(-2px); background: var(--green); border-color: var(--green); color: #fff; }
 .chrome-action:focus-visible, .quick-action:focus-visible, .quick-actions-toggle:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
