@@ -263,7 +263,7 @@ export function ChatAssistant() {
                   ))}
                 </div>
               </div>
-              <div className="chat-welcome-copy"><p>Welcome to Jutaku</p><h2>How can I help you?</h2><span>Ask about MEMCO, Jutaku and life here.</span></div>
+              <div className="chat-welcome-copy"><p>Welcome to Jutaku</p><h2>How can I help you?</h2><span>Ask about the homes, amenities and life at Jutaku.</span></div>
             </div>
           ) : (
             <div className="chat-transcript" ref={transcript} role="log" aria-live="polite" aria-relevant="additions text">

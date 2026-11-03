@@ -1,7 +1,7 @@
 import { ADDRESS, EMAIL, PHONE, RERA } from "@/lib/data";
 import { ROUTE } from "@/lib/nearby-route";
 
-export type ChatTopic = "homes" | "amenities" | "location" | "pricing" | "investment" | "investmentComparison" | "visit" | "experience" | "contact" | "rera" | "concept" | "company" | "other";
+export type ChatTopic = "homes" | "amenities" | "location" | "pricing" | "investment" | "investmentComparison" | "visit" | "experience" | "contact" | "rera" | "concept" | "other";
 export type ChatReply = {
   topic: ChatTopic;
   text: string;
@@ -72,12 +72,8 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
     text: "Jutaku's idea is private ownership with shared access: an Urban Unit of around 500 sq ft and a wider 50,000 sq ft amenity plan for work, fitness, food, sport and time outdoors.",
     action: { label: "Read the concept", href: "/#project" },
   },
-  company: {
-    text: "MEMCO is the Bengaluru-based engineering company behind MEMCO Skyline. Its corporate site says it was founded in 1985 and works across rolling stock, space, defence, semiconductors and real estate.",
-    action: { label: "Explore Jutaku", href: "/#project" },
-  },
   other: {
-    text: "I can help with MEMCO, MEMCO Skyline and Jutaku. Ask me about the company, the project or life here.",
+    text: "I can help with MEMCO Skyline Jutaku. Ask me about its homes, amenities, location, pricing or visits.",
   },
 };
 
@@ -92,21 +88,20 @@ const intentPatterns: [ChatTopic, RegExp][] = [
   ["homes", /\b(homes?|houses?|apartments?|flats?|units?|floors?|sizes?|square feet|sq\.?\s*ft|layouts?|bedrooms?|available|availability)\b/i],
   ["contact", /\b(contact|call|phone|number|email|talk|speak|sales|agent|whatsapp)\b/i],
   ["rera", /\b(rera|registration|registered)\b/i],
-  ["company", /\b(memco|developer|parent company|founder|founded|leadership|ceo|chairman|engineering company)\b/i],
   ["concept", /\b(jutaku|concept|project|what is|tell me about|ownership)\b/i],
 ];
 
-export function unknownMemcoAnswer(): ChatReply {
+export function unknownJutakuAnswer(): ChatReply {
   return {
     topic: "other",
-    text: "That’s a MEMCO-related question, but I don’t have a confirmed answer here. Please check with the MEMCO team for the latest details.",
+    text: "That’s a Jutaku project question, but I don’t have a confirmed answer here. Please check with the project team for the latest details.",
     action: { label: "Contact the team", href: "/#contact" },
   };
 }
 
 export function answerChat(question: string): ChatReply {
   const input = question.trim();
-  if (/\b(founder|who founded|ceo|chairman|leadership)\b/i.test(input) && /\b(memco|skyline|jutaku)\b/i.test(input)) return unknownMemcoAnswer();
+  if (/\b(founder|who founded|ceo|chairman|leadership)\b/i.test(input) && /\b(jutaku|skyline)\b/i.test(input)) return unknownJutakuAnswer();
   const topic = intentPatterns.find(([, pattern]) => pattern.test(input))?.[0] ?? "other";
   return { topic, ...answers[topic] };
 }

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { answerChat, unknownMemcoAnswer } from "@/lib/chat";
+import { answerChat, unknownJutakuAnswer } from "@/lib/chat";
 import { CHAT_INSTRUCTIONS, CHAT_SCOPE_INSTRUCTIONS } from "@/lib/chat-knowledge";
 import { isPlainCalculation, omegaChatRequest, omegaChatText, omegaScope, type OmegaTurn } from "@/lib/omega-chat";
 
@@ -56,7 +56,8 @@ export async function POST(request: Request) {
   const curated = answerChat(lastQuestion);
   const outOfScope = () => NextResponse.json({ reply: answerChat("unrelated question"), mode: "curated" }, { headers: { "Cache-Control": "no-store" } });
   if (isPlainCalculation(lastQuestion)) return outOfScope();
-  const fallback = () => NextResponse.json({ reply: curated.topic === "other" ? unknownMemcoAnswer() : curated, mode: "curated" }, { headers: { "Cache-Control": "no-store" } });
+  if (/\b(memco|company|corporate)\b/i.test(lastQuestion) && /\b(founder|founded|ceo|chairman|leadership|engineering|other businesses|corporate|company history|what does memco do)\b/i.test(lastQuestion) && !/\b(jutaku|skyline|this project)\b/i.test(lastQuestion)) return outOfScope();
+  const fallback = () => NextResponse.json({ reply: curated.topic === "other" ? unknownJutakuAnswer() : curated, mode: "curated" }, { headers: { "Cache-Control": "no-store" } });
   const key = process.env.OMEGA_API_KEY;
   if (!key) return fallback();
 
@@ -82,6 +83,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ reply: { topic: curated.topic, text: text.slice(0, 2000), action: curated.action }, mode: "ai" }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     console.error("Jutaku chat request failed:", error instanceof Error ? error.message : "unknown");
-    return projectVerified || /\b(memco|jutaku|skyline)\b/i.test(lastQuestion) ? fallback() : outOfScope();
+    return projectVerified || /\b(jutaku|skyline)\b/i.test(lastQuestion) ? fallback() : outOfScope();
   }
 }
