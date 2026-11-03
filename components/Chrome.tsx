@@ -97,8 +97,8 @@ export function Chrome() {
       </header>
 
       <div className="chrome-actions" aria-label="Visit and enquiry actions">
-        <Link href="/book-visit" className="chrome-action chrome-action-primary">Book a visit</Link>
-        <Link href="/brochure" className="chrome-action chrome-action-secondary">Request details <ArrowUpRight size={18} strokeWidth={1.8} aria-hidden="true" /></Link>
+        <Link href="/book-visit" className="chrome-action chrome-action-primary">Book Jutaku experience</Link>
+        <Link href="/brochure" className="chrome-action chrome-action-secondary">Enquire now <ArrowUpRight size={18} strokeWidth={1.8} aria-hidden="true" /></Link>
       </div>
 
       <div className={`quick-actions${quickOpen ? " is-open" : ""}`}>
