@@ -6,11 +6,11 @@ const FEATURE_IMAGE = "/images/tower-hero.webp";
 const COLLAGE = [
   { src: "/images/sports-turf.webp", label: "Sports turf" },
   { src: "/images/clubhouse-exterior.webp", label: "Clubhouse exterior" },
-  { src: "/images/residence-living.webp", label: "Living room" },
-  { src: "/images/kanso-coworking.webp", label: "Kanso coworking studio" },
+  { src: "/images/collage-restaurant.webp", label: "Restaurant" },
+  { src: "/images/collage-creative-tech.webp", label: "Creative tech room" },
   { src: "/images/squash-court.webp", label: "Squash court" },
   { src: "/images/experience-centre-new.webp", label: "Experience centre" },
-  { src: "/images/sports-turf.webp", label: "Sports turf view" },
+  { src: "/images/collage-barbeque.webp", label: "Rooftop barbeque" },
 ];
 const FEATURE = { src: FEATURE_IMAGE, label: "MEMCO Skyline tower" };
 type Photo = (typeof COLLAGE)[number];

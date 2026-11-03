@@ -266,8 +266,8 @@ html.js:not(.reduced) [data-rise] { clip-path: inset(100% 0% 0% 0%); }
 .dp { display: grid; grid-template-columns: 1fr 1fr; }
 .dp-content, .cp-content { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
 .dp-content { padding: 6vh clamp(36px, 4vw, 72px) 5vh var(--side); }
-.cp { display: flex; align-items: center; justify-content: center; }
-.cp-content { width: min(840px, calc(100% - var(--side) - var(--side))); }
+.cp { display: flex; align-items: center; justify-content: flex-start; padding-inline: var(--side); }
+.cp-content { width: min(840px, 100%); }
 .dp-heading .lbl, .cp-heading .lbl, .cc-kicker { color: var(--green); }
 .dp-heading h2, .cp-heading h2 { margin-top: 8px; font-size: clamp(30px, 2.8vw, 44px); font-weight: 600; line-height: 1.08; letter-spacing: -.045em; }
 .dp-heading > p:last-child { max-width: 38ch; margin-top: 8px; color: #626a62; font-size: 12px; line-height: 1.5; }
@@ -736,7 +736,8 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .ds-hero figcaption { padding: 24px 10px 8px; font-size: 7px; }
   .dp { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) 27svh; }
   .dp-content { justify-content: flex-start; padding: 8svh 20px 2svh; overflow: hidden; }
-  .cp-content { width: calc(100% - 40px); }
+  .cp { padding-inline: 20px; }
+  .cp-content { width: 100%; }
   .dp-heading h2, .cp-heading h2, .cc-statement { margin-top: 5px; font-size: clamp(25px, 6.6vw, 35px); }
   .dp-heading > p:last-child { max-width: 40ch; margin-top: 5px; font-size: 9px; line-height: 1.4; }
   .dp-list, .cc-points { margin-top: 1.2svh; }
