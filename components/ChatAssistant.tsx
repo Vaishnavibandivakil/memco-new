@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
-import { ArrowUp, ArrowUpRight, Coins, Grid2X2, House, Layers, MapPin, MessageCircle, Mic, Train, TrendingUp, X } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Coins, Grid2X2, House, Layers, MapPin, Mic, Train, TrendingUp, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import type { ChatReply } from "@/lib/chat";
+import { ChatOrb } from "@/components/ChatOrb";
 
 type Message = {
   id: number;
@@ -45,17 +46,6 @@ const followups = [
   { label: "Location", question: "Where is Jutaku?" },
 ];
 const investmentIcons = [House, Layers, Coins, MapPin, Train, Grid2X2, TrendingUp];
-
-function ChatOrb() {
-  return (
-    <span className="chat-orb" aria-hidden="true">
-      <span className="chat-orb-glow" />
-      <span className="chat-orb-dots">
-        {Array.from({ length: 25 }, (_, index) => <i key={index} />)}
-      </span>
-    </span>
-  );
-}
 
 export function ChatAssistant() {
   const pathname = usePathname();
@@ -323,7 +313,7 @@ export function ChatAssistant() {
       )}
       {launcherVisible && (
         <button ref={launcher} type="button" className={`chat-launcher${open ? " is-open" : ""}`} onClick={() => open ? closeChat() : setOpen(true)} aria-expanded={open} aria-controls="jutaku-chat-panel" aria-label={open ? "Close chat" : "Open Jutaku assistant"}>
-          {open ? <X size={22} strokeWidth={2} aria-hidden="true" /> : <MessageCircle size={25} strokeWidth={2} aria-hidden="true" />}
+          {open ? <X size={22} strokeWidth={2} aria-hidden="true" /> : <ChatOrb />}
         </button>
       )}
     </div>

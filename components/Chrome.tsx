@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, CalendarDays, FileText, MessageCircle, Plus } from "lucide-react";
+import { ArrowUpRight, CalendarDays, FileText, Plus } from "lucide-react";
+import { ChatOrb } from "@/components/ChatOrb";
 import { gsap, ScrollTrigger, scrollToId } from "@/lib/motion";
 import { openHomes } from "@/components/sections/Homes";
 import { openLifestylePopup } from "@/components/LifestylePopup";
@@ -103,7 +104,7 @@ export function Chrome() {
 
       <div className={`quick-actions${quickOpen ? " is-open" : ""}`}>
         <div id="quick-actions-menu" className="quick-actions-items" inert={!quickOpen}>
-          <button type="button" className="quick-action quick-action-chat" onClick={() => { setQuickOpen(false); window.dispatchEvent(new Event("jutaku:open-chat")); }} aria-label="Open Jutaku chat" title="Chat with Jutaku"><MessageCircle size={21} strokeWidth={1.8} aria-hidden="true" /></button>
+          <button type="button" className="quick-action quick-action-chat" onClick={() => { setQuickOpen(false); window.dispatchEvent(new Event("jutaku:open-chat")); }} aria-label="Open Jutaku chat" title="Chat with Jutaku"><ChatOrb /></button>
           <Link href="/book-visit" className="quick-action quick-action-visit" aria-label="Book a site visit" title="Book a site visit"><CalendarDays size={21} strokeWidth={1.8} aria-hidden="true" /></Link>
           <Link href="/brochure" className="quick-action quick-action-details" aria-label="Request details" title="Request details"><FileText size={21} strokeWidth={1.8} aria-hidden="true" /></Link>
         </div>
