@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowDownRight, X } from "lucide-react";
+import { ReturnLink } from "@/components/ReturnNavigation";
 
 const FLOORS = [0, ...Array.from({ length: 14 }, (_, index) => index + 1)];
 
@@ -23,7 +24,7 @@ export function FloorPlanExplorer({ initialFloor = 0 }: { initialFloor?: number 
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/jutaku.png" alt="Jutaku" />
         </Link>
-        <Link className="fp-close" href="/#choose-home" aria-label="Close floor plans and return to the home page"><X size={20} strokeWidth={1.7} aria-hidden="true" /></Link>
+        <ReturnLink className="fp-close" href="/#choose-home" aria-label="Close floor plans and return to the home page"><X size={20} strokeWidth={1.7} aria-hidden="true" /></ReturnLink>
       </header>
 
       <div className="fp-heading">

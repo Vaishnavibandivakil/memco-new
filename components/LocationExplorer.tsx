@@ -9,6 +9,7 @@ import { ROUTE } from "@/lib/nearby-route";
 import { METRO_CONNECTIONS } from "@/data/metro-connectivity";
 import { METRO_GREEN_TRANSFER, METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
 import { LOCATION_CATEGORIES, LOCATION_DIRECTORY, type LocationCategory } from "@/data/location-directory";
+import { ReturnLink } from "@/components/ReturnNavigation";
 
 const CATEGORY_ICONS = {
   All: LayoutGrid,
@@ -183,7 +184,7 @@ export function LocationExplorer() {
             <button ref={metroButtonRef} type="button" className="location-metro-jump" aria-controls="metro-connectivity" aria-expanded={metroPanelOpen} onClick={toggleMetroPanel}>See metro connections <ArrowRight size={16} aria-hidden="true" /></button>
           </div>
         </div>
-        <Link className="location-back" href="/#location" aria-label="Close location page and return to the location section"><X size={20} strokeWidth={1.7} aria-hidden="true" /></Link>
+        <ReturnLink className="location-back" href="/#location" aria-label="Close location page and return to the location section"><X size={20} strokeWidth={1.7} aria-hidden="true" /></ReturnLink>
       </header>
 
       {metroPanelOpen && (

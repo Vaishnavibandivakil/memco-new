@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { ChatAssistant } from "@/components/ChatAssistant";
+import { ReturnNavigationTracker } from "@/components/ReturnNavigation";
 import "./globals.css";
 
 /* Brand guidelines §04: Montserrat only — Bold 700 headlines/numerals, SemiBold 600 sub-heads/labels/buttons,
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* flags before first paint so motion states never flash; without JS everything is visible */}
         <script dangerouslySetInnerHTML={{ __html: boot }} />
         {children}
+        <ReturnNavigationTracker />
         <ChatAssistant />
       </body>
     </html>

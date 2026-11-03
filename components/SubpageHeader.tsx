@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { X } from "lucide-react";
+import { ReturnLink } from "@/components/ReturnNavigation";
 
 type SubpageHeaderProps = {
   closeHref: string;
@@ -10,9 +10,9 @@ type SubpageHeaderProps = {
 export function SubpageHeader({ closeHref, closeLabel, className = "" }: SubpageHeaderProps) {
   return (
     <header className={`subpage-header ${className}`}>
-      <Link className="subpage-close" href={closeHref} aria-label={`Close and return to ${closeLabel}`} title={`Return to ${closeLabel}`}>
+      <ReturnLink className="subpage-close" href={closeHref} aria-label={`Close and return to ${closeLabel}`} title={`Return to ${closeLabel}`}>
         <X size={20} strokeWidth={1.7} aria-hidden="true" />
-      </Link>
+      </ReturnLink>
     </header>
   );
 }

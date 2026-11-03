@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import { lenis } from "@/lib/motion";
+import { rememberReturnNavigation } from "@/components/ReturnNavigation";
 
 const NEXT_PROMPT_KEY = "jutaku-find-your-fit-next-prompt-v4";
 const PROMPT_COOLDOWN = 4 * 24 * 60 * 60 * 1_000;
@@ -86,6 +87,7 @@ export function LifestylePopup() {
   };
   const choose = (page: "/individual-living" | "/modern-couple") => {
     close();
+    rememberReturnNavigation(page);
     router.push(page);
   };
 

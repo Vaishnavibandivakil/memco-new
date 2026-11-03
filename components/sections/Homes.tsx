@@ -33,6 +33,7 @@ export function Homes() {
     const element = root.current;
     if (!element) return;
     const reduced = document.documentElement.classList.contains("reduced");
+    gsap.killTweensOf(element);
     if (open) {
       lenis()?.stop();
       document.documentElement.classList.add("panel-open");
@@ -42,7 +43,7 @@ export function Homes() {
       gsap.fromTo(element, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "expo.inOut" });
       gsap.set(element.querySelectorAll(".hm-title .ch"), { opacity: 0 });
       charsIn(element.querySelectorAll(".hm-title .ch"), { delay: 0.55 });
-      gsap.fromTo(element.querySelectorAll(".hm-count, .hm-close, .hm-grid"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1, stagger: 0.08, delay: 0.7, ease: "power3.out" });
+      gsap.fromTo(element.querySelectorAll(".hm-count, .hm-grid"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1, stagger: 0.08, delay: 0.7, ease: "power3.out" });
     } else {
       document.documentElement.classList.remove("panel-open");
       lenis()?.start();

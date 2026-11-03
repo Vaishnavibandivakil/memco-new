@@ -4,6 +4,7 @@ import { LifestyleGallery } from "@/components/LifestyleGallery";
 import { Reveals } from "@/components/Reveals";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { AMENITIES } from "@/lib/data";
+import { ReturnLink } from "@/components/ReturnNavigation";
 
 const experienceZones = [
   "performance-wellness", "clubrooms-creator", "culinary-studios",
@@ -75,7 +76,7 @@ export function LifestyleStory({ story }: { story: Story }) {
         <div className="persona-hero-copy">
           <p className="persona-kicker" data-fade>A way to live</p>
           <h1 id="persona-title" data-fade>{story.title.split("\n").map((line) => <span key={line}>{line}</span>)}</h1>
-          <Link className="subpage-close persona-close" href="/#top" aria-label="Close and return to Jutaku home" title="Return to Jutaku home"><X size={20} strokeWidth={1.7} aria-hidden="true" /></Link>
+          <ReturnLink className="subpage-close persona-close" href="/#top" aria-label="Close and return to Jutaku home" title="Return to Jutaku home"><X size={20} strokeWidth={1.7} aria-hidden="true" /></ReturnLink>
           <div className="persona-hero-aside" data-fade data-delay="0.12">
             <p className="persona-lede">{story.introduction}</p>
             <Link className="persona-action" href="/book-visit">Book your visit</Link>
