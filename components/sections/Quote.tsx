@@ -23,7 +23,7 @@ export function Quote() {
         </div>
         <figure className="st-pic" data-rise>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/chandelier-atrium.webp" alt="Chandelier at the Jutaku Experience Centre" loading="lazy" data-parallax="8" />
+          <img src="/images/bedroom-window-seat.webp" alt="Bedroom with a sofa beside a curtained window" loading="lazy" data-parallax="8" />
         </figure>
       </div>
       <div className="st-wide">

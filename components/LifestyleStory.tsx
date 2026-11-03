@@ -161,7 +161,7 @@ export function LifestyleStory({ story }: { story: Story }) {
             <div className="persona-bento-stat" data-fade><span>02 / Site</span><strong>2.78</strong><p>Acres for the wider Jutaku community.</p></div>
             <figure className="persona-bento-image" data-rise>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/chandelier-atrium.webp" alt="Chandelier at the Jutaku Experience Centre" loading="lazy" />
+              <img src="/images/bedroom-window-seat.webp" alt="Bedroom with a sofa beside a curtained window" loading="lazy" />
             </figure>
             <figure className="persona-bento-image" data-rise>
               {/* eslint-disable-next-line @next/next/no-img-element */}
