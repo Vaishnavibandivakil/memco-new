@@ -14,7 +14,7 @@ export const ROOMS: Room[] = [
   { slug: "bedroom-open-plan", index: "02", name: "The Bedroom", title: ["The", "Bedroom"], italic: "Room to rest, work and take in the view.", photo: "/images/interior-bedroom-open-plan.jpg", caption: "Open plan bedroom with desk and window seating" },
   { slug: "kitchen", index: "03", name: "The Kitchen", title: ["The", "Kitchen"], italic: "A warm, open kitchen with space to gather.", photo: "/images/interior-kitchen-new.jpg", caption: "Open kitchen with wood cabinetry and breakfast seating" },
   { slug: "entry", index: "04", name: "The Entry", title: ["The", "Entry"], italic: "Step inside to a connected living space.", photo: "/images/interior-entry-new.jpg", caption: "Entry view into the kitchen and living area" },
-  { slug: "bathroom", index: "05", name: "The Bathroom", title: ["The", "Bathroom"], italic: "A calm space with a glass shower and natural finishes.", photo: "/images/interior-bathroom-new.jpg", caption: "Bathroom with glass shower and dark stone finishes" },
+  { slug: "bathroom", index: "05", name: "The Bathroom", title: ["The", "Bathroom"], italic: "A calm space with a glass shower and natural finishes.", photo: "/images/interior-bathroom-render.webp", caption: "Illustrative bathroom render with a glass shower and natural finishes" },
 ];
 
 export type Amenity = { id: string; index: string; name: string; desc: string; area?: string; photo: string; detail: string[] };

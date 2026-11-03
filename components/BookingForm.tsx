@@ -72,7 +72,7 @@ export function BookingForm() {
     <main className="bk-page" data-tone="light">
       <aside className="bk-scene">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="bk-scene-image" src="/images/design-living.webp" alt="Living room at MEMCO Skyline" />
+        <img className="bk-scene-image" src="/images/experience-centre-booking.webp" alt="Inside the Jutaku Experience Centre, with the project model and visitor seating" />
         <div className="bk-scene-shade" aria-hidden="true" />
         <Link className="bk-scene-brand" href="/#top" aria-label="MEMCO Skyline home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
