@@ -160,7 +160,7 @@ export function LifestyleStory({ story }: { story: Story }) {
             <div className="persona-bento-stat" data-fade><span>02 / Site</span><strong>2.78</strong><p>Acres for the wider Jutaku community.</p></div>
             <figure className="persona-bento-image" data-rise>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/chandelier-atrium.webp" alt="Chandelier above the Jutaku atrium" loading="lazy" />
+              <img src="/images/chandelier-atrium.webp" alt="Chandelier at the Jutaku Experience Centre" loading="lazy" />
             </figure>
             <figure className="persona-bento-image" data-rise>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -181,7 +181,7 @@ export function LifestyleStory({ story }: { story: Story }) {
             <div className="persona-bento-copy persona-bento-design" data-fade>
               <span>07 / Design</span>
               <h3>Design with a purpose.</h3>
-              <p>Usable layouts, natural light and ventilation, tree preservation, water conservation, energy-efficient materials and waste management. Backed by MEMCO’s 40+ years in engineering.</p>
+              <p>The published design principles bring together functional layouts, natural light and ventilation, tree preservation, water conservation and energy-efficient materials.</p>
             </div>
           </div>
         </div>
@@ -197,7 +197,7 @@ export function LifestyleStory({ story }: { story: Story }) {
           </div>
           <figure className="persona-end-image" data-rise>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/experience-center-reception.webp" alt="Jutaku Experience Centre exterior" loading="lazy" />
+            <img src="/images/experience-center-reception.webp" alt="Reception at the Jutaku Experience Centre" loading="lazy" />
           </figure>
         </div>
       </section>

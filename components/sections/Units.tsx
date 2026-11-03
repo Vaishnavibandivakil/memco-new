@@ -30,7 +30,7 @@ export function Units() {
           <img src="/images/interior-kitchen-entry.jpg" alt="Kitchen entry view, Urban Unit" loading="lazy" />
         </div>
         <div className="un-meta-r" data-fade data-delay="0.2">
-          <p>Every home opens onto 50,000 sq ft of shared, professionally managed spaces.</p>
+          <p>Each Urban Unit is planned as part of a 50,000 sq ft ecosystem of shared, professionally managed spaces.</p>
           <button type="button" className="pill lbl" onClick={() => openHomes()}>Explore the homes</button>
         </div>
         <h2 className="disp un-title" data-chars>

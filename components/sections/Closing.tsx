@@ -18,7 +18,7 @@ export function Closing() {
           <span>A 56 FT POOL</span>
           <span>ON LEVEL 22</span>
         </h2>
-        <p className="lbl sv-sub">Open 24 hours</p>
+        <p className="lbl sv-sub">24/7 access planned</p>
       </section>
 
       <InsightsPreview />

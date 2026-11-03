@@ -77,6 +77,12 @@ export function ChatAssistant() {
   const chatRequest = useRef<AbortController | null>(null);
   const isWelcome = messages.length === 0;
 
+  useEffect(() => {
+    const openFromQuickActions = () => setOpen(true);
+    window.addEventListener("jutaku:open-chat", openFromQuickActions);
+    return () => window.removeEventListener("jutaku:open-chat", openFromQuickActions);
+  }, []);
+
   const closeChat = useCallback(() => {
     chatRequest.current?.abort();
     chatRequest.current = null;
@@ -131,7 +137,9 @@ export function ChatAssistant() {
       hasOpened.current = true;
       input.current?.focus();
     } else if (hasOpened.current) {
-      launcher.current?.focus();
+      const quickToggle = document.querySelector<HTMLButtonElement>(".quick-actions-toggle");
+      if (quickToggle && window.matchMedia("(max-width: 1150px)").matches) quickToggle.focus();
+      else launcher.current?.focus();
     }
   }, [open]);
 

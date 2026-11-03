@@ -10,19 +10,19 @@ export const REASONS = [
   {
     title: "Two metros. One address.",
     photo: "/images/balcony-exterior.webp",
-    body: "On Manipal County Road, with Singasandra and Hosa Road Yellow Line stations about 0.9 km and 1.3 km away in a straight line.",
+    body: "From Jutaku on Manipal County Road, Singasandra and Hosa Road Yellow Line stations are about 0.9 km and 1.3 km away in a straight line.",
     tag: "Singasandra, South Bengaluru",
   },
   {
     title: "Own 500. Experience 50,000",
     photo: "/images/rooftop-court.jpg",
-    body: "Around 500 sq ft to make your own. Beyond it, roughly 50,000 sq ft planned for work, sport, dining and time off.",
+    body: "An Urban Unit of around 500 sq ft to make your own, connected to about 50,000 sq ft of planned spaces for work, sport, dining and leisure.",
     tag: "The Jutaku concept",
   },
   {
     title: "Rooted in this place",
     photo: "/images/design-trees.webp",
-    body: "Of 348 trees surveyed, 115 stood in the construction path. MEMCO transplanted every one; Serenity Park is planned at 12,000 sq ft.",
+    body: "The project reports 348 trees surveyed and 115 transplanted from the construction path. Serenity Park is planned across 12,000 sq ft.",
     tag: "Serenity Park · 12,000 sq ft",
   },
 ];

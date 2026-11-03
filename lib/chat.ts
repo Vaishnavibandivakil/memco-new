@@ -45,10 +45,10 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
     action: { label: "Speak with the team", href: "/#contact" },
   },
   investmentComparison: {
-    text: "MEMCO’s Manipal County comparison cites an average acquisition cost of ₹15,500 per sq ft for RERA-approved projects, including charges except registration. It lists a ₹1.6 crore minimum ticket size outside Jutaku; Jutaku’s entry ticket is about 44% of that benchmark.",
+    text: "The published Jutaku concept pairs a private Urban Unit of around 500 sq ft with access to a wider 50,000 sq ft amenity plan. The site mentions revenue-sharing opportunities from bookable spaces, but it does not publish a guaranteed return or rental yield.",
     details: [
-      "Two possible ways to earn a return are future resale appreciation and rental income or rental offset. Neither return is guaranteed.",
-      "The rental case highlights metro and road access, smaller homes and shared amenities as possible drivers of demand. These are project-provided comparisons; check current prices, rents and charges before deciding.",
+      "Homes are advertised from ₹68.5 lakhs, with premiums for floor rise, corner and east-facing units. Confirm the current price, charges and terms with the project team.",
+      "Any resale appreciation, rental income or revenue share depends on future conditions and the applicable documents; none is guaranteed.",
     ],
     action: { label: "Speak with the team", href: "/#contact" },
   },

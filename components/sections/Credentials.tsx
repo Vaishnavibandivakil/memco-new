@@ -9,7 +9,7 @@ export function Credentials() {
     <section id="pricing" className="cr" data-tone="light">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="cr-deco" src="/images/walking-trails.jpg" alt="" loading="lazy" data-rise />
-      <p className="lbl cr-kicker" data-fade>The luxury of coming home<br /><span className="dim">Book your Jutaku Experience</span></p>
+      <p className="lbl cr-kicker" data-fade>Smart ownership at Jutaku<br /><span className="dim">Own your space. Access more.</span></p>
       <i className="cr-rule" aria-hidden data-draw />
       <h2 className="cr-body disp">
         <span className="cr-line" data-chars><Chars text="RERA" /><sup>*</sup></span>

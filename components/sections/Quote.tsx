@@ -15,15 +15,15 @@ export function Quote() {
   return (
     <section ref={root} className="st" data-tone="light">
       <p className="lbl st-kicker" data-fade>Jutaku <i>·</i> Own 500. Experience 50,000.</p>
-      <Split left="THE LUXURY" mid={<span className="lbl">MEMCO <i>·</i> 40+ years <i>·</i> Bengaluru</span>} right="OF COMING HOME" />
+      <Split left="OWN 500" mid={<span className="lbl">Jutaku <i>·</i> Bengaluru</span>} right="EXPERIENCE MORE" />
       <div className="st-grid">
         <div className="st-copy">
-          <p className="caps-serif st-say" data-lines>Your own front door. Beyond it: a rooftop pool, studios, courts and a park.</p>
+          <p className="caps-serif st-say" data-lines>An Urban Unit of around 500 sq ft, with spaces to work, train, cook and unwind beyond your front door.</p>
           <p className="lbl" data-fade data-delay="0.3">MEMCO Skyline <i>·</i> Jutaku</p>
         </div>
         <figure className="st-pic" data-rise>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/chandelier-atrium.webp" alt="Chandelier above the Jutaku atrium" loading="lazy" data-parallax="8" />
+          <img src="/images/chandelier-atrium.webp" alt="Chandelier at the Jutaku Experience Centre" loading="lazy" data-parallax="8" />
         </figure>
       </div>
       <div className="st-wide">

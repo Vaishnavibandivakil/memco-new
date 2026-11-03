@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { ArrowUpRight, CalendarDays, FileText, MessageCircle, Plus } from "lucide-react";
 import { gsap, ScrollTrigger, scrollToId } from "@/lib/motion";
 import { openHomes } from "@/components/sections/Homes";
 import { openLifestylePopup } from "@/components/LifestylePopup";
@@ -21,10 +22,11 @@ export function Chrome() {
   const bar = useRef<HTMLSpanElement>(null);
   const [no, setNo] = useState("01");
   const [open, setOpen] = useState(false);
+  const [quickOpen, setQuickOpen] = useState(false);
 
   useEffect(() => {
     // Esc closes the menu only when it is the top layer — if the homes panel is open, Esc belongs to the panel
-    const key = (e: KeyboardEvent) => { if (e.key === "Escape" && !document.documentElement.classList.contains("panel-open")) setOpen(false); };
+    const key = (e: KeyboardEvent) => { if (e.key === "Escape" && !document.documentElement.classList.contains("panel-open")) { setOpen(false); setQuickOpen(false); } };
     window.addEventListener("keydown", key);
     return () => window.removeEventListener("keydown", key);
   }, []);
@@ -93,6 +95,20 @@ export function Chrome() {
           </div>
         </div>
       </header>
+
+      <div className="chrome-actions" aria-label="Visit and enquiry actions">
+        <Link href="/book-visit" className="chrome-action chrome-action-primary">Book a visit</Link>
+        <Link href="/brochure" className="chrome-action chrome-action-secondary">Request details <ArrowUpRight size={18} strokeWidth={1.8} aria-hidden="true" /></Link>
+      </div>
+
+      <div className={`quick-actions${quickOpen ? " is-open" : ""}`}>
+        <div id="quick-actions-menu" className="quick-actions-items" inert={!quickOpen}>
+          <button type="button" className="quick-action quick-action-chat" onClick={() => { setQuickOpen(false); window.dispatchEvent(new Event("jutaku:open-chat")); }} aria-label="Open Jutaku chat" title="Chat with Jutaku"><MessageCircle size={21} strokeWidth={1.8} aria-hidden="true" /></button>
+          <Link href="/book-visit" className="quick-action quick-action-visit" aria-label="Book a site visit" title="Book a site visit"><CalendarDays size={21} strokeWidth={1.8} aria-hidden="true" /></Link>
+          <Link href="/brochure" className="quick-action quick-action-details" aria-label="Request details" title="Request details"><FileText size={21} strokeWidth={1.8} aria-hidden="true" /></Link>
+        </div>
+        <button type="button" className="quick-actions-toggle" aria-expanded={quickOpen} aria-controls="quick-actions-menu" aria-label={quickOpen ? "Close quick actions" : "Open quick actions"} onClick={() => setQuickOpen((value) => !value)}><Plus size={27} strokeWidth={1.8} aria-hidden="true" /></button>
+      </div>
 
       <div className="rail" aria-hidden>
         <span className="rail-line"><span ref={bar} className="rail-fill" /></span>

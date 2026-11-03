@@ -69,9 +69,9 @@ export function Opening() {
             <img className="op-script" src="/brand/jutaku-white.png" alt="Jutaku" width={379} height={260} />
           </h1>
           <div className="op-row">
-            <span className="caps-serif">The luxury</span>
+            <span className="caps-serif">Own your space</span>
             <span className="lbl">Singasandra <i>·</i> South Bengaluru</span>
-            <span className="caps-serif">of coming home</span>
+            <span className="caps-serif">Experience more</span>
           </div>
         </div>
       </section>
@@ -151,7 +151,7 @@ function Reasons() {
           <span className="lbl">Singasandra</span><span className="mark" /><span className="lbl">Bengaluru</span>
         </div>
         <i className="rs-line" aria-hidden />
-        <p className="lbl rs-kicker" data-fade>The luxury of coming home<br /><span className="dim">Own 500 · Experience 50,000</span></p>
+        <p className="lbl rs-kicker" data-fade>A new way of urban living<br /><span className="dim">Own 500 · Experience 50,000</span></p>
 
         <div className="rs-stage">
           <div className="rs-heads">
