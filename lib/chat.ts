@@ -88,7 +88,7 @@ const intentPatterns: [ChatTopic, RegExp][] = [
   ["homes", /\b(homes?|houses?|apartments?|flats?|units?|floors?|sizes?|square feet|sq\.?\s*ft|layouts?|bedrooms?|available|availability)\b/i],
   ["contact", /\b(contact|call|phone|number|email|talk|speak|sales|agent|whatsapp)\b/i],
   ["rera", /\b(rera|registration|registered)\b/i],
-  ["concept", /\b(jutaku|concept|project|what is|tell me about|ownership)\b/i],
+  ["concept", /\b(memco|jutaku|concept|project|what is|tell me about|ownership)\b/i],
 ];
 
 export function unknownJutakuAnswer(): ChatReply {

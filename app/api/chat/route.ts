@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { answerChat, unknownJutakuAnswer } from "@/lib/chat";
 import { CHAT_INSTRUCTIONS, CHAT_SCOPE_INSTRUCTIONS } from "@/lib/chat-knowledge";
-import { isPlainCalculation, omegaChatRequest, omegaChatText, omegaScope, type OmegaTurn } from "@/lib/omega-chat";
+import { isCorporateOnlyQuestion, isPlainCalculation, isProjectBrandQuestion, omegaChatRequest, omegaChatText, omegaScope, type OmegaTurn } from "@/lib/omega-chat";
 
 export const runtime = "nodejs";
 
@@ -65,7 +65,7 @@ export async function POST(request: Request) {
   const curated = answerChat(lastQuestion);
   const outOfScope = () => NextResponse.json({ reply: answerChat("unrelated question"), mode: "curated" }, { headers: { "Cache-Control": "no-store" } });
   if (isPlainCalculation(lastQuestion)) return outOfScope();
-  if (/\b(memco|company|corporate)\b/i.test(lastQuestion) && /\b(founder|founded|ceo|chairman|leadership|engineering|other businesses|corporate|company history|what does memco do)\b/i.test(lastQuestion) && !/\b(jutaku|skyline|this project)\b/i.test(lastQuestion)) return outOfScope();
+  if (isCorporateOnlyQuestion(lastQuestion)) return outOfScope();
   const fallback = () => NextResponse.json({ reply: curated.topic === "other" ? unknownJutakuAnswer() : curated, mode: "curated" }, { headers: { "Cache-Control": "no-store" } });
   const key = process.env.OMEGA_API_KEY;
   if (!key) return fallback();
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
       if (!upstream.ok) throw new Error(`Omega API returned ${upstream.status}`);
       return upstream.json();
     };
-    const clearlyAboutJutaku = /\b(jutaku|memco skyline)\b/i.test(lastQuestion) || suggestedProjectQuestions.has(lastQuestion.trim().toLowerCase());
+    const clearlyAboutJutaku = isProjectBrandQuestion(lastQuestion) || suggestedProjectQuestions.has(lastQuestion.trim().toLowerCase());
     const scope = clearlyAboutJutaku ? "project" : omegaScope(await callOmega(CHAT_SCOPE_INSTRUCTIONS, turns.slice(-5), 16, 15_000));
     if (scope === "other") return outOfScope();
     projectVerified = true;
@@ -93,6 +93,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ reply: { topic: curated.topic, text: text.slice(0, 2000), action: curated.action }, mode: "ai" }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     console.error("Jutaku chat request failed:", error instanceof Error ? error.message : "unknown");
-    return projectVerified || /\b(jutaku|skyline)\b/i.test(lastQuestion) ? fallback() : outOfScope();
+    return projectVerified || isProjectBrandQuestion(lastQuestion) ? fallback() : outOfScope();
   }
 }

@@ -18,6 +18,18 @@ export function isPlainCalculation(question: string): boolean {
   return /\d/.test(expression) && /^[\d\s+*/^%().=\-]+\??$/.test(expression);
 }
 
+export function isCorporateOnlyQuestion(question: string): boolean {
+  return /\bmemco\b/i.test(question) &&
+    /\b(founder|founded|ceo|chairman|leadership|engineering|corporate|company history|other businesses|incorporated|what does memco do)\b/i.test(question) &&
+    !/\b(jutaku|this project)\b/i.test(question);
+}
+
+export function isProjectBrandQuestion(question: string): boolean {
+  return !isCorporateOnlyQuestion(question) &&
+    /\b(memco|jutaku|skyline)\b/i.test(question) &&
+    !/\b(capital of|bitcoin|recipe|weather|coding|programming)\b/i.test(question);
+}
+
 export function omegaChatText(payload: unknown): string {
   if (!payload || typeof payload !== "object") return "";
   const response = payload as { choices?: { message?: { content?: unknown } }[] };

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { isPlainCalculation, omegaChatRequest, omegaChatText, omegaScope } from "../lib/omega-chat.ts";
+import { isCorporateOnlyQuestion, isPlainCalculation, isProjectBrandQuestion, omegaChatRequest, omegaChatText, omegaScope } from "../lib/omega-chat.ts";
 
 test("Omega request keeps project instructions separate from visitor turns", () => {
   const request = omegaChatRequest("Verified project facts", [{ role: "user", content: "Where is Jutaku?" }]);
@@ -26,4 +26,14 @@ test("scope gate refuses off-topic classifications and plain arithmetic", () => 
   assert.equal(isPlainCalculation("2+1"), true);
   assert.equal(isPlainCalculation("What is 2 + 1?"), true);
   assert.equal(isPlainCalculation("What is Jutaku's price?"), false);
+});
+
+test("MEMCO shorthand refers to Jutaku without admitting corporate questions", () => {
+  assert.equal(isProjectBrandQuestion("MEMCO"), true);
+  assert.equal(isProjectBrandQuestion("where can i find memco"), true);
+  assert.equal(isProjectBrandQuestion("Where is MEMCO Skyline?"), true);
+  assert.equal(isCorporateOnlyQuestion("Who founded MEMCO?"), true);
+  assert.equal(isCorporateOnlyQuestion("What does MEMCO do?"), true);
+  assert.equal(isProjectBrandQuestion("What does MEMCO do?"), false);
+  assert.equal(isProjectBrandQuestion("What is the capital of France, MEMCO?"), false);
 });
