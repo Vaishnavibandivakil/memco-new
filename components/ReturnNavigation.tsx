@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 const RETURN_KEY = "jutaku:pending-return";
 
-type PendingReturn = { from: string; to: string; at: number };
+type PendingReturn = { from: string; to: string };
 
 export function rememberReturnNavigation(destination: string) {
   try {
@@ -15,7 +15,6 @@ export function rememberReturnNavigation(destination: string) {
     const pending: PendingReturn = {
       from: window.location.pathname + window.location.search + window.location.hash,
       to: to.pathname,
-      at: Date.now(),
     };
     window.sessionStorage.setItem(RETURN_KEY, JSON.stringify(pending));
   } catch { /* The links still navigate when session storage is unavailable. */ }
@@ -49,7 +48,7 @@ export function ReturnLink({ onClick, ...props }: ReturnLinkProps) {
       if (!stored) return;
       window.sessionStorage.removeItem(RETURN_KEY);
       const pending = JSON.parse(stored) as PendingReturn;
-      canReturn.current = pending.to === window.location.pathname && pending.from !== window.location.pathname && Date.now() - pending.at < 60_000;
+      canReturn.current = pending.to === window.location.pathname && pending.from !== window.location.pathname;
     } catch { /* The fallback destination remains available. */ }
   }, []);
 
@@ -61,5 +60,5 @@ export function ReturnLink({ onClick, ...props }: ReturnLinkProps) {
     router.back();
   };
 
-  return <Link {...props} data-return-link onClick={handleClick} aria-label="Close page" title="Close page" />;
+  return <Link data-return-link aria-label="Close page" title="Close page" {...props} onClick={handleClick} />;
 }

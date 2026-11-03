@@ -11,12 +11,12 @@ export function Closing() {
       <section className="sv" data-tone="dark">
         <div className="sv-media">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/rooftop-pool.jpg" alt="Skyline Aqua Lounge, the rooftop pool deck on level 22" loading="lazy" data-parallax="8" />
+          <img src="/images/rooftop-pool.jpg" alt="Skyline Aqua Lounge rooftop pool deck" loading="lazy" data-parallax="8" />
         </div>
-        <p className="lbl sv-kicker">Skyline Aqua Lounge · Level 22</p>
+        <p className="lbl sv-kicker">Skyline Aqua Lounge · Rooftop</p>
         <h2 className="disp sv-title">
           <span>A 56 FT POOL</span>
-          <span>ON LEVEL 22</span>
+          <span>ABOVE THE CITY</span>
         </h2>
         <p className="lbl sv-sub">24/7 access planned</p>
       </section>
