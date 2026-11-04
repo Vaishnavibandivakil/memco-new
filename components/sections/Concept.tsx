@@ -194,7 +194,7 @@ export function Concept() {
               <path className="pl-glow" d={ROAD} pathLength={1} mask="url(#road-mask)" />
             </svg>
             <ol className="pl-stops">
-              {ROUTE.map((r) => (
+              {[ROUTE[2], ROUTE[0], ROUTE[1], ROUTE[3]].map((r) => (
                 <li key={r.name} className="pl-stop">
                   <span className="pl-lab"><b>{r.name}</b><span>≈{r.distance} · {r.direction}</span></span><i />
                 </li>
@@ -219,7 +219,7 @@ export function Concept() {
           </figure>
           <div className="gm-side">
             <h3 className="caps-serif" data-hfade>The metro, close to home</h3>
-            <p data-hfade data-delay="0.1">Singasandra Metro is about {ROUTE[0].distance} away, Hosa Road Metro about {ROUTE[1].distance}, and Electronic City Metro about {ROUTE[2].distance}. These are straight-line distances from Jutaku on Manipal County Road.</p>
+            <p data-hfade data-delay="0.1">Singasandra Metro is about {ROUTE[0].distance} away and Hosa Road Metro about {ROUTE[1].distance}. Kudlu Gate and Beratena Agrahara are the next Yellow Line stops in either direction. Distances are measured in a straight line from Jutaku on Manipal County Road.</p>
           </div>
           <button type="button" className="round gm-view" data-hfade onClick={() => openHomes()}>
             <svg viewBox="0 0 100 100" aria-hidden><circle cx="50" cy="50" r="48" /></svg>

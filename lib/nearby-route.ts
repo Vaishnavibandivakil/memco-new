@@ -24,8 +24,8 @@ const compass = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "
 const stations = [
   { name: "Singasandra Metro", position: [77.64485, 12.88082] as const },
   { name: "Hosa Road Metro", position: [77.65248, 12.87078] as const },
-  { name: "Electronic City Metro", position: [77.67112, 12.84649] as const },
-  { name: "MG Road Metro", position: [77.60683, 12.975536] as const },
+  { name: "Kudlu Gate Metro", position: [77.63922, 12.88993] as const },
+  { name: "Beratena Agrahara Metro", position: [77.6579, 12.86388] as const },
 ];
 
 export const ROUTE = stations.map((station) => ({

@@ -15,7 +15,7 @@ const COLLAGE = [
 const FEATURE = { src: FEATURE_IMAGE, label: "MEMCO Skyline tower" };
 type Photo = (typeof COLLAGE)[number];
 const FACTS = [
-  { value: "4", label: "Metro stations", range: "Within 4 km", note: "Singasandra, Hosa Road, Kudlu Gate and Hongasandra." },
+  { value: "4", label: "Metro stations", range: "Within 4 km", note: "Singasandra, Hosa Road, Kudlu Gate and Beratena Agrahara." },
   { value: "9", label: "Schools & colleges", range: "Within 9 km", note: "Including Oxford College, Dayananda Sagar University and National Public School." },
   { value: "10", label: "Healthcare options", range: "Within 8.5 km", note: "Clinics and hospitals including Pralaksha, Manipal and Apollo." },
   { value: "4", label: "Work destinations", range: "Within 7 km", note: "Infosys, Bosch, HSBC and Kalyani Magnum Infotech Park." },
