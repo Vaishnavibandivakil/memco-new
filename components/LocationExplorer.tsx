@@ -56,9 +56,13 @@ export function LocationExplorer() {
   const visiblePlaces = category === "All" ? LOCATION_DIRECTORY : LOCATION_DIRECTORY.filter((place) => place.category === category);
   const cardPosition = selectedMetroStation?.position ?? activeConnection?.position ?? selectedPlace.position;
   const homePlaceUrl = "https://www.google.com/maps/place/MEMCO+Skyline+Jutaku/@12.8742426,77.6382217,17z/data=!3m1!4b1!4m6!3m5!1s0x3bae6b00256cd43d:0x159453b3f51b5e1b!8m2!3d12.8742426!4d77.6407966!16s%2Fg%2F11xzz_6bnl";
-  const directionsUrl = selectedPlace.category === "Home" && !activeConnection
-    ? homePlaceUrl
-    : `https://www.google.com/maps/dir/?api=1&destination=${cardPosition[1]}%2C${cardPosition[0]}`;
+  const directionsUrl = activeConnection
+    ? activeConnection.status.startsWith("In service")
+      ? `https://www.google.com/maps/dir/?api=1&origin=${cardPosition[1]}%2C${cardPosition[0]}&destination=${encodeURIComponent(`MEMCO Skyline Jutaku, ${ADDRESS}`)}&travelmode=transit`
+      : homePlaceUrl
+    : selectedPlace.category === "Home"
+      ? homePlaceUrl
+      : `https://www.google.com/maps/dir/?api=1&destination=${cardPosition[1]}%2C${cardPosition[0]}`;
   const selectedImage = activeConnection ? CATEGORY_IMAGES.Metro : selectedPlace.category === "Home" ? "/images/jutaku-exterior-hero.webp" : CATEGORY_IMAGES[selectedPlace.category];
 
   const choose = (index: number, scrollToMap = false) => {
@@ -192,10 +196,10 @@ export function LocationExplorer() {
       {metroPanelOpen && (
         <aside ref={metroPanelRef} id="metro-connectivity" className={`location-metro-panel${activeMetro !== null ? " is-route-active" : ""}`} aria-labelledby="location-metro-title">
           <div className="location-metro-panel-head">
-            <div><span className="location-metro-kicker">Metro connectivity</span><h2 id="location-metro-title">From Jutaku to the city.</h2></div>
+            <div><span className="location-metro-kicker">Metro connectivity</span><h2 id="location-metro-title">How to reach Jutaku.</h2></div>
             <button type="button" className="location-metro-close" onClick={closeMetroPanel} aria-label="Close metro connections"><X size={19} aria-hidden="true" /></button>
           </div>
-          <p className="location-metro-panel-intro">Singasandra Metro is about {ROUTE[0].distance} away; Hosa Road Metro is about {ROUTE[1].distance}. Choose a line to see its connected stations on the map. Tap a stop to zoom in.</p>
+          <p className="location-metro-panel-intro">Choose a line to see the route towards Jutaku. Singasandra Metro is about {ROUTE[0].distance} away; Hosa Road Metro is about {ROUTE[1].distance} away. Tap a station to find it on the map.</p>
           <div className="location-metro-panel-routes">
             {METRO_CONNECTIONS.map((connection, index) => (
               <div key={connection.line} className={`location-metro-option is-${connection.line.toLowerCase()}${activeMetro === index ? " is-active" : ""}`}>
@@ -207,7 +211,7 @@ export function LocationExplorer() {
                 {activeMetro === index && <div id={`metro-route-${connection.line.toLowerCase()}`} className="location-metro-option-detail">
                   <div className="location-metro-steps" aria-label={`${connection.line} Line connection via ${connection.steps.join(", then ")}`}>{connection.steps.map((step, stepIndex) => <span key={step}>{stepIndex > 0 && <ArrowRight size={13} aria-hidden="true" />}<b>{step}</b></span>)}</div>
                   <p>{connection.description}</p>
-                  <h3>How the route works</h3>
+                  <h3>How to reach Jutaku</h3>
                   <ol className="location-metro-journey">{connection.journey.map((leg) => <li key={leg.title}><strong>{leg.title}</strong><span>{leg.detail}</span></li>)}</ol>
                   <div className="location-metro-stations-heading"><h3>Station map</h3><span>{connection.stations.length} stops</span></div>
                   <p className="location-metro-stations-direction">{connection.stationsLabel}. Tap any stop to find it on the map.</p>
@@ -233,9 +237,9 @@ export function LocationExplorer() {
         <div className="location-card-copy" aria-live="polite">
           <span className="location-card-index">{activeConnection ? `${activeConnection.line} Line · ${activeConnection.status}` : selectedPlace.category === "Home" ? "Visit Jutaku" : selectedPlace.category}</span>
           <h2>{selectedMetroStation?.name ?? activeConnection?.station ?? (selectedPlace.category === "Home" ? "MEMCO Skyline Jutaku" : selectedPlace.name)}</h2>
-          <p>{activeConnection ? `${activeConnection.line} Line ${activeConnection.status === "In service" || activeConnection.status.startsWith("In service") ? "station" : "planned station"}. Select Get directions to view the location.` : selectedPlace.category === "Home" ? ADDRESS : `${selectedPlace.distance} from Jutaku.`}</p>
+          <p>{activeConnection ? activeConnection.status.startsWith("In service") ? `Start at this ${activeConnection.line} Line station and follow the connection to MEMCO Skyline Jutaku.` : `Future ${activeConnection.line} Line connection to MEMCO Skyline Jutaku; passenger service has not started.` : selectedPlace.category === "Home" ? ADDRESS : `${selectedPlace.distance} from Jutaku.`}</p>
           <div className="location-card-actions">
-            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> {selectedPlace.category === "Home" && !activeConnection ? "View on Google Maps" : "Get directions"}</a>
+            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> {activeConnection ? activeConnection.status.startsWith("In service") ? "Directions to Jutaku" : "View Jutaku on Google Maps" : selectedPlace.category === "Home" ? "View on Google Maps" : "Get directions"}</a>
           </div>
         </div>
       </aside>}
