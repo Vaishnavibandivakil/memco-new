@@ -102,6 +102,7 @@
 .location-metro-stations li.is-current button { color: #142c1d; background: #eef5ed; }
 .location-metro-stations li small { margin-left: auto; color: #738277; font-size: 9px; font-weight: 600; white-space: nowrap; }
 .location-metro-panel-note { margin-top: 16px; color: #77857b; font-size: 9px; line-height: 1.45; }
+.location-metro-panel-note-mark { color: var(--signal); font-weight: 800; }
 .location-metro-panel-note a { display: inline-flex; align-items: center; gap: 3px; color: var(--green); font-weight: 650; }
 .location-metro-panel-note a:hover, .location-metro-panel-note a:focus-visible { text-decoration: underline; }
 .location-route-pin { --line-color: #c69b12; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px; background: transparent; cursor: pointer; }

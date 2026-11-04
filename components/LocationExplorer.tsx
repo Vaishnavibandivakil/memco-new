@@ -220,7 +220,7 @@ export function LocationExplorer() {
               </div>
             ))}
           </div>
-          <p className="location-metro-panel-note">Illustrative station connections, not exact tracks. Distances are straight-line estimates. Pink and Blue routes are planned. Station positions: OpenStreetMap contributors.</p>
+          <p className="location-metro-panel-note">Note: Pink and Blue routes are under construction and may change.<span className="location-metro-panel-note-mark" aria-hidden="true">*</span></p>
         </aside>
       )}
 
