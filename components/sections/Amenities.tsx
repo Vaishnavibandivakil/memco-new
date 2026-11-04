@@ -41,13 +41,9 @@ export function Amenities() {
   return (
     <section id="amenities" ref={root} className="am" data-tone="dark" aria-label="Amenities">
       {AMENITY_SLIDES.map((a, i) => (
-        <div key={a.name} className={`am-slide${a.name === "Lift Access" || a.name === "Waste Sorting" ? " am-slide--detail" : ""}`} style={{ zIndex: i + 1 }}>
+        <div key={a.name} className="am-slide" style={{ zIndex: i + 1 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="am-slide-main" src={a.photo} alt={a.name} loading="lazy" />
-          {(a.name === "Lift Access" || a.name === "Waste Sorting") && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img className="am-slide-blur" src={a.photo} alt="" aria-hidden="true" loading="lazy" />
-          )}
         </div>
       ))}
       <div className="am-shade" />
