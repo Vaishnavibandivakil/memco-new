@@ -61,6 +61,7 @@ export function ChatAssistant() {
   const speech = useRef<SpeechRecognizer | null>(null);
   const input = useRef<HTMLInputElement>(null);
   const launcher = useRef<HTMLButtonElement>(null);
+  const chatRoot = useRef<HTMLDivElement>(null);
   const transcript = useRef<HTMLDivElement>(null);
   const hasOpened = useRef(false);
   const pending = useRef(false);
@@ -110,7 +111,6 @@ export function ChatAssistant() {
       if (visible === previous) return;
       previous = visible;
       setLauncherVisible(visible);
-      if (!visible) closeChat();
     };
     const frame = window.requestAnimationFrame(update);
     window.addEventListener("scroll", update, { passive: true });
@@ -123,9 +123,54 @@ export function ChatAssistant() {
   }, [pathname, closeChat]);
 
   useEffect(() => {
+    if (!open) return;
+    const root = chatRoot.current;
+    const mobile = window.matchMedia("(max-width: 760px)");
+    const viewport = window.visualViewport;
+    let largestHeight = 0;
+
+    const syncViewport = () => {
+      if (!root) return;
+      const isMobile = mobile.matches;
+      document.documentElement.classList.toggle("chat-mobile-open", isMobile);
+      if (!isMobile) {
+        root.style.removeProperty("--chat-visual-top");
+        root.style.removeProperty("--chat-visual-height");
+        root.classList.remove("has-keyboard");
+        return;
+      }
+      const height = viewport?.height ?? window.innerHeight;
+      largestHeight = Math.max(largestHeight, height);
+      root.style.setProperty("--chat-visual-top", `${viewport?.offsetTop ?? 0}px`);
+      root.style.setProperty("--chat-visual-height", `${height}px`);
+      root.classList.toggle("has-keyboard", document.activeElement === input.current && largestHeight - height > 120);
+    };
+
+    syncViewport();
+    viewport?.addEventListener("resize", syncViewport);
+    viewport?.addEventListener("scroll", syncViewport);
+    window.addEventListener("resize", syncViewport);
+    window.addEventListener("focusin", syncViewport);
+    window.addEventListener("focusout", syncViewport);
+    mobile.addEventListener("change", syncViewport);
+    return () => {
+      viewport?.removeEventListener("resize", syncViewport);
+      viewport?.removeEventListener("scroll", syncViewport);
+      window.removeEventListener("resize", syncViewport);
+      window.removeEventListener("focusin", syncViewport);
+      window.removeEventListener("focusout", syncViewport);
+      mobile.removeEventListener("change", syncViewport);
+      document.documentElement.classList.remove("chat-mobile-open");
+      root?.style.removeProperty("--chat-visual-top");
+      root?.style.removeProperty("--chat-visual-height");
+      root?.classList.remove("has-keyboard");
+    };
+  }, [open]);
+
+  useEffect(() => {
     if (open) {
       hasOpened.current = true;
-      input.current?.focus();
+      if (!window.matchMedia("(max-width: 760px)").matches) input.current?.focus();
     } else if (hasOpened.current) {
       const quickToggle = document.querySelector<HTMLButtonElement>(".quick-actions-toggle");
       if (quickToggle && window.matchMedia("(max-width: 1150px)").matches) quickToggle.focus();
@@ -243,7 +288,7 @@ export function ChatAssistant() {
   if (pathname === "/privacy-policy" || pathname === "/terms-and-conditions" || pathname === "/location") return null;
 
   return (
-    <div className="chat-root">
+    <div ref={chatRoot} className={`chat-root${open ? " is-open" : ""}`}>
       {open && (
         <section className={`chat-panel${isWelcome ? " is-welcome" : " is-conversation"}`} id="jutaku-chat-panel" role="dialog" aria-modal="false" aria-label="Jutaku assistant" data-lenis-prevent>
           <header className="chat-head">

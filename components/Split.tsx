@@ -7,8 +7,8 @@ import { gsap, useScene } from "@/lib/motion";
    and the hairlines draw outward with them. The centre piece is a short label or buttons. */
 export function Split({ left, right, mid, className = "" }: { left: string; right: string; mid?: ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  useScene(ref, ({ reduced }) => {
-    if (reduced) return;
+  useScene(ref, ({ reduced, mobile }) => {
+    if (reduced || mobile) return;
     const q = gsap.utils.selector(ref);
     const st = { trigger: ref.current, start: "top 98%", end: "top 55%", scrub: 1 };
     gsap.fromTo(q(".sl-l"), { xPercent: 55, opacity: 0 }, { xPercent: 0, opacity: 1, ease: "power2.out", scrollTrigger: st });
