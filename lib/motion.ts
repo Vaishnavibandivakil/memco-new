@@ -51,6 +51,11 @@ export function scrollToId(id: string, immediate = false) {
   if (projectTarget !== null) {
     if (l) l.scrollTo(projectTarget, immediate ? { immediate: true } : { duration: 1.2 });
     else window.scrollTo({ top: projectTarget, behavior: immediate ? "instant" : "smooth" });
+    if (immediate) {
+      ScrollTrigger.update();
+      const project = document.getElementById("project");
+      ScrollTrigger.getAll().find((trigger) => trigger.trigger === project && trigger.pin)?.getTween()?.progress(1);
+    }
     return;
   }
   if (l) l.scrollTo(el, immediate ? { immediate: true } : { duration: 1.2 });

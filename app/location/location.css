@@ -105,6 +105,7 @@
 .location-metro-panel-note a { display: inline-flex; align-items: center; gap: 3px; color: var(--green); font-weight: 650; }
 .location-metro-panel-note a:hover, .location-metro-panel-note a:focus-visible { text-decoration: underline; }
 .location-route-pin { --line-color: #c69b12; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px; background: transparent; cursor: pointer; }
+.location-route-pin.is-green { --line-color: #00804d; }
 .location-route-pin.is-purple { --line-color: #7645a5; }
 .location-route-pin.is-pink { --line-color: #d26b91; }
 .location-route-pin.is-blue { --line-color: #367fb2; }
