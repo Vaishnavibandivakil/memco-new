@@ -21,10 +21,12 @@ export function Concept() {
     const stops = q(".pl-stop") as HTMLElement[];
     const at = [...DOTS, HOME];
     stops.forEach((el, k) => { el.style.left = `${((at[k][0] - VB.x) / VB.w) * 100}%`; el.style.top = `${((at[k][1] - VB.y) / VB.h) * 100}%`; });
+    const path = root.current!.querySelector<SVGPathElement>(".pl-road")!;
     const track = q(".hz-track")[0] as HTMLElement;
     const dist = () => track.scrollWidth - window.innerWidth;
-    if (reduced) return;
+    if (reduced) { path.style.strokeDashoffset = "0"; return; }
     if (mobile) {
+      path.style.strokeDashoffset = "0";
       gsap.to(track, {
         x: () => -dist(), ease: "none",
         scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${dist()}`, pin: true, scrub: 0.45, invalidateOnRefresh: true, anticipatePin: 1 },
@@ -86,12 +88,11 @@ export function Concept() {
     /* the photo opens as it slides in */
     gsap.fromTo(q(".gm-pic"), { clipPath: "inset(0% 0% 0% 100%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: q(".gm-pic")[0], containerAnimation: move, start: "left 100%", end: "left 45%", scrub: true } });
     gsap.fromTo(q(".gm-pic img"), { xPercent: 12, scale: 1.15 }, { xPercent: -6, scale: 1.05, ease: "none", scrollTrigger: { trigger: q(".gm-pic")[0], containerAnimation: move, start: "left 100%", end: "right 0%", scrub: true } });
-    const path = q(".pl-road")[0];
     const glow = q(".pl-glow")[0];
     const reach = at.map(([x]) => (x - ROAD_X[0]) / (ROAD_X[1] - ROAD_X[0]));
     const drawn = { p: 0 };
     const paint = () => {
-      (path as HTMLElement).style.strokeDashoffset = String(1 - drawn.p);
+      path.style.strokeDashoffset = String(1 - drawn.p);
       stops.forEach((el, k) => el.classList.toggle("is-on", drawn.p >= reach[k] - 0.03));
     };
     const draw = gsap.timeline({ paused: true })

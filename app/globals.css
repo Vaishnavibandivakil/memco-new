@@ -797,6 +797,7 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .rc .pl-maprow { width: 94vw; margin-top: 10vh; }
   .pl-lab { font-size: 8px; letter-spacing: .04em; }
   .pl-stop:nth-child(2) .pl-lab, .pl-stop:nth-child(3) .pl-lab { bottom: auto; top: 14px; }
+  .pl-stop:nth-child(4) .pl-lab { transform: translateX(-60%); }
   .pl-home .mark { width: 24px; height: 28px; }
   .un { margin-top: -18vw; padding-top: 18vw; clip-path: polygon(0 18vw, 100% 0, 100% 100%, 0 100%); }
   .un-win { width: 64vw; height: 58vh; top: 14vh; }
