@@ -91,15 +91,15 @@ export function Nearby() {
       { left: "69.5%", top: "50%", width: "30.5%", height: "54%" },
     ];
     const mobileCanvasRects = [
-      { left: "13.2%", top: "14%", width: "30.36%", height: "14.4%" },
-      { left: "13.2%", top: "33.2%", width: "30.36%", height: "14.4%" },
-      { left: "56.44%", top: "14%", width: "30.36%", height: "14.4%" },
-      { left: "13.2%", top: "52.4%", width: "30.36%", height: "14.4%" },
-      { left: "56.44%", top: "52.4%", width: "30.36%", height: "14.4%" },
-      { left: "13.2%", top: "71.6%", width: "30.36%", height: "14.4%" },
-      { left: "56.44%", top: "71.6%", width: "30.36%", height: "14.4%" },
+      { left: "2%", top: "12%", width: "56%", height: "18.5%" },
+      { left: "2%", top: "32.5%", width: "38%", height: "18.5%" },
+      { left: "60%", top: "12%", width: "38%", height: "18.5%" },
+      { left: "2%", top: "53%", width: "56%", height: "18.5%" },
+      { left: "60%", top: "53%", width: "38%", height: "18.5%" },
+      { left: "2%", top: "73.5%", width: "38%", height: "18.5%" },
+      { left: "42%", top: "73.5%", width: "56%", height: "18.5%" },
     ];
-    const mobileCanvasFeatureRect = { left: "56.44%", top: "33.2%", width: "30.36%", height: "14.4%" };
+    const mobileCanvasFeatureRect = { left: "42%", top: "32.5%", width: "56%", height: "18.5%" };
     const desktopCanvasRects = [
       { left: "9.5%", top: "15.8%", width: "9.9%", height: "14.44%" },
       { left: "21.2%", top: "42.4%", width: "9.9%", height: "14.44%" },

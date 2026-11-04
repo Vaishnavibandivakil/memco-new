@@ -689,14 +689,14 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .st-copy { justify-self: start; }
   .st-wide { height: 60vh; }
   .nb { height: 560svh; }
-  .nb-tile-1 { left: 13.2%; top: 14%; width: 30.36%; height: 14.4%; }
-  .nb-tile-2 { left: 13.2%; top: 33.2%; width: 30.36%; height: 14.4%; }
-  .nb-tile-3 { left: 56.44%; top: 14%; width: 30.36%; height: 14.4%; }
-  .nb-tile-4 { left: 13.2%; top: 52.4%; width: 30.36%; height: 14.4%; }
-  .nb-tile-5 { left: 56.44%; top: 52.4%; width: 30.36%; height: 14.4%; }
-  .nb-tile-6 { left: 13.2%; top: 71.6%; width: 30.36%; height: 14.4%; }
-  .nb-tile-7 { left: 56.44%; top: 71.6%; width: 30.36%; height: 14.4%; }
-  .nb-feature { left: 56.44%; top: 33.2%; width: 30.36%; height: 14.4%; }
+  .nb-tile-1 { left: 2%; top: 12%; width: 56%; height: 18.5%; }
+  .nb-tile-2 { left: 2%; top: 32.5%; width: 38%; height: 18.5%; }
+  .nb-tile-3 { left: 60%; top: 12%; width: 38%; height: 18.5%; }
+  .nb-tile-4 { left: 2%; top: 53%; width: 56%; height: 18.5%; }
+  .nb-tile-5 { left: 60%; top: 53%; width: 38%; height: 18.5%; }
+  .nb-tile-6 { left: 2%; top: 73.5%; width: 38%; height: 18.5%; }
+  .nb-tile-7 { left: 42%; top: 73.5%; width: 56%; height: 18.5%; }
+  .nb-feature { left: 42%; top: 32.5%; width: 56%; height: 18.5%; }
   .nb-marquee { font-size: 18vw; }
   .nb-canvas-hint { bottom: 2.5svh; font-size: 8px; }
   .nb-facts { top: 375svh; height: 130svh; }
