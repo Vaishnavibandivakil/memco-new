@@ -1,19 +1,8 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { ArrowDownRight, X } from "lucide-react";
 import { ReturnLink } from "@/components/ReturnNavigation";
 
-const FLOORS = [0, ...Array.from({ length: 14 }, (_, index) => index + 1)];
-
-export function FloorPlanExplorer({ initialFloor = 0 }: { initialFloor?: number }) {
-  const [floor, setFloor] = useState(initialFloor);
-  const ground = floor === 0;
-  const even = floor >= 2 && floor <= 12 && floor % 2 === 0;
-  const src = ground ? "/images/floor-plans/ground-floor.png" : even ? "/images/floor-plans/even-floors.png" : "/images/floor-plans/building-plans.png";
-  const title = ground ? "Ground floor master plan" : `Level ${String(floor).padStart(2, "0")}`;
-
+export function FloorPlanExplorer() {
   return (
     <main className="fp-page">
       <header className="fp-header">
@@ -29,36 +18,47 @@ export function FloorPlanExplorer({ initialFloor = 0 }: { initialFloor?: number 
 
       <div className="fp-heading">
         <div>
-          <p className="fp-kicker">Explore the spaces</p>
+          <p className="fp-kicker">From the supplied project drawings</p>
           <h1>Floor plans<span className="fp-heading-dot">.</span></h1>
         </div>
-        <p>Explore the ground floor master plan and the supplied building layouts. Select a level to see its plan.</p>
+        <p>Explore an individual Urban Unit, two adjoining homes and their place on a typical floor.</p>
       </div>
 
-      <nav className="fp-levels" aria-label="Choose a floor">
-        {FLOORS.map((level) => (
-          <button key={level} type="button" className={floor === level ? "is-active" : ""} aria-current={floor === level ? "true" : undefined} onClick={() => setFloor(level)}>
-            {level === 0 ? "Ground" : String(level).padStart(2, "0")}
-          </button>
-        ))}
-      </nav>
+      <div className="fp-layouts">
+        <section className="fp-layout" aria-labelledby="fp-urban-title">
+          <div className="fp-layout-copy"><span>01 / Individual home</span><h2 id="fp-urban-title">Urban Unit</h2><p>A Studio Type 1 home with its own kitchen, bathroom and patio.</p></div>
+          <figure className="fp-layout-image fp-layout-image--single">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/floor-plans/urban-unit.webp" alt="Individual Studio Type 1 floor plan" />
+            <figcaption>Individual layout</figcaption>
+          </figure>
+        </section>
 
-      <section className="fp-drawing" aria-live="polite" aria-label={title}>
-        <div className="fp-drawing-head">
-          <div><span>{ground ? "Master plan" : even ? "Even floor plan" : "Building plan"}</span><h2>{title}</h2></div>
-        </div>
-        <figure className={ground || even ? "fp-image fp-image--wide" : "fp-image fp-image--overview"}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img key={src} src={src} alt={ground ? "Ground floor master plan supplied by the project" : even ? "Building floor plan labeled for levels 2, 4, 6, 8, 10 and 12" : "Building plan sheet with layouts for levels 1, 3, 5, 7, 9, 11, 13 and 14, plus terrace and stilt"} />
-        </figure>
-        <p className="fp-caption">{ground ? "Ground floor master plan" : even ? "The supplied drawing identifies this plan for levels 02, 04, 06, 08, 10 and 12." : "The selected level is labeled on the building plan sheet."}</p>
-      </section>
+        <section className="fp-layout" aria-labelledby="fp-pair-title">
+          <div className="fp-layout-copy"><span>02 / Adjoining homes</span><h2 id="fp-pair-title">Two Urban Units</h2><p>A mirrored pair of separate homes, each with its own entrance and facilities.</p></div>
+          <figure className="fp-layout-image fp-layout-image--pair">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/floor-plans/paired-urban-units.webp" alt="Two adjoining mirrored Studio Type 1 floor plans" loading="lazy" />
+            <figcaption>Paired layout</figcaption>
+          </figure>
+        </section>
 
-      {!ground && <section id="studio-type-1" className="fp-unit-detail" aria-label="Studio unit layout">
-        <div><span>Inside the plan</span><h2>Studio Type 1</h2><p>A closer look at the studio unit layout shown in the building plans.</p></div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/floor-plans/studio-type-1.png" alt="Studio Type 1 layout with two adjoining units" loading="lazy" />
-      </section>}
+        <section className="fp-layout fp-layout--wide" aria-labelledby="fp-floor-title">
+          <div className="fp-layout-copy"><span>03 / Building layout</span><h2 id="fp-floor-title">Across the floor</h2><p>The isometric view shows one core; the drawing below shows the arrangement across a typical floor.</p></div>
+          <div className="fp-layout-views">
+            <figure className="fp-layout-image">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/floor-plans/one-core.webp" alt="Isometric layout of a core with Urban Units, corridor, stairs and lifts" loading="lazy" />
+              <figcaption>One core</figcaption>
+            </figure>
+            <figure className="fp-layout-image fp-layout-image--strip">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/floor-plans/typical-floor.webp" alt="Typical floor drawing showing three cores and Urban Units" loading="lazy" />
+              <figcaption>Typical floor · levels 02, 04, 06, 08, 10 and 12</figcaption>
+            </figure>
+          </div>
+        </section>
+      </div>
 
       <footer className="fp-footer">
         <p>See the spaces in person.</p>

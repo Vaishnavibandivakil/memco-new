@@ -11,40 +11,24 @@
 .fp-heading h1 { font-size: clamp(56px, 7.5vw, 112px); font-weight: 700; letter-spacing: -.07em; line-height: .94; }
 .fp-heading-dot { color: #006e42; }
 .fp-heading > p { max-width: 360px; padding-bottom: 5px; color: #69746b; font-size: 13px; line-height: 1.7; }
-.fp-levels { display: flex; gap: 7px; overflow-x: auto; padding: 0 0 15px; scrollbar-width: thin; }
-.fp-levels button { flex: none; min-width: 53px; height: 43px; padding: 0 15px; border: 1px solid #cedbd1; border-radius: 999px; background: #fff; color: #315441; font-size: 12px; font-weight: 650; transition: background .2s, color .2s, border-color .2s; }
-.fp-levels button:hover, .fp-levels button.is-active { border-color: #006e42; background: #006e42; color: #fff; }
-.fp-drawing { margin-top: 20px; padding: clamp(22px, 3.4vw, 54px); background: #fff; border: 1px solid #e3e8e1; border-radius: 24px; }
-.fp-drawing-head { display: flex; align-items: end; justify-content: space-between; gap: 25px; }
-.fp-drawing-head span { color: #006e42; font-size: 11px; font-weight: 650; }
-.fp-drawing-head h2 { margin-top: 7px; font-size: clamp(25px, 3.1vw, 44px); font-weight: 650; letter-spacing: -.05em; line-height: 1.1; }
-.fp-drawing-head a { display: inline-flex; align-items: center; gap: 7px; border-bottom: 1px solid #006e42; color: #006e42; font-size: 12px; font-weight: 650; white-space: nowrap; }
-.fp-image { display: grid; place-items: center; min-height: min(64vw, 620px); margin-top: 30px; overflow: hidden; background: #fff; }
-.fp-image img { width: 100%; height: auto; max-height: 760px; object-fit: contain; animation: fp-image-in .35s ease both; }
-.fp-image--overview img { width: auto; max-width: 100%; max-height: 1050px; }
-.fp-caption { margin-top: 22px; color: #69746b; font-size: 11px; line-height: 1.5; }
-.fp-unit-detail { display: grid; grid-template-columns: minmax(210px, .7fr) minmax(0, 1fr); align-items: center; gap: clamp(35px, 7vw, 120px); margin-top: 22px; padding: clamp(24px, 5vw, 70px); border-radius: 24px; background: #fff; }
-.fp-unit-detail span { color: #006e42; font-size: 11px; font-weight: 650; }
-.fp-unit-detail h2 { margin-top: 13px; font-size: clamp(28px, 3vw, 46px); font-weight: 650; letter-spacing: -.05em; }
-.fp-unit-detail p { max-width: 290px; margin-top: 12px; color: #69746b; font-size: 12px; line-height: 1.6; }
-.fp-unit-detail img { justify-self: center; max-height: 680px; width: auto; object-fit: contain; }
+.fp-layouts { max-width: 1500px; margin: 0 auto; }
+.fp-layout { display: grid; grid-template-columns: minmax(210px, .35fr) minmax(0, .65fr); align-items: center; gap: clamp(24px, 5vw, 90px); padding: clamp(30px, 5vw, 70px) 0; border-top: 1px solid #d4ded5; }
+.fp-layout-copy span, .fp-layout-image figcaption { color: #006e42; font-size: 11px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+.fp-layout-copy h2 { margin: 14px 0 18px; font-size: clamp(32px, 4vw, 62px); font-weight: 650; letter-spacing: -.055em; line-height: 1.05; }
+.fp-layout-copy p { max-width: 390px; color: #69746b; font-size: clamp(13px, 1.1vw, 17px); line-height: 1.65; }
+.fp-layout-image { min-width: 0; margin: 0; }
+.fp-layout-image img { display: block; width: 100%; height: auto; max-height: 720px; object-fit: contain; background: #fff; }
+.fp-layout-image figcaption { margin-top: 14px; color: #69746b; font-size: 10px; }
+.fp-layout-image--single img { max-height: 530px; }
+.fp-layout-image--pair img { max-height: 600px; }
+.fp-layout--wide { display: block; }
+.fp-layout--wide .fp-layout-copy { margin-bottom: 30px; }
+.fp-layout--wide .fp-layout-copy p { max-width: 700px; }
+.fp-layout-views { display: grid; gap: 28px; }
+.fp-layout-image--strip img { max-height: 380px; }
 .fp-footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 62px; padding-top: 26px; border-top: 1px solid #d4ded5; }
 .fp-footer p { font-size: clamp(23px, 3vw, 40px); font-weight: 650; letter-spacing: -.05em; }
 .fp-footer a { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 23px; border-radius: 999px; background: #006e42; color: #fff; font-size: 12px; font-weight: 650; white-space: nowrap; }
 .fp-footer a:hover { background: #005233; }
-@keyframes fp-image-in { from { opacity: .5; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-@media (max-width: 700px) { .fp-page { padding: 17px 18px 45px; } .fp-brand { gap: 9px; padding: 8px 12px; } .fp-brand img:first-child { width: 100px; } .fp-brand img:last-child { width: 42px; } .fp-heading { display: block; margin: 70px 0 36px; } .fp-heading > p { margin-top: 18px; } .fp-drawing { padding: 18px; border-radius: 16px; } .fp-drawing-head { align-items: start; } .fp-drawing-head a { font-size: 0; } .fp-drawing-head a svg { width: 20px; height: 20px; } .fp-image { min-height: 280px; margin-top: 22px; } .fp-unit-detail { grid-template-columns: 1fr; padding: 26px 18px; } .fp-unit-detail img { max-height: 450px; } .fp-footer { align-items: start; flex-direction: column; margin-top: 45px; } }
-@media (max-width: 360px) {
-  .fp-drawing-head { gap: 8px; }
-  .fp-drawing-head h2 { font-size: clamp(22px, 7.5vw, 30px); }
-  .fp-unit-detail { gap: 20px; }
-}
-@media (max-width: 300px) {
-  .fp-page { padding-inline: 12px; }
-  .fp-header { gap: 8px; }
-  .fp-brand { gap: 6px; padding: 7px 8px; }
-  .fp-brand img:first-child { width: 80px; }
-  .fp-brand img:last-child { width: 34px; }
-  .fp-close { flex: none; width: 40px; height: 40px; }
-  .fp-drawing { padding: 14px; }
-}
+@media (max-width: 700px) { .fp-page { padding: 17px 18px 45px; } .fp-brand { gap: 9px; padding: 8px 12px; } .fp-brand img:first-child { width: 100px; } .fp-brand img:last-child { width: 42px; } .fp-heading { display: block; margin: 70px 0 36px; } .fp-heading > p { margin-top: 18px; } .fp-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 38px 0; } .fp-layout-image--single img { max-height: 460px; } .fp-layout-image--pair img { max-height: 470px; } .fp-layout-image--strip { overflow-x: auto; } .fp-layout-image--strip img { width: max(100%, 720px); max-width: none; max-height: none; } .fp-footer { align-items: start; flex-direction: column; margin-top: 45px; } }
+@media (max-width: 300px) { .fp-page { padding-inline: 12px; } .fp-header { gap: 8px; } .fp-brand { gap: 6px; padding: 7px 8px; } .fp-brand img:first-child { width: 80px; } .fp-brand img:last-child { width: 34px; } .fp-close { flex: none; width: 40px; height: 40px; } }

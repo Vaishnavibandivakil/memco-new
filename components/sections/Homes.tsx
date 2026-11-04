@@ -1,20 +1,11 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Chars } from "@/components/Chars";
-import { HomePlanSvg } from "@/components/HomePlanSvg";
-import { getInventory, typeName } from "@/lib/inventory";
 import { gsap, charsIn, lenis } from "@/lib/motion";
 import { X } from "lucide-react";
 
 export const openHomes = () => window.dispatchEvent(new Event("homes:open"));
-
-const PLANS = getInventory().flatMap((level) => level.units).slice(0, 11);
-
-const PHOTO_CARDS = [
-  { image: "/images/club-cowork.jpg", title: "Clubrooms & Creator Studios", detail: "4,000 sq ft planned for co-working and creative work." },
-  { image: "/images/serenity-park.webp", title: "Serenity Park", detail: "12,000 sq ft of walking trails, gardens and open space." },
-] as const;
 
 export function Homes() {
   const root = useRef<HTMLElement>(null);
@@ -43,7 +34,7 @@ export function Homes() {
       gsap.fromTo(element, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "expo.inOut" });
       gsap.set(element.querySelectorAll(".hm-title .ch"), { opacity: 0 });
       charsIn(element.querySelectorAll(".hm-title .ch"), { delay: 0.55 });
-      gsap.fromTo(element.querySelectorAll(".hm-count, .hm-grid"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1, stagger: 0.08, delay: 0.7, ease: "power3.out" });
+      gsap.fromTo(element.querySelectorAll(".hm-count, .hm-plans-intro, .hm-plan-entry"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1, stagger: 0.08, delay: 0.7, ease: "power3.out" });
     } else {
       document.documentElement.classList.remove("panel-open");
       lenis()?.start();
@@ -56,28 +47,60 @@ export function Homes() {
     <section id="homes" ref={root} className="hm" role="dialog" aria-modal="true" aria-label="Home plans" aria-hidden={!open} data-own-reveals>
       <button type="button" className="hm-close lbl" onClick={() => setOpen(false)} aria-label="Close homes"><X size={19} strokeWidth={1.8} aria-hidden="true" /></button>
       <div className="hm-scroll" ref={scroller} data-lenis-prevent>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img className="hm-bloom" src="/images/gazebos.webp" alt="" loading="lazy" />
         <header className="hm-head">
           <h2 className="disp hm-title"><Chars text="HOMES" /></h2>
-          <span className="disp hm-count">{PLANS.length.toString().padStart(2, "0")}</span>
+          <span className="disp hm-count">03</span>
         </header>
-        <div className="hm-plans-intro"><span>Floor plan previews</span><span>Illustrative placeholders while the final home plans are prepared</span></div>
-        <div className="hm-grid hm-single-grid">
-          {PLANS.map((plan, index) => (
-            <Fragment key={plan.code}>
-            <article className="hm-card">
-              <p className="lbl hm-card-top">{String(index + 1).padStart(2, "0")} / Layout preview</p>
-              <div className="hm-plan"><HomePlanSvg unit={plan} /></div>
-              <h3 className="caps-serif">{typeName(plan.type)}</h3>
-            </article>
-            {(index === 1 || index === 6) && <figure className="hm-photo">
+        <div className="hm-plans-intro"><span>Floor plans</span><span>From the supplied MEMCO Skyline Jutaku drawings</span></div>
+        <div className="hm-plan-collection">
+          <article className="hm-plan-entry">
+            <div className="hm-plan-copy">
+              <p className="hm-plan-index">01 / A home of your own</p>
+              <h3>Urban Unit</h3>
+              <p>A private studio with its own kitchen, bathroom and patio. The drawing shows how the rooms sit together in one compact home.</p>
+              <span className="hm-plan-detail">Studio Type 1 · individual layout</span>
+            </div>
+            <figure className="hm-plan-media hm-plan-media--single">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={PHOTO_CARDS[index === 1 ? 0 : 1].image} alt="" loading="lazy" />
-              <figcaption><span className="caps-serif">{PHOTO_CARDS[index === 1 ? 0 : 1].title}</span><span>{PHOTO_CARDS[index === 1 ? 0 : 1].detail}</span></figcaption>
-            </figure>}
-            </Fragment>
-          ))}
+              <img src="/images/floor-plans/urban-unit.webp" alt="Individual Studio Type 1 floor plan showing kitchen, bathroom, living area and patio" loading="lazy" />
+              <figcaption>Individual Urban Unit</figcaption>
+            </figure>
+          </article>
+
+          <article className="hm-plan-entry hm-plan-entry--reverse">
+            <div className="hm-plan-copy">
+              <p className="hm-plan-index">02 / Side by side</p>
+              <h3>Two Urban Units</h3>
+              <p>The paired drawing shows adjoining mirrored homes. Each unit has its own entrance, kitchen, bathroom and patio.</p>
+              <span className="hm-plan-detail">Two separate Studio Type 1 homes</span>
+            </div>
+            <figure className="hm-plan-media hm-plan-media--pair">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/floor-plans/paired-urban-units.webp" alt="Two adjoining mirrored Studio Type 1 floor plans, each with a separate entrance" loading="lazy" />
+              <figcaption>Adjoining Urban Units</figcaption>
+            </figure>
+          </article>
+
+          <article className="hm-plan-entry hm-plan-entry--floor">
+            <div className="hm-plan-copy">
+              <p className="hm-plan-index">03 / The bigger picture</p>
+              <h3>Across the floor</h3>
+              <p>See how the individual homes connect to a shared corridor and one of the building&apos;s three cores.</p>
+              <span className="hm-plan-detail">One core · typical floor</span>
+            </div>
+            <div className="hm-floor-drawings">
+              <figure className="hm-plan-media hm-plan-media--core">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/floor-plans/one-core.webp" alt="Isometric plan of one core, showing Urban Units around the shared corridor, stairs and lifts" loading="lazy" />
+                <figcaption>One core · isometric view</figcaption>
+              </figure>
+              <figure className="hm-plan-media hm-plan-media--typical">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/floor-plans/typical-floor.webp" alt="Typical floor drawing showing three cores and the arrangement of Urban Units" loading="lazy" />
+                <figcaption>Typical floor · levels 02, 04, 06, 08, 10 and 12</figcaption>
+              </figure>
+            </div>
+          </article>
         </div>
       </div>
     </section>
