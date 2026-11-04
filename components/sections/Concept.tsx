@@ -2,7 +2,7 @@
 import { useRef } from "react";
 import SplitType from "split-type";
 import { Chars } from "@/components/Chars";
-import { gsap, ScrollTrigger, useScene, charsIn } from "@/lib/motion";
+import { gsap, ScrollTrigger, useScene, charsIn, lenis } from "@/lib/motion";
 import { ROUTE } from "@/lib/nearby-route";
 import { openHomes } from "@/components/sections/Homes";
 
@@ -13,6 +13,12 @@ const ROAD_X = [288, 1510];
 const DOTS: [number, number][] = [[450, 283.3], [680, 266.2], [1140, 262.9], [1360, 245.5]];
 const HOME: [number, number] = [900, 270.8];
 const NEARBY_STATIONS = [ROUTE[2], ROUTE[0], ROUTE[1], ROUTE[3]];
+const PRINCIPLES = [
+  { title: "Purpose-led design", detail: "Spaces shaped for everyday routines, not just for the view." },
+  { title: "Functional flow", detail: "Layouts planned for living, working and moving through the day." },
+  { title: "One connected ecosystem", detail: "Studios, courts, kitchens and wellness rooms serve different parts of life." },
+  { title: "Nature in the plan", detail: "Preserved trees and the planned 12,000 sq ft Serenity Park shape the grounds." },
+];
 
 /* The page scroll drives one horizontal project sequence on desktop and mobile. */
 export function Concept() {
@@ -28,11 +34,31 @@ export function Concept() {
     if (reduced) { path.style.strokeDashoffset = "0"; return; }
     if (mobile) {
       path.style.strokeDashoffset = "0";
-      gsap.to(track, {
+      const panelStops = () => {
+        const distance = Math.max(1, dist());
+        return [...track.children]
+          .filter((panel) => getComputedStyle(panel).display !== "none")
+          .map((panel) => Math.min(1, (panel as HTMLElement).offsetLeft / distance))
+          .concat(1);
+      };
+      const move = gsap.to(track, {
         x: () => -dist(), ease: "none",
-        scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${dist()}`, pin: true, scrub: 0.45, invalidateOnRefresh: true, anticipatePin: 1 },
+        scrollTrigger: {
+          trigger: root.current, start: "top top", end: () => `+=${dist()}`,
+          pin: true, scrub: 0.45, invalidateOnRefresh: true, anticipatePin: 1,
+        },
       });
-      return;
+      const settle = () => {
+        const trigger = move.scrollTrigger;
+        if (!trigger || trigger.scroll() <= trigger.start || trigger.scroll() >= trigger.end) return;
+        const nearest = gsap.utils.snap(panelStops(), trigger.progress);
+        if (Math.abs(nearest - trigger.progress) < 0.001) return;
+        const y = trigger.start + nearest * (trigger.end - trigger.start);
+        if (lenis()) lenis()!.scrollTo(y, { duration: 0.45 });
+        else window.scrollTo({ top: y, behavior: "smooth" });
+      };
+      ScrollTrigger.addEventListener("scrollEnd", settle);
+      return () => ScrollTrigger.removeEventListener("scrollEnd", settle);
     }
     const move = gsap.to(track, {
       x: () => -dist(), ease: "none",
@@ -128,16 +154,23 @@ export function Concept() {
               <p data-hfade>Jutaku is designed around everyday use: functional homes, purposeful shared spaces and open areas that connect them.</p>
             </div>
             <ol className="dp-list" aria-label="Design principles">
-              <li data-hfade><span>01</span><div><h3>Purpose-led design</h3><p>Spaces shaped for everyday routines, not just for the view.</p></div></li>
-              <li data-hfade><span>02</span><div><h3>Functional flow</h3><p>Layouts planned for living, working and moving through the day.</p></div></li>
-              <li data-hfade><span>03</span><div><h3>One connected ecosystem</h3><p>Studios, courts, kitchens and wellness rooms serve different parts of life.</p></div></li>
-              <li data-hfade><span>04</span><div><h3>Nature in the plan</h3><p>Preserved trees and the planned 12,000 sq ft Serenity Park shape the grounds.</p></div></li>
+              {PRINCIPLES.map((item, index) => <li key={item.title} data-hfade><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{item.title}</h3><p>{item.detail}</p></div></li>)}
             </ol>
           </div>
           <figure className="dp-photo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/intro/kitchen.webp" alt="Shared kitchen at Jutaku" loading="lazy" />
           </figure>
+        </div>
+
+        <div className="hz-panel dp-mobile-detail" aria-label="Design principles in detail">
+          <div className="dp-mobile-detail-inner">
+            <p className="lbl">02 / Our approach</p>
+            <h2>In practice.</h2>
+            <ol className="dp-mobile-list" aria-label="Design principles">
+              {PRINCIPLES.map((item, index) => <li key={item.title}><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{item.title}</h3><p>{item.detail}</p></div></li>)}
+            </ol>
+          </div>
         </div>
 
         <div id="concept" className="hz-panel cc">
