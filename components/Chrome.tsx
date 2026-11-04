@@ -88,7 +88,7 @@ export function Chrome() {
           <div className="hdr-inner">
             <nav className="hdr-nav" aria-label="Primary">
               {LINKS.map((item, i) => (
-                <a key={item.label} href={`#${item.section}`} style={{ ["--i" as string]: i }} onClick={(e) => { e.preventDefault(); setOpen(false); scrollToId(item.section); }}>{item.label}</a>
+                <a key={item.label} href={`#${item.section}`} style={{ ["--i" as string]: i }} onClick={(e) => { e.preventDefault(); setOpen(false); scrollToId(item.section, item.section === "location"); if (item.section === "location") window.history.replaceState(null, "", "/#location"); }}>{item.label}</a>
               ))}
               <button type="button" style={{ ["--i" as string]: LINKS.length }} onClick={() => { setOpen(false); openLifestylePopup(); }}>Find your fit</button>
             </nav>

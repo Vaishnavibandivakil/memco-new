@@ -43,18 +43,18 @@ export function projectScrollTarget(el: HTMLElement): number | null {
   return horizontal.start + progress * (horizontal.end - horizontal.start);
 }
 
-export function scrollToId(id: string) {
+export function scrollToId(id: string, immediate = false) {
   const el = document.getElementById(id);
   if (!el) return;
   const l = lenis();
   const projectTarget = projectScrollTarget(el);
   if (projectTarget !== null) {
-    if (l) l.scrollTo(projectTarget, { duration: 1.2 });
-    else window.scrollTo({ top: projectTarget, behavior: "smooth" });
+    if (l) l.scrollTo(projectTarget, immediate ? { immediate: true } : { duration: 1.2 });
+    else window.scrollTo({ top: projectTarget, behavior: immediate ? "instant" : "smooth" });
     return;
   }
-  if (l) l.scrollTo(el, { duration: 1.2 });
-  else el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+  if (l) l.scrollTo(el, immediate ? { immediate: true } : { duration: 1.2 });
+  else el.scrollIntoView({ behavior: immediate || matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
 }
 
 /* Readable, left-to-right type motion. Keep it transform/opacity only for smooth frames. */

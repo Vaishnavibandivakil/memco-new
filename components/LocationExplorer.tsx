@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Building2, GraduationCap, Hospital, Hotel, LayoutGrid, MapPin, Minus, Navigation, Plus, Store, TrainFront, X } from "lucide-react";
 import { Map, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
-import { SITE_COORDINATES } from "@/lib/data";
+import { ADDRESS, SITE_COORDINATES } from "@/lib/data";
 import { ROUTE } from "@/lib/nearby-route";
 import { METRO_CONNECTIONS } from "@/data/metro-connectivity";
 import { METRO_GREEN_TRANSFER, METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
@@ -55,7 +55,10 @@ export function LocationExplorer() {
   const yellowAccess = activeConnection && activeConnection.line !== "Yellow" ? METRO_ROUTE_POINTS.Yellow.slice(YELLOW_ACCESS_END[activeConnection.line], 9).reverse() : null;
   const visiblePlaces = category === "All" ? LOCATION_DIRECTORY : LOCATION_DIRECTORY.filter((place) => place.category === category);
   const cardPosition = selectedMetroStation?.position ?? activeConnection?.position ?? selectedPlace.position;
-  const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${cardPosition[1]}%2C${cardPosition[0]}`;
+  const homePlaceUrl = "https://www.google.com/maps/place/MEMCO+Skyline+Jutaku/@12.8742426,77.6382217,17z/data=!3m1!4b1!4m6!3m5!1s0x3bae6b00256cd43d:0x159453b3f51b5e1b!8m2!3d12.8742426!4d77.6407966!16s%2Fg%2F11xzz_6bnl";
+  const directionsUrl = selectedPlace.category === "Home" && !activeConnection
+    ? homePlaceUrl
+    : `https://www.google.com/maps/dir/?api=1&destination=${cardPosition[1]}%2C${cardPosition[0]}`;
   const selectedImage = activeConnection ? CATEGORY_IMAGES.Metro : selectedPlace.category === "Home" ? "/images/jutaku-exterior-hero.webp" : CATEGORY_IMAGES[selectedPlace.category];
 
   const choose = (index: number, scrollToMap = false) => {
@@ -229,10 +232,10 @@ export function LocationExplorer() {
         </figure>
         <div className="location-card-copy" aria-live="polite">
           <span className="location-card-index">{activeConnection ? `${activeConnection.line} Line · ${activeConnection.status}` : selectedPlace.category === "Home" ? "Visit Jutaku" : selectedPlace.category}</span>
-          <h2>{selectedMetroStation?.name ?? activeConnection?.station ?? (selectedPlace.category === "Home" ? "See it for yourself." : selectedPlace.name)}</h2>
-          <p>{activeConnection ? `${activeConnection.line} Line ${activeConnection.status === "In service" || activeConnection.status.startsWith("In service") ? "station" : "planned station"}. Select Get directions to view the location.` : selectedPlace.category === "Home" ? "On Manipal County Road beside India Oil Petrol Pump, Singasandra." : `${selectedPlace.distance} from Jutaku.`}</p>
+          <h2>{selectedMetroStation?.name ?? activeConnection?.station ?? (selectedPlace.category === "Home" ? "MEMCO Skyline Jutaku" : selectedPlace.name)}</h2>
+          <p>{activeConnection ? `${activeConnection.line} Line ${activeConnection.status === "In service" || activeConnection.status.startsWith("In service") ? "station" : "planned station"}. Select Get directions to view the location.` : selectedPlace.category === "Home" ? ADDRESS : `${selectedPlace.distance} from Jutaku.`}</p>
           <div className="location-card-actions">
-            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> Get directions</a>
+            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> {selectedPlace.category === "Home" && !activeConnection ? "View on Google Maps" : "Get directions"}</a>
           </div>
         </div>
       </aside>}
