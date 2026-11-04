@@ -8,8 +8,8 @@ import { AMENITY_SLIDES } from "@/lib/content";
    the index at the top right lights the current one, its caption sits bottom left. */
 export function Amenities() {
   const root = useRef<HTMLElement>(null);
-  useScene(root, ({ reduced }) => {
-    if (reduced) return;
+  useScene(root, ({ reduced, mobile }) => {
+    if (reduced || mobile) return;
     const q = gsap.utils.selector(root);
     const slides = q(".am-slide");
     const names = q(".am-list li");
@@ -44,6 +44,12 @@ export function Amenities() {
         <div key={a.name} className="am-slide" style={{ zIndex: i + 1 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="am-slide-main" src={a.photo} alt={a.name} loading="lazy" />
+          <p className="am-mobile-title caps-serif">{a.name}</p>
+          <div className="am-mobile-cap">
+            <p className="lbl">{a.label}</p>
+            <p className="caps-serif">{a.body}</p>
+          </div>
+          <Link className="am-mobile-book" href="/book-visit">Book a visit</Link>
         </div>
       ))}
       <div className="am-shade" />

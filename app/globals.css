@@ -388,6 +388,7 @@ html.reduced .pl-stop { opacity: 1; transform: none; }
 .am { position: relative; height: 100vh; height: 100svh; overflow: hidden; background: #000; color: var(--paper); }
 .am-slide { position: absolute; inset: 0; overflow: hidden; }
 .am-slide img { width: 100%; height: 100%; object-fit: cover; }
+.am-mobile-title, .am-mobile-cap, .am-mobile-book { display: none; }
 .am-shade { position: absolute; inset: 0; z-index: 20; pointer-events: none; background: linear-gradient(25deg, rgba(4, 12, 9, .72) 0%, rgba(4, 12, 9, 0) 45%), linear-gradient(200deg, rgba(4, 12, 9, .6) 0%, rgba(4, 12, 9, 0) 38%); }
 .am-list { position: absolute; z-index: 30; right: var(--side); top: 16vh; display: grid; gap: 2px; font-size: clamp(12.3px, 1.19vw, 21.32px); border-left: 1px solid rgba(255, 255, 255, .5); padding-left: 16px; }
 .am-list li { opacity: .38; transition: opacity .6s var(--e-out); }
@@ -833,11 +834,15 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .un-meta-r p { display: none; }
   .un-say { padding: 10vh 24px 18vh; }
   .un-deco { width: 30vw; }
-  .am-list { right: 16px; top: 76px; font-size: 14px; }
-  .am-list li { display: none; }
-  .am-list li.is-on { display: block; }
-  .am-caps { left: 20px; bottom: 15svh; }
-  .am-book { right: auto; left: 20px; bottom: max(18px, env(safe-area-inset-bottom)); }
+  .am { height: auto; overflow: visible; }
+  .am-slide { position: relative; inset: auto; height: 100svh; isolation: isolate; }
+  .am-slide img { position: absolute; inset: 0; }
+  .am-slide::after { content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(4, 12, 9, .38), transparent 32%, transparent 48%, rgba(4, 12, 9, .65)); }
+  .am-mobile-title { position: absolute; z-index: 2; display: block; top: 76px; right: 18px; max-width: calc(100% - 36px); font-size: 15px; font-weight: 600; text-align: right; }
+  .am-mobile-cap { position: absolute; z-index: 2; display: grid; gap: 12px; left: 20px; right: 20px; bottom: 92px; }
+  .am-mobile-cap .caps-serif { max-width: 33ch; font-size: clamp(20px, 5.4vw, 27px); font-weight: 600; line-height: 1.18; }
+  .am-mobile-book { position: absolute; z-index: 2; display: inline-flex; align-items: center; justify-content: center; left: 20px; bottom: max(18px, env(safe-area-inset-bottom)); min-height: var(--action-height); padding: 0 22px; border: 1px solid rgba(255,255,255,.8); border-radius: 999px; color: #fff; font-size: var(--action-font-size); font-weight: 600; }
+  .am-shade, .am-list, .am-caps, .am-book { display: none; }
   .sp-collage { display: flex; flex-direction: column; gap: 8vh; padding: 4vh 20px 16vh; }
   .sp-block { width: 50vw; }
   .sp-c, .sp-d { margin-top: 0; }
@@ -1244,7 +1249,7 @@ body:has(.bk-page) .chrome { display: none; }
 /* Persistent landing-page navigation and actions. Keep the original brand palette. */
 .chrome { --chrome-top: 18px; --chrome-edge: 18px; --chrome-control-height: 56px; --chrome-control-gap: 14px; }
 .chrome .hdr { z-index: 1; left: max(var(--chrome-edge), env(safe-area-inset-left, 0px) + 12px); right: auto; top: var(--chrome-top); min-height: var(--chrome-control-height); margin: 0; max-width: calc(100vw - 36px); }
-.chrome .hdr-more { display: none; position: absolute; top: calc(100% + 8px); left: 0; width: min(290px, calc(100vw - 36px)); padding: 9px; border: 1px solid rgba(0, 74, 44, .12); border-radius: 22px; background: var(--offwhite); box-shadow: 0 16px 45px rgba(15, 43, 33, .17); }
+.chrome .hdr-more { display: none; position: absolute; top: calc(100% + 8px); left: 0; width: 100%; max-width: calc(100vw - 36px); box-sizing: border-box; padding: 9px; border: 1px solid rgba(0, 74, 44, .12); border-radius: 22px; background: var(--offwhite); box-shadow: 0 16px 45px rgba(15, 43, 33, .17); }
 .chrome .hdr.is-open .hdr-more { display: block; }
 .chrome .hdr-inner { display: flex; flex-direction: column; align-items: stretch; gap: 10px; overflow: visible; }
 .chrome .hdr-nav { display: flex; flex-direction: column; gap: 2px; padding: 4px 12px; font-size: 13px; }
