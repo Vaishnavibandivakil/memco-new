@@ -6,12 +6,12 @@ import { gsap, ScrollTrigger, useScene, charsIn } from "@/lib/motion";
 import { ROUTE } from "@/lib/nearby-route";
 import { openHomes } from "@/components/sections/Homes";
 
-/* A restrained Yellow Line schematic; the dots sit directly on the route. */
-const VB = { x: 280, y: 150, w: 1240, h: 180 };
-const ROAD = "M288,270 H1510";
+/* Keep the original curved road artwork, with each station anchored to it. */
+const VB = { x: 280, y: 150, w: 1240, h: 210 };
+const ROAD = "M288,318 C360,305 460,285 505,265 C520,258 505,252 490,249 C500,244 560,244 610,245 C640,246 650,256 634,264 C640,270 690,266 730,262 C780,257 815,252 835,258 C842,264 820,270 816,273 C860,276 900,268 960,270 C1010,273 1060,276 1100,262 C1120,254 1135,258 1160,274 C1190,293 1215,313 1238,308 C1258,302 1256,270 1275,252 C1295,240 1350,244 1400,249 C1440,253 1480,260 1510,265";
 const ROAD_X = [288, 1510];
-const DOTS: [number, number][] = [[385, 270], [630, 270], [1170, 270], [1415, 270]];
-const HOME: [number, number] = [900, 270];
+const DOTS: [number, number][] = [[450, 283.3], [680, 266.2], [1140, 262.9], [1360, 245.5]];
+const HOME: [number, number] = [900, 270.8];
 const NEARBY_STATIONS = [ROUTE[2], ROUTE[0], ROUTE[1], ROUTE[3]];
 
 /* The page scroll drives one horizontal project sequence on desktop and mobile. */

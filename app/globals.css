@@ -313,20 +313,19 @@ html.js:not(.reduced) [data-rise] { clip-path: inset(100% 0% 0% 0%); }
 .rc-title .script { display: flex; align-items: center; gap: .55em; margin: .22em 0 .2em; font-size: .3em; font-weight: 600; letter-spacing: .32em; padding-left: .32em; }
 .rc-title .script::before, .rc-title .script::after { content: ""; width: 2.4em; height: 2px; background: currentColor; }
 .pl-kicker { margin-top: clamp(18px, 3vh, 32px); color: var(--green); font-size: clamp(9px, .68vw, 11px); letter-spacing: .16em; text-transform: uppercase; }
-.pl-maprow { position: relative; width: min(78vw, 1240px); aspect-ratio: 1240 / 180; margin-top: clamp(28px, 6vh, 58px); }
+.pl-maprow { position: relative; width: min(78vw, 1240px); aspect-ratio: 1240 / 210; margin-top: clamp(28px, 6vh, 58px); }
 .pl-map { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .pl-road { fill: none; stroke: var(--ink); stroke-width: 2.8; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
 .pl-stops { position: absolute; inset: 0; }
 .pl-stop { position: absolute; width: 0; height: 0; opacity: 0; transform: translateY(10px); transition: opacity .8s var(--e-out), transform .9s var(--e-out); }
 .pl-stop.is-on { opacity: 1; transform: none; }
 html.reduced .pl-stop { opacity: 1; transform: none; }
-.pl-lab { position: absolute; left: 0; bottom: 18px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center; white-space: nowrap; font-family: var(--ff-sans); font-size: clamp(10px, .82vw, 13px); letter-spacing: .06em; text-transform: uppercase; line-height: 1.3; }
+.pl-lab { position: absolute; left: 0; top: 38px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center; white-space: nowrap; font-family: var(--ff-sans); font-size: clamp(10px, .82vw, 13px); letter-spacing: .06em; text-transform: uppercase; line-height: 1.3; }
 .pl-lab b { font-weight: 600; }
 .pl-lab > b, .pl-lab > span:not(.mark) { background: #fff; padding: 0 4px; }
-.pl-stop:nth-child(2) .pl-lab, .pl-stop:nth-child(3) .pl-lab { bottom: auto; top: 18px; }
 .pl-stop i { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; border: 2px solid var(--green); border-radius: 50%; background: #fff; }
 .pl-home i { border-color: #fff; background: var(--green); }
-.pl-home .pl-lab { bottom: 18px; gap: 0; }
+.pl-home .pl-lab { top: auto; bottom: 18px; gap: 0; }
 .pl-home .mark { width: 34px; height: 40px; }
 .pl-home .pl-lab b { color: var(--green); }
 .pl-mobile { display: none; }
