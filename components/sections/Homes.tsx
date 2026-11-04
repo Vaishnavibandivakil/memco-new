@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Chars } from "@/components/Chars";
+import { FloorPlanInteriors } from "@/components/FloorPlanInteriors";
 import { gsap, charsIn, lenis } from "@/lib/motion";
 import { X } from "lucide-react";
 
@@ -80,6 +81,8 @@ export function Homes() {
               <figcaption>Adjoining Urban Units</figcaption>
             </figure>
           </article>
+
+          <FloorPlanInteriors />
 
           <article className="hm-plan-entry hm-plan-entry--floor">
             <div className="hm-plan-copy">

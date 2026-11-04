@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowDownRight, X } from "lucide-react";
 import { ReturnLink } from "@/components/ReturnNavigation";
+import { FloorPlanInteriors } from "@/components/FloorPlanInteriors";
 
 export function FloorPlanExplorer() {
   return (
@@ -42,6 +43,8 @@ export function FloorPlanExplorer() {
             <figcaption>Paired layout</figcaption>
           </figure>
         </section>
+
+        <FloorPlanInteriors />
 
         <section className="fp-layout fp-layout--wide" aria-labelledby="fp-floor-title">
           <div className="fp-layout-copy"><span>03 / Building layout</span><h2 id="fp-floor-title">Across the floor</h2><p>The isometric view shows one core; the drawing below shows the arrangement across a typical floor.</p></div>

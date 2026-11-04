@@ -491,6 +491,18 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .hm-floor-drawings { display: grid; gap: 28px; }
 .hm-plan-media--core img { max-height: 740px; }
 .hm-plan-media--typical img { max-height: 370px; }
+.plan-interiors { max-width: 1500px; margin: 0 auto; padding: clamp(32px, 4.5vw, 66px) 0; border-top: 1px solid #d7ddd5; }
+.plan-interiors-head { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; margin-bottom: 22px; }
+.plan-interiors-head p { color: var(--green); font-size: 11px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+.plan-interiors-head h3 { font-size: clamp(24px, 2.8vw, 42px); font-weight: 600; letter-spacing: -.045em; line-height: 1.1; }
+.plan-interiors-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 12px; height: clamp(380px, 37vw, 560px); }
+.plan-interiors-image { position: relative; min-width: 0; min-height: 0; margin: 0; overflow: hidden; background: #d9d7cf; }
+.plan-interiors-image--main { grid-row: span 2; }
+.plan-interiors-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--e-out); }
+.plan-interiors-image:hover img { transform: scale(1.025); }
+.plan-interiors-image::after { content: ""; position: absolute; inset: 50% 0 0; background: linear-gradient(transparent, rgba(0, 0, 0, .45)); pointer-events: none; }
+.plan-interiors-image figcaption { position: absolute; z-index: 1; left: 20px; bottom: 17px; color: #fff; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+@media (max-width: 700px) { .plan-interiors-head { display: block; margin-bottom: 18px; } .plan-interiors-head h3 { margin-top: 9px; } .plan-interiors-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto auto; gap: 8px; height: auto; } .plan-interiors-image--main { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 1.6; } .plan-interiors-image:not(.plan-interiors-image--main) { aspect-ratio: 1; } .plan-interiors-image figcaption { left: 12px; bottom: 11px; font-size: 10px; } }
 @media (max-width: 700px) { .hm-plan-entry, .hm-plan-entry--reverse { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 38px 0; } .hm-plan-entry--reverse .hm-plan-media { order: 0; } .hm-plan-copy h3 { margin: 10px 0 14px; } .hm-plan-detail { margin-top: 20px; } .hm-plan-media--single img { max-height: 480px; } .hm-plan-media--pair img { max-height: 470px; } .hm-plan-media--core img { max-height: 450px; } .hm-plan-media--typical { overflow-x: auto; } .hm-plan-media--typical img { width: max(100%, 720px); max-width: none; max-height: none; } }
 .hm-single-card { min-height: 430px; }
 .hm-single-card .hm-card-top { color: var(--green); opacity: 1; }
