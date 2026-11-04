@@ -190,7 +190,7 @@ export function LocationExplorer() {
             {(category === "All" || category === "Metro") && <button ref={metroButtonRef} type="button" className="location-metro-jump" aria-controls="metro-connectivity" aria-expanded={metroPanelOpen} onClick={toggleMetroPanel}>See metro connections <ArrowRight size={16} aria-hidden="true" /></button>}
           </div>
         </div>
-        <ReturnLink className="location-back" href="/#location" aria-label="Close location page and return to the location section"><X size={20} strokeWidth={1.7} aria-hidden="true" /></ReturnLink>
+        <ReturnLink className="location-back" href="/#location" aria-label="Close location page"><X size={20} strokeWidth={1.7} aria-hidden="true" /></ReturnLink>
       </header>
 
       {metroPanelOpen && (

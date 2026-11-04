@@ -85,7 +85,7 @@ export function BookingForm() {
       </aside>
 
       <div className="bk-main">
-        <SubpageHeader closeHref="/#jutaku-experience" closeLabel="Jutaku Experience" />
+        <SubpageHeader closeHref="/#jutaku-experience" />
         <header className="bk-heading">
           <h1>See Jutaku<br /><span>in person.</span></h1>
           <p>Visit the Experience Centre in Singasandra. Choose a day and time for your one-hour walkthrough.</p>

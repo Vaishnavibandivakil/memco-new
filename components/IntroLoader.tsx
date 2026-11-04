@@ -24,7 +24,7 @@ export function IntroLoader() {
   }, []);
 
   useEffect(() => {
-    if (window.location.hash || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (document.documentElement.classList.contains("intro-seen") || window.location.hash || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       const skipTimer = window.setTimeout(finish, 0);
       return () => window.clearTimeout(skipTimer);
     }

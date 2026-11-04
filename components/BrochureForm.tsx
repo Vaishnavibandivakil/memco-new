@@ -41,7 +41,7 @@ export function BrochureForm() {
       </div>
       <div className="br-main">
         <div className="br-shell">
-          <SubpageHeader closeHref="/#jutaku-experience" closeLabel="Jutaku Experience" />
+          <SubpageHeader closeHref="/#jutaku-experience" />
           <div className="br-content">
             <h1>Discover more<br />about Jutaku.</h1>
             <p className="br-intro">Share a few details and connect with the MEMCO Skyline team on WhatsApp.</p>

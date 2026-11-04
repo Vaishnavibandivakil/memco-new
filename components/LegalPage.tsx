@@ -33,7 +33,7 @@ export function LegalPage({ title, introduction, sections, relatedHref, relatedL
 
       <div className="legal-main">
         <div className="legal-shell">
-          <SubpageHeader closeHref="/#contact" closeLabel="Contact" />
+          <SubpageHeader closeHref="/#contact" />
           <header className="legal-heading">
             <h1>{title}</h1>
             <p>{introduction}</p>

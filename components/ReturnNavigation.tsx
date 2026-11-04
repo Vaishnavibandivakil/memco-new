@@ -4,22 +4,45 @@ import { useEffect, type ComponentProps, type MouseEvent } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-const RETURN_KEY = "jutaku:pending-return";
+const RETURN_KEY = "jutaku:return-stack-v2";
 const RETURN_SCROLL_KEY = "jutaku:return-scroll";
 
 type PendingReturn = { from: string; to: string; scrollY: number };
 type ReturnScroll = { to: string; y: number };
 
+function readReturnStack(): PendingReturn[] {
+  try {
+    const stored = window.sessionStorage.getItem(RETURN_KEY);
+    const parsed: unknown = stored ? JSON.parse(stored) : [];
+    return Array.isArray(parsed)
+      ? parsed.filter((entry): entry is PendingReturn => typeof entry?.from === "string" && typeof entry?.to === "string" && Number.isFinite(entry?.scrollY))
+      : [];
+  } catch { return []; }
+}
+
+function writeReturnStack(stack: PendingReturn[]) {
+  if (stack.length) window.sessionStorage.setItem(RETURN_KEY, JSON.stringify(stack));
+  else window.sessionStorage.removeItem(RETURN_KEY);
+}
+
 export function rememberReturnNavigation(destination: string) {
   try {
     const to = new URL(destination, window.location.href);
     if (to.origin !== window.location.origin || to.pathname === window.location.pathname) return;
+    if (to.pathname === "/") {
+      writeReturnStack([]);
+      return;
+    }
+    const current = window.location.pathname;
+    const stack = readReturnStack();
+    const parentIndex = stack.findLastIndex((entry) => entry.to === current);
     const pending: PendingReturn = {
       from: window.location.pathname + window.location.search + window.location.hash,
       to: to.pathname,
       scrollY: window.scrollY,
     };
-    window.sessionStorage.setItem(RETURN_KEY, JSON.stringify(pending));
+    writeReturnStack([...stack.slice(0, parentIndex + 1), pending]);
+    window.sessionStorage.removeItem(RETURN_SCROLL_KEY);
   } catch { /* The links still navigate when session storage is unavailable. */ }
 }
 
@@ -70,13 +93,14 @@ export function ReturnLink({ onClick, ...props }: ReturnLinkProps) {
     onClick?.(event);
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     try {
-      const stored = window.sessionStorage.getItem(RETURN_KEY);
-      if (!stored) return;
-      const pending = JSON.parse(stored) as PendingReturn;
-      if (pending.to !== window.location.pathname || pending.from === window.location.pathname) return;
-      window.sessionStorage.removeItem(RETURN_KEY);
+      const stack = readReturnStack();
+      const index = stack.findLastIndex((entry) => entry.to === window.location.pathname);
+      if (index < 0) return;
+      const pending = stack[index];
+      if (pending.from === window.location.pathname) return;
       const from = new URL(pending.from, window.location.href);
       if (from.origin !== window.location.origin) return;
+      writeReturnStack(stack.slice(0, index));
       window.sessionStorage.setItem(RETURN_SCROLL_KEY, JSON.stringify({ to: from.pathname, y: pending.scrollY } satisfies ReturnScroll));
       event.preventDefault();
       router.replace(pending.from);

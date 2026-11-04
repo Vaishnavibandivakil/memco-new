@@ -1184,7 +1184,7 @@ body:has(.bk-page) .chrome { display: none; }
 
 /* Persistent landing-page navigation and actions. Keep the original brand palette. */
 .chrome { --chrome-top: 18px; --chrome-edge: 18px; --chrome-control-height: 56px; --chrome-control-gap: 14px; }
-.chrome .hdr { left: max(var(--chrome-edge), env(safe-area-inset-left, 0px) + 12px); right: auto; top: var(--chrome-top); min-height: var(--chrome-control-height); margin: 0; max-width: calc(100vw - 36px); }
+.chrome .hdr { z-index: 1; left: max(var(--chrome-edge), env(safe-area-inset-left, 0px) + 12px); right: auto; top: var(--chrome-top); min-height: var(--chrome-control-height); margin: 0; max-width: calc(100vw - 36px); }
 .chrome .hdr-more { display: none; position: absolute; top: calc(100% + 8px); left: 0; width: min(290px, calc(100vw - 36px)); padding: 9px; border: 1px solid rgba(0, 74, 44, .12); border-radius: 22px; background: var(--offwhite); box-shadow: 0 16px 45px rgba(15, 43, 33, .17); }
 .chrome .hdr.is-open .hdr-more { display: block; }
 .chrome .hdr-inner { display: flex; flex-direction: column; align-items: stretch; gap: 10px; overflow: visible; }

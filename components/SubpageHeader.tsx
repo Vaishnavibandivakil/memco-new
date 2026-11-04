@@ -3,14 +3,13 @@ import { ReturnLink } from "@/components/ReturnNavigation";
 
 type SubpageHeaderProps = {
   closeHref: string;
-  closeLabel: string;
   className?: string;
 };
 
-export function SubpageHeader({ closeHref, closeLabel, className = "" }: SubpageHeaderProps) {
+export function SubpageHeader({ closeHref, className = "" }: SubpageHeaderProps) {
   return (
     <header className={`subpage-header ${className}`}>
-      <ReturnLink className="subpage-close" href={closeHref} aria-label={`Close and return to ${closeLabel}`} title={`Return to ${closeLabel}`}>
+      <ReturnLink className="subpage-close" href={closeHref} aria-label="Close page" title="Close page">
         <X size={20} strokeWidth={1.7} aria-hidden="true" />
       </ReturnLink>
     </header>

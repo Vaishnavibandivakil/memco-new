@@ -87,7 +87,7 @@ export function InsightsLibrary() {
   const [playing, setPlaying] = useState<InsightVideo | null>(null);
   return (
     <main className="insights-page">
-      <SubpageHeader className="insights-page-header" closeHref="/#insights" closeLabel="Insights" />
+      <SubpageHeader className="insights-page-header" closeHref="/#insights" />
       <div className="insights-page-intro"><p className="insights-eyebrow lbl">Films 01—06</p><h1 className="disp">The Jutaku<br />journal</h1><p>Visit the Experience Centre, meet the people involved and see the spaces taking shape.</p></div>
       <div className="insights-library" aria-label="Jutaku videos">
         {INSIGHT_VIDEOS.map((video, index) => (

@@ -24,7 +24,7 @@ export function FloorPlanExplorer({ initialFloor = 0 }: { initialFloor?: number 
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/jutaku.png" alt="Jutaku" />
         </Link>
-        <ReturnLink className="fp-close" href="/#choose-home" aria-label="Close floor plans and return to the home page"><X size={20} strokeWidth={1.7} aria-hidden="true" /></ReturnLink>
+        <ReturnLink className="fp-close" href="/#choose-home" aria-label="Close floor plans"><X size={20} strokeWidth={1.7} aria-hidden="true" /></ReturnLink>
       </header>
 
       <div className="fp-heading">
