@@ -6,12 +6,13 @@ import { gsap, ScrollTrigger, useScene, charsIn } from "@/lib/motion";
 import { ROUTE } from "@/lib/nearby-route";
 import { openHomes } from "@/components/sections/Homes";
 
-/* Decorative road path retained from the original location panel. */
+/* A restrained Yellow Line schematic; the dots sit directly on the route. */
 const VB = { x: 280, y: 150, w: 1240, h: 180 };
-const ROAD = "M288,318 C360,305 460,285 505,265 C520,258 505,252 490,249 C500,244 560,244 610,245 C640,246 650,256 634,264 C640,270 690,266 730,262 C780,257 815,252 835,258 C842,264 820,270 816,273 C860,276 900,268 960,270 C1010,273 1060,276 1100,262 C1120,254 1135,258 1160,274 C1190,293 1215,313 1238,308 C1258,302 1256,270 1275,252 C1295,240 1350,244 1400,249 C1440,253 1480,260 1510,265";
+const ROAD = "M288,270 H1510";
 const ROAD_X = [288, 1510];
-const DOTS: [number, number][] = [[490, 230], [684, 245], [1117, 232], [1301, 221]];
-const HOME: [number, number] = [900, 242];
+const DOTS: [number, number][] = [[385, 270], [630, 270], [1170, 270], [1415, 270]];
+const HOME: [number, number] = [900, 270];
+const NEARBY_STATIONS = [ROUTE[2], ROUTE[0], ROUTE[1], ROUTE[3]];
 
 /* The page scroll drives one horizontal project sequence on desktop and mobile. */
 export function Concept() {
@@ -88,25 +89,18 @@ export function Concept() {
     /* the photo opens as it slides in */
     gsap.fromTo(q(".gm-pic"), { clipPath: "inset(0% 0% 0% 100%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: q(".gm-pic")[0], containerAnimation: move, start: "left 100%", end: "left 45%", scrub: true } });
     gsap.fromTo(q(".gm-pic img"), { xPercent: 12, scale: 1.15 }, { xPercent: -6, scale: 1.05, ease: "none", scrollTrigger: { trigger: q(".gm-pic")[0], containerAnimation: move, start: "left 100%", end: "right 0%", scrub: true } });
-    const glow = q(".pl-glow")[0];
     const reach = at.map(([x]) => (x - ROAD_X[0]) / (ROAD_X[1] - ROAD_X[0]));
     const drawn = { p: 0 };
     const paint = () => {
       path.style.strokeDashoffset = String(1 - drawn.p);
       stops.forEach((el, k) => el.classList.toggle("is-on", drawn.p >= reach[k] - 0.03));
     };
-    const draw = gsap.timeline({ paused: true })
-      .to(drawn, { p: 1, duration: 3.2, ease: "power2.inOut", onUpdate: paint })
-      .fromTo(glow, { opacity: 0 }, { opacity: 1, duration: 0.8 }, "-=0.4");
-    const run = { o: 0.12 };
-    const flow = gsap.fromTo(run, { o: 0.12 }, { o: -1, duration: 4.2, ease: "none", repeat: -1, paused: true, onUpdate: () => { (glow as HTMLElement).style.strokeDashoffset = String(run.o); } });
+    const draw = gsap.to(drawn, { p: 1, duration: 1.8, ease: "power2.out", onUpdate: paint, paused: true });
     paint();
     ScrollTrigger.create({
       trigger: q(".rc")[0], containerAnimation: move, start: "left 45%", end: "right 0%",
-      onEnter: () => { draw.play(); flow.play(); },
-      onEnterBack: () => flow.play(),
-      onLeave: () => flow.pause(),
-      onLeaveBack: () => { draw.pause(0); drawn.p = 0; paint(); flow.pause(); },
+      onEnter: () => draw.play(),
+      onLeaveBack: () => { draw.pause(0); drawn.p = 0; paint(); },
     });
     return () => s.revert();
   });
@@ -182,6 +176,7 @@ export function Concept() {
             <span className="script" data-hfade data-delay="0.5">within</span>
             <span data-hchars data-delay="0.2"><Chars text="REACH" /></span>
           </h2>
+          <p className="pl-kicker lbl">Four Yellow Line stations near Jutaku</p>
           <div className="pl-maprow">
             <svg className="pl-map" viewBox={`${VB.x} ${VB.y} ${VB.w} ${VB.h}`} aria-hidden="true">
               <defs>
@@ -192,17 +187,21 @@ export function Concept() {
                 <mask id="road-mask" maskUnits="userSpaceOnUse" x={VB.x} y={VB.y} width={VB.w} height={VB.h}><rect x={VB.x} y={VB.y} width={VB.w} height={VB.h} fill="url(#road-taper)" /></mask>
               </defs>
               <path className="pl-road" d={ROAD} pathLength={1} mask="url(#road-mask)" />
-              <path className="pl-glow" d={ROAD} pathLength={1} mask="url(#road-mask)" />
             </svg>
             <ol className="pl-stops">
-              {[ROUTE[2], ROUTE[0], ROUTE[1], ROUTE[3]].map((r) => (
+              {NEARBY_STATIONS.map((r) => (
                 <li key={r.name} className="pl-stop">
-                  <span className="pl-lab"><b>{r.name}</b><span>≈{r.distance} · {r.direction}</span></span><i />
+                  <span className="pl-lab"><b>{r.name.replace(/ Metro$/, "")}</b><span>≈{r.distance} · {r.direction}</span></span><i />
                 </li>
               ))}
-              <li className="pl-stop pl-home" aria-label="MEMCO Skyline"><span className="pl-lab"><span className="mark" /></span><i /></li>
+              <li className="pl-stop pl-home" aria-label="MEMCO Skyline Jutaku"><span className="pl-lab"><span className="mark" /><b>Jutaku</b></span><i /></li>
             </ol>
           </div>
+          <ol className="pl-mobile" aria-label="Nearby Yellow Line stations">
+            {NEARBY_STATIONS.slice(0, 2).map((station) => <li key={station.name}><i aria-hidden="true" /><b>{station.name.replace(/ Metro$/, "")}</b><span>≈{station.distance}</span></li>)}
+            <li className="pl-mobile-home"><i aria-hidden="true"><span className="mark" /></i><b>MEMCO Skyline · Jutaku</b><span>Manipal County Road</span></li>
+            {NEARBY_STATIONS.slice(2).map((station) => <li key={station.name}><i aria-hidden="true" /><b>{station.name.replace(/ Metro$/, "")}</b><span>≈{station.distance}</span></li>)}
+          </ol>
           <a className="rc-directions" href="/location" aria-label="Explore Jutaku's location">Explore the location</a>
         </div>
 
