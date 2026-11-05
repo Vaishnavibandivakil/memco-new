@@ -169,20 +169,20 @@ html.js:not(.reduced) [data-rise] { clip-path: inset(100% 0% 0% 0%); }
 
 /* ── opening: sticky photo, title scrolls off over it ───────── */
 .op { position: relative; height: 340vh; background: var(--deep); color: var(--paper); }
-.op-sticky { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.op-sticky { position: sticky; top: 0; height: 100vh; height: 100dvh; overflow: hidden; }
 .op-clip { position: absolute; inset: 0; overflow: hidden; }
 .op-clip { z-index: 2; }
 .op-media { position: absolute; inset: 0; transform-origin: 50% 70%; will-change: transform; }
-.cover { position: absolute; left: 50%; top: 50%; width: max(100vw, calc(100svh * var(--ar))); height: max(100svh, calc(100vw / var(--ar))); transform: translate(-50%, -50%); }
+.cover { position: absolute; left: 50%; top: 50%; width: max(100vw, calc(100dvh * var(--ar))); height: max(100dvh, calc(100vw / var(--ar))); transform: translate(-50%, -50%); }
 .cover > img { width: 100%; height: 100%; object-fit: cover; }
 .op-shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(6, 18, 13, .55) 0%, rgba(6, 18, 13, .12) 40%, rgba(6, 18, 13, 0) 60%, rgba(6, 18, 13, .4) 100%); }
-.op-view { position: absolute; left: 50%; bottom: 4svh; margin-left: -58px; color: var(--paper); z-index: 3; }
-.op-titlewrap { position: absolute; left: 0; right: 0; top: 0; height: 100svh; z-index: 2; pointer-events: none; }
-.op-title { position: absolute; left: 0; right: 0; top: calc(7vh + 64px); display: flex; flex-direction: column; align-items: center; }
+.op-view { position: absolute; left: 50%; bottom: 4dvh; margin-left: -58px; color: var(--paper); z-index: 3; }
+.op-titlewrap { position: absolute; left: 0; right: 0; top: 0; height: 100vh; height: 100dvh; z-index: 2; pointer-events: none; }
+.op-title { position: absolute; left: 0; right: 0; top: calc(7dvh + 64px); display: flex; flex-direction: column; align-items: center; }
 .op-l1, .op-l2 { font-size: clamp(38.4px, 7.44vw, 138px); display: block; }
 .op-l2 { margin-top: -.02em; }
 .op-script { height: clamp(56px, 7vw, 120px); width: auto; margin-top: 3vh; }
-.op-row { position: absolute; left: var(--side); right: var(--side); top: calc(57vh + 50px); display: flex; justify-content: space-between; align-items: baseline; }
+.op-row { position: absolute; left: var(--side); right: var(--side); top: calc(57dvh + 50px); display: flex; justify-content: space-between; align-items: baseline; }
 .op-row .caps-serif { font-size: clamp(10.66px, 0.9vw, 14.76px); }
 
 .spots .spot { opacity: 0; transform: scale(.4); transition: opacity .7s var(--e-out), transform .7s var(--e-out); transition-delay: calc(var(--i) * .12s); pointer-events: none; }
@@ -763,11 +763,11 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .lifestyle-choice-text strong { font-size: 15px; }
   .lifestyle-choice-text small { font-size: 10px; }
   .rail { display: none; }
-  .op-title { top: max(88px, 13svh); }
+  .op-title { top: max(88px, 13dvh); }
   .op-script { height: 64px; }
-  .op-row { left: 16px; right: 16px; top: max(270px, 48svh); flex-wrap: wrap; justify-content: center; gap: 6px 16px; }
+  .op-row { left: 16px; right: 16px; top: max(270px, 48dvh); flex-wrap: wrap; justify-content: center; gap: 6px 16px; }
   .op-row .lbl { order: 3; width: 100%; text-align: center; }
-  .op-view { width: 96px; height: 96px; margin-left: -48px; bottom: clamp(48px, calc(22svh - 50px), 128px); }
+  .op-view { width: 96px; height: 96px; margin-left: -48px; bottom: clamp(48px, calc(22dvh - 50px), 128px); }
   .spot { left: var(--spot-mobile-x); top: var(--spot-mobile-y); }
   .spot-card, .spot.flip .spot-card { left: 0; right: auto; width: min(200px, calc(100vw - 32px)); transform: translate(-50%, 8px); }
   .spot.is-open .spot-card { transform: translateX(-50%); }
