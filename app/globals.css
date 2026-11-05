@@ -301,7 +301,7 @@ html.js:not(.reduced) [data-rise] { clip-path: inset(100% 0% 0% 0%); }
 .gm-words > span { display: block; }
 .gm-w1 { font-size: .68em; letter-spacing: -.04em; white-space: nowrap; }
 .gm-w2 { margin-left: 13vw; }
-.gm-w3 { margin-left: -1vw; }
+.gm-w3 { margin-left: -1vw; font-size: .88em; }
 .gm-pic { position: absolute; z-index: 2; left: 62vw; top: 9vh; width: 30vw; height: 82vh; overflow: hidden; }
 .gm-pic img { width: 100%; height: 100%; object-fit: cover; }
 .gm-side { position: absolute; z-index: 3; left: 94.5vw; bottom: 9vh; width: min(420px, 30vw); display: grid; gap: 16px; }
