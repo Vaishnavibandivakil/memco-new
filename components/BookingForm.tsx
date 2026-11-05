@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
-import { Armchair } from "lucide-react";
+import { Armchair, ChevronLeft, ChevronRight } from "lucide-react";
 import { SubpageHeader } from "@/components/SubpageHeader";
 
 type VisitDate = { iso: string; day: string; label: string; year: number };
@@ -35,6 +35,8 @@ function slotLabel(hour: number) {
 
 export function BookingForm() {
   const [dates] = useState(upcomingDates);
+  const datesRef = useRef<HTMLDivElement>(null);
+  const [dateScroll, setDateScroll] = useState({ back: false, forward: false });
   const [selectedDate, setSelectedDate] = useState(dates[0].iso);
   const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
   const [guests, setGuests] = useState(1);
@@ -47,6 +49,30 @@ export function BookingForm() {
   const chosenDate = dates.find((date) => date.iso === selectedDate) ?? dates[0];
   const current = istClock();
   const todayIso = `${current.year}-${String(current.month + 1).padStart(2, "0")}-${String(current.day).padStart(2, "0")}`;
+
+  const updateDateScroll = useCallback(() => {
+    const row = datesRef.current;
+    if (!row) return;
+    setDateScroll({ back: row.scrollLeft > 2, forward: row.scrollLeft + row.clientWidth < row.scrollWidth - 2 });
+  }, []);
+
+  useEffect(() => {
+    const row = datesRef.current;
+    if (!row) return;
+    const observer = new ResizeObserver(updateDateScroll);
+    observer.observe(row);
+    row.addEventListener("scroll", updateDateScroll, { passive: true });
+    updateDateScroll();
+    return () => { observer.disconnect(); row.removeEventListener("scroll", updateDateScroll); };
+  }, [updateDateScroll]);
+
+  function moveDates(direction: -1 | 1) {
+    const row = datesRef.current;
+    const card = row?.querySelector<HTMLElement>(".bk-date");
+    if (!row || !card) return;
+    const gap = Number.parseFloat(getComputedStyle(row).columnGap) || 0;
+    row.scrollBy({ left: direction * (card.offsetWidth + gap) * 7, behavior: "smooth" });
+  }
 
   async function submitVisit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -96,12 +122,16 @@ export function BookingForm() {
 
           <fieldset className="bk-group">
             <legend>Choose a day <span>Through 31 Dec {dates[dates.length - 1].year}</span></legend>
-            <div className="bk-dates" aria-label="Preferred dates">
-              {dates.map((date) => (
-                <button key={date.iso} type="button" className={`bk-date${selectedDate === date.iso ? " is-selected" : ""}`} aria-label={`${date.day}, ${date.label} ${date.year}`} aria-pressed={selectedDate === date.iso} onClick={() => { setSelectedDate(date.iso); setSelectedSlot(null); setSubmitStatus("idle"); }}>
-                  <small>{date.day}</small><strong>{date.label}</strong>
-                </button>
-              ))}
+            <div className="bk-date-carousel">
+              <button type="button" className="bk-date-arrow" aria-label="Show previous dates" disabled={!dateScroll.back} onClick={() => moveDates(-1)}><ChevronLeft size={20} strokeWidth={1.8} aria-hidden="true" /></button>
+              <div ref={datesRef} className="bk-dates" aria-label="Preferred dates">
+                {dates.map((date) => (
+                  <button key={date.iso} type="button" className={`bk-date${selectedDate === date.iso ? " is-selected" : ""}`} aria-label={`${date.day}, ${date.label} ${date.year}`} aria-pressed={selectedDate === date.iso} onClick={() => { setSelectedDate(date.iso); setSelectedSlot(null); setSubmitStatus("idle"); }}>
+                    <small>{date.day}</small><strong>{date.label}</strong>
+                  </button>
+                ))}
+              </div>
+              <button type="button" className="bk-date-arrow" aria-label="Show later dates" disabled={!dateScroll.forward} onClick={() => moveDates(1)}><ChevronRight size={20} strokeWidth={1.8} aria-hidden="true" /></button>
             </div>
           </fieldset>
 
