@@ -724,7 +724,7 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 
 /* ── mobile ─────────────────────────────────────────────────── */
 @media (max-width: 760px) {
-  .hz { overflow: hidden; }
+  .hz { overflow: hidden; touch-action: pan-y; }
   .hz-track { will-change: transform; }
   .hz:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; }
   html.js:not(.reduced) .hz .ds-statement { visibility: visible; }

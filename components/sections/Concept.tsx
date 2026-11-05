@@ -45,7 +45,7 @@ export function Concept() {
         x: () => -dist(), ease: "none",
         scrollTrigger: {
           trigger: root.current, start: "top top", end: () => `+=${dist()}`,
-          pin: true, scrub: 0.45, invalidateOnRefresh: true, anticipatePin: 1,
+          pin: true, scrub: 0.2, invalidateOnRefresh: true, anticipatePin: 1,
         },
       });
       const settle = () => {
@@ -54,7 +54,7 @@ export function Concept() {
         const nearest = gsap.utils.snap(panelStops(), trigger.progress);
         if (Math.abs(nearest - trigger.progress) < 0.001) return;
         const y = trigger.start + nearest * (trigger.end - trigger.start);
-        if (lenis()) lenis()!.scrollTo(y, { duration: 0.45 });
+        if (lenis()) lenis()!.scrollTo(y, { duration: 0.22 });
         else window.scrollTo({ top: y, behavior: "smooth" });
       };
       ScrollTrigger.addEventListener("scrollEnd", settle);
