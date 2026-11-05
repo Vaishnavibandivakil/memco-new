@@ -48,7 +48,7 @@ export function LifestylePopup() {
       if (window.scrollY < 80) return;
       window.removeEventListener("scroll", onFirstScroll);
       if (promptOnCooldown()) return;
-      timer = window.setTimeout(showWhenAvailable, 10_000);
+      timer = window.setTimeout(showWhenAvailable, 5_000);
     };
     const onManualOpen = () => show(true);
     window.addEventListener("lifestyle:open", onManualOpen);

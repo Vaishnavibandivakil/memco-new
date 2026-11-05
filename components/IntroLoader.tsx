@@ -15,6 +15,7 @@ export function IntroLoader() {
   const [phase, setPhase] = useState<Phase>("loading");
   const [frame, setFrame] = useState(0);
   const skipRef = useRef<() => void>(() => {});
+  const playIntro = useRef<boolean | null>(null);
 
   const finish = useCallback(() => {
     document.documentElement.classList.remove("intro-active");
@@ -24,7 +25,8 @@ export function IntroLoader() {
   }, []);
 
   useEffect(() => {
-    if (document.documentElement.classList.contains("intro-seen") || window.location.hash || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (playIntro.current === null) playIntro.current = document.documentElement.classList.contains("intro-active");
+    if (!playIntro.current) {
       const skipTimer = window.setTimeout(finish, 0);
       return () => window.clearTimeout(skipTimer);
     }
