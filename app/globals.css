@@ -173,11 +173,11 @@ html.js:not(.reduced) [data-rise] { clip-path: inset(100% 0% 0% 0%); }
 .op-clip { position: absolute; inset: 0; overflow: hidden; }
 .op-clip { z-index: 2; }
 .op-media { position: absolute; inset: 0; transform-origin: 50% 70%; will-change: transform; }
-.cover { position: absolute; left: 50%; top: 50%; width: max(100vw, calc(100vh * var(--ar))); height: max(100vh, calc(100vw / var(--ar))); transform: translate(-50%, -50%); }
+.cover { position: absolute; left: 50%; top: 50%; width: max(100vw, calc(100svh * var(--ar))); height: max(100svh, calc(100vw / var(--ar))); transform: translate(-50%, -50%); }
 .cover > img { width: 100%; height: 100%; object-fit: cover; }
 .op-shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(6, 18, 13, .55) 0%, rgba(6, 18, 13, .12) 40%, rgba(6, 18, 13, 0) 60%, rgba(6, 18, 13, .4) 100%); }
-.op-view { position: absolute; left: 50%; bottom: 4vh; margin-left: -58px; color: var(--paper); z-index: 3; }
-.op-titlewrap { position: absolute; left: 0; right: 0; top: 0; height: 100vh; z-index: 2; pointer-events: none; }
+.op-view { position: absolute; left: 50%; bottom: 4svh; margin-left: -58px; color: var(--paper); z-index: 3; }
+.op-titlewrap { position: absolute; left: 0; right: 0; top: 0; height: 100svh; z-index: 2; pointer-events: none; }
 .op-title { position: absolute; left: 0; right: 0; top: calc(7vh + 64px); display: flex; flex-direction: column; align-items: center; }
 .op-l1, .op-l2 { font-size: clamp(38.4px, 7.44vw, 138px); display: block; }
 .op-l2 { margin-top: -.02em; }
@@ -763,10 +763,11 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .lifestyle-choice-text strong { font-size: 15px; }
   .lifestyle-choice-text small { font-size: 10px; }
   .rail { display: none; }
-  .op-title { top: 13vh; }
+  .op-title { top: max(88px, 13svh); }
   .op-script { height: 64px; }
-  .op-row { left: 16px; right: 16px; top: 48vh; flex-wrap: wrap; justify-content: center; gap: 6px 16px; }
+  .op-row { left: 16px; right: 16px; top: max(270px, 48svh); flex-wrap: wrap; justify-content: center; gap: 6px 16px; }
   .op-row .lbl { order: 3; width: 100%; text-align: center; }
+  .op-view { width: 96px; height: 96px; margin-left: -48px; bottom: clamp(48px, calc(22svh - 50px), 128px); }
   .spot { left: var(--spot-mobile-x); top: var(--spot-mobile-y); }
   .spot-card, .spot.flip .spot-card { left: 0; right: auto; width: min(200px, calc(100vw - 32px)); transform: translate(-50%, 8px); }
   .spot.is-open .spot-card { transform: translateX(-50%); }
@@ -1588,6 +1589,12 @@ body:has(.bk-page) .chrome { display: none; }
   .persona-bento-image { aspect-ratio: 1.45; }
 }
 @media (max-width: 760px) and (max-height: 500px) and (orientation: landscape) {
+  .op-title { left: max(20px, 4vw); right: auto; top: max(76px, 19svh); align-items: flex-start; }
+  .op-l1, .op-l2 { font-size: clamp(28px, 5.5vw, 42px); }
+  .op-script { height: clamp(36px, 9svh, 46px); margin-top: 8px; }
+  .op-row { left: 50%; right: 18px; top: max(110px, 31svh); flex-direction: column; flex-wrap: nowrap; align-items: flex-start; gap: 5px; }
+  .op-row .lbl { order: 0; width: auto; text-align: left; }
+  .op-view { width: 76px; height: 76px; margin-left: -38px; bottom: 12px; }
   .ds, .cc { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); grid-template-rows: minmax(0, 1fr); gap: 18px; padding: 68px 20px 12px; }
   .ds-hero, .cc-hero { align-self: stretch; }
   .dp { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
@@ -1608,6 +1615,13 @@ body:has(.bk-page) .chrome { display: none; }
   .pl-mobile li { min-height: 31px; }
   .pl-mobile .pl-mobile-home { min-height: 38px; }
   .rc .rc-directions { margin-top: 10px; }
+}
+@media (min-width: 761px) and (max-height: 600px) {
+  .op-title { top: max(75px, 15svh); }
+  .op-l1, .op-l2 { font-size: clamp(38px, min(7.44vw, 10svh), 94px); }
+  .op-script { height: clamp(40px, 8svh, 70px); margin-top: 8px; }
+  .op-row { top: auto; bottom: clamp(115px, 28svh, 160px); }
+  .op-view { width: 96px; height: 96px; margin-left: -48px; bottom: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hz { overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; }
