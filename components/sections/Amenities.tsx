@@ -1,6 +1,5 @@
 "use client";
 import { useRef } from "react";
-import Link from "next/link";
 import { gsap, useScene } from "@/lib/motion";
 import { AMENITY_SLIDES } from "@/lib/content";
 
@@ -49,7 +48,6 @@ export function Amenities() {
             <p className="lbl">{a.label}</p>
             <p className="caps-serif">{a.body}</p>
           </div>
-          <Link className="am-mobile-book" href="/book-visit">Book a visit</Link>
         </div>
       ))}
       <div className="am-shade" />
@@ -64,7 +62,6 @@ export function Amenities() {
           </div>
         ))}
       </div>
-      <Link className="am-book" href="/book-visit">Book a visit</Link>
     </section>
   );
 }

@@ -151,7 +151,7 @@ function Reasons() {
           <span className="lbl">Singasandra</span><span className="mark" /><span className="lbl">Bengaluru</span>
         </div>
         <i className="rs-line" aria-hidden />
-        <p className="lbl rs-kicker" data-fade>A new way of urban living<br /><span className="dim">Own 500 · Experience 50,000</span></p>
+        <p className="lbl rs-kicker" data-fade>A new way of urban living<br /><span className="dim">Own 500 sq.ft. · Experience 50,000 sq.ft.</span></p>
 
         <div className="rs-stage">
           <div className="rs-heads">

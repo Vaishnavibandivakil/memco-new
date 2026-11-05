@@ -14,8 +14,8 @@ export function Quote() {
   });
   return (
     <section ref={root} className="st" data-tone="light">
-      <p className="lbl st-kicker" data-fade>Jutaku <i>·</i> Own 500. Experience 50,000.</p>
-      <Split left="OWN 500" mid={<span className="lbl">Jutaku <i>·</i> Bengaluru</span>} right="EXPERIENCE MORE" />
+      <p className="lbl st-kicker" data-fade>Jutaku <i>·</i> Own 500 sq.ft. Experience 50,000 sq.ft.</p>
+      <Split className="st-split" left="OWN 500 SQ.FT." mid={<span className="lbl">Jutaku <i>·</i> Bengaluru</span>} right="EXPERIENCE 50,000 SQ.FT." />
       <div className="st-grid">
         <div className="st-copy">
           <p className="caps-serif st-say" data-lines>An Urban Unit of around 500 sq ft, with spaces to work, train, cook and unwind beyond your front door.</p>

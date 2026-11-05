@@ -292,7 +292,7 @@ export function ChatAssistant() {
       {open && (
         <section className={`chat-panel${isWelcome ? " is-welcome" : " is-conversation"}`} id="jutaku-chat-panel" role="dialog" aria-modal="false" aria-label="Jutaku assistant" data-lenis-prevent>
           <header className="chat-head">
-            <div className="chat-identity"><strong>Jutaku assistant</strong><span>{answerMode === "ai" ? "AI guide" : "Website guide"}</span></div>
+            <div className="chat-identity"><strong>Jutaku assistant</strong>{answerMode === "ai" && <span>AI guide</span>}</div>
             <button type="button" className="chat-close" onClick={closeChat} aria-label="Close chat"><X size={18} strokeWidth={1.6} /></button>
           </header>
 
