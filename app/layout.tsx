@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { themeColor: "#006e42", width: "device-width", initialScale: 1 };
 
-const boot = "var d=document.documentElement;d.classList.add('js');if(matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('reduced');var n=performance.getEntriesByType('navigation')[0];var play=location.pathname==='/'&&!location.hash&&!d.classList.contains('reduced')&&n&&n.type==='reload';d.classList.add(play?'intro-active':'intro-seen');";
+const boot = "var d=document.documentElement;d.classList.add('js');if(matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('reduced');var seen=false;try{seen=sessionStorage.getItem('jutaku-intro-seen-v1')==='1'}catch(e){}var play=location.pathname==='/'&&!location.hash&&!d.classList.contains('reduced')&&!seen;d.classList.add(play?'intro-active':'intro-seen');";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

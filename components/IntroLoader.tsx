@@ -18,6 +18,10 @@ export function IntroLoader() {
   const playIntro = useRef<boolean | null>(null);
 
   const finish = useCallback(() => {
+    if (playIntro.current) {
+      try { window.sessionStorage.setItem("jutaku-intro-seen-v1", "1"); }
+      catch { /* The intro can still finish when storage is unavailable. */ }
+    }
     document.documentElement.classList.remove("intro-active");
     document.documentElement.classList.add("intro-seen");
     window.__lenis?.start();
@@ -48,7 +52,10 @@ export function IntroLoader() {
       return image.decode().catch(() => undefined);
     });
     void Promise.all([
-      ready[ready.length - 1],
+      Promise.race([
+        ready[ready.length - 1],
+        new Promise<void>((resolve) => { later(resolve, 2500); }),
+      ]),
       Promise.race([
         Promise.all(ready),
         new Promise<void>((resolve) => { later(resolve, 1100); }),
