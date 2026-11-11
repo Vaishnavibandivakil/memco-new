@@ -5,6 +5,7 @@ import Link from "next/link";
 import type * as GeoJSON from "geojson";
 import { ArrowRight, Building2, GraduationCap, Hospital, Hotel, LayoutGrid, MapPin, Minus, Navigation, Plus, Store, TrainFront, X } from "lucide-react";
 import { Map, MapClusterLayer, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
+import { Map3DBuildings } from "@/components/ui/map-3d-buildings";
 import { ADDRESS, SITE_COORDINATES } from "@/lib/data";
 import { ROUTE } from "@/lib/nearby-route";
 import { METRO_CONNECTIONS } from "@/data/metro-connectivity";
@@ -38,6 +39,7 @@ const PLACES = [HOME, ...LOCATION_DIRECTORY] as const;
 const METRO_LINE_COLORS = { Yellow: "#c69b12", Green: "#00804d", Purple: "#7645a5", Pink: "#d26b91", Blue: "#367fb2" } as const;
 const YELLOW_ACCESS_END = { Yellow: 8, Green: 0, Purple: 0, Pink: 2, Blue: 4 } as const;
 const LOCATION_CLUSTER_SWITCH_ZOOM = 14.25;
+const OPENFREEMAP_STYLE = "https://tiles.openfreemap.org/styles/bright";
 
 type LocationClusterProperties = {
   placeIndex: number;
@@ -178,7 +180,8 @@ export function LocationExplorer() {
     <main className="location-page" data-tone="light">
       <div ref={stageRef} className="location-stage">
       <div ref={mapContainerRef} className="location-map" aria-label="Map of Jutaku and nearby places">
-        <Map ref={mapRef} className="location-map-canvas" theme="light" center={[SITE_COORDINATES.lng, SITE_COORDINATES.lat]} zoom={12.2} minZoom={10} maxZoom={18} attributionControl={{ compact: false }} onViewportChange={(viewport) => setCurrentZoom(viewport.zoom)}>
+        <Map ref={mapRef} className="location-map-canvas" theme="light" styles={{ light: OPENFREEMAP_STYLE, dark: OPENFREEMAP_STYLE }} center={[SITE_COORDINATES.lng, SITE_COORDINATES.lat]} zoom={12.2} pitch={55} bearing={-18} minZoom={10} maxZoom={18} canvasContextAttributes={{ antialias: true }} attributionControl={{ compact: false }} onViewportChange={(viewport) => setCurrentZoom(viewport.zoom)}>
+          <Map3DBuildings />
           {yellowAccess && <MapRoute id="metro-access-yellow" coordinates={yellowAccess.map((point) => [...point.position])} color={METRO_LINE_COLORS.Yellow} width={4} opacity={0.9} interactive={false} />}
           {activeConnection?.line === "Purple" && <MapRoute id="metro-transfer-green" coordinates={METRO_GREEN_TRANSFER.map((point) => [...point.position])} color="#00804d" width={4} opacity={0.9} interactive={false} />}
           {activeRoute && activeConnection && <MapRoute key={activeConnection.line} id={`metro-route-${activeConnection.line.toLowerCase()}`} coordinates={activeRoute.map((point) => [...point.position])} color={METRO_LINE_COLORS[activeConnection.line]} width={4} opacity={0.9} dashArray={activeConnection.line === "Pink" || activeConnection.line === "Blue" ? [2, 2] : undefined} interactive={false} />}

@@ -12,10 +12,11 @@ import {
 import pLimit from "p-limit";
 import Link from "next/link";
 import type * as GeoJSON from "geojson";
-import poidata from "@/data/poi.json";
+import { LOCATION_DIRECTORY, type LocationCategory } from "@/data/location-directory";
 import { METRO_CONNECTIONS } from "@/data/metro-connectivity";
-import { METRO_GREEN_TRANSFER, METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
+import { METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
 import { SITE_COORDINATES } from "@/lib/data";
+import { Map3DBuildings } from "@/components/ui/map-3d-buildings";
 import { Map as MapView,
   MapMarker,
   MarkerContent,
@@ -36,16 +37,12 @@ import {
   ChevronUp,
   School,
   Store,
-  Trees,
   BusFront,
   Landmark,
+  Hotel,
   X,
   LocateFixed,
-  Clock3,
-  Star,
   Navigation,
-  Heart,
-  Share2,
   ListFilter,
   Grid2x2,
   Layers3,
@@ -69,14 +66,7 @@ type UserLocation = {
   accuracy?: number;
 };
 
-type PoiCategory =
-  | "park"
-  | "mall"
-  | "bus_stop"
-  | "school"
-  | "hospital"
-  | "landmark"
-  | "IT Company";
+type PoiCategory = Exclude<LocationCategory, "All">;
 
 export type Poi = {
   id: number;
@@ -107,18 +97,37 @@ const centerPlace = {
   ...SITE_COORDINATES,
 };
 
-const pois : Poi[] = poidata as Poi[];
-const DEFAULT_SELECTED_CATEGORIES: PoiCategory[] = [
-  "park",
-  "mall",
-  "bus_stop",
-  "school",
-  "hospital",
-  "landmark",
-  "IT Company",
+const CATEGORY_ORDER: PoiCategory[] = [
+  "Metro",
+  "Healthcare",
+  "Education",
+  "IT Parks",
+  "Commercial",
+  "Areas",
+  "Hotels",
 ];
-const CATEGORY_ORDER = DEFAULT_SELECTED_CATEGORIES;
-const ROUTE_CACHE_KEY = "memco-skyline-poi-routes-v2";
+const DEFAULT_SELECTED_CATEGORIES = CATEGORY_ORDER;
+const DIRECTORY_IMAGE_BY_CATEGORY: Record<PoiCategory, string> = {
+  Metro: "/images/location/metro.jpg",
+  Healthcare: "/images/location/healthcare.webp",
+  Education: "/images/location/education.webp",
+  "IT Parks": "/images/location/it-parks.webp",
+  Commercial: "/images/location/commercial.webp",
+  Areas: "/images/location/areas.jpg",
+  Hotels: "/images/location/hotels.webp",
+};
+const pois: Poi[] = LOCATION_DIRECTORY.map((place, index) => ({
+  id: index + 1,
+  name: place.name,
+  category: place.category,
+  lng: place.position[0],
+  lat: place.position[1],
+  distanceLabel: place.distance,
+  timeLabel: `${Math.max(2, Math.ceil(place.distanceKm / 0.7))} min`,
+  featured: index < 5,
+  images: [DIRECTORY_IMAGE_BY_CATEGORY[place.category]],
+}));
+const ROUTE_CACHE_KEY = "memco-skyline-poi-routes-v3";
 const ROUTE_REQUEST_TIMEOUT = 12000;
 const ROUTE_REQUEST_SPACING = 220;
 const MAX_CONCURRENT_ROUTE_REQUESTS = 2;
@@ -126,7 +135,6 @@ const POI_CLUSTER_MAX_ZOOM = 12;
 const POI_CLUSTER_SWITCH_ZOOM = 12.8;
 const POI_CLUSTER_RADIUS = 58;
 const METRO_LINE_COLORS = { Yellow: "#c69b12", Green: "#00804d", Purple: "#7645a5", Pink: "#d26b91", Blue: "#367fb2" } as const;
-const METRO_YELLOW_ACCESS_END = { Yellow: 8, Green: 0, Purple: 0, Pink: 2, Blue: 4 } as const;
 const ROUTE_ANIMATION_DURATION = 2600;
 const ROUTE_ANIMATION_WINDOW_SIZE = 30;
 const provisionalRouteCache = new Map<number, RouteData>();
@@ -519,32 +527,8 @@ const categoryMeta: Record<
     badgeIcon: string;
   }
 > = {
-  park: {
-    label: "Parks",
-    color: "text-[#006e52]",
-    glow: "bg-[#006e52]/15",
-    panelClass: "border-[#006e52]/20 bg-[#f5f0e8]/90",
-    pinColor: "text-[#006e52]",
-    routeColor: "#006e52",
-    icon: Trees,
-    badgeBg: "bg-[#f5f0e8]",
-    badgeRing: "ring-[rgba(0,110,82,0.14)]",
-    badgeIcon: "text-[#006e52]",
-  },
-  mall: {
-    label: "Malls",
-    color: "text-[#006e52]",
-    glow: "bg-[#006e52]/15",
-    panelClass: "border-[#006e52]/20 bg-[#f5f0e8]/90",
-    pinColor: "text-[#006e52]",
-    routeColor: "#006e52",
-    icon: Store,
-    badgeBg: "bg-[#f5f0e8]",
-    badgeRing: "ring-[rgba(0,110,82,0.14)]",
-    badgeIcon: "text-[#006e52]",
-  },
-  bus_stop: {
-    label: "Metro & Transit",
+  Metro: {
+    label: "Metro",
     color: "text-[#006e52]",
     glow: "bg-[#006e52]/15",
     panelClass: "border-[#006e52]/20 bg-[#f5f0e8]/90",
@@ -555,20 +539,8 @@ const categoryMeta: Record<
     badgeRing: "ring-[rgba(0,110,82,0.14)]",
     badgeIcon: "text-[#006e52]",
   },
-  school: {
-    label: "Schools",
-    color: "text-[#006e52]",
-    glow: "bg-[#006e52]/15",
-    panelClass: "border-[#006e52]/20 bg-[#f5f0e8]/90",
-    pinColor: "text-[#006e52]",
-    routeColor: "#006e52",
-    icon: School,
-    badgeBg: "bg-[#f5f0e8]",
-    badgeRing: "ring-[rgba(0,110,82,0.14)]",
-    badgeIcon: "text-[#006e52]",
-  },
-  hospital: {
-    label: "Hospitals",
+  Healthcare: {
+    label: "Healthcare",
     color: "text-[#006e52]",
     glow: "bg-[#006e52]/15",
     panelClass: "border-[#006e52]/20 bg-[#f5f0e8]/90",
@@ -579,8 +551,44 @@ const categoryMeta: Record<
     badgeRing: "ring-[rgba(0,110,82,0.14)]",
     badgeIcon: "text-[#006e52]",
   },
-  landmark: {
-    label: "Landmarks",
+  Education: {
+    label: "Education",
+    color: "text-[#006e52]",
+    glow: "bg-[#006e52]/15",
+    panelClass: "border-[#006e52]/20 bg-[#f5f0e8]/90",
+    pinColor: "text-[#006e52]",
+    routeColor: "#006e52",
+    icon: School,
+    badgeBg: "bg-[#f5f0e8]",
+    badgeRing: "ring-[rgba(0,110,82,0.14)]",
+    badgeIcon: "text-[#006e52]",
+  },
+  "IT Parks": {
+    label: "IT Parks",
+    color: "text-[#006e52]",
+    glow: "bg-[#006e52]/15",
+    panelClass: "border-[#006e52]/20 bg-[#f5f0e8]/90",
+    pinColor: "text-[#006e52]",
+    routeColor: "#006e52",
+    icon: BriefcaseBusiness,
+    badgeBg: "bg-[#f5f0e8]",
+    badgeRing: "ring-[rgba(0,110,82,0.14)]",
+    badgeIcon: "text-[#006e52]",
+  },
+  Commercial: {
+    label: "Commercial",
+    color: "text-[#006e52]",
+    glow: "bg-[#006e52]/15",
+    panelClass: "border-[#006e52]/20 bg-[#f5f0e8]/90",
+    pinColor: "text-[#006e52]",
+    routeColor: "#006e52",
+    icon: Store,
+    badgeBg: "bg-[#f5f0e8]",
+    badgeRing: "ring-[rgba(0,110,82,0.14)]",
+    badgeIcon: "text-[#006e52]",
+  },
+  Areas: {
+    label: "Areas",
     color: "text-[#006e52]",
     glow: "bg-[#006e52]/15",
     panelClass: "border-[#006e52]/20 bg-[#f5f0e8]/90",
@@ -591,14 +599,14 @@ const categoryMeta: Record<
     badgeRing: "ring-[rgba(0,110,82,0.14)]",
     badgeIcon: "text-[#006e52]",
   },
-  "IT Company": {
-    label: "Tech Parks",
+  Hotels: {
+    label: "Hotels",
     color: "text-[#006e52]",
     glow: "bg-[#006e52]/15",
     panelClass: "border-[#006e52]/20 bg-[#f5f0e8]/90",
     pinColor: "text-[#006e52]",
     routeColor: "#006e52",
-    icon: BriefcaseBusiness,
+    icon: Hotel,
     badgeBg: "bg-[#f5f0e8]",
     badgeRing: "ring-[rgba(0,110,82,0.14)]",
     badgeIcon: "text-[#006e52]",
@@ -798,124 +806,14 @@ function UserLocationAccuracyLayer({
   return null;
 }
 
-function ThreeDBuildingsLayer({
-  active,
-}: {
-  active: boolean;
-}) {
-  const { map, isLoaded } = useMap();
-
-  useEffect(() => {
-    if (!map || !isLoaded) return;
-
-    const sourceId = "openfreemap-3d-buildings";
-    const layerId = "openfreemap-3d-buildings-layer";
-
-    const removeBuildings = () => {
-      try {
-        if (map.getLayer(layerId)) map.removeLayer(layerId);
-        if (map.getSource(sourceId)) map.removeSource(sourceId);
-      } catch {
-        // ignore style teardown races
-      }
-    };
-
-    if (!active) {
-      removeBuildings();
-      return;
-    }
-
-    const layers = map.getStyle().layers ?? [];
-    const labelLayerId = layers.find(
-      (layer) => layer.type === "symbol" && Boolean(layer.layout?.["text-field"]),
-    )?.id;
-
-    if (!map.getSource(sourceId)) {
-      map.addSource(sourceId, {
-        type: "vector",
-        url: "https://tiles.openfreemap.org/planet",
-      });
-    }
-
-    if (!map.getLayer(layerId)) {
-      map.addLayer(
-        {
-          id: layerId,
-          type: "fill-extrusion",
-          source: sourceId,
-          "source-layer": "building",
-          minzoom: 15,
-          filter: ["!=", ["get", "hide_3d"], true],
-          paint: {
-            "fill-extrusion-color": [
-              "interpolate",
-              ["linear"],
-              ["get", "render_height"],
-              0,
-              "#f5f0e8",
-              60,
-              "#f5f0e8",
-              160,
-              "#f5f0e8",
-            ],
-            "fill-extrusion-opacity": 0.92,
-            "fill-extrusion-height": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              15,
-              0,
-              16,
-              ["get", "render_height"],
-            ],
-            "fill-extrusion-base": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              15,
-              0,
-              16,
-              ["coalesce", ["get", "render_min_height"], 0],
-            ],
-          },
-        },
-        labelLayerId,
-      );
-    }
-
-    return () => {
-      removeBuildings();
-    };
-  }, [active, isLoaded, map]);
-
-  return null;
-}
-
-const placeDescriptions: Partial<Record<PoiCategory, string>> = {
-  park:
-    "A peaceful green escape with open spaces, landscaped surroundings, and room to unwind close to home.",
-  mall:
-    "A convenient retail destination with dining, essentials, and everyday shopping within easy reach.",
-  school:
-    "A well-connected education destination for families looking at practical daily access.",
-  hospital:
-    "A nearby healthcare stop with dependable access for regular and urgent needs.",
-  landmark:
-    "A recognizable neighborhood reference point that adds orientation and local character.",
-  "IT Company":
-    "A major workplace hub close to the project, useful for commute planning and daily convenience.",
-  bus_stop:
-    "A transit point that improves local connectivity for short everyday trips.",
-};
-
 const poiFallbackImages: Record<PoiCategory, string> = {
-  park: "/images/serenity-park.webp",
-  mall: "/images/experience-center.webp",
-  bus_stop: "/images/metro-map.webp",
-  school: "/images/club-cowork.jpg",
-  hospital: "/images/recovery-zone.webp",
-  landmark: "/images/tower-hero.webp",
-  "IT Company": "/images/tower.webp",
+  Metro: "/images/location/metro.jpg",
+  Healthcare: "/images/location/healthcare.webp",
+  Education: "/images/location/education.webp",
+  "IT Parks": "/images/location/it-parks.webp",
+  Commercial: "/images/location/commercial.webp",
+  Areas: "/images/location/areas.jpg",
+  Hotels: "/images/location/hotels.webp",
 };
 
 function handlePoiImageError(
@@ -950,27 +848,16 @@ function getDisplayRoute(route: RouteData | null | undefined, poi: Poi | null) {
   };
 }
 
+function getGoogleMapsDirectionsUrl(poi: Poi) {
+  return `https://www.google.com/maps/dir/?api=1&destination=${poi.lat}%2C${poi.lng}`;
+}
+
 function getPoiDistanceMeters(poi: Poi, route: RouteData | null | undefined) {
   return route?.distance ?? parseDistanceLabel(poi.distanceLabel);
 }
 
 function isPopularPoi(poi: Poi) {
   return Boolean(poi.featured) || (poi.rating ?? 0) >= 4.4;
-}
-
-function MetricPill({
-  icon: Icon,
-  children,
-}: {
-  icon: React.ComponentType<{ className?: string }>;
-  children: React.ReactNode;
-}) {
-  return (
-    <span className="inline-flex h-7 items-center gap-1.5 rounded-full border border-[#f5f0e8] bg-[#ffffff]/88 px-2.5 text-[0.68rem] font-medium text-[#006e52] shadow-[inset_0_1px_0_rgba(255,255,255,0.88)] sm:h-8 sm:gap-2 sm:px-3 sm:text-[0.78rem]">
-      <Icon className="size-3 text-[#006e52] sm:size-3.5" />
-      {children}
-    </span>
-  );
 }
 
 function PremiumSelect({
@@ -1054,9 +941,9 @@ export function CustomStyleExample() {
   const [selectedCategories, setSelectedCategories] = useState<PoiCategory[]>(
     DEFAULT_SELECTED_CATEGORIES,
   );
-  const [distanceFilter, setDistanceFilter] = useState<DistanceFilter>("10km");
+  const [distanceFilter, setDistanceFilter] = useState<DistanceFilter>("all");
   const [sortMode, setSortMode] = useState<SortMode>("popularity");
-  const [mapDisplayMode, setMapDisplayMode] = useState<MapDisplayMode>("normal");
+  const [mapDisplayMode, setMapDisplayMode] = useState<MapDisplayMode>("3d");
   const isTabletLayout = viewportWidth >= 768 && viewportWidth < 1280;
   const isCompactLayout = viewportWidth < 1280;
   const isCompactDesktop = viewportWidth >= 1280 && viewportWidth < 1560;
@@ -1372,9 +1259,9 @@ export function CustomStyleExample() {
     setUserRoute(null);
     setIsUserRouteLoading(false);
     setSelectedCategories(DEFAULT_SELECTED_CATEGORIES);
-    setDistanceFilter("10km");
+    setDistanceFilter("all");
     setSortMode("popularity");
-    setMapDisplayMode("normal");
+    setMapDisplayMode("3d");
     setShowFilters(false);
     setShowMobileMetro(false);
     setActiveMetroIndex(null);
@@ -1428,14 +1315,7 @@ export function CustomStyleExample() {
           ? "Majestic"
           : connection.line === "Pink" ? "Jayadeva Hospital" : "Central Silk Board";
     const stationIndex = Math.max(0, route.findIndex((point) => point.name === preferredStation));
-    const yellowAccess = connection.line === "Yellow"
-      ? []
-      : METRO_ROUTE_POINTS.Yellow.slice(METRO_YELLOW_ACCESS_END[connection.line], 9);
-    const points = [
-      ...route,
-      ...(connection.line === "Purple" ? METRO_GREEN_TRANSFER : []),
-      ...yellowAccess,
-    ];
+    const points = route;
     const lngs = points.map((point) => point.position[0]);
     const lats = points.map((point) => point.position[1]);
 
@@ -1465,26 +1345,6 @@ export function CustomStyleExample() {
     setActiveMetroStation(null);
     mapRef.current?.flyTo?.({ center: [centerPlace.lng, centerPlace.lat], zoom: 12.2, duration: 850, essential: true });
   }, []);
-
-  const handleViewRoute = useCallback((poi: Poi) => {
-    userRouteRequestRef.current += 1;
-    userRouteAbortRef.current?.abort();
-    setUserRoute(null);
-    setIsUserRouteLoading(false);
-    suppressNextMapClearRef.current = true;
-    setSelectedPoiId(poi.id);
-    setRoutePoiId(poi.id);
-    setShowPoiDetails(!isCompactLayout);
-    setShowDesktopSidebar(false);
-    setShowFilters(false);
-    setMobilePopularExpanded(false);
-
-    mapRef.current?.flyTo?.({
-      center: [poi.lng, poi.lat],
-      zoom: 13.8,
-      duration: 1200,
-    });
-  }, [isCompactLayout]);
 
   const handleClusterPointClick = useCallback(
     (
@@ -1629,9 +1489,6 @@ export function CustomStyleExample() {
   const userRouteColor = "#006e52";
   const activeMetroConnection = activeMetroIndex === null ? null : METRO_CONNECTIONS[activeMetroIndex];
   const activeMetroRoute = activeMetroConnection ? METRO_ROUTE_POINTS[activeMetroConnection.line] : null;
-  const activeMetroYellowAccess = activeMetroConnection && activeMetroConnection.line !== "Yellow"
-    ? METRO_ROUTE_POINTS.Yellow.slice(METRO_YELLOW_ACCESS_END[activeMetroConnection.line], 9).reverse()
-    : null;
   const showClusters = !activeMetroConnection && currentZoom < POI_CLUSTER_SWITCH_ZOOM;
   const selectedDisplayPoi = selectedPoi ?? visiblePois[0] ?? pois[0] ?? null;
   const desktopSidebarVisible = !isCompactLayout && showDesktopSidebar && !showPoiDetails;
@@ -1707,12 +1564,8 @@ export function CustomStyleExample() {
       : defaultSelectedPoiImage;
   const selectedMeta = selectedDisplayPoi
     ? categoryMeta[selectedDisplayPoi.category]
-    : categoryMeta.park;
+    : categoryMeta.Areas;
   const SelectedIcon = selectedMeta.icon;
-  const selectedRouteMetrics = getDisplayRoute(
-    selectedDisplayPoi ? routeLookup.get(selectedDisplayPoi.id) : null,
-    selectedDisplayPoi,
-  );
   const listedPois = visiblePois;
   const extraImageCount = Math.max(selectedPoiImages.length - 3, 0);
   const sidePreviewImages = selectedPoiImages.slice(1, 3);
@@ -1730,9 +1583,9 @@ export function CustomStyleExample() {
   );
   const hasActiveFilters =
     selectedCategories.length !== CATEGORY_ORDER.length ||
-    distanceFilter !== "10km" ||
+    distanceFilter !== "all" ||
     sortMode !== "popularity" ||
-    mapDisplayMode !== "normal";
+    mapDisplayMode !== "3d";
   const desktopSidebarCategories = useMemo(
     () =>
       CATEGORY_ORDER.map((category) => ({
@@ -1743,10 +1596,6 @@ export function CustomStyleExample() {
       })),
     [selectedCategories],
   );
-  const detailDescription =
-    (selectedDisplayPoi && placeDescriptions[selectedDisplayPoi.category]) ??
-    "A convenient nearby destination selected from the project neighborhood map.";
-
   const handleViewportChange = useCallback((viewport: { zoom: number }) => {
     const nextZoom = viewport.zoom;
 
@@ -1816,7 +1665,7 @@ export function CustomStyleExample() {
           onViewportChange={handleViewportChange}
           styles={{ light: activeMapStyle, dark: activeMapStyle }}
         >
-          <ThreeDBuildingsLayer active={mapDisplayMode === "3d"} />
+          <Map3DBuildings active={mapDisplayMode === "3d"} />
           <MapControls
             position="bottom-right"
             showZoom
@@ -1842,14 +1691,8 @@ export function CustomStyleExample() {
           {userAnimatedCoordinates.length > 1 ? (
             <MapRoute id="user-route-animated" coordinates={userAnimatedCoordinates} color={userRouteColor} width={5} opacity={1} />
           ) : null}
-          {activeMetroYellowAccess ? (
-            <MapRoute id="mobile-metro-yellow-access" coordinates={activeMetroYellowAccess.map((point) => [...point.position])} color={METRO_LINE_COLORS.Yellow} width={4} opacity={0.9} interactive={false} />
-          ) : null}
-          {activeMetroConnection?.line === "Purple" ? (
-            <MapRoute id="mobile-metro-green-transfer" coordinates={METRO_GREEN_TRANSFER.map((point) => [...point.position])} color={METRO_LINE_COLORS.Green} width={4} opacity={0.9} interactive={false} />
-          ) : null}
           {activeMetroConnection && activeMetroRoute ? (
-            <MapRoute id={`mobile-metro-${activeMetroConnection.line.toLowerCase()}`} coordinates={activeMetroRoute.map((point) => [...point.position])} color={METRO_LINE_COLORS[activeMetroConnection.line]} width={4} opacity={0.95} dashArray={activeMetroConnection.line === "Pink" || activeMetroConnection.line === "Blue" ? [2, 2] : undefined} interactive={false} />
+            <MapRoute key={activeMetroConnection.line} id={`mobile-metro-${activeMetroConnection.line.toLowerCase()}`} coordinates={activeMetroRoute.map((point) => [...point.position])} color={METRO_LINE_COLORS[activeMetroConnection.line]} width={4} opacity={0.95} dashArray={activeMetroConnection.line === "Pink" || activeMetroConnection.line === "Blue" ? [2, 2] : undefined} interactive={false} />
           ) : null}
           {activeRoute ? (
             <>
@@ -2422,13 +2265,6 @@ export function CustomStyleExample() {
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[rgba(0,110,82,0.12)] bg-white/78 text-[#006e52]"
-                    aria-label="Save this place"
-                  >
-                    <Heart className="size-4" />
-                  </button>
-                  <button
-                    type="button"
                     onClick={clearActiveRoute}
                     className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[rgba(0,110,82,0.12)] bg-white/78 text-[#006e52]"
                     aria-label="Close selected place details"
@@ -2489,38 +2325,18 @@ export function CustomStyleExample() {
                 <h2 className={`text-[2rem] font-semibold leading-tight text-[#006e52]`}>
                   {selectedDisplayPoi.name}
                 </h2>
-                <p className="mt-1 text-sm text-[#006e52]">Bengaluru, Karnataka</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <MetricPill icon={LocateFixed}>{selectedRouteMetrics.distance}</MetricPill>
-                  <MetricPill icon={Clock3}>{selectedRouteMetrics.duration}</MetricPill>
-                  {selectedDisplayPoi.rating ? (
-                    <MetricPill icon={Star}>{selectedDisplayPoi.rating.toFixed(1)}</MetricPill>
-                  ) : null}
-                </div>
-                <p className="mt-4 text-sm leading-6 text-[#006e52]">{detailDescription}</p>
+                <p className="mt-2 text-sm text-[#006e52]/70">{selectedDisplayPoi.distanceLabel} from Jutaku.</p>
               </div>
 
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  className="inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-[#f5f0e8] bg-[#ffffff] px-4 text-[0.95rem] font-semibold text-[#006e52]"
-                >
-                  <CalendarDays className="size-4" />
-                  Schedule Visit
-                </button>
-                <button className="inline-flex h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-[#f5f0e8] bg-[#ffffff] px-4 text-[0.95rem] font-semibold text-[#006e52]">
-                  <Share2 className="size-4" />
-                  Share
-                </button>
-              </div>
-              <button
-                type="button"
-                onClick={() => handleViewRoute(selectedDisplayPoi)}
+              <a
+                href={getGoogleMapsDirectionsUrl(selectedDisplayPoi)}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`mt-3 inline-flex h-12 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 text-[0.98rem] font-semibold shadow-[0_10px_20px_rgba(0,110,82,0.08)] ${PREMIUM_OLIVE_BUTTON}`}
               >
                 <Navigation className="size-4" />
-                Get Directions
-              </button>
+                Get directions
+              </a>
             </div>
           </section>
         ) : null}
@@ -2541,8 +2357,8 @@ export function CustomStyleExample() {
                     aria-expanded={mobilePopularExpanded}
                   >
                     <div>
-                      <p className="text-[0.88rem] font-semibold text-[#006e52] sm:text-base">Popular Nearby</p>
-                      <p className="text-[0.68rem] text-[#006e52] sm:text-xs">{mobilePopularExpanded ? "Tap to collapse" : "Best places around the project"}</p>
+                      <p className="text-[0.88rem] font-semibold text-[#006e52] sm:text-base">Around Jutaku.</p>
+                      <p className="text-[0.68rem] text-[#006e52] sm:text-xs">{mobilePopularExpanded ? "Tap to collapse" : "A few useful places near the project"}</p>
                     </div>
                     <ChevronUp className={`size-3.5 text-[#006e52] transition ${mobilePopularExpanded ? "" : "rotate-180"}`} />
                   </button>
@@ -2594,23 +2410,8 @@ export function CustomStyleExample() {
                 style={{ bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}
                 data-state="open"
               >
-                <div className="pointer-events-auto p-3 sm:p-4">
-                  <div className="mx-auto mb-2.5 h-1 w-10 rounded-full bg-[#f5f0e8] sm:mb-3" />
-                  <div className="mb-2.5 flex items-center justify-between sm:mb-3">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(0,110,82,0.12)] bg-white/80 px-2.5 py-1 text-[0.68rem] font-semibold text-[#006e52] sm:px-3 sm:text-xs">
-                      <SelectedIcon className="size-3.5" />
-                      {selectedMeta.label}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={hideCompactPoiDetails}
-                      className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[rgba(0,110,82,0.12)] bg-white/78 text-[#006e52]"
-                      aria-label="Close selected place details"
-                    >
-                      <X className="size-4" />
-                    </button>
-                  </div>
-                  <div className="overflow-hidden rounded-[1rem] border border-[rgba(0,110,82,0.14)] bg-[#f5f0e8] sm:rounded-[1.2rem]">
+                <div className="pointer-events-auto overflow-hidden">
+                  <div className="relative bg-[#f5f0e8]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={selectedMainImage}
@@ -2618,43 +2419,33 @@ export function CustomStyleExample() {
                       onError={(event) =>
                         handlePoiImageError(event, selectedDisplayPoi.category)
                       }
-                      className="h-32 w-full object-cover sm:h-44"
+                      className="h-[min(32dvh,14rem)] w-full object-cover sm:h-56"
                     />
+                    <button
+                      type="button"
+                      onClick={hideCompactPoiDetails}
+                      className="absolute right-3 top-3 flex size-10 items-center justify-center rounded-full border border-[rgba(0,110,82,0.16)] bg-white/92 text-[#006e52] shadow-[0_8px_22px_rgba(0,0,0,0.12)] backdrop-blur-md"
+                      aria-label="Close selected place details"
+                    >
+                      <X className="size-4" />
+                    </button>
                   </div>
-                  <div className="mt-3 sm:mt-4">
+                  <div className="p-4 pt-3 sm:p-5 sm:pt-4">
+                    <p className="text-[0.72rem] font-semibold text-[#006e52] sm:text-sm">{selectedMeta.label}</p>
                     <h2 className={`text-[1.35rem] font-semibold leading-tight text-[#006e52] sm:text-[1.65rem]`}>
                       {selectedDisplayPoi.name}
                     </h2>
-                    <div className="mt-2 flex flex-wrap gap-1.5 sm:mt-3 sm:gap-2">
-                      <MetricPill icon={LocateFixed}>{selectedRouteMetrics.distance}</MetricPill>
-                      <MetricPill icon={Clock3}>{selectedRouteMetrics.duration}</MetricPill>
-                      {selectedDisplayPoi.rating ? (
-                        <MetricPill icon={Star}>{selectedDisplayPoi.rating.toFixed(1)}</MetricPill>
-                      ) : null}
-                    </div>
-                    <p className="mt-2 text-xs leading-5 text-[#006e52] sm:mt-3 sm:text-[0.82rem] sm:leading-5">{detailDescription}</p>
-                  </div>
-                  <div className="mt-3 grid grid-cols-2 gap-2 sm:mt-4 sm:gap-3">
-                    <button
-                      type="button"
-                      className="inline-flex h-11 items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-[#f5f0e8] bg-[#ffffff] px-2 text-[0.7rem] font-semibold text-[#006e52] sm:h-12 sm:gap-2 sm:px-4 sm:text-sm"
+                    <p className="mt-2 text-xs text-[#006e52]/70 sm:text-sm">{selectedDisplayPoi.distanceLabel} from Jutaku.</p>
+                    <a
+                      href={getGoogleMapsDirectionsUrl(selectedDisplayPoi)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#007b4f] px-4 text-[0.76rem] font-semibold text-white shadow-[0_10px_20px_rgba(0,110,82,0.16)] transition hover:bg-[#006e52] sm:h-12 sm:text-sm"
                     >
-                      <CalendarDays className="size-4" />
-                      Schedule Visit
-                    </button>
-                    <button className="inline-flex h-11 items-center justify-center gap-1.5 whitespace-nowrap rounded-full border border-[#f5f0e8] bg-[#ffffff] px-2 text-[0.7rem] font-semibold text-[#006e52] sm:h-12 sm:gap-2 sm:px-4 sm:text-sm">
-                      <Share2 className="size-4" />
-                      Share
-                    </button>
+                      <Navigation className="size-4" />
+                      Get directions
+                    </a>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => handleViewRoute(selectedDisplayPoi)}
-                    className={`mt-2 inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 text-[0.76rem] font-semibold shadow-[0_10px_20px_rgba(0,110,82,0.08)] sm:mt-3 sm:h-12 sm:text-sm ${PREMIUM_OLIVE_BUTTON}`}
-                  >
-                    <Navigation className="size-4" />
-                    Get Directions
-                  </button>
                 </div>
               </section>
             ) : null}
