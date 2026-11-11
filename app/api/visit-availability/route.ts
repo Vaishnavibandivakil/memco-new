@@ -11,28 +11,6 @@ type CrmSlot = {
 
 type ApiDay = { day_index?: unknown; date?: unknown; day_label?: unknown; slots?: unknown };
 
-function indiaClock() {
-  const parts = new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Asia/Kolkata",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  }).formatToParts(new Date());
-  const value = (type: Intl.DateTimeFormatPartTypes) => parts.find((part) => part.type === type)?.value || "00";
-  return {
-    date: `${value("year")}-${value("month")}-${value("day")}`,
-    minutes: Number(value("hour")) * 60 + Number(value("minute")),
-  };
-}
-
-function slotMinutes(value: string) {
-  const [hour, minute] = value.split(":").map(Number);
-  return hour * 60 + minute;
-}
-
 function isoForDay(baseIso: string, dayIndex: number) {
   const date = new Date(`${baseIso}T00:00:00Z`);
   date.setUTCDate(date.getUTCDate() + dayIndex - 1);
@@ -51,7 +29,6 @@ export async function GET() {
       ? result.base_iso
       : "";
     const sourceDays = Array.isArray(result.days) ? result.days as ApiDay[] : [];
-    const now = indiaClock();
     const days = sourceDays.flatMap((day) => {
       if (!Number.isInteger(day.day_index) || !Array.isArray(day.slots)) return [];
       const dayIndex = Number(day.day_index);
@@ -60,7 +37,6 @@ export async function GET() {
         : isoForDay(baseIso, dayIndex);
       const slots = (day.slots as CrmSlot[]).flatMap((slot) => {
         if (typeof slot.slot_start !== "string" || !/^\d{2}:\d{2}$/.test(slot.slot_start)) return [];
-        if (date < now.date || date === now.date && slotMinutes(slot.slot_start) <= now.minutes) return [];
         return [{
           slot_start: slot.slot_start,
           slot_end: typeof slot.slot_end === "string" ? slot.slot_end : "",

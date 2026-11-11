@@ -10,8 +10,11 @@ import {
   type SyntheticEvent,
 } from "react";
 import pLimit from "p-limit";
+import Link from "next/link";
 import type * as GeoJSON from "geojson";
 import poidata from "@/data/poi.json";
+import { METRO_CONNECTIONS } from "@/data/metro-connectivity";
+import { METRO_GREEN_TRANSFER, METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
 import { SITE_COORDINATES } from "@/lib/data";
 import { Map as MapView,
   MapMarker,
@@ -46,6 +49,7 @@ import {
   ListFilter,
   Grid2x2,
   Layers3,
+  Menu,
 } from "lucide-react";
 
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/bright";
@@ -121,6 +125,8 @@ const MAX_CONCURRENT_ROUTE_REQUESTS = 2;
 const POI_CLUSTER_MAX_ZOOM = 12;
 const POI_CLUSTER_SWITCH_ZOOM = 12.8;
 const POI_CLUSTER_RADIUS = 58;
+const METRO_LINE_COLORS = { Yellow: "#c69b12", Green: "#00804d", Purple: "#7645a5", Pink: "#d26b91", Blue: "#367fb2" } as const;
+const METRO_YELLOW_ACCESS_END = { Yellow: 8, Green: 0, Purple: 0, Pink: 2, Blue: 4 } as const;
 const ROUTE_ANIMATION_DURATION = 2600;
 const ROUTE_ANIMATION_WINDOW_SIZE = 30;
 const provisionalRouteCache = new Map<number, RouteData>();
@@ -1015,7 +1021,7 @@ export function CustomStyleExample() {
   const mapRef = useRef<MapRef>(null);
   const suppressNextMapClearRef = useRef(false);
   const userRouteRequestRef = useRef(0);
-  const currentZoomRef = useRef(15);
+  const currentZoomRef = useRef(12.2);
   const hasSyncedViewportRef = useRef(false);
   const mountedRef = useRef(false);
   const userRouteAbortRef = useRef<AbortController | null>(null);
@@ -1033,13 +1039,17 @@ export function CustomStyleExample() {
   const [routePoiId, setRoutePoiId] = useState<number | null>(null);
   const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
   const [userRoute, setUserRoute] = useState<RouteData | null>(null);
-  const [currentZoom, setCurrentZoom] = useState(15);
+  const [currentZoom, setCurrentZoom] = useState(12.2);
   const [viewportWidth, setViewportWidth] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
   const [showPopular, setShowPopular] = useState(true);
   const [showPoiDetails, setShowPoiDetails] = useState(false);
   const [showDesktopSidebar, setShowDesktopSidebar] = useState(true);
   const [mobilePopularExpanded, setMobilePopularExpanded] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showMobileMetro, setShowMobileMetro] = useState(false);
+  const [activeMetroIndex, setActiveMetroIndex] = useState<number | null>(null);
+  const [activeMetroStation, setActiveMetroStation] = useState<number | null>(null);
 
   const [selectedCategories, setSelectedCategories] = useState<PoiCategory[]>(
     DEFAULT_SELECTED_CATEGORIES,
@@ -1118,6 +1128,10 @@ export function CustomStyleExample() {
         setMobilePopularExpanded(false);
       } else {
         setShowFilters(false);
+        setShowMobileMenu(false);
+        setShowMobileMetro(false);
+        setActiveMetroIndex(null);
+        setActiveMetroStation(null);
       }
     };
 
@@ -1334,6 +1348,7 @@ export function CustomStyleExample() {
     setShowPoiDetails(true);
     setShowDesktopSidebar(false);
     setShowFilters(false);
+    setShowMobileMenu(false);
     setMobilePopularExpanded(false);
 
     mapRef.current?.flyTo?.({
@@ -1361,13 +1376,16 @@ export function CustomStyleExample() {
     setSortMode("popularity");
     setMapDisplayMode("normal");
     setShowFilters(false);
+    setShowMobileMetro(false);
+    setActiveMetroIndex(null);
+    setActiveMetroStation(null);
     setShowPopular(true);
     setShowPoiDetails(false);
     setShowDesktopSidebar(true);
     setMobilePopularExpanded(false);
     mapRef.current?.flyTo?.({
       center: [centerPlace.lng, centerPlace.lat],
-      zoom: 15,
+      zoom: 12.2,
       duration: 1200,
     });
   }, []);
@@ -1396,6 +1414,56 @@ export function CustomStyleExample() {
     setSelectedPoiId(null);
     setUserRoute(null);
     setIsUserRouteLoading(false);
+  }, []);
+
+  const showMetroLine = useCallback((index: number) => {
+    const connection = METRO_CONNECTIONS[index];
+    if (!connection) return;
+    const route = METRO_ROUTE_POINTS[connection.line];
+    const preferredStation = connection.line === "Yellow"
+      ? "Singasandra"
+      : connection.line === "Green"
+        ? "RV Road"
+        : connection.line === "Purple"
+          ? "Majestic"
+          : connection.line === "Pink" ? "Jayadeva Hospital" : "Central Silk Board";
+    const stationIndex = Math.max(0, route.findIndex((point) => point.name === preferredStation));
+    const yellowAccess = connection.line === "Yellow"
+      ? []
+      : METRO_ROUTE_POINTS.Yellow.slice(METRO_YELLOW_ACCESS_END[connection.line], 9);
+    const points = [
+      ...route,
+      ...(connection.line === "Purple" ? METRO_GREEN_TRANSFER : []),
+      ...yellowAccess,
+    ];
+    const lngs = points.map((point) => point.position[0]);
+    const lats = points.map((point) => point.position[1]);
+
+    stopAllRouteAnimations();
+    setShowPoiDetails(false);
+    setShowFilters(false);
+    setShowMobileMenu(false);
+    setShowMobileMetro(false);
+    setMobilePopularExpanded(false);
+    setActiveMetroIndex(index);
+    setActiveMetroStation(stationIndex);
+    mapRef.current?.fitBounds?.(
+      [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
+      { padding: { top: 105, right: 36, bottom: 150, left: 36 }, maxZoom: 12.8, duration: 950, essential: true },
+    );
+  }, [stopAllRouteAnimations]);
+
+  const focusMetroStation = useCallback((index: number, position: readonly [number, number]) => {
+    setActiveMetroStation(index);
+    setShowMobileMetro(false);
+    mapRef.current?.flyTo?.({ center: [...position], zoom: 14, duration: 750, essential: true });
+  }, []);
+
+  const clearMetroLine = useCallback(() => {
+    setShowMobileMetro(false);
+    setActiveMetroIndex(null);
+    setActiveMetroStation(null);
+    mapRef.current?.flyTo?.({ center: [centerPlace.lng, centerPlace.lat], zoom: 12.2, duration: 850, essential: true });
   }, []);
 
   const handleViewRoute = useCallback((poi: Poi) => {
@@ -1439,6 +1507,7 @@ export function CustomStyleExample() {
       setShowPoiDetails(true);
       setShowDesktopSidebar(false);
       setShowFilters(false);
+      setShowMobileMenu(false);
       setMobilePopularExpanded(false);
 
       mapRef.current?.flyTo?.({
@@ -1558,7 +1627,12 @@ export function CustomStyleExample() {
     ? "#006e52"
     : "#006e52";
   const userRouteColor = "#006e52";
-  const showClusters = currentZoom < POI_CLUSTER_SWITCH_ZOOM;
+  const activeMetroConnection = activeMetroIndex === null ? null : METRO_CONNECTIONS[activeMetroIndex];
+  const activeMetroRoute = activeMetroConnection ? METRO_ROUTE_POINTS[activeMetroConnection.line] : null;
+  const activeMetroYellowAccess = activeMetroConnection && activeMetroConnection.line !== "Yellow"
+    ? METRO_ROUTE_POINTS.Yellow.slice(METRO_YELLOW_ACCESS_END[activeMetroConnection.line], 9).reverse()
+    : null;
+  const showClusters = !activeMetroConnection && currentZoom < POI_CLUSTER_SWITCH_ZOOM;
   const selectedDisplayPoi = selectedPoi ?? visiblePois[0] ?? pois[0] ?? null;
   const desktopSidebarVisible = !isCompactLayout && showDesktopSidebar && !showPoiDetails;
   const desktopSidebarWidthClass = isTabletLayout
@@ -1733,7 +1807,7 @@ export function CustomStyleExample() {
         <MapView
           ref={mapRef}
           center={[centerPlace.lng, centerPlace.lat]}
-          zoom={15}
+          zoom={12.2}
           theme="light"
           projection={activeProjection}
           canvasContextAttributes={{ antialias: true }}
@@ -1751,7 +1825,7 @@ export function CustomStyleExample() {
             onLocate={handleUserLocate}
             className={
               isCompactLayout
-                ? showFilters
+                ? showFilters || showMobileMenu || showMobileMetro
                   ? "hidden"
                   : `right-3 sm:right-5 ${showPoiDetails || mobilePopularExpanded ? "bottom-auto top-[4.75rem] sm:top-[5.5rem]" : "bottom-[7rem] sm:bottom-[7.75rem]"}`
                 : `right-6 ${showPoiDetails ? "bottom-[26rem]" : "bottom-8"}`
@@ -1767,6 +1841,15 @@ export function CustomStyleExample() {
           ) : null}
           {userAnimatedCoordinates.length > 1 ? (
             <MapRoute id="user-route-animated" coordinates={userAnimatedCoordinates} color={userRouteColor} width={5} opacity={1} />
+          ) : null}
+          {activeMetroYellowAccess ? (
+            <MapRoute id="mobile-metro-yellow-access" coordinates={activeMetroYellowAccess.map((point) => [...point.position])} color={METRO_LINE_COLORS.Yellow} width={4} opacity={0.9} interactive={false} />
+          ) : null}
+          {activeMetroConnection?.line === "Purple" ? (
+            <MapRoute id="mobile-metro-green-transfer" coordinates={METRO_GREEN_TRANSFER.map((point) => [...point.position])} color={METRO_LINE_COLORS.Green} width={4} opacity={0.9} interactive={false} />
+          ) : null}
+          {activeMetroConnection && activeMetroRoute ? (
+            <MapRoute id={`mobile-metro-${activeMetroConnection.line.toLowerCase()}`} coordinates={activeMetroRoute.map((point) => [...point.position])} color={METRO_LINE_COLORS[activeMetroConnection.line]} width={4} opacity={0.95} dashArray={activeMetroConnection.line === "Pink" || activeMetroConnection.line === "Blue" ? [2, 2] : undefined} interactive={false} />
           ) : null}
           {activeRoute ? (
             <>
@@ -1815,7 +1898,7 @@ export function CustomStyleExample() {
               </MarkerContent>
             </MapMarker>
           ) : null}
-          {!showClusters
+          {!showClusters && !activeMetroConnection
             ? visiblePois.map((poi) => (
                 <PoiMarker
                   key={poi.id}
@@ -1825,6 +1908,20 @@ export function CustomStyleExample() {
                 />
               ))
             : null}
+          {activeMetroConnection && activeMetroRoute ? activeMetroRoute.map((station, index) => {
+            const selected = activeMetroStation === index;
+            const highlighted = activeMetroConnection.highlights.some((name) => name === station.name);
+            return (
+              <MapMarker key={`${activeMetroConnection.line}-${station.name}`} longitude={station.position[0]} latitude={station.position[1]}>
+                <MarkerContent>
+                  <button type="button" onClick={() => focusMetroStation(index, station.position)} className="group relative flex items-center justify-center" aria-label={`Show ${station.name} station`} aria-pressed={selected}>
+                    <span className="size-3 rounded-full border-2 border-white shadow-[0_2px_10px_rgba(0,0,0,0.22)]" style={{ backgroundColor: METRO_LINE_COLORS[activeMetroConnection.line] }} />
+                    {selected || highlighted ? <span className="absolute bottom-full mb-1.5 max-w-40 whitespace-nowrap rounded-full border border-black/8 bg-white/95 px-2.5 py-1 text-[0.62rem] font-semibold text-[#183b2a] shadow-md">{station.name}</span> : null}
+                  </button>
+                </MarkerContent>
+              </MapMarker>
+            );
+          }) : null}
         </MapView>
 
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_86%,rgba(245,240,232,0.58)_0%,rgba(245,240,232,0.18)_24%,transparent_48%)]" />
@@ -1833,7 +1930,24 @@ export function CustomStyleExample() {
       <div className="pointer-events-none absolute inset-0 z-20">
         {isCompactLayout ? (
           <>
-            {!showPoiDetails ? (
+            {!showFilters && !showMobileMenu && !showMobileMetro ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setShowFilters(false);
+                  setMobilePopularExpanded(false);
+                  setShowMobileMenu(true);
+                }}
+                className={`absolute left-3 top-[max(env(safe-area-inset-top),1rem)] pointer-events-auto flex size-11 items-center justify-center sm:left-5 sm:size-12 ${FLOATING_BUTTON}`}
+                aria-label="Open map menu"
+                aria-expanded={showMobileMenu}
+                aria-controls="compact-map-menu"
+              >
+                <Menu className="size-5" />
+              </button>
+            ) : null}
+
+            {!showPoiDetails && !showMobileMenu && !showMobileMetro ? (
               <button
                 type="button"
                 onClick={() => {
@@ -1851,6 +1965,112 @@ export function CustomStyleExample() {
                   <span className="size-1.5 rounded-full bg-[#006e52]" aria-hidden="true" />
                 ) : null}
               </button>
+            ) : null}
+
+            {showMobileMenu ? (
+              <div className="pointer-events-auto absolute inset-0 z-40">
+                <button
+                  type="button"
+                  className="absolute inset-0 cursor-default bg-[#006e52]/32 backdrop-blur-[2px]"
+                  onClick={() => setShowMobileMenu(false)}
+                  aria-label="Close map menu"
+                />
+                <section
+                  id="compact-map-menu"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="compact-map-menu-title"
+                  className="absolute inset-y-0 left-0 flex w-[min(21rem,calc(100vw-3rem))] flex-col overflow-y-auto overscroll-contain rounded-r-[1.75rem] border-r border-[#006e52]/10 bg-white px-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-[max(env(safe-area-inset-top),1rem)] text-[#006e52] shadow-[24px_0_64px_rgba(0,46,28,0.2)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#006e52]/65">MEMCO Skyline</p>
+                      <h2 id="compact-map-menu-title" className="mt-1 text-xl font-semibold leading-tight">Explore Jutaku</h2>
+                    </div>
+                    <button type="button" onClick={() => setShowMobileMenu(false)} className="flex size-11 shrink-0 items-center justify-center rounded-full border border-[#006e52]/15 bg-white" aria-label="Close map menu">
+                      <X className="size-4" />
+                    </button>
+                  </div>
+
+                  <nav className="mt-8 grid gap-2" aria-label="Map navigation">
+                    <Link href="/" className="flex min-h-12 items-center justify-between rounded-[1rem] border border-[#006e52]/12 px-4 text-sm font-semibold">
+                      Website home <ChevronRight className="size-4" />
+                    </Link>
+                    <Link href="/book-visit" className="flex min-h-12 items-center justify-between rounded-[1rem] border border-[#006e52]/12 px-4 text-sm font-semibold">
+                      Book a visit <CalendarDays className="size-4" />
+                    </Link>
+                    <button type="button" onClick={() => { setShowMobileMenu(false); setShowMobileMetro(true); }} className="flex min-h-12 items-center justify-between rounded-[1rem] border border-[#006e52]/12 px-4 text-left text-sm font-semibold">
+                      Metro connections <BusFront className="size-4" />
+                    </button>
+                    <button type="button" onClick={() => { setShowMobileMenu(false); setShowFilters(true); }} className="flex min-h-12 items-center justify-between rounded-[1rem] border border-[#006e52]/12 px-4 text-left text-sm font-semibold">
+                      Map filters <ListFilter className="size-4" />
+                    </button>
+                    <button type="button" onClick={() => { setShowMobileMenu(false); setShowPopular(true); setMobilePopularExpanded(true); }} className="flex min-h-12 items-center justify-between rounded-[1rem] border border-[#006e52]/12 px-4 text-left text-sm font-semibold">
+                      Nearby places <ChevronUp className="size-4" />
+                    </button>
+                  </nav>
+
+                  <p className="mt-auto pt-8 text-xs leading-5 text-[#006e52]/65">Use the map controls to zoom, locate yourself, or select a nearby place.</p>
+                </section>
+              </div>
+            ) : null}
+
+            {activeMetroConnection && !showMobileMetro && !showMobileMenu && !showFilters ? (
+              <div className="pointer-events-auto absolute left-3 top-[calc(max(env(safe-area-inset-top),1rem)+3.5rem)] flex max-w-[calc(100vw-6rem)] items-center rounded-full border border-black/8 bg-white/94 p-1 shadow-lg backdrop-blur-xl sm:left-5">
+                <button type="button" onClick={() => setShowMobileMetro(true)} className="flex min-h-9 min-w-0 items-center gap-2 rounded-full px-3 text-left text-xs font-semibold text-[#183b2a]">
+                  <span className="size-2.5 shrink-0 rounded-full" style={{ backgroundColor: METRO_LINE_COLORS[activeMetroConnection.line] }} />
+                  <span className="truncate">{activeMetroConnection.line} Line</span>
+                  <ChevronUp className="size-3.5 shrink-0" />
+                </button>
+                <button type="button" onClick={clearMetroLine} className="flex size-9 shrink-0 items-center justify-center rounded-full text-[#183b2a]/70" aria-label="Clear metro route"><X className="size-3.5" /></button>
+              </div>
+            ) : null}
+
+            {showMobileMetro ? (
+              <div className="pointer-events-auto absolute inset-0 z-40">
+                <button type="button" className="absolute inset-0 cursor-default bg-[#006e52]/32 backdrop-blur-[2px]" onClick={() => setShowMobileMetro(false)} aria-label="Close metro connections" />
+                <section role="dialog" aria-modal="true" aria-labelledby="mobile-metro-title" className="absolute inset-x-0 bottom-0 max-h-[84dvh] overflow-y-auto overscroll-contain rounded-t-[1.75rem] border-t border-black/8 bg-white px-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-3.5 text-[#183b2a] shadow-[0_-24px_64px_rgba(0,46,28,0.2)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-black/12" />
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-[0.62rem] font-bold uppercase tracking-[0.2em] text-[#006e52]">Metro connectivity</p>
+                      <h2 id="mobile-metro-title" className="mt-1 text-xl font-semibold leading-tight">Choose a metro line</h2>
+                    </div>
+                    <button type="button" onClick={() => setShowMobileMetro(false)} className="flex size-11 shrink-0 items-center justify-center rounded-full border border-black/10" aria-label="Close metro connections"><X className="size-4" /></button>
+                  </div>
+
+                  <div className="mt-5 grid gap-2">
+                    {METRO_CONNECTIONS.map((connection, index) => {
+                      const active = activeMetroIndex === index;
+                      return (
+                        <button key={connection.line} type="button" onClick={() => showMetroLine(index)} className={`flex min-h-16 items-center gap-3 rounded-[1rem] border px-3.5 py-3 text-left ${active ? "border-[#006e52]/35 bg-[#006e52]/6" : "border-black/10 bg-white"}`} aria-pressed={active}>
+                          <span className="h-9 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: METRO_LINE_COLORS[connection.line] }} />
+                          <span className="min-w-0 flex-1">
+                            <strong className="block text-sm">{connection.line} Line</strong>
+                            <span className="mt-0.5 block text-[0.68rem] text-[#183b2a]/65">{connection.status} · {connection.stations.length} stations</span>
+                            <span className="mt-1 block truncate text-[0.7rem] font-semibold text-[#006e52]">Show {connection.station} on map</span>
+                          </span>
+                          <ChevronRight className="size-4 shrink-0 text-[#006e52]" />
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {activeMetroConnection && activeMetroRoute ? (
+                    <div className="mt-6 border-t border-black/10 pt-5">
+                      <div className="flex items-end justify-between gap-3">
+                        <div><p className="text-[0.62rem] font-bold uppercase tracking-[0.18em] text-[#006e52]">{activeMetroConnection.line} Line</p><h3 className="mt-1 text-lg font-semibold">Select a station</h3></div>
+                        <span className="text-xs text-[#183b2a]/60">{activeMetroRoute.length} stops</span>
+                      </div>
+                      <div className="mt-3 grid grid-cols-2 gap-2">
+                        {activeMetroRoute.map((station, index) => (
+                          <button key={station.name} type="button" onClick={() => focusMetroStation(index, station.position)} className={`min-h-11 rounded-[0.85rem] border px-3 py-2 text-left text-[0.7rem] font-semibold leading-4 ${activeMetroStation === index ? "border-[#006e52]/35 bg-[#006e52]/7 text-[#006e52]" : "border-black/9"}`} aria-pressed={activeMetroStation === index}>{station.name}</button>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </section>
+              </div>
             ) : null}
 
             {showFilters ? (
@@ -2307,7 +2527,7 @@ export function CustomStyleExample() {
 
         {isCompactLayout ? (
           <>
-            {showPopular && !showPoiDetails && !showFilters ? (
+            {showPopular && !showPoiDetails && !showFilters && !showMobileMenu && !showMobileMetro ? (
               <section
                 className={`absolute inset-x-3 sm:left-1/2 sm:right-auto sm:w-[min(40rem,calc(100vw-2.5rem))] sm:-translate-x-1/2 ${FLOATING_PANEL} ${OVERLAY_TRANSITION}`}
                 style={{ bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}

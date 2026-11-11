@@ -92,10 +92,22 @@ export function BookingForm() {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [submitError, setSubmitError] = useState("");
   const [confirmation, setConfirmation] = useState<{ code?: string; label?: string; duplicate?: boolean }>({});
+  const [indiaClock, setIndiaClock] = useState(() => ({ date: todayInIndia(), minutes: currentMinutesInIndia() }));
 
   const chosenDate = dates.find((date) => date.day_index === selectedDayIndex);
   const chosenSlot = chosenDate?.slots.find((slot) => slot.slot_start === selectedSlot);
+  const chosenSlotElapsed = Boolean(chosenDate && chosenSlot && (
+    chosenDate.iso < indiaClock.date
+    || chosenDate.iso === indiaClock.date && slotMinutes(chosenSlot.slot_start) <= indiaClock.minutes
+  ));
+  const chosenSlotUnavailable = !chosenSlot || chosenSlotElapsed || chosenSlot.is_full || chosenSlot.available <= 0;
   const maxGuests = Math.max(1, Math.min(12, chosenSlot?.available ?? 12));
+
+  useEffect(() => {
+    const updateClock = () => setIndiaClock({ date: todayInIndia(), minutes: currentMinutesInIndia() });
+    const interval = window.setInterval(updateClock, 30_000);
+    return () => window.clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -108,7 +120,6 @@ export function BookingForm() {
         }
 
         const today = todayInIndia();
-        const nowMinutes = currentMinutesInIndia();
         const upcoming = result.days.flatMap((day) => {
           if (!Number.isInteger(day.day_index) || !Array.isArray(day.slots)) return [];
           const iso = typeof day.date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(day.date)
@@ -120,7 +131,7 @@ export function BookingForm() {
             ...day,
             ...shown,
             iso,
-            slots: day.slots.filter((slot) => !slot.is_full && slot.available > 0 && (iso > today || slotMinutes(slot.slot_start) > nowMinutes)),
+            slots: day.slots,
           }];
         }).filter((day) => day.slots.length > 0);
 
@@ -168,7 +179,7 @@ export function BookingForm() {
 
   async function submitVisit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!chosenDate || !selectedSlot || submitStatus === "sending" || submitStatus === "sent") return;
+    if (!chosenDate || !selectedSlot || chosenSlotUnavailable || submitStatus === "sending" || submitStatus === "sent") return;
     const params = new URLSearchParams(window.location.search);
     setSubmitStatus("sending");
     setSubmitError("");
@@ -248,11 +259,20 @@ export function BookingForm() {
           <fieldset className="bk-group" disabled={availabilityStatus !== "ready" || !chosenDate}>
             <legend>Choose a time <span>{chosenDate ? `${chosenDate.day}, ${chosenDate.label}` : "Select a date"}</span></legend>
             <div className="bk-slots">
-              {chosenDate?.slots.map((slot) => (
-                <button key={slot.slot_start} type="button" className={`bk-slot${selectedSlot === slot.slot_start ? " is-selected" : ""}`} aria-pressed={selectedSlot === slot.slot_start} aria-label={`${slot.label}, ${slot.available} seats available`} onClick={() => { setSelectedSlot(slot.slot_start); setGuests((count) => Math.min(count, Math.max(1, slot.available))); setSubmitStatus("idle"); }}>
-                  {slot.label.split(" - ")[0]}
-                </button>
-              ))}
+              {chosenDate?.slots.map((slot) => {
+                const elapsed = chosenDate.iso < indiaClock.date
+                  || chosenDate.iso === indiaClock.date && slotMinutes(slot.slot_start) <= indiaClock.minutes;
+                const unavailable = elapsed || slot.is_full || slot.available <= 0;
+                const availabilityLabel = elapsed
+                  ? "time has passed"
+                  : unavailable ? "fully booked" : `${slot.available} seats available`;
+                const selected = selectedSlot === slot.slot_start && !unavailable;
+                return (
+                  <button key={slot.slot_start} type="button" disabled={unavailable} className={`bk-slot${selected ? " is-selected" : ""}${elapsed ? " is-elapsed" : ""}`} aria-pressed={selected} aria-label={`${slot.label}, ${availabilityLabel}`} title={elapsed ? "This time has passed" : undefined} onClick={() => { setSelectedSlot(slot.slot_start); setGuests((count) => Math.min(count, Math.max(1, slot.available))); setSubmitStatus("idle"); }}>
+                    {slot.label.split(" - ")[0]}
+                  </button>
+                );
+              })}
             </div>
           </fieldset>
 
@@ -278,9 +298,9 @@ export function BookingForm() {
           </div>
 
           <div className="bk-finish">
-            <button type="submit" className="bk-submit" disabled={availabilityStatus !== "ready" || !selectedSlot || submitStatus === "sending" || submitStatus === "sent"}>{submitStatus === "sending" ? "Booking visit…" : submitStatus === "sent" ? "Visit booked" : "Book a visit"}</button>
+            <button type="submit" className="bk-submit" disabled={availabilityStatus !== "ready" || chosenSlotUnavailable || submitStatus === "sending" || submitStatus === "sent"}>{submitStatus === "sending" ? "Booking visit…" : submitStatus === "sent" ? "Visit booked" : "Book a visit"}</button>
             <p>Your booking is saved by MEMCO Skyline and forwarded to the sales CRM.</p>
-            {availabilityStatus === "ready" && !selectedSlot && <span className="bk-slot-prompt">Select a time to continue.</span>}
+            {availabilityStatus === "ready" && chosenSlotUnavailable && <span className="bk-slot-prompt">{chosenSlotElapsed ? "That time has passed. Select a later time." : "Select a time to continue."}</span>}
             {submitStatus === "error" && <p className="bk-submit-error" role="alert">{submitError}</p>}
             {submitStatus === "sent" && chosenDate && chosenSlot && (
               <div className="bk-ready" role="status">

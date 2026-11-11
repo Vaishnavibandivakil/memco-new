@@ -1017,7 +1017,7 @@ body:has(.bk-page) .chrome { display: none; }
 .bk-slots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .bk-slot { min-height: 42px; padding: 9px 5px; border-radius: 24px; background: #e9ece5; color: #45544a; font-size: 11px; font-weight: 600; transition: background .18s, color .18s; }
 .bk-slot:hover:not(:disabled), .bk-slot:focus-visible:not(:disabled), .bk-slot.is-selected { background: var(--green); color: #fff; }
-.bk-slot:disabled { color: #a5ada5; text-decoration: line-through; cursor: default; pointer-events: none; }
+.bk-slot:disabled { background: #f3f5f1; color: #b2b9b3; opacity: .62; cursor: not-allowed; pointer-events: none; }
 .bk-guests-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 11px; line-height: 1.4; }
 .bk-guests-heading p { font-size: 13px; font-weight: 700; }
 .bk-guests-heading output { color: var(--green); font-size: 12px; font-weight: 700; }

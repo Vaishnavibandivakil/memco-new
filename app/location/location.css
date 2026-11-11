@@ -105,7 +105,7 @@
 .location-metro-panel-note-mark { color: var(--signal); font-weight: 800; }
 .location-metro-panel-note a { display: inline-flex; align-items: center; gap: 3px; color: var(--green); font-weight: 650; }
 .location-metro-panel-note a:hover, .location-metro-panel-note a:focus-visible { text-decoration: underline; }
-.location-route-pin { --line-color: #c69b12; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px; background: transparent; cursor: pointer; }
+.location-route-pin { --line-color: #c69b12; position: relative; display: grid; width: 25px; height: 25px; place-items: center; padding: 4px; background: transparent; cursor: pointer; }
 .location-route-pin.is-green { --line-color: #00804d; }
 .location-route-pin.is-purple { --line-color: #7645a5; }
 .location-route-pin.is-pink { --line-color: #d26b91; }
@@ -113,8 +113,8 @@
 .location-route-pin-dot { width: 13px; height: 13px; border: 3px solid #fff; border-radius: 50%; background: var(--line-color); box-shadow: 0 1px 8px rgba(17,36,24,.3); transition: transform .2s, box-shadow .2s; }
 .location-route-pin.is-key .location-route-pin-dot { width: 17px; height: 17px; }
 .location-route-pin.is-selected .location-route-pin-dot, .location-route-pin:hover .location-route-pin-dot, .location-route-pin:focus-visible .location-route-pin-dot { transform: scale(1.2); box-shadow: 0 0 0 5px color-mix(in srgb, var(--line-color) 30%, transparent), 0 1px 8px rgba(17,36,24,.3); }
-.location-route-pin-label { padding: 5px 8px; border: 1px solid var(--line-color); border-radius: 99px; background: #fff; color: #1b3022; font-size: 10px; font-weight: 700; white-space: nowrap; box-shadow: 0 5px 14px rgba(17,36,24,.12); opacity: 0; visibility: hidden; transform: translateY(-3px); transition: opacity .2s, visibility .2s, transform .2s; }
-.location-route-pin.is-selected .location-route-pin-label, .location-route-pin:hover .location-route-pin-label, .location-route-pin:focus-visible .location-route-pin-label { opacity: 1; visibility: visible; transform: translateY(0); }
+.location-route-pin-label { position: absolute; top: calc(100% + 3px); left: 50%; padding: 5px 8px; border: 1px solid var(--line-color); border-radius: 99px; background: #fff; color: #1b3022; font-size: 10px; font-weight: 700; white-space: nowrap; box-shadow: 0 5px 14px rgba(17,36,24,.12); opacity: 0; visibility: hidden; transform: translate(-50%, -3px); transition: opacity .2s, visibility .2s, transform .2s; }
+.location-route-pin.is-selected .location-route-pin-label, .location-route-pin:hover .location-route-pin-label, .location-route-pin:focus-visible .location-route-pin-label { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
 
 .location-directory { padding: clamp(64px, 8vw, 112px) clamp(24px, 6vw, 112px) clamp(70px, 8vw, 112px); background: #fff; }
 .location-directory-heading { display: flex; align-items: end; justify-content: space-between; gap: 30px; }

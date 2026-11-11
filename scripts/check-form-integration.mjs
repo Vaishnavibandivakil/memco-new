@@ -71,9 +71,9 @@ try {
     days: [{ day_index: todayIndex, date: today, day_label: `Day ${todayIndex}`, slots: [{ ...slots[0], slot_start: '00:00' }] }],
   };
   globalThis.fetch = async () => new Response(JSON.stringify(todayAvailability), { status: 200, headers: { 'Content-Type': 'application/json' } });
-  const filteredAvailabilityResponse = await expectStatus('Availability removes elapsed slots for today', availability.GET(), 200);
-  const filteredAvailability = await filteredAvailabilityResponse.json();
-  assert.deepEqual(filteredAvailability.days[0].slots, []);
+  const todayAvailabilityResponse = await expectStatus('Availability preserves elapsed slots for the disabled UI state', availability.GET(), 200);
+  const preservedAvailability = await todayAvailabilityResponse.json();
+  assert.equal(preservedAvailability.days[0].slots[0].slot_start, '00:00');
 
   calls = [];
   globalThis.fetch = async (url, options = {}) => {

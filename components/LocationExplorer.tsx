@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import type * as GeoJSON from "geojson";
 import { ArrowRight, Building2, GraduationCap, Hospital, Hotel, LayoutGrid, MapPin, Minus, Navigation, Plus, Store, TrainFront, X } from "lucide-react";
-import { Map, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
+import { Map, MapClusterLayer, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
 import { ADDRESS, SITE_COORDINATES } from "@/lib/data";
 import { ROUTE } from "@/lib/nearby-route";
 import { METRO_CONNECTIONS } from "@/data/metro-connectivity";
@@ -36,6 +37,13 @@ const HOME = { name: "Jutaku", category: "Home", distance: "", position: [SITE_C
 const PLACES = [HOME, ...LOCATION_DIRECTORY] as const;
 const METRO_LINE_COLORS = { Yellow: "#c69b12", Green: "#00804d", Purple: "#7645a5", Pink: "#d26b91", Blue: "#367fb2" } as const;
 const YELLOW_ACCESS_END = { Yellow: 8, Green: 0, Purple: 0, Pink: 2, Blue: 4 } as const;
+const LOCATION_CLUSTER_SWITCH_ZOOM = 14.25;
+
+type LocationClusterProperties = {
+  placeIndex: number;
+  name: string;
+  category: LocationCategory;
+};
 
 export function LocationExplorer() {
   const mapRef = useRef<MapRef>(null);
@@ -48,6 +56,7 @@ export function LocationExplorer() {
   const [metroPanelOpen, setMetroPanelOpen] = useState(false);
   const [activeMetro, setActiveMetro] = useState<number | null>(null);
   const [activeStation, setActiveStation] = useState<number | null>(null);
+  const [currentZoom, setCurrentZoom] = useState(12.2);
   const selectedPlace = PLACES[selected];
   const activeConnection = activeMetro === null ? null : METRO_CONNECTIONS[activeMetro];
   const activeRoute = activeConnection ? METRO_ROUTE_POINTS[activeConnection.line] : null;
@@ -64,8 +73,24 @@ export function LocationExplorer() {
       ? homePlaceUrl
       : `https://www.google.com/maps/dir/?api=1&destination=${cardPosition[1]}%2C${cardPosition[0]}`;
   const selectedImage = activeConnection ? CATEGORY_IMAGES.Metro : selectedPlace.category === "Home" ? "/images/jutaku-exterior-hero.webp" : CATEGORY_IMAGES[selectedPlace.category];
+  const showClusters = !activeRoute && currentZoom < LOCATION_CLUSTER_SWITCH_ZOOM;
+  const clusterData = useMemo<GeoJSON.FeatureCollection<GeoJSON.Point, LocationClusterProperties>>(() => {
+    const places = category === "All" ? LOCATION_DIRECTORY : LOCATION_DIRECTORY.filter((place) => place.category === category);
+    return {
+      type: "FeatureCollection",
+      features: places.map((place) => ({
+        type: "Feature",
+        properties: {
+          placeIndex: LOCATION_DIRECTORY.indexOf(place) + 1,
+          name: place.name,
+          category: place.category,
+        },
+        geometry: { type: "Point", coordinates: [...place.position] },
+      })),
+    };
+  }, [category]);
 
-  const choose = (index: number, scrollToMap = false) => {
+  const choose = useCallback((index: number, scrollToMap = false) => {
     const place = PLACES[index];
     setMetroPanelOpen(false);
     setActiveMetro(null);
@@ -73,7 +98,12 @@ export function LocationExplorer() {
     setSelected(index);
     mapRef.current?.flyTo({ center: [...place.position], zoom: index === 0 ? 13.5 : 14.5, duration: 950, essential: true });
     if (scrollToMap) stageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  }, []);
+
+  const selectClusterPoint = useCallback((feature: GeoJSON.Feature<GeoJSON.Point, LocationClusterProperties>) => {
+    const placeIndex = feature.properties?.placeIndex;
+    if (typeof placeIndex === "number") choose(placeIndex);
+  }, [choose]);
 
   const chooseCategory = (next: LocationCategory) => {
     setMetroPanelOpen(false);
@@ -148,11 +178,12 @@ export function LocationExplorer() {
     <main className="location-page" data-tone="light">
       <div ref={stageRef} className="location-stage">
       <div ref={mapContainerRef} className="location-map" aria-label="Map of Jutaku and nearby places">
-        <Map ref={mapRef} className="location-map-canvas" theme="light" center={[SITE_COORDINATES.lng, SITE_COORDINATES.lat]} zoom={12.2} minZoom={10} maxZoom={18} attributionControl={{ compact: false }}>
+        <Map ref={mapRef} className="location-map-canvas" theme="light" center={[SITE_COORDINATES.lng, SITE_COORDINATES.lat]} zoom={12.2} minZoom={10} maxZoom={18} attributionControl={{ compact: false }} onViewportChange={(viewport) => setCurrentZoom(viewport.zoom)}>
           {yellowAccess && <MapRoute id="metro-access-yellow" coordinates={yellowAccess.map((point) => [...point.position])} color={METRO_LINE_COLORS.Yellow} width={4} opacity={0.9} interactive={false} />}
           {activeConnection?.line === "Purple" && <MapRoute id="metro-transfer-green" coordinates={METRO_GREEN_TRANSFER.map((point) => [...point.position])} color="#00804d" width={4} opacity={0.9} interactive={false} />}
           {activeRoute && activeConnection && <MapRoute key={activeConnection.line} id={`metro-route-${activeConnection.line.toLowerCase()}`} coordinates={activeRoute.map((point) => [...point.position])} color={METRO_LINE_COLORS[activeConnection.line]} width={4} opacity={0.9} dashArray={activeConnection.line === "Pink" || activeConnection.line === "Blue" ? [2, 2] : undefined} interactive={false} />}
-          {PLACES.map((item, index) => (activeRoute ? index === 0 : category === "All" || item.category === "Home" || item.category === category) && (
+          {showClusters && <MapClusterLayer<LocationClusterProperties> data={clusterData} clusterMaxZoom={14} clusterRadius={60} clusterColors={["#006e52", "#006e52", "#006e52"]} clusterThresholds={[5, 12]} pointColor="#006e52" onPointClick={selectClusterPoint} />}
+          {PLACES.map((item, index) => (activeRoute ? index === 0 : index === 0 || !showClusters && (category === "All" || item.category === category)) && (
             <MapMarker key={item.name} longitude={item.position[0]} latitude={item.position[1]}>
               <MarkerContent>
                 <button type="button" className={`location-pin${selected === index ? " is-active" : ""}${index === 0 ? " is-home" : ""}`} onClick={() => choose(index)} aria-label={`Show ${item.name}`} aria-pressed={selected === index}>

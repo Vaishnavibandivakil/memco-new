@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { LocationExplorer } from "@/components/LocationExplorer";
+import { ResponsiveLocationPage } from "@/components/ResponsiveLocationPage";
 import "./location.css";
+import "../map/map.css";
 
 export const metadata: Metadata = {
   title: "Location · Jutaku by MEMCO Skyline",
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function LocationPage() {
-  return <LocationExplorer />;
+  return <ResponsiveLocationPage />;
 }
