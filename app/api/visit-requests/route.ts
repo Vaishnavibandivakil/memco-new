@@ -24,13 +24,26 @@ function isoForDay(baseIso: string, dayIndex: number) {
   return date.toISOString().slice(0, 10);
 }
 
-function todayInIndia() {
-  return new Intl.DateTimeFormat("en-CA", {
+function indiaClock() {
+  const parts = new Intl.DateTimeFormat("en-GB", {
     timeZone: "Asia/Kolkata",
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-  }).format(new Date());
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(new Date());
+  const value = (type: Intl.DateTimeFormatPartTypes) => parts.find((part) => part.type === type)?.value || "00";
+  return {
+    date: `${value("year")}-${value("month")}-${value("day")}`,
+    minutes: Number(value("hour")) * 60 + Number(value("minute")),
+  };
+}
+
+function slotMinutes(value: string) {
+  const [hour, minute] = value.split(":").map(Number);
+  return hour * 60 + minute;
 }
 
 export async function POST(request: Request) {
@@ -55,23 +68,26 @@ export async function POST(request: Request) {
   const phone = typeof details.phone === "string" ? details.phone.trim() : "";
   const email = typeof details.email === "string" ? details.email.trim() : "";
   const phoneDigits = phone.replace(/\D/g, "");
+  const now = indiaClock();
   const validBase = /^\d{4}-\d{2}-\d{2}$/.test(baseIso);
   const validDayIndex = Number.isInteger(dayIndex) && dayIndex >= 1 && dayIndex <= 100_000;
-  const validDate = /^\d{4}-\d{2}-\d{2}$/.test(date) && date >= todayInIndia();
+  const validDate = /^\d{4}-\d{2}-\d{2}$/.test(date) && date >= now.date;
   const validSlot = /^\d{2}:\d{2}$/.test(slotStart);
+  const validFutureSlot = validDate && validSlot && (date > now.date || slotMinutes(slotStart) > now.minutes);
   const validGuests = Number.isInteger(guests) && guests >= 1 && guests <= 12;
   const validName = name.length >= 2 && name.length <= 100;
   const validPhone = phoneDigits.length >= 10 && phoneDigits.length <= 15;
   const validEmail = !email || (email.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
   const dateMatchesIndex = validBase && validDayIndex && isoForDay(baseIso, dayIndex) === date;
 
-  if (!validBase || !validDayIndex || !validDate || !dateMatchesIndex || !validSlot || !validGuests || !validName || !validPhone || !validEmail) {
+  if (!validBase || !validDayIndex || !validDate || !dateMatchesIndex || !validSlot || !validFutureSlot || !validGuests || !validName || !validPhone || !validEmail) {
     const fields: Record<string, string> = {};
     if (!validName) fields.name = "Enter your full name (2–100 characters).";
     if (!validPhone) fields.phone = "Enter a valid phone number with 10–15 digits.";
     if (!validEmail) fields.email = "Enter a valid email address.";
     if (!validBase || !validDayIndex || !validDate || !dateMatchesIndex) fields.date = "Choose a valid upcoming date from the calendar.";
     if (!validSlot) fields.slot = "Choose an available visit time.";
+    else if (!validFutureSlot) fields.slot = "Choose a future visit time.";
     if (!validGuests) fields.guests = "Choose between 1 and 12 guests.";
     return Response.json({ error: Object.values(fields).join(" "), fields }, { status: 400 });
   }

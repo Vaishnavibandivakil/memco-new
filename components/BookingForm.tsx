@@ -51,6 +51,22 @@ function todayInIndia() {
   }).format(new Date());
 }
 
+function currentMinutesInIndia() {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).formatToParts(new Date());
+  const value = (type: "hour" | "minute") => Number(parts.find((part) => part.type === type)?.value || 0);
+  return value("hour") * 60 + value("minute");
+}
+
+function slotMinutes(value: string) {
+  const [hour, minute] = value.split(":").map(Number);
+  return hour * 60 + minute;
+}
+
 function displayDate(iso: string) {
   const date = new Date(`${iso}T00:00:00Z`);
   return {
@@ -92,6 +108,7 @@ export function BookingForm() {
         }
 
         const today = todayInIndia();
+        const nowMinutes = currentMinutesInIndia();
         const upcoming = result.days.flatMap((day) => {
           if (!Number.isInteger(day.day_index) || !Array.isArray(day.slots)) return [];
           const iso = typeof day.date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(day.date)
@@ -99,7 +116,12 @@ export function BookingForm() {
             : isoForDay(result.base_iso!, day.day_index);
           if (iso < today) return [];
           const shown = displayDate(iso);
-          return [{ ...day, ...shown, iso, slots: day.slots.filter((slot) => !slot.is_full && slot.available > 0) }];
+          return [{
+            ...day,
+            ...shown,
+            iso,
+            slots: day.slots.filter((slot) => !slot.is_full && slot.available > 0 && (iso > today || slotMinutes(slot.slot_start) > nowMinutes)),
+          }];
         }).filter((day) => day.slots.length > 0);
 
         if (!upcoming.length) {

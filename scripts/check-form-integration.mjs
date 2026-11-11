@@ -27,6 +27,7 @@ const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata', year:
 const tomorrow = new Date(`${today}T00:00:00Z`);
 tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
 const date = tomorrow.toISOString().slice(0, 10);
+const todayIndex = Math.round((new Date(`${today}T00:00:00Z`).getTime() - new Date(`${baseIso}T00:00:00Z`).getTime()) / 86_400_000) + 1;
 const dayIndex = Math.round((tomorrow.getTime() - new Date(`${baseIso}T00:00:00Z`).getTime()) / 86_400_000) + 1;
 const slots = [{ slot_start: '10:00', slot_end: '11:00', label: '10:00 AM - 11:00 AM', available: 12, is_full: false, booked_count: 0 }];
 const liveAvailability = { base_iso: baseIso, start_day_index: dayIndex, end_day_index: dayIndex + 29, days: [{ day_index: dayIndex, date, day_label: `Day ${dayIndex}`, slots }] };
@@ -63,6 +64,17 @@ try {
   assert.deepEqual(await availabilityResponse.json(), liveAvailability);
   assert.deepEqual(calls, ['https://api.memcoskyline.com/api/booking/availability']);
 
+  const todayAvailability = {
+    base_iso: baseIso,
+    start_day_index: todayIndex,
+    end_day_index: todayIndex,
+    days: [{ day_index: todayIndex, date: today, day_label: `Day ${todayIndex}`, slots: [{ ...slots[0], slot_start: '00:00' }] }],
+  };
+  globalThis.fetch = async () => new Response(JSON.stringify(todayAvailability), { status: 200, headers: { 'Content-Type': 'application/json' } });
+  const filteredAvailabilityResponse = await expectStatus('Availability removes elapsed slots for today', availability.GET(), 200);
+  const filteredAvailability = await filteredAvailabilityResponse.json();
+  assert.deepEqual(filteredAvailability.days[0].slots, []);
+
   calls = [];
   globalThis.fetch = async (url, options = {}) => {
     calls.push({ url: String(url), body: options.body ? JSON.parse(options.body) : undefined });
@@ -72,6 +84,12 @@ try {
     return new Response(JSON.stringify(body), { status: 200, headers: { 'Content-Type': 'application/json' } });
   };
   await expectStatus('Booking rejects missing fields', booking.POST(jsonRequest('/api/visit-requests', {})), 400);
+  await expectStatus('Booking rejects an elapsed slot for today', booking.POST(jsonRequest('/api/visit-requests', {
+    ...validBooking,
+    date: today,
+    dayIndex: todayIndex,
+    slotStart: '00:00',
+  })), 400);
   const bookingResponse = await expectStatus('Booking checks availability and forwards to public API', booking.POST(jsonRequest('/api/visit-requests', validBooking)), 200);
   assert.deepEqual(await bookingResponse.json(), { ok: true, duplicate: false, bookingId: 'booking_test', confirmationCode: 'JUTAKU-TEST', slotLabel: '10:00 AM - 11:00 AM' });
   assert.deepEqual(calls.map((call) => call.url), [
