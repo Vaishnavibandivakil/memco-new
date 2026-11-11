@@ -1,0 +1,263 @@
+{
+  "info": {
+    "name": "Jutaku Forms - CRM and Booking API Integration",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Tests direct CRM lead capture at crm.memcoskyline.com plus visit availability and booking at api.memcoskyline.com. Safe verification requests do not create records."
+  },
+  "variable": [
+    {
+      "key": "website_base_url",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "api_base_url",
+      "value": "https://api.memcoskyline.com"
+    },
+    {
+      "key": "crm_base_url",
+      "value": "https://crm.memcoskyline.com"
+    },
+    {
+      "key": "test_phone",
+      "value": ""
+    },
+    {
+      "key": "test_email",
+      "value": "test@example.com"
+    },
+    {
+      "key": "day_index",
+      "value": "164"
+    },
+    {
+      "key": "slot_start",
+      "value": "10:00"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 - Safe backend route verification",
+      "item": [
+        {
+          "name": "Availability route exists",
+          "request": {
+            "method": "GET",
+            "url": "{{api_base_url}}/api/booking/availability"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Has rolling window', () => { const j=pm.response.json(); pm.expect(j.base_iso).to.eql('2026-06-01'); pm.expect(j.start_day_index).to.be.a('number'); pm.expect(j.days).to.be.an('array'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Contact route validates input",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": "{{crm_base_url}}/api/analytics/contact/capture"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Requires name and phone', () => pm.expect(pm.response.json().error).to.include('name and phone'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Booking route validates input",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": "{{api_base_url}}/api/booking/book"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Requires booking fields', () => pm.expect(pm.response.json().detail).to.include('day_index'));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02 - Local website validation",
+      "item": [
+        {
+          "name": "Enquiry missing fields",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": "{{website_base_url}}/api/enquiries"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Booking missing fields",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": "{{website_base_url}}/api/visit-requests"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03 - Manual production submissions",
+      "item": [
+        {
+          "name": "Create or update test enquiry",
+          "request": {
+            "method": "POST",
+            "description": "Creates or updates a real CRM lead. Set test_phone to a number you control first.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"CRM TEST - Delete Me\",\n  \"phone\": \"{{test_phone}}\",\n  \"email\": \"{{test_email}}\",\n  \"message\": \"Controlled website integration test\",\n  \"form_id\": \"postman-crm-test\",\n  \"page_url\": \"http://localhost:3000/brochure\"\n}"
+            },
+            "url": "{{crm_base_url}}/api/analytics/contact/capture"
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (!pm.variables.get('test_phone')) { pm.execution.skipRequest(); throw new Error('Set test_phone to a number you control.'); }"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('CRM accepted enquiry', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Book controlled test slot",
+          "request": {
+            "method": "POST",
+            "description": "Creates a real booking. Copy current base_iso, day_index and slot_start from availability first.",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"CRM TEST - Delete Me\",\n  \"phone\": \"{{test_phone}}\",\n  \"email\": \"{{test_email}}\",\n  \"day_index\": {{day_index}},\n  \"slot_start\": \"{{slot_start}}\",\n  \"quantity\": 1,\n  \"page_url\": \"http://localhost:3000/book-visit\"\n}"
+            },
+            "url": "{{api_base_url}}/api/booking/book"
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (!pm.variables.get('test_phone')) { pm.execution.skipRequest(); throw new Error('Set test_phone and current availability variables before sending.'); }"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('CRM processed booking', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

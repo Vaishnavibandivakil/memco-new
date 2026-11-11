@@ -2,8 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { CalendarDays, House, MessageCircle, TrendingUp } from "lucide-react";
-import { PHONE } from "@/lib/data";
+import { CalendarDays, CheckCircle2, House, Send, TrendingUp } from "lucide-react";
 import { SubpageHeader } from "@/components/SubpageHeader";
 
 type Interest = "Self use" | "Investment";
@@ -11,8 +10,10 @@ type Interest = "Self use" | "Investment";
 export function BrochureForm() {
   const [countryCode, setCountryCode] = useState("+91");
   const [interest, setInterest] = useState<Interest | "">("");
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [submitError, setSubmitError] = useState("");
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     if (!form.reportValidity()) return;
@@ -20,16 +21,32 @@ export function BrochureForm() {
     const name = String(details.get("name") ?? "").trim();
     const phone = String(details.get("phone") ?? "").trim();
     const email = String(details.get("email") ?? "").trim();
-    const message = [
-      "Hello MEMCO Skyline, I'd like to know more about Jutaku.",
-      "",
-      `Name: ${name}`,
-      `Phone: ${countryCode} ${phone}`,
-      email ? `Email: ${email}` : "",
-      `Interest: ${interest}`,
-    ].filter(Boolean).join("\n");
-    const number = PHONE.replace(/\D/g, "");
-    window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+    const params = new URLSearchParams(window.location.search);
+    setSubmitStatus("sending");
+    setSubmitError("");
+    try {
+      const response = await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          phone: `${countryCode}${phone.replace(/\D/g, "")}`,
+          email,
+          interest,
+          pageUrl: window.location.href,
+          utmSource: params.get("utm_source") || "",
+          utmMedium: params.get("utm_medium") || "",
+          utmCampaign: params.get("utm_campaign") || "",
+          consent: details.get("consent") === "on",
+        }),
+      });
+      const result = await response.json() as { error?: string };
+      if (!response.ok) throw new Error(result.error || "We couldn't submit your enquiry. Please try again.");
+      setSubmitStatus("sent");
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "We couldn't submit your enquiry. Please try again.");
+      setSubmitStatus("error");
+    }
   }
 
   return (
@@ -44,7 +61,7 @@ export function BrochureForm() {
           <SubpageHeader closeHref="/#jutaku-experience" />
           <div className="br-content">
             <h1>Discover more<br />about Jutaku.</h1>
-            <p className="br-intro">Share a few details and connect with the MEMCO Skyline team on WhatsApp.</p>
+            <p className="br-intro">Share a few details and the MEMCO Skyline team will contact you.</p>
 
             <form className="br-form" onSubmit={onSubmit}>
               <label htmlFor="br-name">Full name <span>*</span></label>
@@ -84,7 +101,12 @@ export function BrochureForm() {
                 <span>I agree to be contacted by MEMCO Skyline via call, WhatsApp or email about my enquiry.</span>
               </label>
 
-              <button type="submit" className="br-submit"><MessageCircle size={17} strokeWidth={1.8} aria-hidden="true" /> Submit via WhatsApp</button>
+              <button type="submit" className="br-submit" disabled={submitStatus === "sending" || submitStatus === "sent"}>
+                {submitStatus === "sent" ? <CheckCircle2 size={17} strokeWidth={1.8} aria-hidden="true" /> : <Send size={17} strokeWidth={1.8} aria-hidden="true" />}
+                {submitStatus === "sending" ? "Submitting…" : submitStatus === "sent" ? "Enquiry submitted" : "Submit enquiry"}
+              </button>
+              {submitStatus === "error" && <p className="br-submit-error" role="alert">{submitError}</p>}
+              {submitStatus === "sent" && <p className="br-submit-success" role="status">Thank you. MEMCO Skyline received your enquiry and the team will contact you.</p>}
               <Link className="br-visit" href="/book-visit"><CalendarDays size={18} strokeWidth={1.8} aria-hidden="true" /> Book a site visit</Link>
             </form>
           </div>

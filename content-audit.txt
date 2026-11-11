@@ -1,0 +1,146 @@
+JUTAKU WEBSITE CONTENT AUDIT
+Reviewed 10 November 2026
+
+RESULT
+The repository has material ambiguities about home area, availability, visit confirmation, floor-plan status and location data. Some originate in inconsistent content on the existing production site. Do not treat every live-site figure as verified project data.
+
+SCOPE AND LIMITATIONS
+Reviewed all 11 public page routes in app/, shared homepage sections, home-plan modal, lifestyle pages, enquiry/booking forms, legal pages, metadata, chatbot source facts and fallback replies, location directory and metro datasets. /map redirects to /location. API routes were considered where they affect wording.
+
+Compared these with https://memcoskyline.com/ by reading its public HTML, main JavaScript bundle and all 16 referenced lazy-loaded chunks. The production application is a different React application, with more routes than this Next.js repository. Its main navigation covers Home, Design, Concept, Amenities, Location, Pricing and News/Events; the downloaded bundles also contain contact, booking, privacy, tree and SEO landing-page content. Route presence does not prove each page's rendered behavior.
+
+Browser rendering was unavailable. This is a copy/source comparison, not a complete visual or interaction audit of the live pages. Dynamic content fetched from APIs, video speech, embedded image text other than the inspected unit plan, current metro opening status, current pricing, RERA registration validity and approved project specifications were not independently verified. No content was deployed or changed. Evidence snapshots are under .content-audit/.
+
+PRIORITY 1: RESOLVE BEFORE PRESENTING SALES FACTS AS CONFIRMED
+
+1. HOME AREA HAS TWO DIFFERENT DEFINITIONS WITHOUT EXPLANATION
+Pages: homepage, home-plan modal, /floor-plans, both lifestyle pages, chatbot and search metadata.
+Evidence: public/images/floor-plans/urban-unit.webp visibly labels Studio Type 1 as BUILTUP AREA: 327.13 sq.ft. lib/content.ts:5, components/sections/Concept.tsx:198 and components/LifestyleStory.tsx:36 describe roughly 500 sq ft as private/home space. app/layout.tsx:14 uses the 500 sq ft ownership headline in metadata.
+Problem: a buyer cannot tell whether 500 is saleable/super built-up area, carpet area, another unit type, or an approximate marketing figure. Do not replace 500 with 327.13 everywhere without confirmation either.
+Action: obtain the approved area schedule for the displayed unit. Publish separate, consistently named carpet, built-up and saleable/super built-up figures, explaining any shared-area allocation. State which unit type the starting price covers. Use the same definitions in the chatbot.
+
+2. AMENITY TOTAL DOES NOT RECONCILE WITH THE NAMED ZONES
+Pages: homepage, both lifestyle pages and chatbot.
+Evidence: lib/data.ts:22-33 gives nine area-bearing zones: 18,800 + 12,800 + 12,000 + 6,000 + 4,000 + 2,800 + 2,600 + 1,200 + 600 = 60,800 sq ft. Marketing repeatedly uses about 50,000 sq ft. Both lifestyle pages display all nine in their zone lists (components/LifestyleStory.tsx:146).
+Problem: zones may overlap, or the headline may exclude the park/outdoor space. That accounting is not explained. Excluding the 12,000 sq ft park gives 48,800 sq ft, which is a plausible explanation, not a verified answer.
+Action: confirm the measurement basis, identify overlaps/exclusions and explain whether 50,000 means indoor/shared built area, rounded amenity area or something else. Do not arbitrarily change the headline to 60,800.
+
+3. THE PLANS PAGE AND AI ASSISTANT CONTRADICT EACH OTHER
+Pages: /floor-plans, home-plan modal and chatbot across every page.
+Evidence: components/FloorPlanExplorer.tsx:22 and components/sections/Homes.tsx:55 present supplied project drawings; lib/chat-knowledge.ts:22 describes home previews as placeholders awaiting final plans.
+Problem: the visitor may see project drawings and then be told they are generated placeholders. Conversely, supplied drawings do not establish approval status.
+Action: verify drawing provenance, revision and approval status. Describe them as supplied project drawings subject to confirmation if approval is unknown; remove the obsolete placeholder claim only once provenance is confirmed.
+
+4. LOCATION DATA CONFLICTS WITH ITSELF
+Page: /location and homepage metro graphic.
+Evidence: data/location-directory.ts:7 places Kudlu Gate at [77.6418, 12.8924], while lib/nearby-route.ts and data/metro-station-locations.ts:14 use [77.63922, 12.88993]. Electronic City also has different pins (directory line 40 versus route data line 18). Banashankari appears twice (directory lines 50-51), with pins that differ from the route pin [77.5736, 12.91522].
+Problem: the same station can appear in different places depending on the view, changing the displayed distance. Duplicate stations inflate the directory's counts. Other disagreements include Hongasandra, Bommanahalli and JP Nagar.
+Action: use a single verified station dataset and stable station identifiers across directory pins, route diagrams and distance calculations. Remove aliases as duplicate records. Label planned stations within the normal directory, not only inside the separate metro panel.
+
+PRIORITY 2: CORRECT MISLEADING OR AMBIGUOUS USER EXPECTATIONS
+
+5. BUTTON PROMISES AVAILABLE HOMES BUT SHOWS DRAWINGS
+Page: homepage.
+Evidence: components/sections/Opening.tsx:58 and components/sections/Concept.tsx:259 label the action as viewing available homes; components/Chrome.tsx uses a home-selection action. These open components/sections/Homes.tsx, which contains three drawing sections and no current inventory.
+Suggested wording: Explore home plans / View floor plans. Use availability or selection language only when real inventory is provided.
+
+6. CHATBOT IMPLIES A VISIT CAN BE RESERVED
+Pages: chatbot and /book-visit.
+Evidence: lib/chat.ts:56 uses reservation language. components/BookingForm.tsx:177-184 and app/terms-and-conditions/page.tsx:20 correctly explain this is a request awaiting team confirmation.
+Suggested wording: Request a one-hour visit to the Jutaku Experience Centre. The team will confirm availability.
+Apply consistently to CTAs, chatbot replies, page titles and acknowledgement text. Do not label a submitted request as a confirmed booking.
+
+7. MODERN COUPLE PAGE IMPLIES BOTH ONE HOME AND TWO UNITS
+Page: /modern-couple.
+Evidence: components/LifestyleStory.tsx:111 and :116 assign a unit to each partner, then the following section describes one home. Images in the two cards depict work areas, not clearly separate dwellings.
+Problem: visitors may infer the offering includes two homes or adjoining units at the advertised price.
+Suggested wording if discussing work routines: A place for focused work / A place for creative work / Two routines, one home. If the intended product is two units, state that explicitly and provide its own area and price basis.
+
+8. PLANNED AMENITIES SOMETIMES SOUND ALREADY OPERATIONAL
+Pages: homepage, lifestyle pages and chatbot.
+Evidence: lib/content.ts:5 describes facilities on site without a planned qualifier; amenity slide descriptions use immediate activity language. lib/data.ts:31 states pool access around the clock, while lib/content.ts and components/sections/Closing.tsx:21 qualify it as planned. That unqualified data is displayed in lifestyle zone lists and fed into the AI facts.
+Action: add a nearby, visible qualification that facilities are proposed/planned and subject to final specifications and operating rules. Distinguish the open Experience Centre from residential amenities. Keep access hours conditional until confirmed.
+
+9. THE 500 SQ FT OWNERSHIP HEADLINE DOES NOT EXPLAIN ACCESS RIGHTS
+Pages: homepage and lifestyle pages.
+Evidence: the ownership headline is repeated in app/layout.tsx, Quote.tsx and Opening.tsx; Concept.tsx:194 introduces shared facilities as things that come with the home. LifestyleStory.tsx:175 has a useful instruction to confirm access/booking terms, but the main homepage lacks an equally clear explanation.
+Problem: access to amenities could be read as ownership of the whole amenity area, unlimited use, or inclusion without additional charges.
+Suggested supporting sentence: Ownership covers the individual unit; shared amenity access is subject to the applicable project documents, charges and booking rules. Confirm the wording with the actual project terms.
+
+10. STARTING PRICE LEAVES ITS BASIS UNCLEAR
+Page: homepage pricing and chatbot.
+Evidence: lib/content.ts:42-43 and components/sections/Credentials.tsx:15-20 show Rs 68.5 lakhs with a premium note, without identifying the unit type, area definition or included/excluded charges.
+Problem: the visitor cannot tell what the advertised amount buys or whether taxes and other charges are included. The same asterisk is also used beside RERA, making the two footnotes harder to distinguish.
+Action: confirm current price and publish unit type, area basis and relevant charges. Separate the RERA identifier from the price footnote. Do not invent inclusions or exclusions.
+
+11. ADDRESS AND POSTCODE DIFFER FROM PRODUCTION
+Pages: contact footer, /location, chatbot and legal contact context.
+Evidence: lib/data.ts:86 ends the detailed address with 560114 and names an India Oil petrol pump. The production bundle's shared contact details use an NH7/Manipal County Road address ending in 560068; production HTML metadata uses a different project coordinate too.
+Action: confirm the correct postal address, landmark spelling, postcode and project/Experience Centre pins with the team. Different pins may represent an entrance and a site centre; label them if both are intentional. Do not silently copy either version as authoritative.
+
+12. TREES HAVE DIFFERENT COUNTS AND DIFFERENT CLAIM TYPES
+Pages: lifestyle pages, homepage tree reason, chatbot and live reference.
+Evidence: LifestyleStory.tsx:171 and chat-knowledge.ts:13 use 290+ preserved trees. lib/content.ts:25 distinguishes 348 surveyed and 115 transplanted. The live homepage's FAQ structured data gives 371 preserved trees, while the live page bundle displays a 290+ preserved-tree counter.
+Problem: surveyed, retained, transplanted and surviving trees are separate measures. They do not prove a factual contradiction on their own, but the 371 versus 290+ baseline is unexplained. A zero-loss survival claim requires a monitoring date and evidence.
+Action: obtain a dated landscape/tree summary and label each measure precisely. Do not add counts or assume all transplanted trees survived indefinitely.
+
+13. INTERIOR IMAGERY CAN SUGGEST A DIFFERENT PRODUCT
+Pages: /floor-plans, home-plan modal and homepage gallery.
+Evidence: FloorPlanInteriors.tsx labels separate living/kitchen/bedroom images without identifying them as illustrative/model-home views. The inspected Studio Type 1 drawing combines sleeping and living within a studio. Only the bathroom image's alt text explicitly calls it a render (lib/data.ts:14), and alt text is not a visible disclaimer.
+Action: visibly label model-home photography versus artistic/illustrative imagery. Clarify that furnishing and room arrangement are indicative and may not match the selected unit. Do not imply a separate bedroom where the supplied plan shows a studio.
+
+14. REVENUE SHARING IS MENTIONED WITHOUT A PUBLISHED SCHEME
+Pages: chatbot and live reference concept/pricing content.
+Evidence: lib/chat.ts:37 and lib/chat-knowledge.ts:19 repeat a potential revenue-sharing offer but do not specify eligibility, charges, operator obligations or terms. Fallback replies qualify it as potential, which is better than a guarantee, but the commercial scheme remains unverified.
+Action: link the current written terms or direct the visitor to the team for confirmation. Do not market income as included in every unit purchase. No investment return was independently verified in this audit.
+
+15. ENQUIRY PAGE IS A WHATSAPP HANDOFF, NOT A STORED ENQUIRY
+Page: /brochure.
+Evidence: BrochureForm.tsx opens a wa.me draft; it does not send a backend request or provide a brochure download. The visible intro and submit button accurately disclose WhatsApp, but the /brochure path and document icon can imply a downloadable brochure.
+Action: retain clear WhatsApp wording until CRM submission is actually implemented. If a brochure is offered, provide a real document; otherwise consider /enquire and an enquiry icon. Do not show enquiry-received wording merely because a draft opened.
+
+16. PRIVACY COPY MUST TRACK THE IMPLEMENTED FLOW
+Page: /privacy-policy.
+Evidence: app/privacy-policy/page.tsx:18 accurately describes the current WhatsApp and email-provider flows. The requested future CRM flow is different.
+Action: when the CRM integration is implemented, update this explanation to cover CRM processing and any backend queue/storage. Current code does not justify saying data goes to the CRM. The live reference uses analytics/Meta tracking that are not present in this repository's root layout; copying its policy would also require checking actual deployed services. This is a factual consistency observation, not a legal compliance assessment.
+
+PRIORITY 3: CONSISTENCY AND MAINTENANCE
+
+17. OLD DISTANCES AND SYNTHETIC INVENTORY REMAIN IN UNUSED DATA
+Evidence: lib/data.ts:59-79 retains metro distances of 0.6/1.2 km and old category counts. Current displayed route calculations give 0.9/1.3 km from the repository's project pin. lib/inventory.ts contains generated 504/588 sq ft unit records and synthetic sold/available status.
+Important: searches found no current application consumers of those legacy exports/inventory readers. These are future regression risks, not evidence that visitors currently see fictional availability.
+Action: remove or quarantine unused demonstration data and ensure future components cannot accidentally treat it as current inventory. Keep one source for displayed distances and label them as straight-line, walking or driving.
+
+18. NEWS FEED HAS AN UNDATED EVENT AND STRONG TREE CLAIM
+Evidence: the currently unused NEWS export at lib/data.ts:91 includes an August 22 event with no year and future-tense invitation copy, plus an absolute tree survival statement. The rendered /insights page currently uses the separate INSIGHT_VIDEOS dataset.
+Action: if this feed is reused, add the year, mark past events as past and verify the tree statement. This is not currently a visible /insights-page defect.
+
+19. LEGAL DATE IS HARDCODED
+Pages: /privacy-policy and /terms-and-conditions.
+Evidence: components/LegalPage.tsx:40 always displays 22 October 2026.
+Action: update the date when the corresponding policy actually changes; give each policy its own revision date if they differ. The date is not inherently wrong merely because it is older than this audit.
+
+20. TERMINOLOGY AND NUMBER FORMATTING VARY
+Evidence: sq.ft., SQ.FT. and sq ft; Experience Center versus Experience Centre in legacy data; some marketing copy uses 50,000 while chatbot fallback adds a plus sign (lib/chat.ts:42). The homepage modal shows 03 beneath a HOMES heading, although it means three drawing sections, not three available dwellings.
+Action: choose one public area style (for example sq ft), use Experience Centre consistently, keep approximate quantities consistent, and label the modal counter as three plan views if retained. Replace developer-facing drawing provenance language such as 'supplied' with a clear visitor-facing description after status is confirmed.
+
+PAGE COVERAGE
+Home /: findings 1-6, 8-14, 17, 20; includes opening/reasons, design/concept, living/location highlights, amenities, Experience Centre, gallery, pricing, home-plan modal, insights preview, footer and navigation.
+/floor-plans: findings 1, 3, 13; individual, adjoining, core and typical-floor views reviewed.
+/individual-living: findings 1-2, 8-9, 11-12; shared LifestyleStory data and template reviewed.
+/modern-couple: same shared findings plus 7.
+/location: findings 4, 11, 17; directory, metro cards, distances and route datasets reviewed. Live operating status was not independently certified.
+/map: redirect to /location; no separate copy.
+/book-visit: findings 6 and 16; request acknowledgement correctly says availability needs confirmation; current endpoint remains email-only.
+/brochure: finding 15; required consent and WhatsApp handoff are explicitly described in visible form copy.
+/insights: six video titles/descriptions reviewed; no definite factual error established without viewing the underlying films. Avoid treating unused NEWS export defects as visible defects here.
+/privacy-policy: findings 16 and 19; current flow description matches source behavior.
+/terms-and-conditions: finding 19; its visit-confirmation limitation conflicts with chatbot reservation language, rather than being wrong itself. RERA text matches the shared identifier but its validity was not independently verified.
+Chatbot (shared): findings 1-3, 6, 8, 10, 12, 14, 20; AI instructions and deterministic fallback answers both reviewed.
+Metadata: finding 1; production HTML additionally has unit count/site area/tree/metro claims that differ from its own page data.
+
+REFERENCE-SITE CAUTIONS
+The live HTML markets 646+ units and 2.7 acres, whereas its page chunk uses a 646 counter and 2.78 acres; these could be loose rounding but should be standardized. Its structured FAQ puts both nearest stations within 1 km, while this repository's computed straight-line Hosa Road distance is 1.3 km. Its tree structured data differs from the visible-page counter. These are reasons to seek confirmed project facts rather than importing the reference unchanged. The live reference does not establish which supplied floor drawings are approved.
+
+RECOMMENDED ORDER
+First confirm the home area definitions, amenity-area accounting, plan status, official address/pins and current price basis with the project team. Next correct inventory/booking CTA promises and align the chatbot. Then reconcile location records, label planned/illustrative content and update policies when the CRM behavior changes. Finally clean unused datasets and standardize spelling/formatting.

@@ -1,13 +1,37 @@
-import { EMAIL } from "@/lib/data";
+import { memcoApiFetch, readJson, responseMessage } from "@/lib/memco-api";
 
 type VisitRequest = {
+  baseIso?: unknown;
   date?: unknown;
-  hour?: unknown;
+  dayIndex?: unknown;
+  slotStart?: unknown;
   guests?: unknown;
   name?: unknown;
   phone?: unknown;
   email?: unknown;
+  pageUrl?: unknown;
+  utmSource?: unknown;
+  utmMedium?: unknown;
+  utmCampaign?: unknown;
 };
+
+type AvailabilitySlot = { slot_start?: unknown; available?: unknown; is_full?: unknown };
+type AvailabilityDay = { day_index?: unknown; slots?: unknown };
+
+function isoForDay(baseIso: string, dayIndex: number) {
+  const date = new Date(`${baseIso}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + dayIndex - 1);
+  return date.toISOString().slice(0, 10);
+}
+
+function todayInIndia() {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Kolkata",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+}
 
 export async function POST(request: Request) {
   if (!request.headers.get("content-type")?.includes("application/json")) {
@@ -22,72 +46,86 @@ export async function POST(request: Request) {
     return Response.json({ error: "Please submit the visit form again." }, { status: 400 });
   }
 
-  const { date, hour, guests, name, phone, email } = details;
-  const dateValue = typeof date === "string" ? date.trim() : "";
-  const nameValue = typeof name === "string" ? name.trim() : "";
-  const phoneValue = typeof phone === "string" ? phone.trim() : "";
-  const emailValue = typeof email === "string" ? email.trim() : "";
-  const istNow = new Date(Date.now() + 330 * 60 * 1_000);
-  const todayIst = `${istNow.getUTCFullYear()}-${String(istNow.getUTCMonth() + 1).padStart(2, "0")}-${String(istNow.getUTCDate()).padStart(2, "0")}`;
-  const parsedDate = new Date(`${dateValue}T00:00:00Z`);
-  const validDate = /^\d{4}-\d{2}-\d{2}$/.test(dateValue)
-    && !Number.isNaN(parsedDate.getTime())
-    && parsedDate.toISOString().slice(0, 10) === dateValue
-    && dateValue >= todayIst;
-  const validHour = Number.isInteger(hour) && Number(hour) >= 9 && Number(hour) <= 17;
-  const validSlot = validDate && validHour && (dateValue > todayIst || Number(hour) > istNow.getUTCHours());
-  const validGuests = Number.isInteger(guests) && Number(guests) >= 1 && Number(guests) <= 12;
-  const validName = nameValue.length >= 2 && nameValue.length <= 100;
-  const phoneDigits = phoneValue.replace(/\D/g, "");
-  const validPhone = /^[+\d()\s-]{10,24}$/.test(phoneValue) && phoneDigits.length >= 10 && phoneDigits.length <= 15;
-  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue) && emailValue.length <= 254;
-  if (!validSlot || !validGuests || !validName || !validPhone || !validEmail) {
-    return Response.json({ error: "Please check your details and choose a date and time." }, { status: 400 });
-  }
+  const baseIso = typeof details.baseIso === "string" ? details.baseIso.trim() : "";
+  const date = typeof details.date === "string" ? details.date.trim() : "";
+  const dayIndex = Number(details.dayIndex);
+  const slotStart = typeof details.slotStart === "string" ? details.slotStart.trim() : "";
+  const guests = Number(details.guests);
+  const name = typeof details.name === "string" ? details.name.trim() : "";
+  const phone = typeof details.phone === "string" ? details.phone.trim() : "";
+  const email = typeof details.email === "string" ? details.email.trim() : "";
+  const phoneDigits = phone.replace(/\D/g, "");
+  const validBase = /^\d{4}-\d{2}-\d{2}$/.test(baseIso);
+  const validDayIndex = Number.isInteger(dayIndex) && dayIndex >= 1 && dayIndex <= 100_000;
+  const validDate = /^\d{4}-\d{2}-\d{2}$/.test(date) && date >= todayInIndia();
+  const validSlot = /^\d{2}:\d{2}$/.test(slotStart);
+  const validGuests = Number.isInteger(guests) && guests >= 1 && guests <= 12;
+  const validName = name.length >= 2 && name.length <= 100;
+  const validPhone = phoneDigits.length >= 10 && phoneDigits.length <= 15;
+  const validEmail = !email || (email.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+  const dateMatchesIndex = validBase && validDayIndex && isoForDay(baseIso, dayIndex) === date;
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM_EMAIL;
-  if (!apiKey || !from) {
-    return Response.json({ error: "Online booking is temporarily unavailable. Please try again later." }, { status: 503 });
+  if (!validBase || !validDayIndex || !validDate || !dateMatchesIndex || !validSlot || !validGuests || !validName || !validPhone || !validEmail) {
+    const fields: Record<string, string> = {};
+    if (!validName) fields.name = "Enter your full name (2–100 characters).";
+    if (!validPhone) fields.phone = "Enter a valid phone number with 10–15 digits.";
+    if (!validEmail) fields.email = "Enter a valid email address.";
+    if (!validBase || !validDayIndex || !validDate || !dateMatchesIndex) fields.date = "Choose a valid upcoming date from the calendar.";
+    if (!validSlot) fields.slot = "Choose an available visit time.";
+    if (!validGuests) fields.guests = "Choose between 1 and 12 guests.";
+    return Response.json({ error: Object.values(fields).join(" "), fields }, { status: 400 });
   }
-
-  const hourValue = Number(hour);
-  const displayDate = new Intl.DateTimeFormat("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(`${dateValue}T00:00:00Z`));
-  const time = `${hourValue % 12 || 12}:00 ${hourValue < 12 ? "AM" : "PM"} – ${(hourValue + 1) % 12 || 12}:00 ${hourValue + 1 < 12 ? "AM" : "PM"}`;
-  const message = [
-    "New Jutaku Experience Centre visit request",
-    "",
-    `Name: ${nameValue}`,
-    `Phone: ${phoneValue}`,
-    `Email: ${emailValue}`,
-    `Preferred date: ${displayDate}`,
-    `Preferred time: ${time} IST`,
-    `Guests: ${guests}`,
-    "",
-    "Please contact the visitor to confirm availability.",
-  ].join("\n");
 
   try {
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from,
-        to: [EMAIL],
-        reply_to: emailValue,
-        subject: `Jutaku visit request — ${displayDate}`,
-        text: message,
-      }),
-      cache: "no-store",
-    });
-    if (!response.ok) {
-      console.error("Resend rejected a visit request", response.status);
-      return Response.json({ error: "We couldn't send your request. Please try again shortly." }, { status: 502 });
-    }
-  } catch (error) {
-    console.error("Visit request delivery failed", error);
-    return Response.json({ error: "We couldn't send your request. Please try again shortly." }, { status: 502 });
-  }
+    const availabilityResponse = await memcoApiFetch("/api/booking/availability");
+    const availability = await readJson(availabilityResponse);
+    const currentBaseIso = typeof availability.base_iso === "string" ? availability.base_iso : "";
+    const days = Array.isArray(availability.days) ? availability.days as AvailabilityDay[] : [];
+    const day = days.find((item) => Number(item.day_index) === dayIndex);
+    const slots = day && Array.isArray(day.slots) ? day.slots as AvailabilitySlot[] : [];
+    const slot = slots.find((item) => item.slot_start === slotStart);
+    const seats = typeof slot?.available === "number" ? slot.available : slot?.is_full === true ? 0 : 1;
 
-  return Response.json({ ok: true });
+    if (!availabilityResponse.ok || currentBaseIso !== baseIso || !slot || slot.is_full === true || seats < guests) {
+      return Response.json({ error: "That visit time is no longer available. Please refresh and choose another time." }, { status: 409 });
+    }
+
+    const optionalString = (value: unknown, max = 500) => typeof value === "string" ? value.trim().slice(0, max) : "";
+    const bookingResponse = await memcoApiFetch("/api/booking/book", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        phone: phoneDigits,
+        ...(email ? { email } : {}),
+        day_index: dayIndex,
+        slot_start: slotStart,
+        quantity: guests,
+        page_url: optionalString(details.pageUrl, 1_000),
+        utm_source: optionalString(details.utmSource),
+        utm_medium: optionalString(details.utmMedium),
+        utm_campaign: optionalString(details.utmCampaign),
+      }),
+    });
+    const result = await readJson(bookingResponse);
+    if (!bookingResponse.ok || result.success === false) {
+      console.error("MEMCO API rejected a visit booking", bookingResponse.status, result);
+      return Response.json({ error: responseMessage(result, "We couldn't book your visit. Please try again shortly.") }, { status: bookingResponse.status === 409 ? 409 : 502 });
+    }
+
+    if (result.ok === false && result.reason === "not_enough_seats") {
+      return Response.json({ error: responseMessage(result, "That visit time is full. Please choose another time.") }, { status: 409 });
+    }
+
+    return Response.json({
+      ok: true,
+      duplicate: result.ok === false && result.reason === "already_booked" || result.duplicate === true,
+      bookingId: typeof result.booking_id === "string" ? result.booking_id : undefined,
+      confirmationCode: typeof result.confirmation_code === "string" ? result.confirmation_code : undefined,
+      slotLabel: typeof result.slot_label === "string" ? result.slot_label : undefined,
+    });
+  } catch (error) {
+    console.error("MEMCO API visit booking failed", error);
+    return Response.json({ error: "Online booking is temporarily unavailable. Please try again shortly." }, { status: 502 });
+  }
 }

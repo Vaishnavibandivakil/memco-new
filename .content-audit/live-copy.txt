@@ -1,0 +1,3092 @@
+[MemcoAnalytics] Not available yet, debug mode enabled
+[MemcoAnalytics] Attempting to track contact:
+[MemcoAnalytics] Sending trackContact:
+[MemcoAnalytics] trackContact sent successfully
+[MemcoAnalytics] trackContact error:
+[MemcoAnalytics] trackContact sent on retry
+[MemcoAnalytics] trackContact retry error:
+https://ipapi.co/json/
+I give my consent for the usage of data provided. I give permission to the website owner to contact me via phone, text, email, or WhatsApp with its offers and products.
+[QR Lead] QR campaign lead captured:
+[CRM] Campaign data attached:
+[CRM] Sending payload:
+https://api.memcoskyline.com
+[EMAIL] Lead sent to local backend
+[EMAIL] Local backend submission failed or timed out:
+[EMAIL] REACT_APP_EMAIL_BACKEND_URL not configured
+[CRM] Lead sent to CRM backend
+[CRM] CRM backend submission failed or timed out:
+Website Contact Form
+[CRM] Lead captured in CRM (
+[CRM] /api/analytics/contact/capture failed or timed out:
+[CRM] CRM submission skipped:
+[CRM] MemcoSubmitContact ack:
+[CRM] MemcoSubmitContact rejected:
+[CRM] MemcoSubmitContact threw:
+CRM sync skipped
+https://cdn-icons-png.flaticon.com/512/3135/3135715.png
+https://cdn-icons-png.flaticon.com/512/2830/2830284.png
+https://cdn-icons-png.flaticon.com/512/4140/4140048.png
+https://cdn-icons-png.flaticon.com/512/4140/4140047.png
+https://cdn-icons-png.flaticon.com/512/3135/3135768.png
+https://cdn-icons-png.flaticon.com/512/4727/4727424.png
+https://cdn-icons-png.flaticon.com/512/4140/4140061.png
+https://cdn-icons-png.flaticon.com/512/3135/3135789.png
+https://cdn-icons-png.flaticon.com/512/4727/4727382.png
+https://cdn-icons-png.flaticon.com/512/4727/4727500.png
+https://cdn-icons-png.flaticon.com/512/4727/4727488.png
+https://cdn-icons-png.flaticon.com/512/3069/3069172.png
+https://cdn-icons-png.flaticon.com/512/619/619153.png
+https://cdn-icons-png.flaticon.com/512/1672/1672556.png
+https://cdn-icons-png.flaticon.com/512/3281/3281289.png
+https://cdn-icons-png.flaticon.com/512/3125/3125713.png
+https://cdn-icons-png.flaticon.com/512/3059/3059446.png
+https://cdn-icons-png.flaticon.com/512/3670/3670051.png
+https://cdn-icons-png.flaticon.com/512/3059/3059989.png
+https://cdn-icons-png.flaticon.com/512/3059/3059898.png
+https://cdn-icons-png.flaticon.com/512/3222/3222691.png
+https://cdn-icons-png.flaticon.com/512/3222/3222800.png
+https://cdn-icons-png.flaticon.com/512/3222/3222672.png
+https://cdn-icons-png.flaticon.com/512/3222/3222678.png
+https://cdn-icons-png.flaticon.com/512/2972/2972531.png
+https://cdn-icons-png.flaticon.com/512/3135/3135807.png
+https://cdn-icons-png.flaticon.com/512/2693/2693507.png
+https://cdn-icons-png.flaticon.com/512/1680/1680012.png
+https://cdn-icons-png.flaticon.com/512/2504/2504941.png
+https://cdn-icons-png.flaticon.com/512/2991/2991148.png
+https://cdn-icons-png.flaticon.com/512/3135/3135801.png
+https://cdn-icons-png.flaticon.com/512/2965/2965879.png
+https://cdn-icons-png.flaticon.com/512/1828/1828640.png
+Download the Brochure
+Share your details below and your brochure will download automatically.
+Thank you for your confidence in us. Kindly provide your details to register for early access.
+This isn't something you just see. It's something you experience.
+! We're excited to help you!
+Name is required
+Please enter a valid 10-digit phone number
+Please enter a valid email address
+Please provide your consent to continue.
+Please select if you are buying for Self or as Investor
+[CRM] Partial lead captured on modal close
+[ContactModal] Error during close:
+[Analytics] form_start tracking failed:
+fixed inset-0 flex items-center justify-center
+absolute inset-0 bg-black bg-opacity-60
+relative w-full max-w-lg mx-4 shadow-2xl rounded-lg max-h-[90vh] overflow-y-auto bg-white
+absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-all
+1px solid #e5e7eb
+sticky top-0 bg-white pt-6 px-8 pb-4 border-b border-gray-100 z-[5]
+flex items-center justify-between mb-2
+flex items-center flex-1
+w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-medium transition-all 
+bg-[#008751] text-white
+bg-gray-200 text-gray-500
+flex-1 h-0.5 mx-1 transition-all 
+text-center py-12
+text-gray-900 text-xl font-semibold
+text-gray-600 text-sm mt-3
+text-gray-400 text-xs mt-2
+— Team MEMCO Skyline
+/brochure/JUTAKU-by-MEMCO-Skyline-Brochure.pdf
+JUTAKU-by-MEMCO-Skyline-Brochure.pdf
+mt-6 inline-flex items-center justify-center gap-2 bg-[#008751] hover:bg-[#006e42] text-white px-6 py-3 rounded-lg font-semibold tracking-wider transition-colors
+Download Brochure
+[ContactModal] trackFormSubmission failed:
+[ContactModal] trackMemcoContact failed:
+[ContactModal] window.MEMCO.captureContact failed:
+[ContactModal] sendToCRM failed:
+[ContactModal→SV-Booking]
+[ContactModal→SV-Booking] failed:
+[ContactModal] SV booking submit failed:
+[ContactModal] onSubmitSuccess handler failed:
+Our team will get back to you shortly!
+text-2xl md:text-3xl font-semibold text-gray-900 mb-2 tracking-tight
+text-sm text-gray-600 mb-4
+block text-sm font-semibold text-gray-900 mb-2 uppercase tracking-wide
+Enter your full name
+w-full border-2 rounded-xl px-4 py-3.5 focus:outline-none transition-colors 
+border-gray-200 focus:border-[#008751]
+text-red-500 text-xs mt-1
+flex items-center gap-2
+flex items-center border-2 border-gray-200 rounded-xl px-3 py-3.5 gap-1 hover:border-[#008751]/40 transition-colors
+text-gray-800 text-sm font-medium
+text-gray-400 text-xs ml-1
+absolute top-full left-0 mt-1 bg-white border border-gray-200 shadow-lg rounded-xl z-50 max-h-48 overflow-y-auto w-52
+w-full flex items-center gap-2 px-3 py-2 text-gray-700 hover:bg-gray-100 transition-colors text-left
+text-sm font-medium
+text-xs text-gray-400
+Enter 10-digit phone number
+flex-1 border-2 rounded-xl px-4 py-3.5 focus:outline-none transition-colors 
+Enter your email
+flex items-start gap-3 cursor-pointer p-3.5 rounded-xl border-2 transition-all 
+border-[#008751] bg-[#008751]/5
+border-red-400 bg-red-50/50
+border-gray-200 bg-white hover:border-[#008751]/50
+flex-shrink-0 mt-0.5 w-5 h-5 rounded border-2 flex items-center justify-center transition-all 
+bg-[#008751] border-[#008751]
+w-3.5 h-3.5 text-white
+text-xs md:text-sm leading-snug text-gray-700 flex-1
+By submitting this form, I agree to be contacted via 
+ regarding my enquiry.
+text-red-500 text-xs mt-1.5
+grid grid-cols-2 gap-3
+flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left 
+border-[#008751] bg-[#008751]/5 shadow-sm
+border-gray-200 bg-white hover:border-[#008751]/40
+text-sm md:text-base font-semibold 
+w-full bg-[#008751] text-white py-3.5 rounded-lg font-semibold tracking-wide hover:bg-[#006e42] transition-colors mt-2
+w-full bg-white text-[#008751] border-2 border-[#008751] py-3.5 rounded-lg font-semibold tracking-wide hover:bg-[#008751]/5 transition-colors inline-flex items-center justify-center gap-2
+Book Your Site Visit
+text-[10px] md:text-[11px] text-gray-400 leading-relaxed pt-1
+https://rera.karnataka.gov.in
+noopener noreferrer
+text-[#008751] underline underline-offset-2
+rera.karnataka.gov.in
+text-lg font-semibold text-gray-900 mb-4
+Purpose of Purchase
+block text-sm font-medium text-gray-900 mb-3 uppercase tracking-wide
+I am buying for *
+grid grid-cols-2 gap-4
+relative flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border-2 shadow-sm transition-all duration-200 
+border-blue-500 bg-gradient-to-br from-blue-50 to-white shadow-lg shadow-blue-500/20 scale-[1.02]
+border-gray-100 bg-white hover:border-blue-300 hover:shadow-lg hover:scale-[1.02]
+absolute -top-2 -right-2 w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs shadow-md
+text-sm font-semibold 
+flex-1 border-2 border-gray-300 text-gray-600 py-3 rounded-lg font-medium tracking-wider hover:bg-gray-50 transition-colors
+flex-1 bg-[#008751] text-white py-3 rounded-lg font-medium tracking-wider hover:bg-[#006e42] transition-colors
+Contact Preferences
+Preferred Contact Method (Select Multiple)
+grid grid-cols-3 gap-3
+relative flex flex-col items-center justify-center gap-2 p-4 rounded-2xl border-2 shadow-sm transition-all duration-200 
+absolute -top-2 -right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs shadow-md
+text-xs font-semibold 
+flex items-center gap-3 cursor-pointer group p-4 rounded-2xl border-2 shadow-sm transition-all duration-200 
+border-blue-500 bg-gradient-to-br from-blue-50 to-white shadow-lg shadow-blue-500/20
+border-gray-100 bg-white hover:border-blue-300 hover:shadow-lg
+text-sm font-medium text-gray-700 flex-1
+Send brochure to my email
+w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all 
+bg-blue-500 border-blue-500
+border-gray-300 group-hover:border-blue-400
+Preferred Contact Time
+grid grid-cols-5 gap-2
+relative flex flex-col items-center justify-center gap-1 p-2 rounded-xl border-2 shadow-sm transition-all duration-200 
+absolute -top-1.5 -right-1.5 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs shadow-md
+text-[9px] font-semibold leading-tight text-center 
+text-lg font-semibold text-gray-900 mb-3
+block text-sm font-medium text-gray-900 mb-2 uppercase tracking-wide
+relative flex flex-col items-center justify-center gap-2 p-4 rounded-2xl border-2 shadow-sm transition-all duration-200 
+                              
+opacity-40 cursor-not-allowed blur-[1px] pointer-events-none
+rgba(255,255,255,0.8)
+text-xs font-semibold leading-tight text-center 
+grid grid-cols-4 gap-2
+relative flex flex-col items-center justify-center gap-1 p-3 rounded-xl border-2 shadow-sm transition-all duration-200 
+text-[10px] font-semibold leading-tight text-center 
+text-xs text-gray-400 mt-2
+Optional. You can select multiple.
+Property Requirements
+How did you hear about us?
+grid grid-cols-3 gap-2
+Your Industry / Profession
+Select Your Industry
+w-full border-2 border-gray-200 rounded-xl py-3 px-4 focus:outline-none focus:border-blue-500 transition-colors
+Select your industry
+Banking / Finance
+Healthcare / Medical
+Education / Teaching
+Government / PSU
+Retail / E-commerce
+Additional Details
+Preferred Date for Site Visit
+Preferred Time Slot for Site Visit
+w-full border-2 border-gray-200 rounded-xl py-3 px-4 bg-white text-gray-900 focus:outline-none focus:border-blue-500 transition-colors
+Select a time slot…
+Number of Guests
+inline-flex items-stretch rounded-xl border-2 border-gray-200 overflow-hidden
+px-4 text-lg font-bold text-gray-700 hover:bg-gray-100 disabled:opacity-40
+w-20 text-center text-base md:text-lg font-bold focus:outline-none
+mt-2 text-xs text-gray-500
+Total people attending the site visit (max 12).
+Message / Special Requirements
+Any specific requirements or questions...
+w-full border-2 border-gray-200 rounded-xl py-3 px-4 focus:outline-none focus:border-blue-500 transition-colors resize-none
+text-xs text-gray-500 italic leading-relaxed
+By submitting this form, I agree to be contacted via call/WhatsApp/email regarding my enquiry.
+flex-1 bg-blue-500 text-white py-3 rounded-lg font-medium tracking-wider hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/30
+py-10 md:py-14 bg-white relative
+max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
+grid grid-cols-1 
+ gap-8 md:gap-12 items-stretch
+min-h-[650px] bg-gray-100 rounded-xl overflow-hidden shadow-lg relative
+rounded-xl p-6 sm:p-8 shadow-lg overflow-hidden relative flex flex-col justify-center min-h-[400px]
+url('/contact-now.jpeg')
+absolute inset-0 bg-white/85 backdrop-blur-sm
+relative z-10 text-center
+text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-4
+REQUEST A CALL BACK
+text-gray-500 text-sm sm:text-base mb-8 max-w-md mx-auto
+Fill in your details and our team will reach out to you shortly to assist with your dream home journey.
+flex flex-wrap justify-center gap-4 mb-8
+flex items-center gap-2 text-gray-700
+w-8 h-8 rounded-full bg-[#008751]/10 flex items-center justify-center
+w-4 h-4 text-[#008751]
+Site Visit Booking
+inline-flex items-center justify-center gap-2 bg-[#008751] text-white px-8 py-4 rounded-lg font-medium tracking-wider hover:bg-[#006e42] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] text-sm sm:text-base uppercase
+Request Callback
+text-gray-400 text-xs mt-6
+We respect your privacy. Your information is safe with us.
+text-gray-500 text-xs mt-4 underline cursor-pointer hover:text-[#008751] transition-colors
+Disclaimer & Privacy Policy
+Off NH7 on Manipal County Road, Bengaluru – 560068
+info@memcoskyline.com
+https://www.facebook.com/profile.php?id=61588163955913
+https://www.instagram.com/memcoskyline/
+https://www.linkedin.com/company/memco-skyline/
+https://x.com/MEMCOSkyline
+https://www.youtube.com/channel/UCdxanh_k5M852obG9aocTNg
+bg-[#1f1f1f] text-white relative overflow-hidden
+max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-14 md:py-20
+grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12
+lg:col-span-4 space-y-5
+inline-flex items-center justify-center gap-4 bg-white rounded-xl px-5 py-3 shadow-sm mb-4
+/images/logo/memco-logo.svg
+w-px h-10 bg-gray-300
+/images/logo/jutaku-kan-eng.svg
+text-xs text-[#00b86e] uppercase tracking-[0.25em] font-semibold
+URBAN LIFESTYLE ECOSYSTEM
+text-gray-300 text-sm leading-relaxed max-w-xs
+A thoughtfully-designed urban lifestyle ecosystem in South Bengaluru.
+text-[#00b86e] text-xs uppercase tracking-[0.25em] font-semibold
+flex items-start gap-3 text-gray-300 text-sm leading-relaxed
+text-[#00b86e] mt-0.5 flex-shrink-0
+flex items-center gap-3 text-gray-300 hover:text-white transition-colors text-sm
+text-[#00b86e] flex-shrink-0
+flex items-center gap-3 text-gray-300 hover:text-white transition-colors text-sm break-all
+https://maps.google.com/?q=MEMCO+Skyline+Bangalore
+inline-flex items-center gap-2 text-[#00b86e] hover:text-[#00d17e] transition-colors text-sm font-medium
+https://maps.google.com
+lg:col-span-4 space-y-8
+text-gray-300 text-sm leading-relaxed
+Stay connected for updates, events and behind-the-scenes moments.
+flex flex-wrap gap-3
+noopener,noreferrer
+w-11 h-11 rounded-full border border-gray-600 flex items-center justify-center text-gray-300 hover:text-white hover:border-[#00b86e] hover:bg-[#00b86e]/10 transition-all duration-300
+border-t border-gray-700 pt-6 space-y-3
+text-gray-400 text-xs leading-relaxed
+All images, renderings, and visuals are artistic impressions for representation purposes only. Actual product shall be as per the specifications and approvals filed with RERA.
+border-t border-gray-800
+max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-5
+flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500
+© 2025 MEMCO SKYLINE. All Rights Reserved. Powered by MEMCO.
+text-gray-400 hover:text-[#00b86e] transition-colors
+fixed bottom-4 sm:bottom-8 right-4 sm:right-8 w-10 h-10 sm:w-14 sm:h-14 rounded-full border-2 border-white/30 flex items-center justify-center text-white hover:border-[#00b86e] hover:text-[#00b86e] transition-colors bg-[#282828] shadow-lg z-30
+https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png
+https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png
+https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png
+Singasandra Metro Station
+Hosa Road Metro Station
+Bommasandra Metro Station
+Christ University
+Dayananda Sagar University
+Oxford College of Engineering
+National Public School
+Sri Chaitanya Techno School
+Jayadeva Hospital
+Rainbow Children's Hospital
+Royal Meenakshi Mall
+Gopalan Innovation Mall
+Nexus Forum Mall
+Central Mall Koramangala
+Kalyani Magnum Infotech Park
+JP Nagar 4th Phase
+HDFC Bank Singasandra
+Meghana Foods Singasandra
+Truffles Koramangala
+Empire Restaurant
+Vidyarthi Bhavan
+The Rameshwaram Cafe
+McDonald's Electronic City
+Domino's Pizza Begur
+Starbucks Koramangala
+Café Coffee Day HSR
+Ragigudda Anjaneya Temple
+Banashankari Temple
+Sri Shirdi Sai Baba Temple Begur
+Masjid-E-Khaja Banda Nawaz
+St. Patrick's Church Singasandra
+Gavi Gangadhareshwara Temple
+Someshwara Temple Ulsoor
+Ayyappa Swamy Temple
+Malls & Shopping
+.leaflet-tile-pane
+.leaflet-map-pane
+url(/images/memco-map-latest.svg)
+
+      .leaflet-tile-pane { display: none !important; }
+      .leaflet-tile { display: none !important; }
+      .leaflet-container {
+        background-image: url(/images/memco-map-latest.svg) !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-color: #ffffff !important;
+      }
+    
+flex-1 min-h-0 flex flex-col lg:flex-row gap-4
+relative rounded-lg overflow-hidden shadow-lg border border-gray-200 
+lg:flex-[3] h-[400px] lg:h-auto lg:min-h-[500px]
+flex-1 min-h-[500px]
+absolute inset-0 z-[999] bg-black/5 flex items-center justify-center pointer-events-auto
+absolute inset-0 rounded-full bg-[#008751]/30 animate-ping
+absolute inset-[-8px] rounded-full bg-[#008751]/20 animate-pulse
+relative bg-gradient-to-r from-[#008751] to-[#00a863] hover:from-[#006d41] hover:to-[#008751] text-white font-semibold px-6 py-3 rounded-full shadow-xl cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 flex items-center gap-3 border-2 border-white/30
+0 10px 40px rgba(0, 135, 81, 0.4), 0 0 0 4px rgba(0, 135, 81, 0.2)
+http://www.w3.org/2000/svg
+h-6 w-6 animate-bounce
+text-sm md:text-base font-bold tracking-wide
+Click to Explore Map
+lg:flex-[2] bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden flex flex-col h-[220px] lg:h-auto lg:max-h-full
+px-4 py-3 bg-gray-50 border-b border-gray-200 flex-shrink-0
+text-sm font-semibold text-gray-900 uppercase tracking-wide
+overflow-y-auto flex-1 px-4 py-2
+flex items-center gap-2 mb-2
+w-2.5 h-2.5 rounded-full inline-block
+text-xs font-bold uppercase tracking-wide
+flex justify-between items-center py-2 border-b border-gray-100 last:border-0 transition-all duration-200 rounded px-1 -mx-1 
+bg-green-100 shadow-sm
+text-gray-900 font-semibold
+text-[#008751] font-bold text-sm whitespace-nowrap ml-3
+Coupon not received
+Booking access not received
+fixed inset-0 z-[10000] flex items-end sm:items-center justify-center px-3 sm:px-4 py-4 sm:py-8 bg-black/50 backdrop-blur-sm
+w-full sm:max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden
+flex items-center justify-between px-5 py-3 border-b border-gray-200
+text-base font-bold text-gray-900
+text-gray-500 hover:text-gray-800 text-xl leading-none px-1
+mx-auto mb-3 w-12 h-12 rounded-full bg-green-50 flex items-center justify-center
+w-6 h-6 text-[#0e3b2e]
+font-bold text-gray-900
+text-sm text-gray-600 mt-1
+Our team will reach out to you shortly.
+mt-5 px-5 py-2 rounded-full bg-[#0e3b2e] text-white text-sm font-semibold hover:bg-[#0a2d23]
+Could not submit. Please try again.
+Network error. Please try again.
+text-xs text-gray-500 -mt-1
+Tell us what went wrong and we'll get on it within an hour.
+block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5
+w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:border-[#0e3b2e] focus:ring-2 focus:ring-[#0e3b2e]/20 focus:outline-none
+What's the issue?
+w-full px-3 py-2 text-sm rounded-lg border border-gray-300 bg-white focus:border-[#0e3b2e] focus:ring-2 focus:ring-[#0e3b2e]/20 focus:outline-none
+Anything else we should know? (optional)
+w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:border-[#0e3b2e] focus:ring-2 focus:ring-[#0e3b2e]/20 focus:outline-none resize-none
+mt-1 text-[10px] text-gray-400 text-right
+bg-red-50 border border-red-200 rounded-lg px-3 py-2 text-xs text-red-700
+flex justify-end gap-2 pt-1
+px-4 py-2 rounded-full text-sm font-semibold text-gray-600 hover:bg-gray-100
+px-5 py-2 rounded-full bg-[#0e3b2e] text-white text-sm font-semibold hover:bg-[#0a2d23] disabled:opacity-50 disabled:cursor-not-allowed
+min-h-screen bg-white pt-28 md:pt-32 pb-16
+max-w-2xl mx-auto px-4 sm:px-6 lg:px-8
+w-16 h-16 mx-auto rounded-full bg-[#008751] flex items-center justify-center mb-6
+w-8 h-8 text-white
+text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight
+Booking Confirmed!
+text-gray-600 mt-4 text-base md:text-lg
+Thank you for booking your visit to MEMCO Skyline. Your booking has been successfully confirmed. We look forward to welcoming you!
+mt-10 rounded-2xl border border-[#008751]/30 bg-gradient-to-r from-[#f0faf5] to-[#e6f7ed] px-5 py-6 shadow-sm text-left
+text-sm text-gray-600
+A confirmation email has been sent to 
+mt-3 text-base font-semibold text-gray-900
+font-mono tracking-wider text-[#008751]
+mt-3 text-sm text-gray-800 space-y-1
+flex items-baseline gap-2
+mt-3 text-xs text-gray-700
+: This code will also be sent on your 
+mt-4 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3
+text-sm font-semibold text-amber-900
+Please apply this code to claim your discount at the JUTAKU Experience Center.
+mt-2 flex items-center gap-2
+text-sm text-amber-900
+font-mono font-bold tracking-wider text-amber-900 bg-white border border-dashed border-amber-400 rounded px-2 py-0.5 text-sm
+mt-2 text-xs text-amber-900/80
+mt-3 text-sm text-gray-700
+Your booking access will be sent within 
+text-[#a17b14] font-semibold underline underline-offset-2 hover:text-[#8a6911]
+mt-10 text-center text-sm text-gray-500
+We couldn't find the details of a recent booking in this browser tab. If you just booked a visit, check the confirmation email sent to you — otherwise you can book a new visit below.
+mt-10 flex flex-col sm:flex-row items-center justify-center gap-3
+inline-flex items-center justify-center bg-[#1a3a2a] text-white px-6 py-3 rounded-full text-sm font-medium tracking-wide hover:bg-[#008751] transition-colors
+No value provided for variable 
+data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=
+Deprecated include of L.Mixin.Events: this property will be removed in future releases, please inherit from L.Evented instead.
+wrong listener type: 
+"string" type argument expected
+Invalid LatLng object: (
+<v:shape adj="1"/>
+url(#default#VML)
+wrong event specified:
+DXImageTransform.Microsoft.Alpha
+mousedown touchstart dblclick contextmenu
+Bounds are not valid.
+Geolocation not supported.
+permission denied
+position unavailable
+Geolocation error: 
+Map container is being reused by another instance
+Map container not found.
+Map container is already initialized.
+ leaflet-fade-anim
+Set map center and zoom first.
+click dblclick mousedown mouseup mouseover mouseout mousemove contextmenu keypress keydown keyup
+leaflet-proxy leaflet-zoom-animated
+<input type="radio" class="leaflet-control-layers-selector" name="
+ checked="checked"
+<span aria-hidden="true">+</span>
+<span aria-hidden="true">&#x2212;</span>
+zoomend zoomlevelschange
+<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"/><path fill="#FFD500" d="M0 4h12v3H0z"/><path fill="#E0BC00" d="M0 7h12v1H0z"/></svg>
+<a href="https://leafletjs.com" title="A JavaScript library for interactive maps">
+ <span aria-hidden="true">|</span> 
+touchstart mousedown
+touchend touchcancel
+mousemove touchmove
+mouseup touchend touchcancel
+latlngs not passed
+latlngs are not flat! Only the first ring will be used
+Deprecated use of _flat, please use L.LineUtil.isFlat instead.
+The provided object is not a Layer.
+iconUrl not set in Icon options (see the docs).
+marker-icon-2x.png
+marker-shadow.png
+link[href$="leaflet.css"]
+Circle radius cannot be NaN
+Must add layer to map before using getCenter()
+Invalid GeoJSON object.
+Unable to get source layer LatLng.
+ leaflet-zoom-animated
+<span aria-hidden="true">&#215;</span>
+leaflet-tooltip 
+leaflet-tile-container leaflet-zoom-animated
+Attempted to load an infinite number of tiles
+click dblclick mousedown mouseup contextmenu
+urn:schemas-microsoft-com:vml
+ xmlns="urn:schemas-microsoft.com:vml" class="lvml">
+leaflet-vml-shape 
+leaflet-grab leaflet-touch-drag
+touchend touchcancel contextmenu
+No context provided: useLeafletContext() can only be used in a descendant of <MapContainer>
+Tree API base URL is not configured
+/tree-assets/data/trees.json
+[Tree API] Local tree data fallback failed:
+Pending data sync
+Detailed tree data is not available in static fallback yet.
+Unable to fetch tree (
+Unable to log scan (
+w-6 h-6 text-blue-500
+w-6 h-6 text-green-500
+w-6 h-6 text-purple-500
+w-6 h-6 text-pink-500
+w-6 h-6 text-gray-500
+w-6 h-6 text-red-500
+w-5 h-5 text-amber-500
+w-8 h-8 text-green-600
+bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 
+flex items-start gap-4
+flex-shrink-0 p-2 bg-gray-50 rounded-xl
+text-xs font-medium text-gray-400 uppercase tracking-wider mb-1
+text-base font-semibold text-gray-800 truncate
+bg-white rounded-2xl p-6 shadow-sm border border-gray-100
+flex items-center gap-3 mb-4
+text-lg font-bold text-gray-800
+inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border 
+bg-emerald-100 text-emerald-700 border-emerald-200
+bg-green-100 text-green-700 border-green-200
+bg-yellow-100 text-yellow-700 border-yellow-200
+bg-red-100 text-red-700 border-red-200
+bg-gray-100 text-gray-700 border-gray-200
+meta[name="robots"]
+noindex, nofollow, noarchive
+Unable to load tree information
+Health Condition
+Tree Height in Feets.
+Girth Size Dia in Inches
+Orignal Location 
+min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 flex items-center justify-center
+w-20 h-20 border-4 border-green-200 border-t-green-600 rounded-full animate-spin mx-auto
+absolute inset-0 flex items-center justify-center
+mt-6 text-gray-600 font-medium
+Loading tree information...
+text-sm text-gray-400 mt-1
+min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 flex items-center justify-center px-4
+bg-white rounded-3xl shadow-xl p-8 max-w-md w-full text-center
+w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4
+w-8 h-8 text-red-500
+text-xl font-bold text-gray-800 mb-2
+Unable to Load Tree
+text-gray-500 mb-4
+text-sm text-gray-400
+min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50
+bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 text-white
+max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8
+flex items-center gap-2 text-green-200 text-sm mb-3
+hidden sm:flex p-3 bg-white/10 rounded-2xl backdrop-blur-sm
+text-3xl sm:text-4xl font-bold mb-2
+text-green-100 italic text-lg mb-2
+flex flex-wrap items-center gap-3 mt-3
+bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-medium
+px-3 py-1 rounded-full text-sm font-medium border 
+bg-emerald-500/25 border-emerald-200 text-white
+bg-amber-500/30 border-amber-200 text-white
+bg-gray-500/30 border-gray-200 text-white
+max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8 -mt-4
+w-full h-64 sm:h-80 object-cover rounded-3xl shadow-lg
+grid grid-cols-2 gap-4 mb-6
+bg-amber-50 rounded-xl p-4 border border-amber-100
+w-5 h-5 text-amber-600
+font-semibold text-amber-800
+Earlier Location
+text-gray-600 text-sm mb-3
+https://www.google.com/maps?q=
+inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-200
+Open in Google Maps
+bg-green-50 rounded-xl p-4 border border-green-100
+w-5 h-5 text-green-600
+font-semibold text-green-800
+Present Location
+inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-colors duration-200
+Relocation Progress
+grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm
+text-gray-500 w-36 shrink-0
+text-gray-800 whitespace-pre-line break-words
+mt-10 text-center
+https://memcoskyline.com
+inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 mb-6
+About MEMCO SKYLINE
+text-sm text-gray-500 mt-4 max-w-md mx-auto
+At MEMCO Skyline, trees are not just planted. They are transplanted, tagged and treasured
+inline-flex items-center gap-2 text-gray-400 text-sm mt-4
+Roots Before Roofs Initiative
+inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold border 
+bg-green-50 text-green-700 border-green-200
+bg-yellow-50 text-yellow-700 border-yellow-200
+bg-red-50 text-red-700 border-red-200
+bg-gray-50 text-gray-600 border-gray-200
+bg-emerald-50 text-emerald-700 border-emerald-200
+bg-amber-50 text-amber-800 border-amber-200
+rounded-lg border border-gray-200 bg-white p-3 hover:border-emerald-300 hover:shadow-sm transition
+flex items-center justify-between gap-2 flex-wrap
+flex items-center gap-2 min-w-0
+font-semibold text-gray-900 text-sm
+text-[11px] italic text-gray-500 truncate
+flex items-center gap-1.5
+mt-2 grid grid-cols-2 sm:grid-cols-4 gap-x-3 gap-y-1 text-[12px] text-gray-700
+mt-2 pt-2 border-t border-gray-100 grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-[12px]
+text-amber-700 font-semibold text-[11px] uppercase tracking-wider
+text-gray-800 break-all
+text-emerald-700 font-semibold text-[11px] uppercase tracking-wider
+min-h-screen bg-gray-50
+bg-gradient-to-br from-emerald-600 to-emerald-800 text-white pt-24 md:pt-28 pb-8 px-4
+max-w-5xl mx-auto
+text-xs uppercase tracking-[0.25em] text-emerald-100
+MEMCO Skyline · Tree Registry
+text-3xl md:text-5xl font-bold mt-2
+All Trees at MEMCO Skyline
+text-emerald-100 mt-2 text-sm md:text-base
+max-w-5xl mx-auto px-4 py-6 md:py-8
+flex flex-wrap gap-2 mb-4
+px-3 py-1.5 rounded-full border text-sm font-medium transition 
+bg-emerald-600 text-white border-emerald-600 shadow-sm
+bg-white text-gray-700 border-gray-300 hover:bg-gray-50
+ml-1.5 inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[11px] font-semibold 
+bg-white/20 text-white
+bg-gray-100 text-gray-600
+Search by species, tree ID or botanical name…
+w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none
+p-3 rounded-lg bg-red-50 text-red-700 text-sm mb-4
+Could not load tree registry: 
+p-8 text-center text-gray-500 text-sm
+Loading tree registry…
+rounded-xl bg-white border border-gray-200 shadow-sm overflow-hidden
+w-full flex items-center justify-between gap-3 px-4 py-3 md:px-5 md:py-4 text-left hover:bg-emerald-50/40 transition
+flex items-center gap-3 min-w-0
+w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0
+font-semibold text-gray-900 truncate
+text-xs text-gray-500
+w-5 h-5 text-gray-400 transition-transform 
+px-3 pb-4 md:px-5 md:pb-5 border-t border-gray-100 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 pt-3 bg-gray-50/40
+mt-10 pt-6 border-t border-gray-200 text-center text-xs text-gray-500
+Every core has a purpose, Every space tells a story.Explore the vision behind MEMCO Skyline's Jutaku
+Every great development begins with a vision, and every detail plays a role in bringing that vision to life. ✨
+
+Take a closer look at MEMCO Skylines – Jutaku, as we walk you through the project's concept, planning, design, and the thought behind every space.
+
+From the initial vision to the finer details, discover what makes this project a reflection of thoughtful planning and purposeful design.
+
+MEMCO Skylines – Jutaku
+A vision shaped with purpose. A space designed to tell a story.
+
+#MEMCOSkylines #Jutaku #ProjectOverview #ArchitecturalDesign #ThoughtfulLiving #ProjectShowcase
+https://youtu.be/vFXXJuXyhbw
+Jutaku's Golden Hour 🌅
+You're invited to the first look at Jutaku — a community being built for people who work hard, live well, and know their neighbours by name. Join us for a sundowner, right where it's all coming up. 📍 MEMCO Skyline, Singasandra, South Bangalore · 🕔 5:00 PM – 10:00 PM | 22nd August · 🎶 Live music, DJ, and a sunset you won't want to miss · 🎟️ Scan the QR in the video to grab your spot. Something's brewing as the sun goes down — be there before it sets.
+https://youtube.com/shorts/u-vWy6oE81Y?si=DhHjGV69S9f0GUYx
+MEMCO / Tree Transplantation
+348 trees surveyed. 115 stood in the construction path. Every one transplanted — zero lost.
+https://youtu.be/MgZtkpUkwnI
+Experience Center Walkthrough
+Step inside the Urban Unit and see how ownership becomes a lifestyle, not just an address.
+https://youtu.be/hgZz-oA7Oz4
+India's No.1 men's tennis player and JUTAKU Brand Ambassador — less space, more possibility.
+https://youtu.be/LktomrqfmNg
+50,000 sq.ft. across every Core — a different vibe for every evening, all one address.
+https://youtu.be/FjBli6q4MgY
+Video Admin · MEMCO Skyline
+noindex, nofollow, noarchive, nosnippet
+Could not load videos from backend: 
+bg-gradient-to-br from-[#1e3a5f] to-[#2e7d32] text-white
+max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10
+text-[11px] uppercase tracking-[0.28em] text-emerald-100
+MEMCO Skyline · Internal
+mt-1 flex items-center justify-between gap-4 flex-wrap
+text-2xl md:text-3xl font-bold
+text-[11px] uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/15 border border-white/25
+noindex · live CMS
+text-emerald-100/90 text-sm md:text-base mt-2 max-w-3xl
+Every save writes directly to the database. The News & Events grid on
+underline hover:text-white mx-1
+memcoskyline.com/news-events
+picks up your changes the moment a visitor loads the page — no re-deploy needed.
+flex flex-wrap items-center justify-between gap-3 mb-6
+text-sm text-gray-700 flex items-center gap-2 flex-wrap
+flex gap-2 flex-wrap
+text-sm px-3 py-1.5 rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-100
+text-sm px-4 py-1.5 rounded-md bg-[#1e3a5f] text-white hover:bg-[#2e7d32] transition-colors font-semibold
+mb-4 p-3 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm
+mb-4 p-3 rounded-md bg-red-50 border border-red-200 text-red-800 text-sm
+p-10 text-center text-gray-500 text-sm
+rounded-xl border-2 border-dashed border-gray-300 bg-white p-10 md:p-16 text-center
+text-lg font-semibold text-[#1e3a5f]
+text-sm text-gray-500 mt-1
+ to create your first entry.
+https://i.ytimg.com/vi/
+rounded-xl bg-white border border-gray-200 shadow-sm p-4 md:p-5 grid grid-cols-1 md:grid-cols-[220px_1fr_auto] gap-4
+aspect-video rounded-lg overflow-hidden bg-gradient-to-br from-[#1e3a5f] to-[#2e7d32] relative
+w-full h-full object-cover
+absolute inset-0 flex items-center justify-center text-white/85 text-[11px] uppercase tracking-widest
+absolute top-2 left-2 text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full 
+bg-emerald-500 text-white
+bg-gray-500 text-white
+bg-amber-500 text-white
+grid grid-cols-1 gap-2.5
+text-[11px] uppercase tracking-wider text-gray-500 font-semibold
+e.g. Amenities Tour
+mt-0.5 w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none
+Description (1-2 lines)
+Short teaser shown under the card
+YouTube URL (watch, youtu.be, shorts, or raw ID)
+https://www.youtube.com/watch?v=…
+mt-0.5 w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 focus:outline-none font-mono
+text-[11px] text-emerald-700 mt-1 block
+Order (left → right)
+flex items-center gap-2 mt-5
+h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500
+text-sm text-gray-700
+Visible on homepage
+flex md:flex-col gap-2 items-start justify-start
+” — live on the homepage now.
+Please enter a title before saving.
+text-sm px-4 py-1.5 rounded-md bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-40 disabled:cursor-not-allowed font-semibold
+”? This removes it from the live homepage immediately.
+✓ Deleted — removed from homepage.
+text-xs px-3 py-1.5 rounded border border-red-200 bg-red-50 text-red-700 hover:bg-red-100
+text-center text-[11px] text-gray-400 py-6
+Internal tool · Not linked from the public site · Access controlled by URL secrecy
+max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center
+Thank You for Your Interest in MEMCO Skyline!
+Your enquiry has been successfully submitted. Our team will contact you shortly.
+inline-flex items-center justify-center border border-[#008751] text-[#008751] px-6 py-3 rounded-full text-sm font-medium tracking-wide hover:bg-[#f0faf5] transition-colors
+bg-white border-b border-gray-200
+max-w-3xl mx-auto px-4 py-4 sm:py-5 flex items-center gap-2 sm:gap-3 md:gap-4
+h-10 sm:h-11 md:h-12 w-auto flex-shrink-0
+w-px h-9 sm:h-10 md:h-11 bg-gray-300 flex-shrink-0
+hidden sm:block w-px h-10 md:h-11 bg-gray-300 flex-shrink-0
+hidden sm:flex flex-col justify-center flex-shrink-0 leading-[1.15]
+text-gray-600 text-[8px] md:text-[11px] font-semibold tracking-[0.12em] md:tracking-[0.18em] uppercase
+inline-flex items-stretch rounded-xl border border-gray-300 overflow-hidden bg-white
+w-20 text-center text-base md:text-lg font-bold border-x border-gray-300 focus:outline-none
+This RSVP link is no longer active.
+ · MEMCO Skyline
+Could not reach the server. Please try again in a moment.
+relative min-h-screen bg-stone-50
+(min-width: 768px)
+/images/hero/hero-100x-desktop.webp
+/images/hero/hero-100x-mobile.webp
+pointer-events-none select-none absolute inset-0 w-full h-full object-cover opacity-[0.18]
+pointer-events-none absolute inset-0
+linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.85) 60%, rgba(255,255,255,0.95) 100%)
+max-w-3xl mx-auto px-4 py-16 text-center text-gray-500
+max-w-2xl mx-auto px-4 py-12 sm:py-16
+bg-white/95 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 sm:p-8 shadow-sm text-center
+text-2xl sm:text-3xl font-bold text-gray-900 mb-2
+RSVP not available
+text-gray-600 mb-6
+inline-block px-5 py-2.5 rounded-full bg-[#0e3b2e] text-white font-semibold hover:bg-[#0a2d23] transition
+Visit memcoskyline.com
+bg-white/95 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 sm:p-10 shadow-sm text-center
+mx-auto mb-4 w-14 h-14 rounded-full bg-green-50 flex items-center justify-center
+w-7 h-7 text-[#0e3b2e]
+text-gray-600 mb-2
+We've received your details for the 
+text-gray-500 text-sm mb-6
+Our team will be in touch with the venue and time shortly.
+text-sm text-gray-500
+Redirecting to memcoskyline.com in 
+max-w-2xl mx-auto px-4 py-8 sm:py-12
+text-center mb-6 sm:mb-8
+text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-[#a17b14] mb-2
+text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight
+JUTAKU Ground Breaking Ceremony
+mt-3 text-gray-700 text-sm sm:text-base
+bg-white/95 backdrop-blur-sm border border-gray-200 rounded-2xl p-5 sm:p-7 shadow-sm space-y-5
+Company (leave blank)
+w-full px-4 py-2.5 text-base rounded-xl border border-gray-300 focus:border-[#0e3b2e] focus:ring-2 focus:ring-[#0e3b2e]/20 focus:outline-none
+mt-1 text-xs text-red-600
+Please enter your full name.
+Number of guests 
+mt-1.5 text-xs text-gray-500
+Including yourself.
+text-gray-400 text-[10px] normal-case tracking-normal
+bg-red-50 border border-red-200 rounded-lg px-3 py-2 text-sm text-red-700
+w-full sm:w-auto px-7 py-3 rounded-full bg-[#0e3b2e] text-white font-semibold hover:bg-[#0a2d23] disabled:opacity-50 disabled:cursor-not-allowed transition
+mt-4 text-center text-xs text-gray-500
+Your details are shared only with the MEMCO Skyline team for this event.
+relative overflow-hidden pt-16 sm:pt-20 lg:pt-20 bg-white
+relative w-full aspect-[1672/941]
+(max-width: 767px)
+/images/hero/hero-100x-desktop.jpg
+MEMCO Skyline — 100X Lifestyle, First of its kind in India. RERA RG No: PRM/KA/RERA/1251/310/PR/240426/008602
+w-full h-full object-contain
+(prefers-reduced-motion: reduce)
+ms cubic-bezier(0.22, 1, 0.36, 1) 
+opacity, transform
+
+        @keyframes brochureShift {
+          0%, 100% { background-position: 0% 50%; }
+          50%      { background-position: 100% 50%; }
+        }
+        @keyframes brochureBounce {
+          0%, 100% { transform: translateY(0); }
+          50%      { transform: translateY(2px); }
+        }
+        @keyframes brochurePulseRing {
+          0%   { box-shadow: 0 0 0 0 rgba(0,135,81,0.55); }
+          70%  { box-shadow: 0 0 0 14px rgba(0,135,81,0); }
+          100% { box-shadow: 0 0 0 0 rgba(0,135,81,0); }
+        }
+        .brochure-cta { animation: brochurePulseRing 2.6s ease-out infinite; }
+        @media (prefers-reduced-motion: reduce) {
+          .brochure-cta,
+          .brochure-cta * { animation: none !important; transition: none !important; }
+        }
+      
+py-8 sm:py-12 md:py-16 bg-gray-50
+max-w-7xl mx-auto px-4 sm:px-6 lg:px-12
+grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center
+text-center lg:text-left
+text-[clamp(2rem,6vw,3.75rem)] font-bold text-gray-900 leading-[1.1] mb-4
+block text-[#008751] mt-1 sm:mt-2
+Experience 50,000 sq.ft.
+text-base sm:text-lg md:text-xl text-gray-600 font-light mb-2 sm:mb-3 leading-relaxed
+A new way of living where your private space connects to a much larger ecosystem.
+text-sm sm:text-base text-gray-500 mb-6 sm:mb-8
+Smarter Living near Hosa Road Metro
+flex flex-col sm:flex-row flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4
+w-full sm:w-auto bg-[#008751] hover:bg-[#006e42] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg tracking-wide transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] text-center
+Book your JUTAKU Experience
+w-full sm:w-auto bg-white border-2 border-gray-300 hover:border-[#008751] text-gray-700 hover:text-[#008751] px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg tracking-wide transition-all duration-300 text-center inline-flex items-center justify-center
+Get Early Access
+brochure-cta group relative w-full sm:w-auto overflow-hidden rounded-xl px-6 sm:px-8 py-3 sm:py-4 font-bold text-base sm:text-lg tracking-wide text-white shadow-[0_10px_30px_-8px_rgba(0,135,81,0.55)] hover:shadow-[0_14px_36px_-6px_rgba(0,135,81,0.75)] transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-4 focus:ring-[#008751]/40 text-center inline-flex items-center justify-center
+absolute inset-0 bg-[linear-gradient(120deg,#004d2c_0%,#006e42_40%,#008751_60%,#00a665_75%,#006e42_100%)] bg-[length:200%_100%] animate-[brochureShift_5s_ease_infinite]
+absolute -inset-1 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-[linear-gradient(110deg,transparent_40%,rgba(255,255,255,0.45)_50%,transparent_60%)] pointer-events-none
+absolute inset-0 rounded-xl ring-1 ring-white/25
+relative z-10 inline-flex items-center justify-center gap-2.5
+relative inline-flex h-7 w-7 items-center justify-center
+absolute inset-0 rounded-full bg-white/15 group-hover:bg-white/25 transition-colors
+relative h-4 w-4 animate-[brochureBounce_1.6s_ease-in-out_infinite]
+drop-shadow-[0_1px_2px_rgba(0,0,0,0.2)]
+grid grid-cols-2 gap-3 sm:gap-4
+bg-white rounded-xl p-4 sm:p-6 shadow-md border border-gray-100 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-[#008751]/30
+text-[clamp(1.75rem,5vw,2.5rem)] font-bold text-[#008751] mb-1 sm:mb-2 leading-none
+text-gray-600 text-[11px] sm:text-sm uppercase tracking-wide
+py-14 md:py-20 bg-white
+grid lg:grid-cols-2 gap-12 lg:gap-16 items-center
+flex items-center gap-3 mb-6
+w-10 h-10 bg-[#008751]/10 rounded-full flex items-center justify-center
+w-5 h-5 text-[#008751]
+text-[#008751] font-semibold text-sm uppercase tracking-wider
+text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6
+block text-[#008751] mt-2
+text-gray-600 text-lg leading-relaxed mb-6
+With rising real estate prices, owning more space isn't always smarter. MEMCO Skyline introduces a new way of living where an urban lifestyle ecosystem gives access to a large-scale living experience.
+bg-gradient-to-r from-[#008751]/10 to-transparent border-l-4 border-[#008751] p-6 rounded-r-lg mb-8
+text-xl md:text-2xl font-bold text-gray-900
+Own 500 sq.ft. and unlock 
+ of exclusive experiences.
+text-gray-600 text-sm leading-relaxed
+MEMCO-Skyline is powered by our parent company 
+https://memco.in/
+font-bold text-[#008751] hover:underline
+, headquartered in Namma Bengaluru for over 40 years, the oldest and trusted Engineering company in Space, Defence, Power Infrastructure & Metro Trains.
+inline-flex items-center gap-2 mt-6 text-[#008751] font-semibold hover:gap-3 transition-all duration-300
+relative rounded-2xl overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-[1.015]
+/images/concept/balcony-exterior.webp
+MEMCO Skyline Lifestyle
+w-full h-[400px] lg:h-[500px] object-cover
+absolute inset-0 bg-gradient-to-t from-gray-900/40 to-transparent
+absolute bottom-6 left-6 right-6
+bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg
+grid grid-cols-3 gap-4 text-center
+text-2xl font-bold text-[#008751]
+text-xs text-gray-500 uppercase
+border-l border-r border-gray-200
+Lifestyle Multiplier
+relative overflow-hidden 
+absolute inset-0 bg-gray-200 animate-pulse
+absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-400
+w-full h-full transition-opacity duration-300 
+/gallery/location/skyline-metro-map.webp
+MEMCO Skyline — Singasandra & Hosa Road Metro connectivity map
+/gallery/location/Hosa Road.jpg
+/gallery/location/Singsandra.webp
+/gallery/flat-interior/flat-kitchen-entry.jpg
+Kitchen Entry View
+/gallery/flat-interior/flat-kitchen-l-shape.jpg
+L-Shaped Modern Kitchen
+/gallery/flat-interior/flat-master-bedroom.jpg
+/gallery/flat-interior/flat-bathroom.jpg
+Rooftop Dining & Entertainment
+/gallery/entertainment/rooftop-cafe-golf-simulator.jpg
+Rooftop Café & Golf Simulator
+/gallery/entertainment/rooftop-bbq-lounge.jpg
+Rooftop BBQ Lounge
+/gallery/entertainment/rooftop-pool-deck.jpg
+Rooftop Pool Deck
+/gallery/entertainment/rooftop-dining-area.jpg
+Rooftop Dining Area
+/gallery/entertainment/rooftop-sports-court.jpg
+Rooftop Tennis & Pickleball Court
+/gallery/entertainment/rooftop-squash-court.jpg
+Rooftop Squash Court
+/gallery/entertainment/rooftop-futsal-court.jpg
+Rooftop Futsal Court
+Sports & Fitness Clubhouse
+/gallery/sports/sports-billiards-lounge.jpg
+Billiards & Pool Lounge
+/gallery/sports/sports-table-tennis.jpg
+Table Tennis Room
+/gallery/sports/sports-pilates-studio.jpg
+Pilates & Yoga Studio
+/gallery/sports/sports-gym.jpg
+Gym & Strength Training
+/gallery/sports/sports-simulator.jpg
+Multi-Sports Simulator
+/gallery/sports/sports-racing-simulator.jpg
+Racing Simulator Booths
+/gallery/sports/sports-vr-gaming-zone.jpg
+F1 VR Gaming Zone
+/gallery/sports/sports-bowling-alley.jpg
+Bowling Alley & Lounge
+/gallery/sports/sports-arcade-bar.jpg
+Arcade & Sports Bar
+/gallery/tech/club-practice-room.jpg
+Practice & Performance Room
+/gallery/tech/club-podcast-room.jpg
+/gallery/tech/club-jamming-room.jpg
+Music & Jamming Room
+/gallery/tech/club-coworking.jpg
+Kanso Co-Working Space
+/gallery/tech/club-community-kitchen.jpg
+Community Kitchen
+Safety & Security
+/gallery/security/24 X 7 security.jpg
+/gallery/security/adv biometric system.jpg
+Biometric System
+/gallery/security/fire safety.jpg
+/gallery/security/intercom home.jpg
+/gallery/security/visitor management system.jpg
+Visitor Management
+relative overflow-hidden rounded-lg bg-gray-100 aspect-[4/3]
+flex-shrink-0 w-full h-full
+w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50
+text-xs font-medium
+absolute left-1.5 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white w-7 h-7 rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity z-10
+w-3.5 h-3.5 text-gray-800
+absolute right-1.5 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white w-7 h-7 rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity z-10
+text-center mt-3 text-xs md:text-sm font-semibold text-gray-800 tracking-wide uppercase
+max-w-6xl mx-auto px-4 sm:px-6 lg:px-8
+grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-5
+grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5
+Premium residences designed for modern comfort
+Co-working spaces and podcasting room for productivity
+Podcasting room, DJ facilities and content creation spaces
+Community spaces, party areas and social lounges
+Revenue-sharing opportunities from bookable amenities
+py-14 md:py-20 bg-gray-50
+text-center mb-12 md:mb-16
+flex items-center justify-center gap-3 mb-6
+Ecosystem Preview
+text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4
+A 50,000 Sq.Ft. Urban
+text-3xl md:text-4xl lg:text-5xl font-bold text-[#008751] mb-6
+Lifestyle Ecosystem
+text-gray-600 text-lg max-w-2xl mx-auto
+Designed for modern urban living where every amenity serves a purpose and every space creates an experience.
+grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6 mb-12
+bg-white rounded-xl p-6 text-center shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#008751]/30 hover:-translate-y-1 group h-full
+w-16 h-16 mx-auto mb-4 bg-[#008751]/10 rounded-full flex items-center justify-center text-[#008751] group-hover:bg-[#008751] group-hover:text-white group-hover:scale-110 transition-all duration-300
+text-lg font-bold text-gray-900 mb-2
+text-sm text-gray-500 leading-relaxed
+inline-flex items-center gap-2 bg-[#008751] hover:bg-[#006e42] text-white px-8 py-4 rounded-lg font-semibold tracking-wide transition-all duration-300 shadow-lg hover:shadow-xl
+Explore Full Ecosystem
+Connected to key work zones
+Close to everyday transit access
+Built within a high-demand urban ecosystem
+py-16 md:py-24 bg-white relative overflow-hidden
+absolute inset-0 opacity-5
+absolute inset-0
+url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8
+flex items-center justify-center mb-8
+w-16 h-16 bg-[#00b86e]/15 rounded-2xl flex items-center justify-center
+w-8 h-8 text-[#00b86e]
+text-center mb-6
+text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-3
+Urban Lifestyle Ecosystem
+text-2xl md:text-3xl text-gray-600 font-light
+Life, Built Around You
+text-center mb-10
+text-2xl md:text-3xl lg:text-4xl font-bold text-[#008751] leading-snug
+Larger experience. Smarter living. Better returns.
+w-24 h-1 bg-[#008751]/30 mx-auto mb-12 rounded-full
+max-w-3xl mx-auto text-center mb-14
+text-xl md:text-2xl font-semibold text-gray-900 mb-6
+This isn't just a place to live.
+text-lg md:text-xl text-gray-600 leading-relaxed mb-5
+It's a system designed around how your day actually flows.
+Work, connect, create and unwind — all within one connected ecosystem.
+text-lg md:text-xl text-gray-600 leading-relaxed
+Set in a high-demand corridor with seamless access to the city,
+your private space extends into a much larger community environment.
+flex flex-col md:flex-row items-stretch justify-center gap-4 mb-14
+bg-gray-50 rounded-xl p-5 border border-gray-100 flex items-center gap-3 h-full
+w-8 h-8 bg-[#008751]/15 rounded-full flex items-center justify-center flex-shrink-0
+text-[#008751] text-sm
+text-gray-700 font-medium text-sm leading-snug
+inline-block bg-gradient-to-r from-[#008751]/5 via-[#008751]/10 to-[#008751]/5 rounded-2xl px-10 py-8 border border-[#008751]/10
+text-2xl md:text-3xl font-bold text-gray-900 mb-1
+text-2xl md:text-3xl font-bold text-[#008751]
+Experience everything around it.
+inline-flex items-center gap-2 bg-[#008751] hover:bg-[#006e42] text-white px-8 py-4 rounded-full font-semibold tracking-wide transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-[1.02]
+bg-white py-3 px-4 sm:px-6 lg:px-8
+max-w-7xl mx-auto
+text-[10px] sm:text-xs text-gray-400 text-left
+Images are artistic impressions and may not reflect the final product. Actual development may vary.
+Purpose-Led Design
+Spaces designed around everyday use, not just visuals
+Layouts planned with purpose for how you actually live
+Experience-Driven Planning
+Built around real life, not just architectural aesthetics
+Integrated Ecosystem Planning
+Spaces designed to serve multiple purposes: work, play and create
+/design/A-Green-Sanctuary.webp
+A Green Sanctuary
+/design/Energy-Efficient-Materials.webp
+Energy-Efficient Materials
+/design/Natural-Light-&-Ventilation.webp
+Natural Light & Ventilation
+/design/landscape walking and jogging space.jpg
+Walking & Jogging Space
+/design/Waste-Management-&-Recycling-Solutions.webp
+Waste Management
+/design/Water-Conservation-&-Rainwater-Harvesting-Systems.webp
+Water Conservation
+/design/Outdoor-Space-Your-Way.webp
+/design/Tree-Transplanting.webp
+Tree Preservation
+transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+py-10 md:py-12 bg-white
+relative overflow-hidden
+opacity 0.3s ease
+carousel-card flex-shrink-0 w-[85%] sm:w-[45%] md:w-[36%] rounded-xl overflow-hidden
+0 25px 50px -12px rgba(0, 0, 0, 0.25)
+0 4px 6px -1px rgba(0, 0, 0, 0.1)
+w-full h-[280px] sm:h-[320px] md:h-[400px]
+text-gray-800 text-center py-3 px-4
+text-sm md:text-base font-medium tracking-wide
+absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors z-10
+w-5 h-5 text-gray-800
+absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-colors z-10
+relative h-[35vh] md:h-[40vh]
+/images/design/design-hero-lobby.webp
+Double-height 13th & 14th floor lobby with signature chandelier
+absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-transparent
+absolute inset-0 flex items-center
+max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 w-full
+text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-wide animate-fadeInUp
+text-base md:text-lg text-gray-200 mt-2 max-w-2xl animate-fadeInUp
+Built around real life. Designed for how you actually live.
+grid lg:grid-cols-2 gap-12 items-center
+text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight
+text-lg text-gray-600 leading-relaxed mb-6
+Planned with purpose. Built for how you actually live. MEMCO Skyline's design concept focuses on experience-driven planning: maximizing functionality and lifestyle, not just space.
+bg-[#008751] border-l-4 border-[#006b3f] p-6 rounded-r-lg
+text-white italic
+"Designed around everyday use, not just visuals."
+/images/design/living-room-interior.webp
+Modern Interior Design
+w-full h-[400px] object-cover rounded-2xl shadow-xl
+text-center mb-12
+text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4
+Design Principles
+text-gray-600 max-w-2xl mx-auto
+Every aspect of MEMCO Skyline is thoughtfully crafted to deliver maximum value and experience.
+grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6
+bg-white rounded-xl p-8 text-center shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 group
+w-20 h-20 mx-auto mb-6 bg-[#008751]/10 rounded-full flex items-center justify-center text-[#008751] group-hover:bg-[#008751] group-hover:text-white transition-all duration-300
+text-lg font-bold text-gray-900 mb-3
+text-sm text-gray-600 leading-relaxed
+grid lg:grid-cols-2 gap-8
+/images/design/design-header-single.webp
+Balcony Interior Views
+w-full h-[300px] object-cover rounded-xl shadow-lg
+/images/design/bedroom-interior.webp
+Bedroom Interior
+py-20 relative bg-white
+relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 text-center
+text-3xl md:text-4xl font-bold text-gray-900 mb-6
+This isn't something you just see
+text-gray-600 text-lg mb-8 max-w-2xl mx-auto
+It's something you experience. Discover design that goes beyond walls.
+inline-block bg-[#008751] hover:bg-[#006e42] text-white px-10 py-4 rounded-lg font-semibold text-lg tracking-wide transition-all duration-300 shadow-lg hover:shadow-xl
+Book your Skyline Visit
+An Urban Lifestyle Private Space
+Your personal sanctuary, thoughtfully designed for comfort and efficiency
+A Large Exclusive Community Ecosystem
+50,000 sq.ft. of exclusive experiences and premium amenities
+Access to Lifestyle, Work & Community
+Everything you need to live, work, play and grow, all within reach
+flex-shrink-0 w-[85%] sm:w-[45%] md:w-[36%] rounded-xl overflow-hidden
+transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease, box-shadow 0.5s ease
+w-full h-[280px] sm:h-[320px] md:h-[400px] object-cover
+bg-gray-200 h-[280px] sm:h-[320px] md:h-[400px] flex items-center justify-center
+text-gray-400 text-sm
+Image Placeholder
+text-gray-800 text-center py-3 px-4 bg-white
+text-xl sm:text-2xl md:text-3xl text-gray-900 font-bold uppercase tracking-wide text-center mb-8 md:mb-12
+relative h-[40vh] md:h-[50vh] min-h-[320px] z-0 overflow-hidden
+/images/concept/concept-hero-building.webp
+MEMCO Skyline — Concept
+absolute inset-0 w-full h-full object-cover
+absolute inset-0 bg-black/35
+relative h-full flex flex-col items-center justify-center px-4
+text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-widest uppercase text-center animate-fadeInUp
+mt-4 md:mt-5 text-sm sm:text-base md:text-lg text-white/90 text-center tracking-wide max-w-2xl animate-fadeInUp
+Own your space. Access everything else.
+py-16 md:py-24 bg-white
+text-center max-w-4xl mx-auto
+inline-block text-[#008751] font-semibold text-sm uppercase tracking-[0.25em] mb-5
+text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-[1.15]
+A smarter way to 
+w-16 h-1 bg-[#008751] rounded-full mx-auto mb-8
+It's not about how much you own. It's about what you can access. MEMCO Skyline is built on the concept of Smart Ownership: an Access-Based Living model that maximizes experience over square footage.
+relative py-12 md:py-16 bg-[#008751] overflow-hidden
+absolute -top-24 -left-24 w-80 h-80 bg-white/5 rounded-full blur-3xl
+absolute -bottom-24 -right-24 w-80 h-80 bg-white/5 rounded-full blur-3xl
+relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-12 text-center
+inline-block text-white/70 font-semibold text-xs uppercase tracking-[0.3em] mb-4
+text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-[1.15]
+Smaller ownership. 
+py-16 md:py-24 bg-gray-50
+text-center mb-14
+text-[#008751] font-semibold text-sm uppercase tracking-[0.25em]
+text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mt-3 leading-[1.15]
+A Complete Lifestyle Solution
+grid md:grid-cols-3 gap-6 md:gap-8
+group relative bg-white rounded-2xl p-8 md:p-10 text-center shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 hover:border-[#008751]/30 h-full
+w-16 h-16 mx-auto mb-6 bg-[#008751]/10 group-hover:bg-[#008751] rounded-2xl flex items-center justify-center text-[#008751] group-hover:text-white transition-colors duration-300
+text-lg md:text-xl font-bold text-gray-900 mb-3 leading-snug
+text-gray-600 leading-relaxed
+py-16 bg-gray-50
+max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 text-center
+text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6
+A smarter allocation for 
+living and investing
+inline-block bg-[#008751] hover:bg-[#006e42] text-white px-8 py-4 rounded-lg font-semibold tracking-wide transition-all duration-300 shadow-lg hover:shadow-xl
+/concept/raise-and-lead/swimming_pool.webp
+/concept/raise-and-lead/Gym_new_image.webp
+Yoga & Zumba Studio
+/concept/raise-and-lead/yoga_zumba_studio.webp
+/concept/raise-and-lead/pilates_studio_new.webp
+/concept/raise-and-lead/recovery_zone.webp
+Pickleball Courts
+/concept/raise-and-lead/pickleball_courts.webp
+/gallery/entertainment/rooftop-squash-court.webp
+Half Court Basketball
+/concept/raise-and-lead/half_basketball.webp
+Multipurpose Court
+/concept/raise-and-lead/multipurpose_court.webp
+/concept/raise-and-lead/table_tennis.webp
+/concept/raise-and-lead/snooker.webp
+/concept/raise-and-lead/golf_simulator.webp
+Coworking Spaces
+/concept/mission-hours/coworking_space.webp
+/concept/mission-hours/pod_cast_room.webp
+/amenities/Creator and Tech room.webp
+Metro Connectivity
+/concept/mission-hours/Yellow metro train.jpg
+Tech Parks Nearby
+/concept/mission-hours/Near By Tech Park.jpg
+/concept/unwind-window/Theater_room.webp
+/concept/unwind-window/community_kitchen.webp
+/concept/unwind-window/restaurant.webp
+/concept/raise-and-lead/park.webp
+/concept/unwind-window/gazebos.webp
+/concept/unwind-window/pet_zones.webp
+/concept/mission-hours/music_and_jamming_room.webp
+/gallery/entertainment/rooftop-dining-area.webp
+Hosting Kitchens
+/gallery/tech/club-community-kitchen.webp
+/concept/vibe-fest/barbeque_pits.webp
+VR & Simulator Gaming Zones
+/gallery/sports/sports-vr-gaming-zone.webp
+/gallery/sports/sports-bowling-alley.webp
+/concept/vibe-fest/guest_rooms.webp
+/amenities/Gym_new_image.webp
+/amenities/coworking_space.webp
+/amenities/podcast-room.webp
+/amenities/club_house_image.webp
+Community Hall with AV System
+/amenities/community_hall_av.webp
+Electronic City, the tech hub home to giants like Infosys and Wipro, driving India's IT revolution.
+/images/location/electronic-city.webp
+Seamless metro connectivity; minimal commute, major convenience.
+/images/location/Yellow metro train.jpg
+Prime entertainment and shopping destination.
+/images/location/mg-road.webp
+Top-tier healthcare facility within walking distance.
+/images/location/manipal-clinics.webp
+Prominent IT park with multiple tech and corporate companies.
+/images/location/amr-tech-park.webp
+Performance & Wellness Hub
+Performance training and wellness facilities
+Fully Equipped Gym
+Clubrooms & Creator Studios
+Professional studios and collaborative clubrooms
+Community Dining
+Culinary Studios
+Shared kitchen and dining spaces
+Experience Arena
+AV-enabled events and screenings
+Events & Concerts
+Movie Screenings
+Skyline Sports Deck
+Rooftop multi-sport facilities
+Pickleball + Box Cricket + Squash
+Skyline Aqua Lounge
+Rooftop pool with panoramic skyline views
+Open-air courts for quick active breaks
+Laundry & Services
+Daily convenience, handled on-site
+Private green spaces and meditation zones
+Quiet paths for everyday strolls
+Landscaped greens to unwind
+Meditation Zones
+Stillness built into the plan
+Amenity Showcase
+Previous amenity
+relative h-[45vh] md:h-[60vh]
+/images/amenities/rooftop-amenities-bg.webp
+MEMCO Skyline rooftop amenities — pool, pickleball courts, tennis court, and lounge decks
+w-full h-full object-cover object-center
+absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/40
+absolute inset-0 flex flex-col items-center justify-center text-center px-4
+bg-[#008751] text-white text-sm font-bold px-4 py-2 rounded-full mb-4 tracking-wider animate-fadeInUp
+text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-wide mb-3 animate-fadeInUp
+text-lg md:text-xl text-gray-200 max-w-2xl animate-fadeInUp
+Premium amenities for modern urban living
+Experience Zones
+text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mt-2 mb-4
+Everything You Need
+text-gray-500 text-lg
+50,000 sq.ft. of professionally managed spaces
+grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6
+group bg-white rounded-2xl p-8 border border-gray-200 hover:border-[#008751]/40 hover:shadow-xl transition-all duration-300 h-full
+text-[#008751] text-sm font-semibold mb-3 uppercase tracking-wider
+text-2xl font-bold text-gray-900 mb-4 leading-tight
+text-gray-500 text-base mb-6 leading-relaxed
+text-4xl font-bold text-[#008751] mb-1
+text-xs text-gray-500 uppercase tracking-wider
+flex items-start text-gray-700
+text-[#008751] mr-2 font-bold
+bg-[#008751] rounded-2xl p-10 md:p-12 text-white shadow-xl
+text-white/80 text-sm font-semibold mb-3 uppercase tracking-wider
+text-3xl md:text-4xl font-bold mb-3
+text-white/90 text-lg mb-8 leading-relaxed
+grid grid-cols-1 md:grid-cols-3 gap-8
+border-t border-white/20 pt-5
+text-xl font-bold mb-2
+text-white/80 text-base leading-relaxed
+Rainbow Children Hospital
+St. John's Medical College Hospital
+Ekana Multi Specialty Hospital
+Pralaksha Hospital
+Springleaf Hospital
+Vimalalaya Hospital
+St. Francis School
+St. Xavier's Institute of Management
+Mall / Commercial
+Forum South Bengaluru
+Cinepolis SJR Arekere
+Metro / Connectivity
+Central Silk Board
+Banashankari Metro
+Konnappana Agrahara
+Jayaprakash Nagar (JP Nagar)
+
+    <div style="position: relative;">
+      <div class="memco-pulse" style="position: absolute; width: 60px; height: 60px; background-color: #008751; border-radius: 50%; opacity: 0; animation: memco-pulse 3s infinite; left: -30px; top: -30px;"></div>
+      <div class="memco-pulse" style="position: absolute; width: 60px; height: 60px; background-color: #008751; border-radius: 50%; opacity: 0; animation: memco-pulse 3s infinite 1.5s; left: -30px; top: -30px;"></div>
+      
+      <svg width="50" height="50" viewBox="0 0 24 24" fill="none" style="filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4)); position: relative; z-index: 20;">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#008751" stroke="#fff" stroke-width="2"/>
+        <circle cx="12" cy="9" r="3" fill="#fff"/>
+      </svg>
+      
+      <div style="position: absolute; top: 55px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #008751, #00a862); color: white; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; white-space: nowrap; box-shadow: 0 4px 12px rgba(0, 135, 81, 0.4); z-index: 21;">
+        MEMCO Skyline
+      </div>
+    </div>
+  
+https://www.google.com/maps/dir/
+text-base font-semibold mb-3 text-gray-900
+flex flex-wrap gap-2
+group flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 
+text-white shadow-lg scale-105
+bg-white text-gray-700 border border-gray-300 hover:scale-105 hover:shadow-md
+px-1.5 py-0.5 rounded-full text-xs font-bold 
+mt-2 text-xs text-gray-600 font-medium animate-fade-in
+grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6
+relative bg-white rounded-xl shadow-2xl overflow-hidden h-[500px] lg:h-[700px]
+/images/memco-location-map.svg
+animated-marker calibration-marker
+
+        <div class="marker-container" style="position: relative; width: 40px; height: 40px;">
+          <!-- Larger main marker for easier grabbing -->
+          <div style="width: 30px; height: 30px; background-color: 
+; border-radius: 50%; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.5); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); cursor: grab; z-index: 1000;"></div>
+          
+          <!-- Distance label -->
+          <div style="position: absolute; top: 40px; left: 50%; transform: translateX(-50%); background: 
+; color: white; padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: bold; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,0,0,0.4); pointer-events: none;">
+            
+ km
+          </div>
+        </div>
+      
+
+      <div class="marker-container" style="position: relative;">
+        <!-- Simple small marker - no ripples -->
+        <div style="width: 12px; height: 12px; background-color: 
+; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.4); position: relative; z-index: 1000;"></div>
+        
+        <!-- Distance label -->
+        <div style="position: absolute; top: 16px; left: 50%; transform: translateX(-50%); background: 
+; color: white; padding: 1px 4px; border-radius: 8px; font-size: 8px; font-weight: bold; white-space: nowrap; box-shadow: 0 1px 3px rgba(0,0,0,0.3); z-index: 1001; pointer-events: none;">
+          
+ km
+        </div>
+      </div>
+    
+font-bold text-sm
+text-xs text-gray-600 mt-1
+ km from MEMCO Skyline
+mt-2 text-xs bg-[#008751] text-white px-3 py-1 rounded-full hover:bg-[#006e42] transition-colors
+Get Directions →
+https://maps.app.goo.gl/uTbd4ePMNREB8zc9A?g_st=iw
+absolute z-30 cursor-pointer
+translate(-50%, -50%)
+View MEMCO Skyline on Google Maps
+w-full h-full hover:bg-green-500/10 rounded-full transition-colors
+absolute inset-0 flex items-center justify-center pointer-events-none z-20
+pointer-events-auto group bg-[#008751] hover:bg-[#006e42] text-white px-5 py-2 rounded-full text-sm font-semibold shadow-xl transform hover:scale-110 hover:shadow-2xl transition-all duration-300 flex items-center gap-2
+w-4 h-4 group-hover:rotate-90 transition-transform duration-300
+absolute bottom-4 right-4 z-30
+bg-white hover:bg-gray-50 text-gray-700 p-2.5 rounded-lg shadow-lg border border-gray-200 transition-all duration-300 hover:scale-110 hover:shadow-xl
+Zoom out to see full map
+Zoom in on MEMCO
+absolute top-4 right-4 bg-[#008751] text-white px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-2 z-20 animate-fade-in
+w-2 h-2 bg-white rounded-full animate-pulse
+Interactive Mode
+absolute top-4 right-4 z-30 flex flex-col gap-2
+px-4 py-2 rounded-full text-xs font-bold shadow-lg transition-all 
+bg-blue-600 text-white animate-pulse
+bg-gray-800 text-white hover:bg-gray-700
+Toggle marker calibration mode
+🎯 Calibration Mode ON
+🔧 Calibrate Markers
+bg-white rounded-lg shadow-xl p-3 max-w-xs
+font-bold text-sm text-gray-900
+✅ Calibrated coordinates copied to clipboard!
+
+Replace LOCATIONS_DATA in CinematicLocationMap.jsx with this data.
+flex-1 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold px-3 py-2 rounded transition-colors
+flex-1 bg-red-500 hover:bg-red-600 text-white text-xs font-semibold px-3 py-2 rounded transition-colors
+mt-2 text-[10px] text-gray-600 max-h-32 overflow-y-auto
+mb-1 pb-1 border-b border-gray-200
+absolute bottom-20 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-2xl z-20 max-w-md text-center animate-fade-in
+🎯 Calibration Mode Active
+Select categories above, then drag markers to their correct positions on the map. Click "Copy All" when done to export coordinates.
+absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-lg z-20 text-xs
+font-bold text-gray-800 mb-2
+text-[10px] text-gray-600 mb-2
+From MEMCO Skyline
+w-3 h-3 rounded-full bg-green-500
+w-3 h-3 rounded-full bg-yellow-500
+w-3 h-3 rounded-full bg-red-500
+bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-xl p-5 h-full overflow-auto max-h-[500px] lg:max-h-[700px]
+sticky top-0 bg-gradient-to-br from-gray-50 to-white pb-3 mb-3 border-b border-gray-200 z-10
+flex flex-wrap gap-1.5 mt-2
+flex items-center gap-1 text-xs bg-white px-2 py-1 rounded-full border border-gray-200 shadow-sm
+font-medium text-gray-700
+flex flex-col items-center justify-center py-24 px-4 text-center
+w-20 h-20 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center mb-4
+w-10 h-10 text-green-600
+text-gray-700 text-sm font-medium mb-1
+Select categories to explore
+text-gray-500 text-xs
+Choose one or more categories to see nearby places
+w-full flex items-center gap-3 p-3 bg-white rounded-lg border-2 transition-all duration-200 text-left 
+border-gray-400 shadow-lg transform scale-105
+border-gray-200 hover:border-gray-300 hover:shadow-md hover:scale-102
+w-3 h-3 rounded-full flex-shrink-0 animate-pulse
+font-semibold text-gray-900 text-sm leading-tight truncate
+text-xs text-gray-500 mt-0.5
+flex flex-col items-end gap-0.5 flex-shrink-0
+text-[8px] text-[#008751] font-bold uppercase
+
+        @keyframes ripple {
+          0% {
+            transform: scale(0.5);
+            opacity: 0.8;
+          }
+          100% {
+            transform: scale(2.5);
+            opacity: 0;
+          }
+        }
+        
+        @keyframes memco-pulse {
+          0% {
+            transform: scale(0.8);
+            opacity: 0.6;
+          }
+          50% {
+            transform: scale(1.5);
+            opacity: 0.2;
+          }
+          100% {
+            transform: scale(2);
+            opacity: 0;
+          }
+        }
+        
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-fade-in {
+          animation: fade-in 0.5s ease-out;
+        }
+        
+        .leaflet-container {
+          background: #e5e7eb;
+          overflow: hidden;
+        }
+        
+        /* Lock image to container - no overflow */
+        .leaflet-image-layer {
+          max-width: 100%;
+          max-height: 100%;
+        }
+        
+        .animated-marker {
+          background: transparent;
+          border: none;
+        }
+        
+        .memco-marker-cinematic {
+          background: transparent;
+          border: none;
+        }
+        
+        .hover:scale-102:hover {
+          transform: scale(1.02);
+        }
+        
+        /* Smooth map transitions */
+        .leaflet-zoom-anim .leaflet-zoom-animated {
+          transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Draggable marker cursor - only when in calibration mode */
+        .leaflet-draggable {
+          cursor: grab !important;
+        }
+        
+        .leaflet-draggable:active {
+          cursor: grabbing !important;
+        }
+        
+        /* Calibration mode markers - larger and easier to grab */
+        .calibration-marker {
+          z-index: 1000 !important;
+        }
+        
+        .calibration-marker .marker-container {
+          cursor: grab !important;
+        }
+        
+        .calibration-marker:active .marker-container {
+          cursor: grabbing !important;
+        }
+        
+        /* Geofence circles - ensure they scale with zoom */
+        .geofence-circle {
+          transition: all 0.3s ease;
+        }
+      
+pt-4 md:pt-6 pb-10 md:pb-14 bg-white
+text-3xl md:text-4xl font-bold text-gray-900 leading-tight tracking-wide mb-2
+text-lg font-medium text-gray-900 mb-4 tracking-wide uppercase
+Stay Connected to What Matters
+carousel-card flex-shrink-0 w-[80%] sm:w-[48%] md:w-[36%]
+relative overflow-hidden rounded-lg
+w-full h-36 sm:h-40 md:h-48
+text-gray-900 text-lg font-medium
+text-gray-500 text-sm mt-1
+absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-all
+h-6 w-6 text-gray-800
+absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition-all
+relative h-[40vh] md:h-[50vh]
+/images/location/map2.webp
+MEMCO Skyline location map with surrounding landmarks
+w-full h-full object-cover opacity-70
+absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/55
+0 2px 16px rgba(0,0,0,0.55)
+text-lg md:text-xl text-gray-100 max-w-3xl animate-fadeInUp
+0 1px 10px rgba(0,0,0,0.5)
+Connected to everyday life. Everything within reach.
+pt-14 md:pt-20 pb-10 md:pb-14 bg-white
+grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start
+Connected Living
+text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-[1.1]
+text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-[1.1] mt-2
+lg:col-span-5 lg:border-l-2 lg:border-[#008751]/30 lg:pl-8 lg:pt-2
+text-base md:text-lg text-gray-600 leading-relaxed
+So your day flows better. MEMCO Skyline offers connected living with everyday access to what matters most.
+pb-14 md:pb-20 bg-white
+bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-200 p-8 md:p-12 shadow-sm
+w-12 h-12 rounded-full bg-[#008751]/10 flex items-center justify-center mb-5
+w-6 h-6 text-[#008751]
+text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide leading-tight
+BUILT FOR SEAMLESS CONNECTIVITY.
+text-[#008751] font-semibold uppercase tracking-[0.15em] text-sm md:text-base mt-4
+At MEMCO Skyline, peace finds you first.
+lg:col-span-7 space-y-5
+leading-relaxed text-base md:text-lg text-gray-700
+Nestled between 
+font-semibold text-gray-900
+, MEMCO Skyline at Begur keeps everything you need just minutes away.
+inline-flex items-center gap-3 bg-[#008751]/8 border border-[#008751]/20 rounded-full px-5 py-3
+w-5 h-5 text-[#008751] flex-shrink-0
+text-sm md:text-base font-semibold text-gray-900
+Colleges, hotspots & workplaces — all within 30 minutes.
+py-8 md:py-12 bg-gradient-to-b from-white to-gray-50
+/images/experience-center/05-exterior.webp
+MEMCO Skyline Experience Center — Reception & marble desk with logo
+Reception & Concierge
+/images/experience-center/04-balcony-lounge.webp
+Glass hallway leading past the marble reception desk
+Consultation Hallway
+/images/experience-center/03-podcast-room.webp
+Podcast / jamming room with wood floor and acoustic panels
+Podcast & Jamming Room Preview
+/images/experience-center/02-hallway.webp
+Upper-floor balcony lounge with chandelier, seating and city view
+Upper Balcony Lounge
+/images/experience-center/01-reception.webp
+JUTAKU Experience Center exterior — daytime view
+Experience Center — Exterior
+/images/experience-center/08-multipurpose-court.webp
+Scale miniature model of the JUTAKU tower with seating lounge
+Scale Model of JUTAKU Tower
+/images/experience-center/07-pickleball.webp
+On-site pickleball court
+Pickleball Court
+/images/experience-center/06-miniature-model.webp
+Multipurpose sports court with turf and goal posts
+Multipurpose Sports Court
+
+    .ec-slideshow-arrow{transition:background-color .2s ease}
+    @media (hover: hover) and (pointer: fine){
+      .ec-slideshow-arrow{transition:background-color .2s ease, transform .2s ease}
+      .ec-slideshow-arrow:hover{background-color:#fff;transform:translateY(-50%) scale(1.05)}
+    }
+    .ec-slideshow-arrow:active{background-color:#fff}
+  
+bg-white py-14 md:py-20
+max-w-6xl mx-auto px-4 sm:px-6 lg:px-12
+text-center mb-8 md:mb-10
+inline-block text-[#008751] text-xs font-bold uppercase tracking-[0.25em] mb-3
+text-3xl md:text-4xl font-bold text-[#0f172a] tracking-tight
+Inside the Experience Center
+mt-3 text-sm md:text-base text-gray-600 max-w-2xl mx-auto
+A quick look at the JUTAKU Experience Center in Bangalore. Walk in, feel the space, meet the team.
+Experience Center photo slideshow
+relative rounded-2xl overflow-hidden shadow-[0_20px_60px_-20px_rgba(0,0,0,0.3)] bg-black focus:outline-none focus:ring-2 focus:ring-[#008751]/60
+relative w-full aspect-[4/3] md:aspect-[16/10]
+absolute inset-0 w-full h-full object-cover transition-opacity duration-700 
+absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/70 via-black/30 to-transparent pointer-events-none
+absolute bottom-4 md:bottom-6 left-4 md:left-6 right-16 md:right-20 text-white
+inline-block text-[10px] md:text-[11px] uppercase tracking-[0.24em] text-emerald-200 font-semibold mb-1
+text-base md:text-xl font-semibold leading-snug
+ec-slideshow-arrow absolute left-3 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/85 text-[#0f172a] flex items-center justify-center shadow-lg
+ec-slideshow-arrow absolute right-3 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/85 text-[#0f172a] flex items-center justify-center shadow-lg
+absolute top-4 right-4 flex items-center gap-1.5 bg-black/35 backdrop-blur-sm rounded-full px-2.5 py-1.5
+h-1.5 rounded-full transition-all duration-300 
+bg-white/50 w-1.5 hover:bg-white/75
+hidden md:grid grid-cols-4 lg:grid-cols-8 gap-3 mt-4
+relative aspect-[4/3] rounded-lg overflow-hidden transition-all duration-300 
+ring-2 ring-[#008751] ring-offset-2 ring-offset-white shadow-lg
+opacity-70 hover:opacity-100
+Private Space (~500 sq.ft.)
+Your private sanctuary with smart, efficient design
+Access to Full Ecosystem
+50,000 sq.ft. of experience zones at your fingertips
+Revenue-Sharing Opportunities
+Earn from bookable spaces in the ecosystem
+IT Corridor everyday access
+Metro Within Reach
+0.6 km from Singasandra Metro
+Complete Ecosystem
+50,000+ sq.ft. of experience zones
+Strong potential in IT hub
+relative min-h-[60vh] md:min-h-[70vh] flex items-center py-16 md:py-24
+/images/pricing/pricing-hero-100x-mobile.webp?v=3
+/images/pricing/pricing-hero-100x.webp?v=3
+MEMCO Skyline — Club House entrance
+absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/65
+absolute inset-0 bg-black/25 md:bg-black/20
+relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-12 w-full
+text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight animate-fadeInUp
+flex items-center justify-center gap-3 mt-6 mb-10 animate-fadeInUp
+h-px w-12 bg-white/45
+w-1.5 h-1.5 rounded-full bg-[#00b86e]
+text-white/75 text-[11px] sm:text-xs md:text-sm uppercase tracking-[0.28em] animate-fadeInUp
+Smart ownership starting at
+mt-3 text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight animate-fadeInUp
+Starting from ₹68.5 Lakhs
+align-super text-lg sm:text-xl md:text-2xl text-white/85
+mt-8 inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/10 backdrop-blur-md px-5 py-2 animate-fadeInUp
+relative flex h-2 w-2
+absolute inline-flex h-full w-full rounded-full bg-[#00b86e] opacity-75 animate-ping
+relative inline-flex h-2 w-2 rounded-full bg-[#00b86e]
+text-white text-xs sm:text-sm font-semibold tracking-wide
+Experience Center is now live & open — come visit us
+mt-10 text-sm sm:text-base md:text-lg text-white/85 max-w-xl mx-auto leading-relaxed animate-fadeInUp
+Own your private space. Access an entire ecosystem — designed for living 
+not-italic text-white
+ long-term value.
+bg-white py-12 md:py-16
+max-w-5xl mx-auto px-4 sm:px-6 lg:px-12
+relative bg-white rounded-2xl border border-gray-200 shadow-[0_10px_40px_-15px_rgba(0,135,81,0.18)] overflow-hidden
+absolute inset-y-0 left-0 w-1.5 bg-[#008751]
+flex flex-col md:flex-row md:items-start gap-5 md:gap-6
+flex-shrink-0 w-12 h-12 rounded-xl bg-[#008751]/10 flex items-center justify-center
+text-gray-900 text-lg md:text-xl font-semibold leading-snug
+text-gray-900 text-base md:text-lg font-bold
+Experience Center is now live & open
+ — come visit us
+mt-5 inline-flex items-center justify-center gap-2 bg-[#008751] hover:bg-[#006e42] text-white px-7 py-3.5 rounded-full font-bold text-sm md:text-base tracking-wide transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02]
+mt-4 text-xs md:text-sm text-gray-500 italic leading-relaxed
+*Premium pricing applicable based on floor rise, corner unit, east facing.
+grid lg:grid-cols-2 gap-10 lg:gap-16 items-stretch
+relative bg-gradient-to-br from-[#008751] to-[#006e42] rounded-2xl p-10 md:p-12 shadow-2xl overflow-hidden
+absolute -top-16 -right-16 w-56 h-56 bg-white/10 rounded-full blur-2xl
+inline-block text-white/80 font-semibold text-xs uppercase tracking-[0.25em] mb-6
+w-16 h-16 mb-6 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center
+text-3xl md:text-4xl font-bold text-white mb-3 leading-tight
+Secure Your Space
+text-white/80 text-base md:text-lg leading-relaxed mb-8 max-w-md
+Contact our team for entry value details and exclusive offers
+inline-flex items-center justify-center gap-2 bg-white text-[#008751] px-8 py-4 rounded-full font-bold text-base tracking-wide transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-[1.02]
+flex flex-col justify-center
+inline-block text-[#008751] font-semibold text-sm uppercase tracking-[0.25em] mb-4
+More Than Just a Home
+relative bg-[#008751]/5 border-l-4 border-[#008751] p-6 md:p-8 rounded-r-xl mb-6
+absolute top-4 right-4 w-8 h-8 text-[#008751]/20
+text-lg md:text-xl text-gray-800 italic leading-relaxed pr-10
+You're not just buying a home. You're gaining access to a 50,000 sq.ft. ecosystem.
+text-gray-600 text-base md:text-lg leading-relaxed
+MEMCO Skyline offers a unique value proposition: access-based living with expanded experiences. Every smart investment gives you access to experience zones, shared spaces and revenue-sharing opportunities.
+Smarter Allocation
+Investment Highlights
+grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6
+group relative bg-white rounded-2xl p-7 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 hover:border-[#008751]/30 h-full
+w-14 h-14 mb-5 bg-[#008751]/10 group-hover:bg-[#008751] rounded-xl flex items-center justify-center text-[#008751] group-hover:text-white transition-colors duration-300
+text-lg font-bold text-gray-900 mb-2 leading-snug
+Investment Benefits
+group relative bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 md:p-10 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#008751]/30 overflow-hidden h-full
+absolute top-6 right-6 text-5xl md:text-6xl font-bold text-[#008751]/10 leading-none select-none
+w-14 h-14 mb-6 bg-[#008751]/10 group-hover:bg-[#008751] rounded-xl flex items-center justify-center text-[#008751] group-hover:text-white transition-colors duration-300
+text-xl font-bold text-gray-900 mb-3 leading-snug
+text-3xl md:text-4xl font-bold text-white mb-6
+Be among the first to experience
+text-xl text-white/90 mb-10 max-w-2xl mx-auto
+Be part of what's coming next. Book your JUTAKU Experience today.
+flex flex-col sm:flex-row items-center justify-center gap-4
+w-full sm:w-auto bg-white text-[#008751] px-10 py-4 rounded-lg font-bold text-lg tracking-wide transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] text-center
+w-full sm:w-auto bg-transparent border-2 border-white text-white px-10 py-4 rounded-lg font-bold text-lg tracking-wide transition-all duration-300 hover:bg-white/10
+
+    .nv-arrow-slot{position:absolute;top:0;bottom:0;display:none;align-items:center;z-index:10;pointer-events:none}
+    @media(min-width:768px){.nv-arrow-slot{display:flex}}
+    .nv-arrow-slot.left{left:-14px}
+    .nv-arrow-slot.right{right:-14px}
+    .nv-arrow{
+      pointer-events:auto;
+      -webkit-tap-highlight-color:transparent;
+      touch-action:manipulation;
+      user-select:none;
+      width:44px;height:44px;border-radius:9999px;
+      background:#fff;border:1px solid #e5e7eb;
+      box-shadow:0 6px 18px -6px rgba(0,0,0,.25);
+      color:#1e3a5f;
+      display:flex;align-items:center;justify-content:center;
+      transition:background-color .18s ease, color .18s ease, opacity .18s ease;
+      outline:none;
+    }
+    .nv-arrow:disabled{opacity:.35;cursor:not-allowed}
+    .nv-arrow:focus-visible{box-shadow:0 6px 18px -6px rgba(0,0,0,.25), 0 0 0 3px rgba(30,58,95,.35)}
+    @media (hover: hover) and (pointer: fine){
+      .nv-arrow:hover:not(:disabled){background:#1e3a5f;color:#fff}
+      .nv-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px -12px rgba(0,0,0,.25)}
+      .nv-card:hover .nv-thumb-tint{background-color:rgba(0,0,0,.35)}
+      .nv-card:hover .nv-play{transform:scale(1.08)}
+    }
+    .nv-card{transition:box-shadow .3s ease, transform .3s ease}
+    .nv-card, .nv-thumb-tint, .nv-play{will-change:transform}
+  
+/video-assets/data/videos.json
+[data-testid^="news-video-card-"]
+nv-arrow-slot left
+Scroll videos left
+flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 -mx-4 px-4 md:mx-0 md:px-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden
+grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6
+https://www.youtube.com/watch?v=
+/maxresdefault.jpg
+relative w-full aspect-[4/3] bg-gradient-to-br from-[#1e3a5f] to-[#2e7d32] overflow-hidden
+nv-thumb-tint absolute inset-0 bg-black/20 transition-colors duration-300
+nv-play w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/95 text-[#1e3a5f] flex items-center justify-center shadow-xl transition-transform duration-300
+absolute inset-0 flex flex-col items-center justify-center text-white p-3 text-center
+w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/15 flex items-center justify-center mb-2
+text-[11px] uppercase tracking-[0.2em] font-semibold text-white/85
+text-lg md:text-xl lg:text-2xl font-semibold text-[#1e3a5f] leading-snug line-clamp-2
+mt-2 text-sm md:text-[15px] lg:text-base text-[#666] leading-relaxed line-clamp-2
+nv-card group rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm
+shrink-0 snap-start basis-full sm:basis-[calc(50%-12px)] lg:basis-[calc(25%-18px)]
+ cursor-not-allowed
+nv-arrow-slot right
+Scroll videos right
+pt-14 md:pt-20 pb-8 bg-gradient-to-b from-[#f5f7fa] to-white
+max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center
+text-3xl sm:text-4xl md:text-5xl font-bold text-[#1e3a5f] tracking-wide
+mt-3 text-[#666] text-base md:text-lg
+Stay updated with MEMCO Skyline's latest news and upcoming events
+max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8
+flex items-center justify-center gap-4 mt-14 mb-10
+h-px w-16 bg-gradient-to-r from-transparent to-[#2e7d32]
+w-2 h-2 rounded-full bg-[#1e3a5f]
+w-2 h-2 rounded-full bg-[#2e7d32]
+h-px w-16 bg-gradient-to-l from-transparent to-[#2e7d32]
+mt-12 text-center
+text-sm text-[#999] mb-4
+Follow us for updates
+flex justify-center gap-4
+w-10 h-10 bg-[#1e3a5f]/10 rounded-full flex items-center justify-center hover:bg-[#1e3a5f] hover:text-white text-[#1e3a5f] transition-all duration-300
+memcoskyline.com
+.memcoskyline.com
+.memcoskyline.in
+fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-[brochureFadeIn_0.18s_ease-out]
+relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden
+Close brochure popup
+absolute top-3 right-3 z-10 w-10 h-10 flex items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition
+inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#008751]/10 text-[#008751] mb-3
+text-xl sm:text-2xl font-bold text-gray-900 leading-tight pr-6
+Please enter your details to download the brochure
+text-sm text-gray-500 mt-1.5
+We'll start the download instantly and send a copy to your email.
+px-6 pt-2 pb-7 text-center
+mx-auto w-14 h-14 rounded-full bg-green-100 text-green-700 flex items-center justify-center mb-3
+text-base font-semibold text-gray-900
+Your brochure download has started.
+inline-block mt-4 text-sm text-[#008751] font-semibold underline underline-offset-4 hover:text-[#006e42]
+Didn't start? Click to download
+Brochure Download
+px-6 pt-2 pb-6 space-y-3
+block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1
+w-full rounded-lg border border-gray-300 px-3.5 py-2.5 text-base focus:border-[#008751] focus:ring-2 focus:ring-[#008751]/20 focus:outline-none transition
+flex items-start gap-2.5 pt-1.5 cursor-pointer select-none
+mt-0.5 h-4 w-4 rounded border-gray-300 text-[#008751] focus:ring-[#008751]/30
+text-sm text-gray-600 leading-snug
+I agree to have read the
+text-[#008751] underline underline-offset-2 hover:text-[#006e42]
+terms and conditions
+w-full rounded-lg font-semibold text-base py-3 transition-all duration-200 
+bg-[#008751] hover:bg-[#006e42] text-white shadow-md hover:shadow-lg cursor-pointer
+bg-gray-200 text-gray-400 cursor-not-allowed
+Submit & Download
+text-[11px] text-gray-400 text-center pt-1
+Submit unlocks after you tick the agreement.
+
+        @keyframes brochureFadeIn { from { opacity: 0 } to { opacity: 1 } }
+      
+Book your <span class="text-[#008751]">JUTAKU Experience</span>
+Pick a Date and Slot for your Visit.
+https://memcoskyline.com/book-slot
+ I just booked my JUTAKU Experience visit at *MEMCO Skyline*
+Experience Center visits are subject to slot availability, operational conditions and maintenance schedules. Certain simulations or experience zones may be unavailable or modified on the date of visit. Alternative slots or arrangements may be provided subject to availability. All visuals and experiences are illustrative in nature and subject to change.
+
+    <p class="font-semibold text-gray-700 mb-1">Project Disclaimer:</p>
+    <p>
+      The project is registered with RERA No:
+      <strong>PRM/KA/RERA/1251/310/PR/240426/008602</strong>
+      available at
+      <a href="https://rera.karnataka.gov.in" target="_blank" rel="noopener noreferrer"
+         class="text-[#008751] underline underline-offset-2">rera.karnataka.gov.in</a>.
+    </p>
+  
+Booking could not be saved. Please try again.
+Please check your details and try again.
+Booking service is temporarily unavailable. Please try again in a moment.
+crm fallback disabled in production
+Could not load slots. Please retry.
+Enter a valid 10-digit mobile number.
+Enter a valid email address.
+Phone number is required.
+Email is required.
+/api/public/static/code-mismatch-tracker.js
+script[data-memco-tracker="1"]
+
+
+It's a Japanese-inspired urban living concept in South Bangalore — studio / 1RK / 1LDK homes with a rooftop pool, podcast studio & co-working.
+
+
+Thought you might want to come along — book your slot here:
+
+https://wa.me/?text=
+min-h-screen bg-white pt-16 sm:pt-20
+max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10 flex flex-col
+text-center mb-6 md:mb-8
+inline-block text-[#008751] font-semibold text-xs uppercase tracking-[0.25em] mb-3
+text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight
+text-gray-600 mt-3 max-w-2xl mx-auto text-sm md:text-base
+mt-5 mx-auto max-w-3xl rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-left text-sm text-amber-900
+mb-6 rounded-2xl border border-[#008751]/30 bg-gradient-to-r from-[#f0faf5] to-[#e6f7ed] px-5 py-5 shadow-sm
+flex flex-col md:flex-row md:items-start md:justify-between gap-4
+flex items-start gap-3
+w-10 h-10 rounded-full bg-[#008751] flex items-center justify-center flex-shrink-0 mt-0.5
+w-5 h-5 text-white
+font-bold text-gray-900 text-base
+text-xs md:text-sm text-gray-600 mt-1
+mt-2 text-sm md:text-base font-semibold text-gray-900
+mt-3 text-[11px] md:text-xs text-gray-700
+text-xs md:text-sm font-semibold text-amber-900
+text-xs md:text-sm text-amber-900
+mt-2 text-[11px] md:text-xs text-amber-900/80
+mt-3 text-xs md:text-sm text-gray-700
+flex items-center gap-3 flex-shrink-0 flex-wrap
+text-xs md:text-sm text-gray-600 whitespace-nowrap
+mt-5 pt-5 border-t border-[#008751]/20
+text-sm md:text-base font-bold text-gray-900
+Need to book the remaining
+Pick another slot below — each slot can accommodate up to 
+mt-3 flex flex-wrap gap-2
+inline-flex items-center gap-2 rounded-full border border-[#008751]/40 bg-white text-[#006e42] hover:bg-[#f0faf5] text-xs md:text-sm font-semibold px-3 py-1.5 transition-colors
+mt-3 text-sm text-amber-700
+No more upcoming slots are available. Please write to
+mailto:info@memcoskyline.com
+text-[#008751] underline
+and we will arrange a private slot.
+rounded-2xl p-5 md:p-7 mb-6 transition-colors
+bg-red-50 border-2 border-red-300
+bg-gray-50 border border-gray-200
+flex items-baseline justify-between mb-4
+text-lg md:text-xl font-bold text-gray-900
+Let's find the perfect day for your visit
+text-[11px] md:text-xs text-gray-500 italic -mt-2 mb-4 leading-relaxed
+Choose from the available dates below.
+mb-3 text-xs md:text-sm font-semibold text-red-700
+py-8 text-center text-gray-500 text-sm
+Loading available slots…
+py-6 text-center
+text-red-600 text-sm mb-3
+text-[#008751] underline text-sm font-semibold
+flex flex-col sm:flex-row gap-2.5 md:gap-3 items-stretch
+group relative overflow-hidden rounded-xl bg-gradient-to-br from-[#0e3b2e] via-[#0a5238] to-[#008751] text-white shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.99] flex-shrink-0 w-full sm:w-[150px] md:w-[180px] flex flex-col justify-between px-4 py-4 md:py-5
+pointer-events-none absolute -top-6 -right-8 w-24 h-24 rotate-12 bg-white/10 blur-2xl group-hover:bg-white/20 transition-colors
+text-[9px] md:text-[10px] font-bold uppercase tracking-[0.16em] text-[#fbf3df]/85 mb-1.5
+JUTAKU Early Access
+text-base md:text-lg font-extrabold leading-tight
+text-[11px] md:text-xs mt-1 text-white/90 leading-snug
+relative mt-3 inline-flex items-center justify-between gap-2 px-3 py-1.5 rounded-full bg-white text-[#0e3b2e] text-xs font-bold tracking-wide group-hover:bg-[#fbf3df] transition-colors
+w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5
+relative flex-1 min-w-0
+hidden sm:flex absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 items-center justify-center rounded-full bg-white text-[#008751] border border-gray-200 shadow-md hover:bg-[#f0faf5] hover:border-[#008751]/40 active:scale-95 transition-all
+hidden sm:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 items-center justify-center rounded-full bg-white text-[#008751] border border-gray-200 shadow-md hover:bg-[#f0faf5] hover:border-[#008751]/40 active:scale-95 transition-all
+flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide
+snap-start flex-shrink-0 w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5 md:gap-3
+relative text-left rounded-xl border px-3 py-3 md:px-4 md:py-4 transition-all
+border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed opacity-70
+border-[#008751] bg-white ring-2 ring-[#008751]/30 shadow-sm
+border-gray-200 bg-white hover:border-[#008751]/50 hover:shadow-sm
+text-[10px] uppercase tracking-wider mb-0.5
+text-base md:text-lg font-bold
+text-gray-400 line-through
+text-[11px] mt-0.5
+bg-gray-50 border border-gray-200 rounded-2xl p-5 md:p-7 mb-6
+flex items-baseline justify-between mb-4 flex-wrap gap-2
+When would you like to visit?
+grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-2.5 md:gap-3
+Slots are full. Please select one of the suggested available slots below.
+rounded-xl border px-3 py-3 text-left transition-all
+border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed line-through opacity-70
+border-[#008751] bg-[#008751] text-white shadow-sm
+border-gray-200 bg-white text-gray-900 hover:border-[#008751]/50
+text-sm md:text-base font-bold
+Please pick a date and slot before confirming your booking.
+[data-testid="day-picker"]
+This slot is not available. Please select the next available slot.
+This slot is no longer available. Please select the next available slot.
+You have already booked this slot.
+Booking failed. Please try another slot.
+Confirmation email request failed:
+Site Visit Booked
+bg-white border border-gray-200 rounded-2xl p-5 md:p-7 shadow-sm mb-6
+text-lg md:text-xl font-bold text-gray-900 mb-1
+text-xs md:text-sm text-gray-600 mb-5
+Please fill in your details, then pick a date and slot below.
+grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4
+text-xs font-semibold text-gray-700 uppercase tracking-wider
+e.g. Rohit Sharma
+Only letters, spaces, hyphens and apostrophes are allowed
+mt-1 w-full rounded-xl border px-3 py-2.5 text-sm md:text-base focus:outline-none focus:ring-2
+border-red-400 focus:border-red-500 focus:ring-red-200
+border-gray-300 focus:border-[#008751] focus:ring-[#008751]/20
+mt-1 block text-xs text-red-600
+Please enter your full name (letters only).
+block md:col-span-2
+bg-white border border-gray-200 rounded-2xl p-5 md:p-7 shadow-sm mb-4
+text-sm font-semibold text-[#a17b14]
+mt-1 text-xs text-gray-500
+Tap a chair to set the number of guests for this visit.
+mt-3 grid grid-cols-6 gap-2 sm:gap-3 max-w-md
+opacity-25 cursor-not-allowed
+opacity-50 cursor-pointer
+This many seats are no longer available in this slot
+Tap to see the next available slot for a larger party
+group relative flex flex-col items-center justify-end gap-1 rounded-lg p-2 transition-all duration-200 
+bg-[#fbf3df] ring-1 ring-[#a17b14]/30 shadow-sm
+hover:bg-gray-50 active:bg-gray-100
+w-8 h-10 sm:w-9 sm:h-11 transition-all duration-200 
+drop-shadow-[0_2px_4px_rgba(161,123,20,0.4)] scale-105
+text-gray-300 group-hover:text-gray-400
+rgba(0,0,0,0.18)
+rgba(0,0,0,0.08)
+text-[11px] font-bold tabular-nums leading-none 
+text-[#a17b14]/70
+text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2
+text-xs uppercase tracking-wider text-gray-500 mb-2
+Other time slots — tap to switch
+inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs md:text-sm font-semibold transition-colors
+border-[#008751] bg-[#008751] text-white
+border-[#008751]/40 bg-[#f0faf5] text-[#006e42] hover:bg-[#e1f4ea]
+text-[10px] uppercase tracking-wider opacity-70
+mt-2 text-sm font-semibold text-red-600
+mt-2 text-sm text-red-600
+mt-3 text-[11px] md:text-xs text-gray-500 leading-relaxed
+mt-3 text-[11px] md:text-xs text-gray-500 italic leading-relaxed
+mt-3 w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm md:text-base font-bold uppercase tracking-wider transition-colors
+bg-gray-300 text-gray-500 cursor-not-allowed
+bg-[#008751] text-white hover:bg-[#006e42]
+max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-10
+text-[11px] md:text-xs text-gray-500 leading-relaxed border-t border-gray-200 pt-4
+https://wa.me/917337705940?text=Hi%20MEMCO%20Skyline%2C%20I%E2%80%99m%20trying%20to%20book%20a%20JUTAKU%20Experience%20visit%20but%20the%20booking%20page%20isn%E2%80%99t%20loading.%20Please%20help%20me%20schedule.
+fixed bottom-5 left-1/2 -translate-x-1/2 z-50 inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebd5a] text-white text-sm font-semibold px-5 py-3 rounded-full shadow-lg transition-colors
+Booking unavailable? Call us on WhatsApp
+min-h-screen bg-white
+bg-gray-900 text-white pt-28 md:pt-32 pb-10 md:pb-14
+max-w-5xl mx-auto px-4 sm:px-6 lg:px-8
+mb-6 inline-flex items-center text-gray-300 hover:text-white transition-colors text-sm
+text-3xl sm:text-4xl md:text-5xl font-bold mb-3 leading-tight
+text-gray-300 text-sm md:text-base
+Memco Skyline Private Limited · DPDP Act, 2023 compliant
+max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14
+space-y-6 text-gray-700 leading-relaxed text-base md:text-[17px]
+This Privacy Policy governs the manner in which Memco Skyline Private Limited and its partners, agents and affiliates collect, use, maintain and disclose information provided by users on this platform. It reflects our commitment to data protection and compliance with applicable regulations, including the Digital Personal Data Protection Act (DPDP) 2023.
+The content on this website is presented for informational purposes only and does not constitute a legal offering. The promoter reserves the right to amend, modify, supplement, or remove any part of this Privacy Policy or the website content without prior notice. Users are encouraged to periodically review the Privacy Policy to remain informed of updates or changes.
+text-xl md:text-2xl font-semibold text-gray-900 mt-8 mb-2
+Personal identification information
+We may collect personal identification information from Users in a variety of ways, including, but not limited to, when Users visit our site, subscribe to the newsletter, fill out a form, and in connection with other activities, services, features or resources we make available on our Site. Users may be asked for, as appropriate, name, email address, mailing address, phone number. Users may, however, visit our Site anonymously. Users can always refuse to supply personal identification information, except that it may prevent them from engaging in certain Site related activities.
+Non-personal identification information
+We may collect non-personal identification information about Users whenever they interact with our Site. Non-personal identification information may include the browser name, the type of computer and technical information about Users means the type of connection to our Site, such as the operating system and the Internet service providers utilized and other similar information. Non-personally identifiable visitor data may be shared with other parties for marketing, advertising, or similar purposes.
+Web browser cookies
+Our Site may use "cookies" to enhance User experience. User's web browser places cookies on their hard drive for record-keeping purposes and sometimes to track information about them. User may choose to set their web browser to refuse cookies, or to alert the Users when cookies are being sent. If they do so, note that some parts of the Site may not function properly. This is a standard operating procedure that is used across the internet.
+How we use collected information
+By sharing your phone number, you agree to receive service and promotional calls and messages from us. MSPL may collect and use the user's personal information for the following purposes:
+list-disc pl-6 space-y-2
+To improve customer service:
+ Information provided by users helps us respond to the customer service requests and support needs, more efficiently.
+To personalize User experience:
+ We may use information in the aggregate to understand how our Users as a group use the services and resources provided on our Site.
+To improve our Site:
+ We may use feedback provided by the User/s to improve our products and services.
+To run a promotion, contest, survey or other Site feature.
+To send the user's information they agreed to receive about topics of interest to them.
+To send periodic emails, SMS, WhatsApp, RCS (Rich Communication Services) and push notifications.
+How we protect User's information
+We adopt appropriate data collection, storage and processing practices and security measures to protect against unauthorized access, alteration, disclosure or destruction of User's personal information and data stored on our Site. As with data security, there are limits to its effectiveness and we indemnify ourselves in the event of an attack that is difficult to defend against. We also will do our best to retrieve any data that is lost as per available resources.
+Sharing personal information of Users
+We do not sell, trade, or rent User's personal identification information to others. We may share generic aggregated demographic information not linked to any personal identification information regarding User's with our subsidiaries, our business partners, trusted affiliates and advertisers for the purposes outlined above.
+Your information may also be disclosed if deemed necessary to:
+Comply with the law.
+Enforce site policies.
+Safeguard our or others' rights, property, or safety.
+Rights of Users under the Act
+In compliance with the DPDP Act, 2023, users have the following rights regarding their personal data:
+ The right to request details of their personal data held by us.
+ The right to rectify inaccurate or incomplete personal information.
+ The right to request deletion of personal data no longer required for stated purposes.
+ The right to request the transfer of personal data to another service provider.
+ The right to limit processing of personal data under specific circumstances.
+ The right to revoke previously granted consent for data processing. Users may exercise these rights by submitting a formal request.
+If users wish to unsubscribe from future emails, they can respond to any email they receive from us, indicating their preference to opt out. We will promptly remove them from our database upon receiving the request.
+Personal data is retained only for as long as necessary to fulfill the purposes outlined in this policy or as required by applicable law. Upon expiration of the retention period, data will be securely erased using industry-standard deletion protocols.
+To ensure continued compliance with the DPDPA, we will implement the following accountability measures:
+Regular Internal Audits:
+ We will conduct regular audits of our data processing activities to identify and address any compliance gaps.
+ All employees involved in data processing will undergo periodic training on data protection principles and the DPDP Act.
+Reporting Mechanism:
+ A system will be implemented to allow employees and users to report potential data breaches or policy violations.
+In the event of Data Breach
+In the event of a data breach, we are committed to notifying both the Data Protection Board of India (DPBI) and affected individuals as soon as possible. This will include:
+Timely Notification:
+ We will notify the DPBI within 72 hours of discovering a significant breach, as required by the DPDP Act.
+Notification to Affected Individuals:
+ If the breach is likely to cause harm to individuals' rights or freedoms, we will inform affected individuals without undue delay, detailing the nature of the breach, its potential consequences, and any measures taken to mitigate its impact.
+Our website may include links to external websites or services. These platforms are governed by their own privacy policies, and we bear no responsibility for their content or practices. We encourage users to review these third-party policies independently.
+Changes to this privacy policy
+MSPL shall update this privacy policy at its sole discretion. Users are advised to check this page for any changes in the privacy policy and to stay informed about how the personal information of the Users is protected by us. The User's hereby acknowledge and agree that it is their responsibility to review this privacy policy periodically and become aware of modifications.
+Your acceptance of these terms
+By using this Site, the Users signify their acceptance of this policy as may be modified from time to time. The Users are advised not to access this site if they do not agree to our privacy policy. The abovementioned privacy policy shall be applicable for the information and data collected by our call centers as well.
+If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us at:
+text-[#008751] hover:underline font-medium
+Content to be added soon.
+No Objection - Bannerghatta National Park
+No Objection - Suguna Rajkumar
+Purchase Order Details
+Stage 1: Pre-Transplantation Activities
+Stage 2: Transplantation Activities
+Stage 3: Post-Transplantation Activities
+text-[#2e7d32] font-semibold hover:underline cursor-pointer 
+fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4
+bg-white rounded-xl max-w-xl w-full shadow-2xl
+px-6 py-4 border-b border-gray-200 flex items-center justify-between
+text-lg font-bold text-[#1e3a5f]
+w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors
+w-5 h-5 text-gray-500
+text-gray-600 whitespace-pre-line
+px-6 py-4 bg-gray-50 rounded-b-xl
+w-full py-2 bg-[#2e7d32] text-white font-semibold rounded-lg hover:bg-[#1b5e20] transition-colors
+pt-24 md:pt-28 pb-8 bg-gradient-to-b from-[#e8f5e9] to-[#f5f7fa]
+max-w-5xl mx-auto px-4 sm:px-6 lg:px-12 text-center
+flex items-center justify-center gap-3 mb-4
+text-3xl sm:text-4xl md:text-5xl font-bold text-[#2e7d32] tracking-wide
+Roots Before Roofs
+mt-3 text-[#1e3a5f] text-lg md:text-xl font-semibold
+mt-2 text-[#666] text-base md:text-lg
+Transportation of 121 Trees – Details
+max-w-5xl mx-auto px-4 sm:px-6
+bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-8
+flex items-center gap-2 mb-4
+text-xl md:text-2xl font-bold text-[#1e3a5f]
+The Mission/Aim: Protecting 121 Living Legacies
+text-gray-600 mb-4
+Facts of the trees:
+w-full text-sm md:text-base border-collapse
+bg-[#2e7d32] text-white
+border border-[#2e7d32] px-4 py-3 text-left
+border border-[#2e7d32] px-4 py-3 text-right
+bg-white hover:bg-gray-50
+border border-gray-300 px-4 py-3
+Total Trees @ Project Location
+border border-gray-300 px-4 py-3 text-right font-semibold
+bg-gray-50 hover:bg-gray-100
+Trees retained in the Site
+bg-[#e8f5e9] hover:bg-[#c8e6c9]
+border border-gray-300 px-4 py-3 font-semibold
+Trees being transported from the Site Area
+border border-gray-300 px-4 py-3 text-right font-bold text-[#2e7d32] text-lg
+mt-6 overflow-x-auto
+border border-gray-300 px-4 py-3 text-center font-bold text-[#1e3a5f]
+Trees Transported Locations
+Trees transported to Bannerghatta Biological Park
+border border-gray-300 px-4 py-3 text-right font-semibold text-[#2e7d32]
+Trees transported to Suguna Rajkumar Farm
+Trees Accommodated in Land – 115/2
+bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-8 border-l-4 border-[#ffc107]
+Required Approvals for
+space-y-3 text-base md:text-lg
+flex items-start gap-2 flex-wrap
+No Objection from landowners
+pl-6 flex items-start gap-2 flex-wrap
+a. Bannerghatta National Park -
+b. Suguna Rajkumar -
+Purchase Order –
+text-gray-600 italic mt-6 text-sm md:text-base border-t border-gray-200 pt-4
+We sincerely thank the Owners for the Approvals to move our decade old Trees
+flex items-center gap-2 mb-6
+No of days activities: 
+ Scientific Process
+in the movement of the trees:
+p-5 bg-[#e8f5e9] rounded-xl border-l-4 border-[#2e7d32]
+font-bold text-[#1e3a5f] text-lg
+Stage 1: Pre-Transplantation Activities – 
+Present Activity @ SITE.
+text-gray-600 mt-2 pl-4
+This phase involves Geo-Tagging/Species Assessment/Soil testing & identification of suitable Locations.
+p-5 bg-[#fffde7] rounded-xl border-l-4 border-[#ffc107]
+text-gray-600 mt-2
+This phase involves the careful physical relocation of each tree - 
+Will Start Shortly- Stay Tuned
+This phase involves the transplantation aftercare & sustained growth monitoring - 
+bg-[#e8f5e9] rounded-2xl shadow-lg p-6 md:p-8 mb-8 border border-[#2e7d32]/20
+Our Implementation Partners
+text-gray-700 text-lg
+Our Mission Entrusted to 
+Treesjoint Developer's (NGO Organization)
+https://treesjoint.org
+text-[#2e7d32] font-semibold underline hover:text-[#1b5e20] text-lg
+bg-white rounded-2xl shadow-lg p-6 md:p-8 border-2 border-[#2e7d32]/30
+Be Part of the Green Journey
+text-gray-700 text-lg mb-3
+If you are passionate about protecting 
+Nature Around You
+, we'd love to keep you in the loop & invite you to follow this 45-day journey as well as the Launch.
+text-gray-700 text-lg mb-6
+We shall keep you posted: 
+Photos/Videos/Real-Time Progress.
+flex flex-col sm:flex-row gap-4
+flex-1 px-6 py-5 border-2 border-[#2e7d32] text-[#1e3a5f] font-semibold rounded-xl hover:bg-[#e8f5e9] transition-colors text-center
+block font-bold text-lg
+Show your interest by registering here
+Get periodic updates
+px-8 py-5 border-2 border-[#2e7d32] bg-[#2e7d32] text-white font-bold text-lg rounded-xl hover:bg-[#1b5e20] transition-colors text-center flex items-center justify-center
+Click for Project Highlights
+max-w-5xl mx-auto px-4 sm:px-6 text-center
+inline-flex items-center gap-2 text-[#1e3a5f] font-semibold hover:text-[#2e7d32] transition-colors
+Back to News & Events
+Early Access · Pre-launch
+Get <span class="text-[#008751]">Early Access</span>
+Pre-Launch Early Access: 24th May to 31st May 2026. Lock your slots & grab your exclusive discount.
+https://memcoskyline.com/earlyaccess
+ I just booked my Early Access visit at *MEMCO Skyline*
+Any discounts, indicative pricing, promotional benefits, access privileges or expressions of interest communicated under the Early Access program are provisional, limited-period, non-transferable and subject to revision, withdrawal or modification without prior notice, unless specifically confirmed in definitive written agreements executed by the Developer.
+
+    <p class="font-semibold text-amber-900">Note:</p>
+    <ul class="mt-2 ml-5 list-disc space-y-1.5 text-amber-900/90">
+      <li>Get first access to the JUTAKU Experience — a preview of what's coming.</li>
+      <li>JUTAKU early access is valid only between <strong>24<sup>th</sup> May to 31<sup>st</sup> May 2026</strong>.</li>
+      <li>JUTAKU discount is valid only on the <strong>Experience Center</strong> booking and usable only on your booking day.</li>
+      <li>The Jutaku Experience Centre is not yet completely ready. We apologize for the inconvenience and thank you for your patience.</li>
+    </ul>
+  
+w-full max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-xl
+text-2xl font-bold text-gray-900 mb-2
+🎯 Map Calibration Tool
+Click on known locations on the map, then enter their exact coordinates to calibrate marker positioning.
+grid grid-cols-1 lg:grid-cols-3 gap-6
+border-4 border-blue-500 rounded-lg overflow-hidden relative
+Map for calibration
+w-full cursor-crosshair
+absolute transform -translate-x-1/2 -translate-y-1/2 z-10
+w-6 h-6 bg-blue-500 rounded-full border-4 border-white shadow-lg flex items-center justify-center text-white text-xs font-bold
+absolute top-8 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-2 py-1 rounded text-xs whitespace-nowrap shadow-lg
+mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4
+font-semibold text-blue-900 mb-2
+📍 Instructions:
+text-sm text-blue-800 space-y-1 list-decimal list-inside
+Click on a visible location on the map (e.g., MEMCO logo, metro station, hospital)
+Enter the location name and its exact Latitude & Longitude
+Repeat for 2-4 different locations spread across the map
+Click "Calculate Bounds" to get calibrated coordinates
+Copy the generated bounds to your code
+bg-gray-50 rounded-lg p-4
+font-semibold text-gray-900 mb-3
+Calibration Points (
+text-sm text-gray-500 italic
+Click on the map to add points
+bg-white rounded p-3 border border-gray-200
+flex justify-between items-start mb-1
+font-semibold text-sm text-gray-900
+text-red-500 hover:text-red-700 text-xs
+text-xs text-gray-600 space-y-0.5
+Please add at least 2 calibration points
+w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-colors
+Calculate Bounds
+w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors
+bg-green-50 border-2 border-green-500 rounded-lg p-4
+font-bold text-green-900 mb-3
+✅ Calibrated Bounds
+bg-white rounded p-3 mb-3 font-mono text-xs overflow-x-auto
+const MAP_BOUNDS = [
+  [
+Copied to clipboard!
+w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition-colors
+📋 Copy to Clipboard
+text-xs text-green-700 mt-3
+Replace MAP_BOUNDS in CinematicLocationMap.jsx with these values
+bg-yellow-50 border border-yellow-200 rounded-lg p-4
+font-semibold text-yellow-900 mb-2
+💡 Suggested Points:
+text-xs text-yellow-800 space-y-1
+• MEMCO Skyline (12.8741, 77.6406)
+• Singasandra Metro (12.8898, 77.6516)
+• Jayadeva Hospital (12.9166, 77.599)
+• Electronic City (12.8399, 77.677)
+fixed inset-0 bg-black/50 flex items-center justify-center z-50
+bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-2xl
+text-lg font-bold text-gray-900 mb-4
+Add Calibration Point #
+block text-sm font-medium text-gray-700 mb-1
+e.g., MEMCO Skyline
+w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+text-xs text-gray-500 bg-gray-50 p-3 rounded
+flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors
+flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold
+min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 py-8 px-4
+max-w-4xl mx-auto mt-8 bg-white rounded-lg shadow-lg p-6
+text-xl font-bold text-gray-900 mb-4
+📖 How This Works
+space-y-4 text-sm text-gray-700
+font-semibold text-gray-900 mb-2
+Why do markers appear in wrong positions?
+The static map image shows a specific geographic area, but we need to tell the code exactly which latitude/longitude coordinates correspond to which pixels on the image. When these "bounds" are incorrect, markers appear offset from their actual locations.
+How does calibration fix this?
+By clicking on 2-4 known locations (places you can see labeled on the map) and entering their exact coordinates, the tool calculates the precise geographic bounds (min/max lat/lng) that match your image. This ensures all future markers align perfectly with the map.
+list-disc list-inside space-y-1 ml-2
+Choose locations spread across different areas of the map (corners work well)
+Use locations with visible labels you can clearly identify
+Get exact coordinates from Google Maps for accuracy
+Add at least 2 points, but 3-4 points give better results
+Include MEMCO Skyline as one of your points since it's prominent
+bg-blue-50 border border-blue-200 rounded-lg p-4
+After Calibration:
+list-decimal list-inside space-y-1 ml-2 text-blue-800
+Copy the generated 
+bg-blue-100 px-1 rounded
+/app/frontend/src/components/CinematicLocationMap.jsx
+Find the line with 
+const MAP_BOUNDS = [...]
+Replace it with your calibrated bounds
+Save the file - all markers will now be accurate!
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAABSCAMAAAAhFXfZAAAC91BMVEVMaXEzeak2f7I4g7g3g7cua5gzeKg8hJo3grY4g7c3grU0gLI2frE0daAubJc2gbQwd6QzeKk2gLMtd5sxdKIua5g1frA2f7IydaM0e6w2fq41fK01eqo3grgubJgta5cxdKI1f7AydaQydaMxc6EubJgvbJkwcZ4ubZkwcJwubZgubJcydqUydKIxapgubJctbJcubZcubJcvbJYubJcvbZkubJctbJctbZcubJg2f7AubJcrbZcubJcubJcua5g3grY0fq8ubJcubJdEkdEwhsw6i88vhswuhcsuhMtBjMgthMsrg8srgss6is8qgcs8i9A9iMYtg8spgcoogMo7hcMngMonf8olfso4gr8kfck5iM8jfMk4iM8he8k1fro7itAgesk2hs8eecgzfLcofssdeMg0hc4cd8g2hcsxeLQbdsgZdcgxeLImfcszhM0vda4xgckzhM4xg84wf8Yxgs4udKsvfcQucqhUndROmdM1fK0wcZ8vb5w0eqpQm9MzeKhXoNVcpdYydKNWn9VZotVKltJFjsIwcJ1Rms9OlslLmtH///8+kc9epdYzd6dbo9VHkMM2f7FHmNBClM8ydqVcpNY9hro3gLM9hLczealQmcw3fa46f7A8gLMxc6I3eagyc6FIldJMl9JSnNRSntNNl9JPnNJFi75UnM9ZodVKksg8kM45jc09e6ZHltFBk883gbRBh7pDk9EwcaBzn784g7dKkcY2i81Om9M7j85Llc81is09g7Q4grY/j9A0eqxKmdFFltBEjcXf6fFImdBCiLxJl9FGlNFBi78yiMxVndEvbpo6js74+vx+psPP3+o/ks5HkcpGmNCjwdZCkNDM3ehYoNJEls+lxNkxh8xHks0+jdC1zd5Lg6r+/v/H2ufz9/o3jM3t8/edvdM/k89Th61OiLBSjbZklbaTt9BfptdjmL1AicBHj8hGk9FAgK1dkLNTjLRekrdClc/k7fM0icy0y9tgp9c4jc2NtM9Dlc8zicxeXZn3AAAAQ3RSTlMAHDdTb4yPA+LtnEQmC4L2EmHqB7XA0d0sr478x4/Yd5i1zOfyPkf1sLVq4Nh3FvjxopQ2/STNuFzUwFIwxKaejILpIBEV9wAABhVJREFUeF6s1NdyFEcYBeBeoQIhRAkLlRDGrhIgY3BJL8CVeKzuyXFzzjkn5ZxzzuScg3PO8cKzu70JkO0LfxdTU//pM9vTu7Xgf6KqOVTb9X7toRrVEfBf1HTVjZccrT/2by1VV928Yty9ZbVuucdz90frG8DBjl9pVApbOstvmMuvVgaNXSfAAd6pGxpy6yxf5ph43pS/4f3uoaGm2rdu72S9xzOvMymkZFq/ptDrk90mhW7e4zl7HLzhxGWPR20xmSxJ/VqldG5m9XhaVOA1DadsNh3Pu5L2N6QtPO/32JpqQBVVk20oy/Pi2s23WEvyfHbe1thadVQttvm7Llf65gGmXK67XtupyoM7HQhmXdLS8oGWJNeOJ3C5fG5XCEJnkez3/oFdsvgJ4l2ANZwhrJKk/7OSXa+3Vw2WJMlKnGkobouYk6T0TyX30klOUnTD9HJ5qpckL3EW/w4XF3Xd0FGywXUrstrclVsqz5Pd/sXFYyDnPdrLcQODmGOK47IZb4CmibmMn+MYRzFZ5jg33ZL/EJrWcszHmANy3ARBK/IXtciJy8VsitPSdE3uuHxzougojcUdr8/32atnz/ev3f/K5wtpxUTpcaI45zusVDpYtZi+jg0oU9b3x74h7+n9ABvYEZeKaVq0sh0AtLKsFtqNBdeT0MrSzwwlq9+x6xAO4tgOtSzbCjrNQQiNvQUbUEubvzBUeGw26yDCsRHCoLkTHDa7IdOLIThs/gHvChszh2CimE8peRs47cxANI0lYNB5y1DljpOF0IhzBDPOZnDOqYYbeGKECbPzWnXludPphw5c2YBq5zlwXphIbO4VDCZ0gnPfUO1TwZoYwAs2ExPCedAu9DAjfQUjzITQb3jNj0KG2Sgt6BHaQUdYzWz+XmBktOHwanXjaSTcwwziBcuMOtwBmqPrTOxFQR/DRKKPqyur0aiW6cULYsx6tBm0jXpR/AUWR6HRq9WVW6MRhIq5jLyjbaCTDCijyYJNpCajdyobP/eTw0iexBAKkJ3gA5KcQb2zBXsIBckn+xVv8jkZSaEFHE+jFEleAEfayRU0MouNoBmB/L50Ai/HSLIHxcrpCvnhSQAuakKp2C/YbCylJjXRVy/z3+Kv/RrNcCo+WUzlVEhzKffnTQnxeN9fWF88fiNCUdSTsaufaChKWInHeysygfpIqagoakW+vV20J8uyl6TyNKEZWV4oRSPyCkWpgOLSbkCObT8o2r6tlG58HQquf6O0v50tB7JM7F4EORd2dx/K0w/KHsVkLPaoYrwgP/y7krr3SSMA4zj+OBgmjYkxcdIJQyQRKgg2viX9Hddi9UBb29LrKR7CVVEEEXWojUkXNyfTNDE14W9gbHJNuhjDettN3ZvbOvdOqCD3Jp/9l+/wJE+9PkYGjx/fqkys3S2rMozM/o2106rfMUINo6hVqz+eu/hd1c4xTg0TAfy5kV+4UG6+IthHTU9woWmxuKNbTfuCSfovBCxq7EtHqvYL4Sm6F8GVxsSXHMQ07TOi1DKtZxjWaaIyi4CXWjxPccUw8WVbMYY5wxC1mzEyXMJWkllpRloi+Kkoq69sxBTlElF6aAxYUbjXNlhlDZilDnM4U5SlN5biRsRHnbx3mbeWjEh4mEyiuJDl5XcWVmX5GvNkFgLWZM5qwsop4/AWfLhU1cR7k1VVvcYCWRkOI6Xy5gmnphCYIkvzuNYzHzosq2oNk2RtSs8khfUOfHIDgR6ysYBaMpl4uEgk2U/oJTs9AaTSwma7dT69geAE2ZpEjUsn2ieJNHeKfrI3EcAGJ2ZaNgVuC8EBctCLc57P5u5led6IOBkIYkuQMrmmjChs4VkfOerHqSBkPzZlhe06RslZ3zMjk2sscqKwY0RcjKK+LWbzd7KiHhkncs/siFJ+V5eXxD34B8nVuJEpGJNmxN2gH3vSvp7J70tF+D1Ej8qUJD1TkErAND2GZwTFg/LubvmgiBG3SOvdlsqFQrkEzJCL1rstlnVFROixZoDDSuXQFHESwVGlcuQcMb/b42NgjLowh5MTDFE3vNB5qStRIErdCQEh6pLPR92anSUb/wAIhldAaDMpGgAAAABJRU5ErkJggg==
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAApCAYAAADAk4LOAAAFgUlEQVR4Aa1XA5BjWRTN2oW17d3YaZtr2962HUzbDNpjszW24mRt28p47v7zq/bXZtrp/lWnXr337j3nPCe85NcypgSFdugCpW5YoDAMRaIMqRi6aKq5E3YqDQO3qAwjVWrD8Ncq/RBpykd8oZUb/kaJutow8r1aP9II0WmLKLIsJyv1w/kqw9Ch2MYdB++12Onxee/QMwvf4/Dk/Lfp/i4nxTXtOoQ4pW5Aj7wpici1A9erdAN2OH64x8OSP9j3Ft3b7aWkTg/Fm91siTra0f9on5sQr9INejH6CUUUpavjFNq1B+Oadhxmnfa8RfEmN8VNAsQhPqF55xHkMzz3jSmChWU6f7/XZKNH+9+hBLOHYozuKQPxyMPUKkrX/K0uWnfFaJGS1QPRtZsOPtr3NsW0uyh6NNCOkU3Yz+bXbT3I8G3xE5EXLXtCXbbqwCO9zPQYPRTZ5vIDXD7U+w7rFDEoUUf7ibHIR4y6bLVPXrz8JVZEql13trxwue/uDivd3fkWRbS6/IA2bID4uk0UpF1N8qLlbBlXs4Ee7HLTfV1j54APvODnSfOWBqtKVvjgLKzF5YdEk5ewRkGlK0i33Eofffc7HT56jD7/6U+qH3Cx7SBLNntH5YIPvODnyfIXZYRVDPqgHtLs5ABHD3YzLuespb7t79FY34DjMwrVrcTuwlT55YMPvOBnRrJ4VXTdNnYug5ucHLBjEpt30701A3Ts+HEa73u6dT3FNWwflY86eMHPk+Yu+i6pzUpRrW7SNDg5JHR4KapmM5Wv2E8Tfcb1HoqqHMHU+uWDD7zg54mz5/2BSnizi9T1Dg4QQXLToGNCkb6tb1NU+QAlGr1++eADrzhn/u8Q2YZhQVlZ5+CAOtqfbhmaUCS1ezNFVm2imDbPmPng5wmz+gwh+oHDce0eUtQ6OGDIyR0uUhUsoO3vfDmmgOezH0mZN59x7MBi++WDL1g/eEiU3avlidO671bkLfwbw5XV2P8Pzo0ydy4t2/0eu33xYSOMOD8hTf4CrBtGMSoXfPLchX+J0ruSePw3LZeK0juPJbYzrhkH0io7B3k164hiGvawhOKMLkrQLyVpZg8rHFW7E2uHOL888IBPlNZ1FPzstSJM694fWr6RwpvcJK60+0HCILTBzZLFNdtAzJaohze60T8qBzyh5ZuOg5e7uwQppofEmf2++DYvmySqGBuKaicF1blQjhuHdvCIMvp8whTTfZzI7RldpwtSzL+F1+wkdZ2TBOW2gIF88PBTzD/gpeREAMEbxnJcaJHNHrpzji0gQCS6hdkEeYt9DF/2qPcEC8RM28Hwmr3sdNyht00byAut2k3gufWNtgtOEOFGUwcXWNDbdNbpgBGxEvKkOQsxivJx33iow0Vw5S6SVTrpVq11ysA2Rp7gTfPfktc6zhtXBBC+adRLshf6sG2RfHPZ5EAc4sVZ83yCN00Fk/4kggu40ZTvIEm5g24qtU4KjBrx/BTTH8ifVASAG7gKrnWxJDcU7x8X6Ecczhm3o6YicvsLXWfh3Ch1W0k8x0nXF+0fFxgt4phz8QvypiwCCFKMqXCnqXExjq10beH+UUA7+nG6mdG/Pu0f3LgFcGrl2s0kNNjpmoJ9o4B29CMO8dMT4Q5ox8uitF6fqsrJOr8qnwNbRzv6hSnG5wP+64C7h9lp30hKNtKdWjtdkbuPA19nJ7Tz3zR/ibgARbhb4AlhavcBebmTHcFl2fvYEnW0ox9xMxKBS8btJ+KiEbq9zA4RthQXDhPa0T9TEe69gWupwc6uBUphquXgf+/FrIjweHQS4/pduMe5ERUMHUd9xv8ZR98CxkS4F2n3EUrUZ10EYNw7BWm9x1GiPssi3GgiGRDKWRYZfXlON+dfNbM+GgIwYdwAAAAASUVORK5CYII=
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACkAAAApCAQAAAACach9AAACMUlEQVR4Ae3ShY7jQBAE0Aoz/f9/HTMzhg1zrdKUrJbdx+Kd2nD8VNudfsL/Th///dyQN2TH6f3y/BGpC379rV+S+qqetBOxImNQXL8JCAr2V4iMQXHGNJxeCfZXhSRBcQMfvkOWUdtfzlLgAENmZDcmo2TVmt8OSM2eXxBp3DjHSMFutqS7SbmemzBiR+xpKCNUIRkdkkYxhAkyGoBvyQFEJEefwSmmvBfJuJ6aKqKWnAkvGZOaZXTUgFqYULWNSHUckZuR1HIIimUExutRxwzOLROIG4vKmCKQt364mIlhSyzAf1m9lHZHJZrlAOMMztRRiKimp/rpdJDc9Awry5xTZCte7FHtuS8wJgeYGrex28xNTd086Dik7vUMscQOa8y4DoGtCCSkAKlNwpgNtphjrC6MIHUkR6YWxxs6Sc5xqn222mmCRFzIt8lEdKx+ikCtg91qS2WpwVfBelJCiQJwvzixfI9cxZQWgiSJelKnwBElKYtDOb2MFbhmUigbReQBV0Cg4+qMXSxXSyGUn4UbF8l+7qdSGnTC0XLCmahIgUHLhLOhpVCtw4CzYXvLQWQbJNmxoCsOKAxSgBJno75avolkRw8iIAFcsdc02e9iyCd8tHwmeSSoKTowIgvscSGZUOA7PuCN5b2BX9mQM7S0wYhMNU74zgsPBj3HU7wguAfnxxjFQGBE6pwN+GjME9zHY7zGp8wVxMShYX9NXvEWD3HbwJf4giO4CFIQxXScH1/TM+04kkBiAAAAAElFTkSuQmCC
+Invalid attempt to iterate non-iterable instance.
+In order to be iterable, non-array objects must have a [Symbol.iterator]() method.
+Invalid attempt to destructure non-iterable instance.
+In order to be iterable, non-array objects must have a [Symbol.iterator]() method.
+Invalid attempt to spread non-iterable instance.
+In order to be iterable, non-array objects must have a [Symbol.iterator]() method.
+@@toPrimitive must return a primitive value.
+:root, :host {
+  --fa-font-solid: normal 900 1em/1 "Font Awesome 7 Free";
+  --fa-font-regular: normal 400 1em/1 "Font Awesome 7 Free";
+  --fa-font-light: normal 300 1em/1 "Font Awesome 7 Pro";
+  --fa-font-thin: normal 100 1em/1 "Font Awesome 7 Pro";
+  --fa-font-duotone: normal 900 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-duotone-regular: normal 400 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-duotone-light: normal 300 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-duotone-thin: normal 100 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-brands: normal 400 1em/1 "Font Awesome 7 Brands";
+  --fa-font-sharp-solid: normal 900 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-regular: normal 400 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-light: normal 300 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-thin: normal 100 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-duotone-solid: normal 900 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-sharp-duotone-regular: normal 400 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-sharp-duotone-light: normal 300 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-sharp-duotone-thin: normal 100 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-slab-regular: normal 400 1em/1 "Font Awesome 7 Slab";
+  --fa-font-slab-press-regular: normal 400 1em/1 "Font Awesome 7 Slab Press";
+  --fa-font-whiteboard-semibold: normal 600 1em/1 "Font Awesome 7 Whiteboard";
+  --fa-font-thumbprint-light: normal 300 1em/1 "Font Awesome 7 Thumbprint";
+  --fa-font-notdog-solid: normal 900 1em/1 "Font Awesome 7 Notdog";
+  --fa-font-notdog-duo-solid: normal 900 1em/1 "Font Awesome 7 Notdog Duo";
+  --fa-font-etch-solid: normal 900 1em/1 "Font Awesome 7 Etch";
+  --fa-font-jelly-regular: normal 400 1em/1 "Font Awesome 7 Jelly";
+  --fa-font-jelly-fill-regular: normal 400 1em/1 "Font Awesome 7 Jelly Fill";
+  --fa-font-jelly-duo-regular: normal 400 1em/1 "Font Awesome 7 Jelly Duo";
+  --fa-font-chisel-regular: normal 400 1em/1 "Font Awesome 7 Chisel";
+  --fa-font-utility-semibold: normal 600 1em/1 "Font Awesome 7 Utility";
+  --fa-font-utility-duo-semibold: normal 600 1em/1 "Font Awesome 7 Utility Duo";
+  --fa-font-utility-fill-semibold: normal 600 1em/1 "Font Awesome 7 Utility Fill";
+}
+
+.svg-inline--fa {
+  box-sizing: content-box;
+  display: var(--fa-display, inline-block);
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+  width: var(--fa-width, 1.25em);
+}
+.svg-inline--fa.fa-2xs {
+  vertical-align: 0.1em;
+}
+.svg-inline--fa.fa-xs {
+  vertical-align: 0em;
+}
+.svg-inline--fa.fa-sm {
+  vertical-align: -0.0714285714em;
+}
+.svg-inline--fa.fa-lg {
+  vertical-align: -0.2em;
+}
+.svg-inline--fa.fa-xl {
+  vertical-align: -0.25em;
+}
+.svg-inline--fa.fa-2xl {
+  vertical-align: -0.3125em;
+}
+.svg-inline--fa.fa-pull-left,
+.svg-inline--fa .fa-pull-start {
+  float: inline-start;
+  margin-inline-end: var(--fa-pull-margin, 0.3em);
+}
+.svg-inline--fa.fa-pull-right,
+.svg-inline--fa .fa-pull-end {
+  float: inline-end;
+  margin-inline-start: var(--fa-pull-margin, 0.3em);
+}
+.svg-inline--fa.fa-li {
+  width: var(--fa-li-width, 2em);
+  inset-inline-start: calc(-1 * var(--fa-li-width, 2em));
+  inset-block-start: 0.25em; /* syncing vertical alignment with Web Font rendering */
+}
+
+.fa-layers-counter, .fa-layers-text {
+  display: inline-block;
+  position: absolute;
+  text-align: center;
+}
+
+.fa-layers {
+  display: inline-block;
+  height: 1em;
+  position: relative;
+  text-align: center;
+  vertical-align: -0.125em;
+  width: var(--fa-width, 1.25em);
+}
+.fa-layers .svg-inline--fa {
+  inset: 0;
+  margin: auto;
+  position: absolute;
+  transform-origin: center center;
+}
+
+.fa-layers-text {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+}
+
+.fa-layers-counter {
+  background-color: var(--fa-counter-background-color, #ff253a);
+  border-radius: var(--fa-counter-border-radius, 1em);
+  box-sizing: border-box;
+  color: var(--fa-inverse, #fff);
+  line-height: var(--fa-counter-line-height, 1);
+  max-width: var(--fa-counter-max-width, 5em);
+  min-width: var(--fa-counter-min-width, 1.5em);
+  overflow: hidden;
+  padding: var(--fa-counter-padding, 0.25em 0.5em);
+  right: var(--fa-right, 0);
+  text-overflow: ellipsis;
+  top: var(--fa-top, 0);
+  transform: scale(var(--fa-counter-scale, 0.25));
+  transform-origin: top right;
+}
+
+.fa-layers-bottom-right {
+  bottom: var(--fa-bottom, 0);
+  right: var(--fa-right, 0);
+  top: auto;
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: bottom right;
+}
+
+.fa-layers-bottom-left {
+  bottom: var(--fa-bottom, 0);
+  left: var(--fa-left, 0);
+  right: auto;
+  top: auto;
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: bottom left;
+}
+
+.fa-layers-top-right {
+  top: var(--fa-top, 0);
+  right: var(--fa-right, 0);
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: top right;
+}
+
+.fa-layers-top-left {
+  left: var(--fa-left, 0);
+  right: auto;
+  top: var(--fa-top, 0);
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: top left;
+}
+
+.fa-1x {
+  font-size: 1em;
+}
+
+.fa-2x {
+  font-size: 2em;
+}
+
+.fa-3x {
+  font-size: 3em;
+}
+
+.fa-4x {
+  font-size: 4em;
+}
+
+.fa-5x {
+  font-size: 5em;
+}
+
+.fa-6x {
+  font-size: 6em;
+}
+
+.fa-7x {
+  font-size: 7em;
+}
+
+.fa-8x {
+  font-size: 8em;
+}
+
+.fa-9x {
+  font-size: 9em;
+}
+
+.fa-10x {
+  font-size: 10em;
+}
+
+.fa-2xs {
+  font-size: calc(10 / 16 * 1em); /* converts a 10px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 10 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 10 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-xs {
+  font-size: calc(12 / 16 * 1em); /* converts a 12px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 12 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 12 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-sm {
+  font-size: calc(14 / 16 * 1em); /* converts a 14px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 14 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 14 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-lg {
+  font-size: calc(20 / 16 * 1em); /* converts a 20px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 20 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 20 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-xl {
+  font-size: calc(24 / 16 * 1em); /* converts a 24px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 24 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 24 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-2xl {
+  font-size: calc(32 / 16 * 1em); /* converts a 32px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 32 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 32 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-width-auto {
+  --fa-width: auto;
+}
+
+.fa-fw,
+.fa-width-fixed {
+  --fa-width: 1.25em;
+}
+
+.fa-ul {
+  list-style-type: none;
+  margin-inline-start: var(--fa-li-margin, 2.5em);
+  padding-inline-start: 0;
+}
+.fa-ul > li {
+  position: relative;
+}
+
+.fa-li {
+  inset-inline-start: calc(-1 * var(--fa-li-width, 2em));
+  position: absolute;
+  text-align: center;
+  width: var(--fa-li-width, 2em);
+  line-height: inherit;
+}
+
+/* Heads Up: Bordered Icons will not be supported in the future!
+  - This feature will be deprecated in the next major release of Font Awesome (v8)!
+  - You may continue to use it in this version *v7), but it will not be supported in Font Awesome v8.
+*/
+/* Notes:
+* --@{v.$css-prefix}-border-width = 1/16 by default (to render as ~1px based on a 16px default font-size)
+* --@{v.$css-prefix}-border-padding =
+  ** 3/16 for vertical padding (to give ~2px of vertical whitespace around an icon considering it's vertical alignment)
+  ** 4/16 for horizontal padding (to give ~4px of horizontal whitespace around an icon)
+*/
+.fa-border {
+  border-color: var(--fa-border-color, #eee);
+  border-radius: var(--fa-border-radius, 0.1em);
+  border-style: var(--fa-border-style, solid);
+  border-width: var(--fa-border-width, 0.0625em);
+  box-sizing: var(--fa-border-box-sizing, content-box);
+  padding: var(--fa-border-padding, 0.1875em 0.25em);
+}
+
+.fa-pull-left,
+.fa-pull-start {
+  float: inline-start;
+  margin-inline-end: var(--fa-pull-margin, 0.3em);
+}
+
+.fa-pull-right,
+.fa-pull-end {
+  float: inline-end;
+  margin-inline-start: var(--fa-pull-margin, 0.3em);
+}
+
+.fa-beat {
+  animation-name: fa-beat;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+.fa-bounce {
+  animation-name: fa-bounce;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.28, 0.84, 0.42, 1));
+}
+
+.fa-fade {
+  animation-name: fa-fade;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
+}
+
+.fa-beat-fade {
+  animation-name: fa-beat-fade;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
+}
+
+.fa-flip {
+  animation-name: fa-flip;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+.fa-shake {
+  animation-name: fa-shake;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-spin {
+  animation-name: fa-spin;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 2s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-spin-reverse {
+  --fa-animation-direction: reverse;
+}
+
+.fa-pulse,
+.fa-spin-pulse {
+  animation-name: fa-spin;
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, steps(8));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fa-beat,
+  .fa-bounce,
+  .fa-fade,
+  .fa-beat-fade,
+  .fa-flip,
+  .fa-pulse,
+  .fa-shake,
+  .fa-spin,
+  .fa-spin-pulse {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@keyframes fa-beat {
+  0%, 90% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(var(--fa-beat-scale, 1.25));
+  }
+}
+@keyframes fa-bounce {
+  0% {
+    transform: scale(1, 1) translateY(0);
+  }
+  10% {
+    transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);
+  }
+  30% {
+    transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));
+  }
+  50% {
+    transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);
+  }
+  57% {
+    transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));
+  }
+  64% {
+    transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0);
+  }
+}
+@keyframes fa-fade {
+  50% {
+    opacity: var(--fa-fade-opacity, 0.4);
+  }
+}
+@keyframes fa-beat-fade {
+  0%, 100% {
+    opacity: var(--fa-beat-fade-opacity, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(var(--fa-beat-fade-scale, 1.125));
+  }
+}
+@keyframes fa-flip {
+  50% {
+    transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));
+  }
+}
+@keyframes fa-shake {
+  0% {
+    transform: rotate(-15deg);
+  }
+  4% {
+    transform: rotate(15deg);
+  }
+  8%, 24% {
+    transform: rotate(-18deg);
+  }
+  12%, 28% {
+    transform: rotate(18deg);
+  }
+  16% {
+    transform: rotate(-22deg);
+  }
+  20% {
+    transform: rotate(22deg);
+  }
+  32% {
+    transform: rotate(-12deg);
+  }
+  36% {
+    transform: rotate(12deg);
+  }
+  40%, 100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.fa-rotate-90 {
+  transform: rotate(90deg);
+}
+
+.fa-rotate-180 {
+  transform: rotate(180deg);
+}
+
+.fa-rotate-270 {
+  transform: rotate(270deg);
+}
+
+.fa-flip-horizontal {
+  transform: scale(-1, 1);
+}
+
+.fa-flip-vertical {
+  transform: scale(1, -1);
+}
+
+.fa-flip-both,
+.fa-flip-horizontal.fa-flip-vertical {
+  transform: scale(-1, -1);
+}
+
+.fa-rotate-by {
+  transform: rotate(var(--fa-rotate-angle, 0));
+}
+
+.svg-inline--fa .fa-primary {
+  fill: var(--fa-primary-color, currentColor);
+  opacity: var(--fa-primary-opacity, 1);
+}
+
+.svg-inline--fa .fa-secondary {
+  fill: var(--fa-secondary-color, currentColor);
+  opacity: var(--fa-secondary-opacity, 0.4);
+}
+
+.svg-inline--fa.fa-swap-opacity .fa-primary {
+  opacity: var(--fa-secondary-opacity, 0.4);
+}
+
+.svg-inline--fa.fa-swap-opacity .fa-secondary {
+  opacity: var(--fa-primary-opacity, 1);
+}
+
+.svg-inline--fa mask .fa-primary,
+.svg-inline--fa mask .fa-secondary {
+  fill: black;
+}
+
+.svg-inline--fa.fa-inverse {
+  fill: var(--fa-inverse, #fff);
+}
+
+.fa-stack {
+  display: inline-block;
+  height: 2em;
+  line-height: 2em;
+  position: relative;
+  vertical-align: middle;
+  width: 2.5em;
+}
+
+.fa-inverse {
+  color: var(--fa-inverse, #fff);
+}
+
+.svg-inline--fa.fa-stack-1x {
+  --fa-width: 1.25em;
+  height: 1em;
+  width: var(--fa-width);
+}
+.svg-inline--fa.fa-stack-2x {
+  --fa-width: 2.5em;
+  height: 2em;
+  width: var(--fa-width);
+}
+
+.fa-stack-1x,
+.fa-stack-2x {
+  inset: 0;
+  margin: auto;
+  position: absolute;
+  z-index: var(--fa-stack-z-index, auto);
+}
+Cannot call a class as a function
+Operation requires a DOM of some kind.
+translate(calc(-50% + 
+em), calc(-50% + 
+Icon with name "
+Font Awesome fontawesome.com 
+Font Awesome 7 Free
+Font Awesome 7 Pro
+Font Awesome 7 Brands
+Font Awesome 7 Duotone
+Font Awesome 7 Sharp
+Font Awesome 7 Sharp Duotone
+Font Awesome 7 Jelly
+Font Awesome 7 Jelly Fill
+Font Awesome 7 Jelly Duo
+Font Awesome 7 Slab
+Font Awesome 7 Slab Press
+Font Awesome 7 Thumbprint
+Font Awesome 7 Notdog
+Font Awesome 7 Notdog Duo
+Font Awesome 7 Etch
+Font Awesome 7 Chisel
+Font Awesome 7 Whiteboard
+Font Awesome 7 Utility
+Font Awesome 7 Utility Duo
+Font Awesome 7 Utility Fill
+Font Awesome 5 Free
+Font Awesome 5 Pro
+Font Awesome 5 Brands
+Font Awesome 5 Duotone
+Font Awesome Kit
+Font Awesome Kit Duotone
+Font Awesome: cannot parse stylesheet: 
+)
+If it declares any Font Awesome CSS pseudo-elements, they will not be rendered as SVG icons. Add crossorigin="anonymous" to the <link>, enable searchPseudoElementsFullScan for slower but more thorough DOM parsing, or suppress this warning by setting searchPseudoElementsWarnings to false.
+Icon lookup is undefined
+Could not find icon
+[CMS] Fetching content...
+[CMS] Content loaded:
+[CMS] Using default content (API returned:
+[CMS] Using default content (fetch aborted or failed)
+useCMSContext must be used within CMSProvider
+[GA4] Event tracked: 
+[GA4] Page view tracked: 
+https://react.dev/errors/
+Minified React error #
+ for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+react.transitional.element
+react.strict_mode
+react.forward_ref
+react.suspense_list
+react.legacy_hidden
+react.tracing_marker
+react.memo_cache_sentinel
+react.view_transition
+react.client.reference
+Suspense Fallback
+
+Error generating stack: 
+__reactContainer$
+__reactListeners$
+__reactResources$
+^[:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD][:A-Z_a-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\-.0-9\u00B7\u0300-\u036F\u203F-\u2040]*$
+animationIterationCount aspectRatio borderImageOutset borderImageSlice borderImageWidth boxFlex boxFlexGroup boxOrdinalGroup columnCount columns flex flexGrow flexPositive flexShrink flexNegative flexOrder gridArea gridRow gridRowEnd gridRowSpan gridRowStart gridColumn gridColumnEnd gridColumnSpan gridColumnStart fontWeight lineClamp lineHeight opacity order orphans scale tabSize widows zIndex zoom fillOpacity floodOpacity stopOpacity strokeDasharray strokeDashoffset strokeMiterlimit strokeOpacity strokeWidth MozAnimationIterationCount MozBoxFlex MozBoxFlexGroup MozLineClamp msAnimationIterationCount msFlex msZoom msFlexGrow msFlexNegative msFlexOrder msFlexPositive msFlexShrink msGridColumn msGridColumnSpan msGridRow msGridRowSpan WebkitAnimationIterationCount WebkitBoxFlex WebKitBoxFlexGroup WebkitBoxOrdinalGroup WebkitColumnCount WebkitColumns WebkitFlex WebkitFlexGrow WebkitFlexPositive WebkitFlexShrink WebkitLineClamp
+javascript:throw new Error('React has blocked a javascript: URL as a security precaution.')
+"][type="radio"]
+abort auxClick beforeToggle cancel canPlay canPlayThrough click close contextMenu copy cut drag dragEnd dragEnter dragExit dragLeave dragOver dragStart drop durationChange emptied encrypted ended error gotPointerCapture input invalid keyDown keyPress keyUp load loadedData loadedMetadata loadStart lostPointerCapture mouseDown mouseMove mouseOut mouseOver mouseUp paste pause play playing pointerCancel pointerDown pointerMove pointerOut pointerOver pointerUp progress rateChange reset resize seeked seeking stalled submit suspend timeUpdate touchCancel touchEnd touchStart volumeChange scroll toggle touchMove waiting wheel
+object with keys {
+http://www.w3.org/1998/Math/MathML
+<script></script>
+change click focusin focusout input keydown keyup selectionchange
+focusout contextmenu dragend focusin keydown keyup mousedown mouseup selectionchange
+compositionend focusout keydown keypress keyup mousedown
+compositionstart focusout keydown keypress keyup mousedown
+compositionupdate focusout keydown keypress keyup mousedown
+abort canplay canplaythrough durationchange emptied encrypted ended error loadeddata loadedmetadata loadstart pause play playing progress ratechange resize seeked seeking stalled suspend timeupdate volumechange waiting
+beforetoggle cancel close invalid load scroll scrollend toggle
+javascript:throw new Error('A React form was unexpectedly submitted. If you called form.submit() manually, consider using form.requestSubmit() instead. If you\'re trying to use event.stopPropagation() in a submit event handler, consider also calling event.preventDefault().')
+http://www.w3.org/1999/xlink
+http://www.w3.org/XML/1998/namespace
+link[rel="preload"][as="
+link[rel="modulepreload"][as="
+link[rel="preload"][as="style"][
+link[rel="stylesheet"][
+style[data-href~="
+link[rel="stylesheet"][data-precedence],style[data-precedence]
+link[data-precedence],style[data-precedence]
+mousedown mouseup touchcancel touchend touchstart auxclick dblclick pointercancel pointerdown pointerup dragend dragstart drop compositionend compositionstart keydown keypress keyup input textInput copy cut paste click change contextmenu reset
+takes an object of state variables to update or a function which returns an object of state variables.
+Objects are not valid as a React child (found: 
+). If you meant to render a collection of children, use an array instead.
+React.Children.only expected to receive a single React element child.
+The argument must be a React element, but you passed 
+forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported
+A history only accepts one active listener
+http://localhost
+No window.location.(origin|href) available to create URL
+Absolute route path "
+" nested under path "
+" is not valid. An absolute child route path must start with the combined path of all its parent routes.
+Index routes must not have child routes. Please remove all child routes from route path "
+" will be treated as if it were "
+" because the `*` character must always follow a `/` in the pattern. To get rid of this warning, please change the route path to "
+" could not be decoded because it is a malformed URL segment. This is probably due to a bad percent encoding (
+Cannot include a '
+' character in a manually specified `to.
+].  Please separate it out to the `to.
+` field. Alternatively you may provide the full path as a string in <Link to="..."> and the router will parse it for you.
+"> contains an invalid URL which will probably break when clicked - please update to a valid URL path.
+useLocation() may be used only in the context of a <Router> component.
+You should call navigate() in a React.useEffect(), not when your component is first rendered.
+useNavigate() may be used only in the context of a <Router> component.
+useRoutes() may be used only in the context of a <Router> component.
+You rendered descendant <Routes> (or called `useRoutes()`) at "
+" (under <Route path="
+">) but the parent route path has no trailing "*". This means if you navigate deeper, the parent won't match anymore and therefore the child routes will never render.
+
+Please change the parent <Route path="
+"> to <Route path="
+When overriding the location using `<Routes location>` or `useRoutes(routes, location)`, the location pathname must begin with the portion of the URL pathname that was matched by all parent routes. The current pathname base is "
+" but pathname "
+" was given in the `location` prop.
+No routes matched location "
+Matched leaf route at location "
+" does not have an element or Component. This means it will render an <Outlet /> with a null value by default resulting in an "empty" page.
+rgba(200,200,200, 0.5)
+Error handled by React Router default ErrorBoundary:
+💿 Hey developer 👋
+You can provide a way better UX than this when your app throws errors by providing your own 
+ prop on your route.
+Unexpected Application Error!
+React Router caught the following error during render
+Could not find a matching route for errors on route IDs: 
+No `HydrateFallback` element provided to render during initial hydration
+ must be used within a data router.  See https://reactrouter.com/en/main/routers/picking-a-router.
+ can only be used on routes that contain a unique "id"
+<Navigate> may be used only in the context of a <Router> component.
+<Navigate> must not be used on the initial render in a <StaticRouter>. This is a no-op, but you should modify your code so the <Navigate> is only ever rendered in response to some user interaction or state change.
+A <Route> is only ever to be used as the child of <Routes> element, never rendered directly. Please wrap your <Route> in a <Routes>.
+You cannot render a <Router> inside another <Router>. You should never have more than one in your app.
+<Router basename="
+"> is not able to match the URL "
+" because it does not start with the basename, so the <Router> won't render anything.
+] is not a <Route> component. All component children of <Routes> must be a <Route> or <React.Fragment>
+An index route cannot have child routes.
+" is not a valid `encType` for `<Form>`/`<fetcher.Form>` and will default to "
+Cannot submit a <button> or <input type="submit"> without a <form>
+Cannot submit element that is not <form>, <button>, or <input type="submit|image">
+server://singlefetch/
+Error loading route module `
+`, reloading page...
+You must render this element inside a <DataRouterContext.Provider> element
+You must render this element inside a <DataRouterStateContext.Provider> element
+You must render this element inside a <HydratedRouter> element
+window.__reactRouterContext = 
+window.__reactRouterContext.stream = new ReadableStream({start(controller){window.__reactRouterContext.streamController = controller;}}).pipeThrough(new TextEncoderStream());
+ not found in manifest
+window.__reactRouterManifest = 
+
+  window.__reactRouterRouteModules = {
+The <Scripts /> element is a no-op when using RSC and can be safely removed.
+
+        console.log(
+          "💿 Hey developer 👋. You can provide a way better UX than this when your app throws errors. Check out https://reactrouter.com/how-to/error-boundary for more information."
+        );
+      
+Unhandled Thrown Response!
+Application Error!
+Application Error
+hsla(10, 50%, 50%, 0.1)
+width=device-width,initial-scale=1,viewport-fit=cover
+system-ui, sans-serif
+useHref() may be used only in the context of a <Router> component.
+`useViewTransitionState` must be used within `react-router-dom`'s `RouterProvider`.  Did you accidentally import `RouterProvider` from `react-router`?
+useFormAction must be used inside a RouteContext
+fixed top-0 left-0 right-0 z-50 transition-all duration-300 
+bg-white py-2.5 md:py-3
+max-w-7xl mx-auto px-3 sm:px-6 lg:px-12
+flex justify-between items-center
+flex items-center gap-1.5 sm:gap-2 md:gap-3
+h-9 sm:h-10 md:h-12 w-auto flex-shrink-0
+w-px h-8 sm:h-9 md:h-11 bg-gray-300 flex-shrink-0
+hidden sm:block w-px h-9 md:h-11 bg-gray-300 flex-shrink-0
+hidden sm:flex flex-col justify-center flex-shrink-0 h-10 md:h-12 leading-[1.15]
+hidden lg:flex items-center space-x-6 xl:space-x-8
+text-sm font-medium transition-colors tracking-wide 
+text-gray-800 hover:text-[#008751]
+bg-[#1a3a2a] text-white px-6 py-3 text-sm font-medium tracking-wide hover:bg-[#008751] hover:scale-105 transition-all duration-300 rounded-full shadow-lg hover:shadow-xl
+lg:hidden p-2 text-gray-800 bg-white rounded-md shadow-md border border-gray-200
+lg:hidden bg-white border-t
+px-4 py-4 space-y-3
+block w-full text-left text-sm font-medium transition-colors tracking-wide py-2 
+text-gray-700 hover:text-[#008751]
+w-full bg-[#1a3a2a] text-white px-6 py-3 text-sm font-medium tracking-wide hover:bg-[#008751] transition-all duration-300 mt-4 rounded-full shadow-lg
+https://memcoskyline.in
+memco:audience-gate-done
+fixed inset-0 z-[9999] flex items-center justify-center p-4
+
+        @keyframes agBackdropIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes agBackdropOut {
+          from { opacity: 1; }
+          to   { opacity: 0; }
+        }
+        @keyframes agCardIn {
+          0%   { opacity: 0; transform: scale(0.92) translateY(28px); filter: blur(6px); }
+          55%  { opacity: 1; transform: scale(1.015) translateY(-3px); filter: blur(0); }
+          100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        }
+        @keyframes agCardOut {
+          0%   { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+          100% { opacity: 0; transform: scale(0.94) translateY(-18px); filter: blur(5px); }
+        }
+        @keyframes agContentIn {
+          from { opacity: 0; transform: translateY(14px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes agContentOut {
+          from { opacity: 1; transform: translateY(0); }
+          to   { opacity: 0; transform: translateY(-6px); }
+        }
+        @keyframes agBtnPulse {
+          0%   { transform: scale(1); }
+          40%  { transform: scale(1.04); box-shadow: 0 18px 40px -8px rgba(0,0,0,0.25); }
+          100% { transform: scale(0.97); }
+        }
+        @keyframes agBtnFade {
+          0%   { opacity: 1; transform: scale(1); }
+          100% { opacity: 0.35; transform: scale(0.96); }
+        }
+        .ag-content-item {
+          opacity: 0;
+          animation: agContentIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .ag-closing .ag-content-item {
+          animation: agContentOut 0.35s ease-in forwards !important;
+        }
+      
+absolute inset-0 bg-cover bg-center
+url('/images/hero/hero-100x-desktop.webp')
+blur(6px) brightness(0.55)
+agBackdropOut 0.5s ease-in forwards
+agBackdropIn 0.5s ease-out
+absolute inset-0 bg-black/40
+relative w-full max-w-[calc(100%-1.5rem)] sm:max-w-xl md:max-w-2xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden 
+agCardOut 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards
+agCardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1)
+h-1 sm:h-1.5 bg-gradient-to-r from-[#008751] via-[#00b86e] to-[#008751]
+px-5 py-7 sm:px-10 sm:py-10 md:px-14 md:py-14 text-center
+ag-content-item flex flex-wrap items-center justify-center gap-2 sm:gap-4 md:gap-5 mb-6 sm:mb-9
+hidden sm:flex flex-col leading-[1.2] text-left flex-shrink-0
+text-[#008751] text-[10px] md:text-[11px] font-bold tracking-[0.2em] uppercase
+ag-content-item text-[#008751] font-semibold text-[10px] sm:text-[11px] uppercase tracking-[0.3em] mb-2 sm:mb-3
+ag-content-item text-[1.65rem] sm:text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-gray-900 leading-[1.1] mb-2 sm:mb-3
+What are you looking for?
+ag-content-item text-gray-500 text-sm sm:text-base md:text-lg mb-6 sm:mb-10 max-w-md mx-auto
+Let us personalise your Skyline experience.
+ag-content-item grid grid-cols-2 gap-3 sm:gap-5
+group relative flex-1 overflow-hidden rounded-xl sm:rounded-2xl border border-gray-200 bg-white px-3 sm:px-6 py-4 sm:py-8 md:py-10 transition-all duration-300 hover:border-gray-900 hover:bg-gray-50 hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-gray-900/30
+agBtnPulse 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards
+agBtnFade 0.4s ease-out forwards
+flex flex-col items-center gap-1 sm:gap-2
+text-[13px] sm:text-base md:text-lg font-bold tracking-wide text-gray-900 transition-transform duration-300 group-hover:scale-[1.03] leading-tight
+Individual Living
+hidden sm:inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.22em] text-gray-400 group-hover:text-gray-700 transition-colors
+w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1
+pointer-events-none absolute inset-x-0 bottom-0 h-[3px] bg-gray-900 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left
+group relative flex-1 overflow-hidden rounded-xl sm:rounded-2xl border border-gray-200 bg-white px-3 sm:px-6 py-4 sm:py-8 md:py-10 transition-all duration-300 hover:border-[#008751] hover:bg-[#f0faf5] hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#008751]/30
+text-[13px] sm:text-base md:text-lg font-bold tracking-wide text-gray-900 group-hover:text-[#006e42] transition-all duration-300 group-hover:scale-[1.03] leading-tight
+hidden sm:inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.22em] text-gray-400 group-hover:text-[#008751] transition-colors
+pointer-events-none absolute inset-x-0 bottom-0 h-[3px] bg-[#008751] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left
+ag-content-item text-[10px] sm:text-[11px] text-gray-400 mt-5 sm:mt-8 tracking-wide
+You can change this preference anytime by reloading the page.
+[data-testid="audience-gate-modal"]
+fixed right-0 z-[9998] flex flex-col gap-2
+translateY(-50%)
+text-white py-4 px-2 md:py-7 md:px-3 text-[10px] md:text-xs font-bold tracking-wider transition-colors uppercase whitespace-nowrap shadow-md rounded-l-md
+BOOK YOUR SITE VISIT
+fixed inset-0 z-[9998] bg-black/55 backdrop-blur-[3px]
+animate-[fadeOutBackdrop_0.32s_ease-in_forwards]
+animate-[fadeInBackdrop_0.35s_ease-out]
+fixed z-[9999] bg-white rounded-2xl shadow-2xl overflow-hidden
+animate-[popupCloseToTab_0.32s_ease-in_forwards]
+animate-[popupOpenFromTab_0.4s_cubic-bezier(0.22,1.2,0.36,1)]
+min(520px, calc(100vw - 32px))
+calc(100vh - 40px)
+absolute top-4 right-4 w-8 h-8 rounded-full text-gray-400 hover:text-gray-900 hover:bg-gray-100 flex items-center justify-center text-xl leading-none transition-colors z-10
+px-8 py-9 text-center
+mx-auto w-14 h-14 rounded-full flex items-center justify-center text-white mb-5
+text-2xl font-bold text-gray-900 leading-tight
+Reserve your JUTAKU Experience
+mt-3 text-sm text-gray-600 leading-relaxed max-w-[400px] mx-auto
+A curated 60-minute walkthrough of MEMCO Skyline's Jutaku Experience Center in Bangalore — Singasandra. Pick your preferred date & time slot now before they're booked!
+mt-7 w-full text-white py-3.5 rounded-xl text-sm font-bold uppercase tracking-wider transition-all shadow-sm hover:shadow-md
+mt-3 w-full py-2.5 text-sm font-semibold transition-colors hover:underline
+min-h-screen flex items-center justify-center bg-gray-100
+text-2xl font-bold text-gray-800 mb-4
+Something went wrong
+bg-[#008751] text-white px-6 py-2 rounded-lg
+min-h-screen flex items-center justify-center bg-white
+w-8 h-8 border-2 border-gray-200 border-t-green-600 rounded-full animate-spin
+[QR Campaign] QR code visitor detected:
+[Campaign] Campaign visitor:
+/?openContact=true&brochure=1
+api.whatsapp.com
+min-h-screen bg-white relative
+/?openContact=true
+/nature-around-you.webp
+/community-around-you.webp
+/design-around-you.webp
+/life-around-you.webp

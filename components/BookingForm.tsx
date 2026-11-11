@@ -5,50 +5,120 @@ import Link from "next/link";
 import { Armchair, ChevronLeft, ChevronRight } from "lucide-react";
 import { SubpageHeader } from "@/components/SubpageHeader";
 
-type VisitDate = { iso: string; day: string; label: string; year: number };
+type AvailabilitySlot = {
+  slot_start: string;
+  slot_end: string;
+  label: string;
+  available: number;
+  is_full: boolean;
+  booked_count: number;
+};
 
-function istClock() {
-  const now = new Date(Date.now() + 330 * 60 * 1_000);
-  return { year: now.getUTCFullYear(), month: now.getUTCMonth(), day: now.getUTCDate(), hour: now.getUTCHours() };
+type AvailabilityDay = {
+  day_index: number;
+  iso: string;
+  day: string;
+  label: string;
+  year: number;
+  slots: AvailabilitySlot[];
+};
+
+type AvailabilityResponse = {
+  base_iso?: string;
+  days?: Array<{ day_index: number; date?: string; day_label?: string; slots: AvailabilitySlot[] }>;
+  error?: string;
+};
+
+type BookingResponse = {
+  error?: string;
+  duplicate?: boolean;
+  confirmationCode?: string;
+  slotLabel?: string;
+};
+
+function isoForDay(baseIso: string, dayIndex: number) {
+  const date = new Date(`${baseIso}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + dayIndex - 1);
+  return date.toISOString().slice(0, 10);
 }
 
-function upcomingDates(): VisitDate[] {
-  const current = istClock();
-  const today = new Date(current.year, current.month, current.day, 12);
-  if (current.hour >= 17) today.setDate(today.getDate() + 1);
-  const dates: VisitDate[] = [];
-  for (const date = new Date(today); date.getFullYear() === today.getFullYear(); date.setDate(date.getDate() + 1)) {
-    dates.push({
-      iso: `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`,
-      day: new Intl.DateTimeFormat("en-IN", { weekday: "short" }).format(date),
-      label: new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short" }).format(date),
-      year: date.getFullYear(),
-    });
-  }
-  return dates;
+function todayInIndia() {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Kolkata",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
 }
 
-function slotLabel(hour: number) {
-  const format = (value: number) => `${value % 12 || 12}:00 ${value < 12 ? "AM" : "PM"}`;
-  return `${format(hour)} – ${format(hour + 1)}`;
+function displayDate(iso: string) {
+  const date = new Date(`${iso}T00:00:00Z`);
+  return {
+    day: new Intl.DateTimeFormat("en-IN", { weekday: "short", timeZone: "UTC" }).format(date),
+    label: new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", timeZone: "UTC" }).format(date),
+    year: date.getUTCFullYear(),
+  };
 }
 
 export function BookingForm() {
-  const [dates] = useState(upcomingDates);
   const datesRef = useRef<HTMLDivElement>(null);
   const [dateScroll, setDateScroll] = useState({ back: false, forward: false });
-  const [selectedDate, setSelectedDate] = useState(dates[0].iso);
-  const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
+  const [baseIso, setBaseIso] = useState("");
+  const [dates, setDates] = useState<AvailabilityDay[]>([]);
+  const [availabilityStatus, setAvailabilityStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [availabilityError, setAvailabilityError] = useState("");
+  const [selectedDayIndex, setSelectedDayIndex] = useState<number | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [guests, setGuests] = useState(1);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [submitStatus, setSubmitStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [submitError, setSubmitError] = useState("");
+  const [confirmation, setConfirmation] = useState<{ code?: string; label?: string; duplicate?: boolean }>({});
 
-  const chosenDate = dates.find((date) => date.iso === selectedDate) ?? dates[0];
-  const current = istClock();
-  const todayIso = `${current.year}-${String(current.month + 1).padStart(2, "0")}-${String(current.day).padStart(2, "0")}`;
+  const chosenDate = dates.find((date) => date.day_index === selectedDayIndex);
+  const chosenSlot = chosenDate?.slots.find((slot) => slot.slot_start === selectedSlot);
+  const maxGuests = Math.max(1, Math.min(12, chosenSlot?.available ?? 12));
+
+  useEffect(() => {
+    const controller = new AbortController();
+    async function loadAvailability() {
+      try {
+        const response = await fetch("/api/visit-availability", { cache: "no-store", signal: controller.signal });
+        const result = await response.json() as AvailabilityResponse;
+        if (!response.ok || !result.base_iso || !Array.isArray(result.days)) {
+          throw new Error(result.error || "Visit times are temporarily unavailable.");
+        }
+
+        const today = todayInIndia();
+        const upcoming = result.days.flatMap((day) => {
+          if (!Number.isInteger(day.day_index) || !Array.isArray(day.slots)) return [];
+          const iso = typeof day.date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(day.date)
+            ? day.date
+            : isoForDay(result.base_iso!, day.day_index);
+          if (iso < today) return [];
+          const shown = displayDate(iso);
+          return [{ ...day, ...shown, iso, slots: day.slots.filter((slot) => !slot.is_full && slot.available > 0) }];
+        }).filter((day) => day.slots.length > 0);
+
+        if (!upcoming.length) {
+          throw new Error("The booking calendar has no upcoming visit dates. Please contact the MEMCO Skyline team.");
+        }
+
+        setBaseIso(result.base_iso);
+        setDates(upcoming);
+        setSelectedDayIndex(upcoming[0].day_index);
+        setAvailabilityStatus("ready");
+      } catch (error) {
+        if (controller.signal.aborted) return;
+        setAvailabilityError(error instanceof Error ? error.message : "Visit times are temporarily unavailable.");
+        setAvailabilityStatus("error");
+      }
+    }
+    void loadAvailability();
+    return () => controller.abort();
+  }, []);
 
   const updateDateScroll = useCallback(() => {
     const row = datesRef.current;
@@ -64,7 +134,7 @@ export function BookingForm() {
     row.addEventListener("scroll", updateDateScroll, { passive: true });
     updateDateScroll();
     return () => { observer.disconnect(); row.removeEventListener("scroll", updateDateScroll); };
-  }, [updateDateScroll]);
+  }, [dates, updateDateScroll]);
 
   function moveDates(direction: -1 | 1) {
     const row = datesRef.current;
@@ -76,20 +146,35 @@ export function BookingForm() {
 
   async function submitVisit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (selectedSlot === null || submitStatus === "sending" || submitStatus === "sent") return;
+    if (!chosenDate || !selectedSlot || submitStatus === "sending" || submitStatus === "sent") return;
+    const params = new URLSearchParams(window.location.search);
     setSubmitStatus("sending");
     setSubmitError("");
     try {
       const response = await fetch("/api/visit-requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ date: selectedDate, hour: selectedSlot, guests, name: name.trim(), phone: phone.trim(), email: email.trim() }),
+        body: JSON.stringify({
+          baseIso,
+          date: chosenDate.iso,
+          dayIndex: chosenDate.day_index,
+          slotStart: selectedSlot,
+          guests,
+          name: name.trim(),
+          phone: phone.trim(),
+          email: email.trim(),
+          pageUrl: window.location.href,
+          utmSource: params.get("utm_source") || "",
+          utmMedium: params.get("utm_medium") || "",
+          utmCampaign: params.get("utm_campaign") || "",
+        }),
       });
-      const result = await response.json() as { error?: string };
-      if (!response.ok) throw new Error(result.error || "We couldn't send your request. Please try again.");
+      const result = await response.json() as BookingResponse;
+      if (!response.ok) throw new Error(result.error || "We couldn't book your visit. Please try again.");
+      setConfirmation({ code: result.confirmationCode, label: result.slotLabel, duplicate: result.duplicate });
       setSubmitStatus("sent");
     } catch (error) {
-      setSubmitError(error instanceof Error ? error.message : "We couldn't send your request. Please try again.");
+      setSubmitError(error instanceof Error ? error.message : "We couldn't book your visit. Please try again.");
       setSubmitStatus("error");
     }
   }
@@ -120,13 +205,16 @@ export function BookingForm() {
         <form className="bk-form" onSubmit={submitVisit}>
           <div className="bk-card-heading"><span>PLAN YOUR VISIT</span><h2>Book an appointment</h2></div>
 
-          <fieldset className="bk-group">
-            <legend>Choose a day <span>Through 31 Dec {dates[dates.length - 1].year}</span></legend>
+          {availabilityStatus === "loading" && <p className="bk-availability-note" role="status">Loading available visit times…</p>}
+          {availabilityStatus === "error" && <p className="bk-availability-error" role="alert">{availabilityError}</p>}
+
+          <fieldset className="bk-group" disabled={availabilityStatus !== "ready"}>
+            <legend>Choose a day <span>{dates.length ? `${dates[0].label} – ${dates[dates.length - 1].label} ${dates[dates.length - 1].year}` : "Live booking calendar"}</span></legend>
             <div className="bk-date-carousel">
               <button type="button" className="bk-date-arrow" aria-label="Show previous dates" disabled={!dateScroll.back} onClick={() => moveDates(-1)}><ChevronLeft size={20} strokeWidth={1.8} aria-hidden="true" /></button>
-              <div ref={datesRef} className="bk-dates" aria-label="Preferred dates">
+              <div ref={datesRef} className="bk-dates" aria-label="Available visit dates">
                 {dates.map((date) => (
-                  <button key={date.iso} type="button" className={`bk-date${selectedDate === date.iso ? " is-selected" : ""}`} aria-label={`${date.day}, ${date.label} ${date.year}`} aria-pressed={selectedDate === date.iso} onClick={() => { setSelectedDate(date.iso); setSelectedSlot(null); setSubmitStatus("idle"); }}>
+                  <button key={date.day_index} type="button" className={`bk-date${selectedDayIndex === date.day_index ? " is-selected" : ""}`} aria-label={`${date.day}, ${date.label} ${date.year}`} aria-pressed={selectedDayIndex === date.day_index} onClick={() => { setSelectedDayIndex(date.day_index); setSelectedSlot(null); setGuests(1); setSubmitStatus("idle"); }}>
                     <small>{date.day}</small><strong>{date.label}</strong>
                   </button>
                 ))}
@@ -135,13 +223,14 @@ export function BookingForm() {
             </div>
           </fieldset>
 
-          <fieldset className="bk-group">
-            <legend>Choose a time <span>{chosenDate.day}, {chosenDate.label}</span></legend>
+          <fieldset className="bk-group" disabled={availabilityStatus !== "ready" || !chosenDate}>
+            <legend>Choose a time <span>{chosenDate ? `${chosenDate.day}, ${chosenDate.label}` : "Select a date"}</span></legend>
             <div className="bk-slots">
-              {Array.from({ length: 9 }, (_, index) => index + 9).map((hour) => {
-                const past = selectedDate === todayIso && hour <= current.hour;
-                return <button key={hour} type="button" disabled={past} className={`bk-slot${selectedSlot === hour ? " is-selected" : ""}`} aria-pressed={selectedSlot === hour} aria-label={slotLabel(hour)} onClick={() => { setSelectedSlot(hour); setSubmitStatus("idle"); }}>{`${hour % 12 || 12}:00 ${hour < 12 ? "AM" : "PM"}`}</button>;
-              })}
+              {chosenDate?.slots.map((slot) => (
+                <button key={slot.slot_start} type="button" className={`bk-slot${selectedSlot === slot.slot_start ? " is-selected" : ""}`} aria-pressed={selectedSlot === slot.slot_start} aria-label={`${slot.label}, ${slot.available} seats available`} onClick={() => { setSelectedSlot(slot.slot_start); setGuests((count) => Math.min(count, Math.max(1, slot.available))); setSubmitStatus("idle"); }}>
+                  {slot.label.split(" - ")[0]}
+                </button>
+              ))}
             </div>
           </fieldset>
 
@@ -151,15 +240,8 @@ export function BookingForm() {
               <output aria-live="polite">{guests} {guests === 1 ? "guest" : "guests"}</output>
             </div>
             <div className="bk-guest-seats" role="group" aria-label="Number of guests">
-              {Array.from({ length: 12 }, (_, index) => index + 1).map((count) => (
-                <button
-                  key={count}
-                  type="button"
-                  className={`bk-guest-seat${count <= guests ? " is-occupied" : ""}${count === guests ? " is-selected" : ""}`}
-                  aria-label={`${count} ${count === 1 ? "guest" : "guests"}`}
-                  aria-pressed={count === guests}
-                  onClick={() => { setGuests(count); setSubmitStatus("idle"); }}
-                >
+              {Array.from({ length: maxGuests }, (_, index) => index + 1).map((count) => (
+                <button key={count} type="button" disabled={!selectedSlot} className={`bk-guest-seat${count <= guests ? " is-occupied" : ""}${count === guests ? " is-selected" : ""}`} aria-label={`${count} ${count === 1 ? "guest" : "guests"}`} aria-pressed={count === guests} onClick={() => { setGuests(count); setSubmitStatus("idle"); }}>
                   <Armchair size={22} strokeWidth={1.7} aria-hidden="true" />
                   <span aria-hidden="true">{count}</span>
                 </button>
@@ -170,18 +252,19 @@ export function BookingForm() {
           <div className="bk-fields">
             <label>Your name *<input required autoComplete="name" placeholder="Full name" value={name} onChange={(event) => { setName(event.target.value); setSubmitStatus("idle"); }} /></label>
             <label>Phone number *<input required type="tel" inputMode="tel" autoComplete="tel" minLength={10} placeholder="Mobile number" value={phone} onChange={(event) => { setPhone(event.target.value); setSubmitStatus("idle"); }} /></label>
-            <label className="bk-email">Email address *<input required type="email" autoComplete="email" placeholder="you@example.com" value={email} onChange={(event) => { setEmail(event.target.value); setSubmitStatus("idle"); }} /></label>
+            <label className="bk-email">Email address <span>(optional)</span><input type="email" autoComplete="email" placeholder="you@example.com" value={email} onChange={(event) => { setEmail(event.target.value); setSubmitStatus("idle"); }} /></label>
           </div>
 
           <div className="bk-finish">
-            <button type="submit" className="bk-submit" disabled={selectedSlot === null || submitStatus === "sending" || submitStatus === "sent"}>{submitStatus === "sending" ? "Sending request…" : submitStatus === "sent" ? "Request sent" : "Request a visit"}</button>
-            <p>We&apos;ll contact you to confirm your visit.</p>
-            {selectedSlot === null && <span className="bk-slot-prompt">Select a time to continue.</span>}
+            <button type="submit" className="bk-submit" disabled={availabilityStatus !== "ready" || !selectedSlot || submitStatus === "sending" || submitStatus === "sent"}>{submitStatus === "sending" ? "Booking visit…" : submitStatus === "sent" ? "Visit booked" : "Book a visit"}</button>
+            <p>Your booking is saved by MEMCO Skyline and forwarded to the sales CRM.</p>
+            {availabilityStatus === "ready" && !selectedSlot && <span className="bk-slot-prompt">Select a time to continue.</span>}
             {submitStatus === "error" && <p className="bk-submit-error" role="alert">{submitError}</p>}
-            {submitStatus === "sent" && (
+            {submitStatus === "sent" && chosenDate && chosenSlot && (
               <div className="bk-ready" role="status">
-                <strong>Your request has been sent.</strong>
-                <p>{chosenDate.day}, {chosenDate.label} · {selectedSlot === null ? "" : slotLabel(selectedSlot)} · {guests} {guests === 1 ? "guest" : "guests"}. The MEMCO Skyline team will contact you to confirm availability.</p>
+                <strong>{confirmation.duplicate ? "You already have this booking." : "Your visit is confirmed."}</strong>
+                <p>{confirmation.label || `${chosenDate.day}, ${chosenDate.label} · ${chosenSlot.label}`} · {guests} {guests === 1 ? "guest" : "guests"}.</p>
+                {confirmation.code && <p>Confirmation code: <strong>{confirmation.code}</strong></p>}
               </div>
             )}
           </div>
