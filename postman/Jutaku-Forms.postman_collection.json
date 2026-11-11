@@ -7,7 +7,7 @@
   "variable": [
     {
       "key": "website_base_url",
-      "value": "http://localhost:3000"
+      "value": "https://memco-new.vercel.app"
     },
     {
       "key": "api_base_url",

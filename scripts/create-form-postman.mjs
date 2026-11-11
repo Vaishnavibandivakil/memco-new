@@ -17,7 +17,7 @@ const collection = {
     description: 'Tests direct CRM lead capture at crm.memcoskyline.com plus visit availability and booking at api.memcoskyline.com. Safe verification requests do not create records.',
   },
   variable: [
-    { key: 'website_base_url', value: 'http://localhost:3000' },
+    { key: 'website_base_url', value: 'https://memco-new.vercel.app' },
     { key: 'api_base_url', value: 'https://api.memcoskyline.com' },
     { key: 'crm_base_url', value: 'https://crm.memcoskyline.com' },
     { key: 'test_phone', value: '' },

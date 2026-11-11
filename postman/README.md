@@ -5,11 +5,11 @@ Import `Jutaku-Forms.postman_collection.json` into Postman or Thunder Client. Th
 - Enquiry leads: `POST https://crm.memcoskyline.com/api/analytics/contact/capture`
 - Visit availability: `GET https://api.memcoskyline.com/api/booking/availability`
 - Visit booking: `POST https://api.memcoskyline.com/api/booking/book`
-- Local website routes: `http://localhost:3000`
+- Staging website routes: `https://memco-new.vercel.app`
 
 The browser submits to the local Next.js routes. Those server routes validate the data and forward it to the appropriate backend host.
 
-Start the site with `npm run dev` before running local requests. Use Postman Desktop or its Desktop Agent for `localhost`; the Cloud Agent cannot connect to your computer.
+The collection defaults to staging, so Postman can run it directly. To test locally instead, change `website_base_url` to `http://localhost:3000` and use Postman Desktop or its Desktop Agent.
 
 ## Safe checks
 
