@@ -7,8 +7,8 @@ import { ArrowRight, Building2, GraduationCap, Hospital, Hotel, LayoutGrid, MapP
 import { Map, MapClusterLayer, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
 import { Map3DBuildings } from "@/components/ui/map-3d-buildings";
 import { ADDRESS, SITE_COORDINATES } from "@/lib/data";
-import { ROUTE } from "@/lib/nearby-route";
 import { METRO_CONNECTIONS } from "@/data/metro-connectivity";
+import { googleMetroPlaceId, JUTAKU_GOOGLE_PLACE_ID } from "@/data/metro-google-places";
 import { METRO_GREEN_TRANSFER, METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
 import { LOCATION_CATEGORIES, LOCATION_DIRECTORY, type LocationCategory } from "@/data/location-directory";
 import { ReturnLink } from "@/components/ReturnNavigation";
@@ -61,6 +61,7 @@ export function LocationExplorer() {
   const [activeStation, setActiveStation] = useState<number | null>(null);
   const [currentZoom, setCurrentZoom] = useState(12.2);
   const [stationRoadRoute, setStationRoadRoute] = useState<[number, number][] | null>(null);
+  const [stationRoadDistanceMeters, setStationRoadDistanceMeters] = useState<number | null>(null);
   const [stationRouteLoading, setStationRouteLoading] = useState(false);
   const selectedPlace = PLACES[selected];
   const activeConnection = activeMetro === null ? null : METRO_CONNECTIONS[activeMetro];
@@ -70,8 +71,11 @@ export function LocationExplorer() {
   const visiblePlaces = category === "All" ? LOCATION_DIRECTORY : LOCATION_DIRECTORY.filter((place) => place.category === category);
   const cardPosition = selectedMetroStation?.position ?? activeConnection?.position ?? selectedPlace.position;
   const homePlaceUrl = "https://www.google.com/maps/place/MEMCO+Skyline+Jutaku/@12.8742426,77.6382217,17z/data=!3m1!4b1!4m6!3m5!1s0x3bae6b00256cd43d:0x159453b3f51b5e1b!8m2!3d12.8742426!4d77.6407966!16s%2Fg%2F11xzz_6bnl";
+  const stationPlaceId = activeConnection?.status.startsWith("In service") && selectedMetroStation ? googleMetroPlaceId(selectedMetroStation.name) : null;
   const directionsUrl = activeConnection
-    ? `https://www.google.com/maps/dir/?api=1&origin=${SITE_COORDINATES.lat}%2C${SITE_COORDINATES.lng}&destination=${cardPosition[1]}%2C${cardPosition[0]}`
+    ? stationPlaceId
+      ? `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent("MEMCO Skyline Jutaku, Bengaluru")}&origin_place_id=${JUTAKU_GOOGLE_PLACE_ID}&destination=${encodeURIComponent(`${selectedMetroStation?.name} Metro Station, Bengaluru`)}&destination_place_id=${stationPlaceId}`
+      : `https://www.google.com/maps/@?api=1&map_action=map&center=${cardPosition[1]}%2C${cardPosition[0]}&zoom=16`
     : selectedPlace.category === "Home"
       ? homePlaceUrl
       : `https://www.google.com/maps/dir/?api=1&destination=${cardPosition[1]}%2C${cardPosition[0]}`;
@@ -97,6 +101,7 @@ export function LocationExplorer() {
     stationRouteRequestRef.current?.abort();
     stationRouteRequestRef.current = null;
     setStationRoadRoute(null);
+    setStationRoadDistanceMeters(null);
     setStationRouteLoading(false);
   }, []);
 
@@ -185,6 +190,8 @@ export function LocationExplorer() {
         if (!Array.isArray(coordinates) || coordinates.length < 2 || !coordinates.every((coordinate: unknown) => Array.isArray(coordinate) && coordinate.length === 2 && coordinate.every((value) => typeof value === "number" && Number.isFinite(value)))) return;
         const route = coordinates as [number, number][];
         setStationRoadRoute(route);
+        const distance = data?.routes?.[0]?.distance;
+        if (typeof distance === "number" && Number.isFinite(distance) && distance > 0) setStationRoadDistanceMeters(distance);
         const bounds = route.reduce<[[number, number], [number, number]]>((current, [lng, lat]) => [
           [Math.min(current[0][0], lng), Math.min(current[0][1], lat)],
           [Math.max(current[1][0], lng), Math.max(current[1][1], lat)],
@@ -287,7 +294,7 @@ export function LocationExplorer() {
             <div><span className="location-metro-kicker">Metro connectivity</span><h2 id="location-metro-title">How to reach Jutaku.</h2></div>
             <button type="button" className="location-metro-close" onClick={closeMetroPanel} aria-label="Close metro connections"><X size={19} aria-hidden="true" /></button>
           </div>
-          <p className="location-metro-panel-intro">Choose a line to see the route towards Jutaku. Singasandra Metro is about {ROUTE[0].distance} away; Hosa Road Metro is about {ROUTE[1].distance} away. Tap a station to see directions from Jutaku.</p>
+          <p className="location-metro-panel-intro">Choose a line, then tap a station to see its road route and distance from Jutaku. Pink and Blue station positions are indicative while construction continues.</p>
           <div className="location-metro-panel-routes">
             {METRO_CONNECTIONS.map((connection, index) => (
               <div key={connection.line} className={`location-metro-option is-${connection.line.toLowerCase()}${activeMetro === index ? " is-active" : ""}`}>
@@ -325,9 +332,9 @@ export function LocationExplorer() {
         <div className="location-card-copy" aria-live="polite">
           <span className="location-card-index">{activeConnection ? `${activeConnection.line} Line · ${activeConnection.status}` : selectedPlace.category === "Home" ? "Visit Jutaku" : selectedPlace.category}</span>
           <h2>{selectedMetroStation?.name ?? activeConnection?.station ?? (selectedPlace.category === "Home" ? "MEMCO Skyline Jutaku" : selectedPlace.name)}</h2>
-          <p>{activeConnection ? activeConnection.status.startsWith("In service") ? `From MEMCO Skyline Jutaku to ${selectedMetroStation?.name ?? activeConnection.station}. ${stationRouteLoading ? "Finding a road route…" : stationRoadRoute ? "Road route shown on the map." : "Open Google Maps for directions."}` : `From MEMCO Skyline Jutaku to ${selectedMetroStation?.name ?? activeConnection.station}. The ${activeConnection.line} Line is planned; passenger service has not started.` : selectedPlace.category === "Home" ? ADDRESS : `${selectedPlace.distance} from Jutaku.`}</p>
+          <p>{activeConnection ? `From MEMCO Skyline Jutaku to ${selectedMetroStation?.name ?? activeConnection.station}${activeConnection.status.startsWith("In service") ? " Metro Station" : " planned station area"}. ${stationRouteLoading ? "Finding a road route…" : stationRoadDistanceMeters !== null ? `About ${(stationRoadDistanceMeters / 1000).toFixed(1)} km by road; route shown on the map.` : activeConnection.status.startsWith("In service") ? "Open Google Maps for the road route." : "Station location is indicative while construction continues."}` : selectedPlace.category === "Home" ? ADDRESS : `${selectedPlace.distance} from Jutaku.`}</p>
           <div className="location-card-actions">
-            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> {activeConnection ? "Directions from Jutaku" : selectedPlace.category === "Home" ? "View on Google Maps" : "Get directions"}</a>
+            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> {activeConnection ? stationPlaceId ? "Directions from Jutaku" : "View planned station area" : selectedPlace.category === "Home" ? "View on Google Maps" : "Get directions"}</a>
           </div>
         </div>
       </aside>}
