@@ -18,7 +18,7 @@ export function Quote() {
       <Split className="st-split" left="OWN 500 SQ.FT." mid={<span className="lbl">Jutaku <i>·</i> Bengaluru</span>} right="EXPERIENCE 50,000 SQ.FT." />
       <div className="st-grid">
         <div className="st-copy">
-          <p className="caps-serif st-say" data-lines>A right-sized private home, with planned music rooms, hosting kitchens and workspaces for the moments that need more room.</p>
+          <p className="st-say" data-fade><strong>A right-sized private home,</strong> with planned music rooms, hosting kitchens and workspaces for the moments that need more room.</p>
           <p className="lbl" data-fade data-delay="0.3">MEMCO Skyline <i>·</i> Jutaku</p>
         </div>
         <AreaBreakdownChart />

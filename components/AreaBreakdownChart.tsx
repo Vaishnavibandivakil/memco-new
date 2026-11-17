@@ -23,7 +23,7 @@ function AreaBubble({ area }: { area: typeof AREAS[number] }) {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const radius = (width: number) => width * (0.23 + 0.21 * Math.sqrt(area.value / AREAS[0].value));
+    const radius = (width: number) => width * (0.30 + 0.085 * Math.sqrt(area.value / AREAS[0].value));
     const chart = new ChartJS(canvas, {
       type: "bubble",
       data: {
@@ -38,11 +38,12 @@ function AreaBubble({ area }: { area: typeof AREAS[number] }) {
             if (!chartArea) return "#e82930";
             const x = (chartArea.left + chartArea.right) / 2;
             const y = (chartArea.top + chartArea.bottom) / 2;
-            const r = radius(chartArea.width);
-            const gradient = ctx.createRadialGradient(x - r * .25, y - r * .28, r * .02, x, y, r);
-            gradient.addColorStop(0, "#ffe0ce");
-            gradient.addColorStop(.38, "#fa7155");
-            gradient.addColorStop(1, "#df3028");
+            const r = (context.raw as { r?: number } | undefined)?.r ?? radius(chartArea.width);
+            const gradient = ctx.createRadialGradient(x - r * .2, y - r * .22, 0, x, y, r * 1.05);
+            gradient.addColorStop(0, "#fff0dd");
+            gradient.addColorStop(.2, "#f9b49c");
+            gradient.addColorStop(.6, "#ed755d");
+            gradient.addColorStop(1, "#d94434");
             return gradient;
           },
         }],
