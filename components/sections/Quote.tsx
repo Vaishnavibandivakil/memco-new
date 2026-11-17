@@ -1,10 +1,10 @@
 "use client";
 import { useRef } from "react";
 import { Split } from "@/components/Split";
+import { AreaBreakdownChart } from "@/components/AreaBreakdownChart";
 import { gsap, useScene } from "@/lib/motion";
 
-/* AIR 00:03–00:08 meets ERA: an edge-to-edge sans headline on paper, the quote set as a block beside a
-   photograph, then a wide photograph that widens to full bleed as it passes. */
+/* The ownership statement sits beside an interactive area breakdown; the wide photo remains below. */
 export function Quote() {
   const root = useRef<HTMLElement>(null);
   useScene(root, ({ reduced }) => {
@@ -19,21 +19,9 @@ export function Quote() {
       <div className="st-grid">
         <div className="st-copy">
           <p className="caps-serif st-say" data-lines>A right-sized private home, with planned music rooms, hosting kitchens and workspaces for the moments that need more room.</p>
-          <div className="st-area" data-fade>
-            <p className="lbl st-area-heading">Inside a standard 500.45 sq ft unit <span>·</span> Super built-up area</p>
-            <dl className="st-area-list">
-              <div><dt>Private living space</dt><dd>327.13 <span>sq ft</span></dd></div>
-              <div><dt>Amenity allocation</dt><dd>≈39.09 <span>sq ft</span></dd></div>
-              <div><dt>Mechanical infrastructure</dt><dd>85.23 <span>sq ft</span></dd></div>
-            </dl>
-            <p className="st-area-note">The supplied allocations cover 451.45 sq ft; the remaining 49 sq ft is not itemized.</p>
-          </div>
           <p className="lbl" data-fade data-delay="0.3">MEMCO Skyline <i>·</i> Jutaku</p>
         </div>
-        <figure className="st-pic" data-rise>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/bedroom-window-seat.webp" alt="Bedroom with a sofa beside a curtained window" loading="lazy" data-parallax="8" />
-        </figure>
+        <AreaBreakdownChart />
       </div>
       <div className="st-wide">
         {/* eslint-disable-next-line @next/next/no-img-element */}

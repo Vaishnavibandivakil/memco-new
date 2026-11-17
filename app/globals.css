@@ -576,20 +576,28 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .st-split .sl-r { text-align: right; }
 .st-split .sl-mid { flex: 1 1 110px; gap: 12px; margin: 0; }
 .st-split .sl-m .lbl { white-space: nowrap; }
-.st-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; align-items: end; padding: 12vh var(--side) 16vh; }
+.st-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; align-items: center; padding: 12vh var(--side) 16vh; }
 .st-copy { display: grid; gap: 26px; max-width: 580px; justify-self: start; padding-bottom: 4vh; }
 .st-say { font-size: clamp(19.68px, 1.89vw, 34.44px); }
-.st-area { width: 100%; padding-top: 18px; border-top: 1px solid var(--rule); }
-.st-area-heading { color: var(--ink); line-height: 1.5; }
-.st-area-heading span { color: var(--green); }
-.st-area-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
-.st-area-list div { min-width: 0; }
-.st-area-list dt { min-height: 30px; color: #626a62; font-size: 10px; line-height: 1.35; text-transform: uppercase; letter-spacing: .06em; }
-.st-area-list dd { margin-top: 8px; color: var(--green); font-family: var(--ff-disp); font-size: clamp(20px, 1.75vw, 29px); font-weight: 600; line-height: 1; white-space: nowrap; }
-.st-area-list dd span { font-family: var(--ff-sans); font-size: 10px; font-weight: 500; letter-spacing: .04em; }
-.st-area-note { margin-top: 16px; color: #626a62; font-size: 10px; line-height: 1.5; }
-.st-pic { aspect-ratio: 4 / 3; overflow: hidden; }
-.st-pic img, .st-wide img { width: 100%; height: 116%; margin-top: -8%; object-fit: cover; }
+.st-chart { width: 100%; max-width: 600px; justify-self: end; }
+.st-chart-head .lbl { color: var(--green); }
+.st-chart-head h3 { margin-top: 9px; font-size: clamp(23px, 2.2vw, 37px); font-weight: 650; line-height: 1.06; letter-spacing: -.045em; }
+.st-chart-visual { position: relative; width: min(100%, 440px); aspect-ratio: 1; margin: 20px auto 18px; }
+.st-chart-visual canvas { width: 100% !important; height: 100% !important; }
+.st-chart-center { position: absolute; inset: 28%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; pointer-events: none; }
+.st-chart-center strong { font-size: clamp(31px, 3vw, 52px); font-weight: 700; letter-spacing: -.06em; line-height: 1; }
+.st-chart-center span { margin-top: 3px; color: var(--green); font-size: 12px; font-weight: 650; }
+.st-chart-center small { max-width: 16ch; margin-top: 8px; color: #53645a; font-size: 10px; line-height: 1.3; }
+.st-chart-key { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px 16px; }
+.st-chart-key button { display: grid; grid-template-columns: 11px minmax(0, 1fr) auto; align-items: center; gap: 7px; min-width: 0; padding: 9px 3px; border-bottom: 1px solid var(--rule); text-align: left; }
+.st-chart-key button:hover, .st-chart-key button.is-active { color: var(--green); }
+.st-chart-key i { width: 10px; height: 10px; border-radius: 50%; }
+.st-chart-key span { min-width: 0; font-size: 11px; line-height: 1.3; }
+.st-chart-key b { font-size: 12px; white-space: nowrap; }
+.st-chart-key small { font-size: 9px; font-weight: 500; }
+.st-chart-detail { min-height: 2.8em; margin-top: 15px; color: #53645a; font-size: 11px; line-height: 1.45; }
+.st-chart-note { margin-top: 8px; color: #6b706a; font-size: 9px; line-height: 1.45; }
+.st-wide img { width: 100%; height: 116%; margin-top: -8%; object-fit: cover; }
 .st-wide { height: 92vh; overflow: hidden; }
 
 /* Living/location: the collage becomes an interactive print on white, then the tower takes over. */
@@ -707,10 +715,9 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .st-split .sl-r { text-align: right; }
   .st-grid, .gl-body { grid-template-columns: 1fr; }
   .st-copy { justify-self: start; }
-  .st-area-list { grid-template-columns: 1fr; gap: 0; margin-top: 12px; }
-  .st-area-list div { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--rule); }
-  .st-area-list dt { min-height: 0; }
-  .st-area-list dd { flex: none; margin-top: 0; }
+  .st-chart { justify-self: stretch; max-width: none; }
+  .st-chart-visual { width: min(100%, 380px); }
+  .st-chart-key { grid-template-columns: 1fr; }
   .st-wide { height: 60vh; }
   .nb { height: 560svh; }
   .nb-tile-1 { left: 2%; top: 12%; width: 56%; height: 18.5%; }
