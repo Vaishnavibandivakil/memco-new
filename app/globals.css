@@ -257,7 +257,7 @@ html.js:not(.reduced) [data-rise] { clip-path: inset(100% 0% 0% 0%); }
 .ds-body { max-width: 480px; }
 .ds-kicker, .cc-kicker { color: var(--green); }
 .ds-statement { margin-top: 10px; color: var(--ink); font-size: clamp(30px, 3vw, 46px); font-weight: 600; line-height: 1.08; letter-spacing: -.045em; }
-.ds-statement span { color: var(--green); }
+.ds-statement span { color: var(--ink); }
 .ds-intro { max-width: 440px; margin-top: 12px; color: #59635c; font-size: 13px; line-height: 1.6; }
 .ds-hero { position: relative; align-self: stretch; min-height: 0; overflow: hidden; border-radius: 0; background: #fff; will-change: transform, opacity; }
 .ds-hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 53%; }
@@ -584,7 +584,7 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .st-chart-head > p:last-child { max-width: 47ch; margin-top: 18px; color: #53645a; font-size: clamp(14px, 1.05vw, 17px); line-height: 1.55; }
 .st-polar-visual { position: relative; justify-self: end; width: min(100%, 570px); aspect-ratio: 1; }
 .st-polar-visual canvas { width: 100% !important; height: 100% !important; }
-.st-polar-center { position: absolute; left: 50%; top: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 72px; height: 72px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 7px #fff; font-size: 16px; font-weight: 700; letter-spacing: -.045em; transform: translate(-50%, -50%); pointer-events: none; }
+.st-polar-center { position: absolute; left: 50%; top: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--paper); font-size: 16px; font-weight: 700; letter-spacing: -.045em; transform: translate(-50%, -50%); pointer-events: none; }
 .st-polar-center small { margin-top: 2px; color: #66786b; font-size: 8px; font-weight: 500; letter-spacing: .02em; text-transform: uppercase; }
 .st-polar-tooltip { position: absolute; z-index: 3; top: -14px; left: 50%; width: max-content; max-width: calc(100% - 20px); padding: 12px 17px; border-radius: 24px; background: #123a2b; box-shadow: 0 8px 24px rgba(0, 38, 22, .14); color: #fff; font-size: 11px; line-height: 1.35; text-align: center; transform: translate(-50%, -100%); pointer-events: none; }
 .st-polar-tooltip strong { font-weight: 700; white-space: nowrap; }
@@ -727,7 +727,7 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .st-chart { grid-template-columns: 1fr; gap: 76px; }
   .st-chart-head h3 { font-size: clamp(28px, 7vw, 38px); }
   .st-polar-visual { justify-self: center; width: min(100%, 350px); }
-  .st-polar-center { width: 56px; height: 56px; box-shadow: 0 0 0 5px #fff; font-size: 13px; }
+  .st-polar-center { width: 56px; height: 56px; font-size: 13px; }
   .st-polar-center small { font-size: 7px; }
   .st-wide { height: 60vh; }
   .nb { height: 560svh; }

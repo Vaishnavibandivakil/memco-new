@@ -91,11 +91,10 @@ export function AreaBreakdownChart() {
             gradient.addColorStop(1, area.colors[1]);
             return gradient;
           },
-          borderColor: "#fff",
-          borderWidth: 5,
+          borderWidth: 0,
           borderRadius: 20,
           spacing: 8,
-          hoverOffset: 9,
+          hoverOffset: 0,
         }],
       },
       plugins: [petalAnnotations],
