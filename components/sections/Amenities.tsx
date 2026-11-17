@@ -45,7 +45,6 @@ export function Amenities() {
           <img className="am-slide-main" src={a.photo} alt={a.name} loading="lazy" />
           <p className="am-mobile-title caps-serif">{a.name}</p>
           <div className="am-mobile-cap">
-            <p className="lbl">{String(i + 1).padStart(2, "0")} / {a.label}</p>
             <p className="caps-serif">{a.body}</p>
           </div>
         </div>
@@ -55,9 +54,8 @@ export function Amenities() {
         {AMENITY_SLIDES.map((a) => <li key={a.name}>{a.name}</li>)}
       </ol>
       <div className="am-caps">
-        {AMENITY_SLIDES.map((a, i) => (
+        {AMENITY_SLIDES.map((a) => (
           <div key={a.name} className="am-cap">
-            <p className="lbl">{String(i + 1).padStart(2, "0")} / {a.label}</p>
             <p className="caps-serif">{a.body}</p>
           </div>
         ))}

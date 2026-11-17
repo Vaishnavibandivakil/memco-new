@@ -240,11 +240,11 @@ export function Concept() {
 
         {/* The place follows the nearby-stations graphic. */}
         <div className="hz-panel gm">
-          <span className="gm-country lbl" data-hfade>I n d i a</span>
-          <h2 className="gm-words disp" aria-label="Singasandra, South Bengaluru">
-            <span className="gm-w1" data-hchars><Chars text="SINGASANDRA," /></span>
-            <span className="gm-w2" data-hchars data-delay="0.15"><Chars text="SOUTH" /></span>
-            <span className="gm-w3" data-hchars data-delay="0.3"><Chars text="BENGALURU" /></span>
+          <span className="gm-country lbl" data-hfade>Located between</span>
+          <h2 className="gm-words disp" aria-label="Located between Begur Road and Hosa Road">
+            <span className="gm-w1" data-hchars><Chars text="BEGUR ROAD" /></span>
+            <span className="gm-w2" data-hchars data-delay="0.15"><Chars text="AND" /></span>
+            <span className="gm-w3" data-hchars data-delay="0.3"><Chars text="HOSA ROAD" /></span>
           </h2>
           <figure className="gm-pic">
             {/* eslint-disable-next-line @next/next/no-img-element */}
