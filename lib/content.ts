@@ -1,4 +1,5 @@
 /* Project facts follow memcoskyline.com; editorial copy is written for this site. */
+import { ROUTE } from "@/lib/nearby-route";
 
 export const HOTSPOTS = [
   { id: "roof", x: 27, y: 10, mobileX: 50, mobileY: 43, title: "Skyline Aqua Lounge", body: "A 56 ft rooftop pool, with access planned around the clock.", photo: "/images/rooftop-pool.jpg" },
@@ -10,7 +11,7 @@ export const REASONS = [
   {
     title: "Two metros. One address.",
     photo: "/images/balcony-exterior.webp",
-    body: "From Jutaku on Manipal County Road, Singasandra and Hosa Road Yellow Line stations are about 0.9 km and 1.3 km away in a straight line.",
+    body: `From Jutaku on Manipal County Road, Singasandra and Hosa Road Yellow Line stations are about ${ROUTE[0].distance} and ${ROUTE[1].distance} away by road. Distances are approximate.`,
     tag: "Singasandra, South Bengaluru",
   },
   {

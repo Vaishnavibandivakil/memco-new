@@ -20,7 +20,7 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
     action: { label: "See the amenities", href: "/#amenities" },
   },
   location: {
-    text: `The site is ${ADDRESS}. Singasandra Metro is approximately ${ROUTE[0].distance} to the ${ROUTE[0].direction}, and Hosa Road Metro is ${ROUTE[1].distance} to the ${ROUTE[1].direction}, measured in a straight line. Travel distances vary by route.`,
+    text: `The site is ${ADDRESS}. From Jutaku, Singasandra Metro is about ${ROUTE[0].distance} by road to the ${ROUTE[0].direction}, and Hosa Road Metro about ${ROUTE[1].distance} to the ${ROUTE[1].direction}. Road routes may vary.`,
     action: { label: "Explore the location", href: "/location" },
   },
   pricing: {
@@ -37,7 +37,7 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
       ] },
       { heading: "Investment highlights", items: [
         { title: "Connected living", body: "Everyday access to the IT corridor." },
-        { title: "Metro within reach", body: `About ${ROUTE[0].distance} straight-line from Singasandra Metro.` },
+        { title: "Metro within reach", body: `About ${ROUTE[0].distance} by road from Jutaku to Singasandra Metro.` },
         { title: "Complete ecosystem", body: "50,000+ sq ft of experience zones." },
         { title: "Smart ownership", body: "Potential value in an established IT hub; returns are not guaranteed." },
       ] },

@@ -1,14 +1,7 @@
 import { SITE_COORDINATES } from "@/lib/data";
+import { METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
 
 const site = [SITE_COORDINATES.lng, SITE_COORDINATES.lat] as const;
-
-function distanceKm([fromLng, fromLat]: readonly [number, number], [toLng, toLat]: readonly [number, number]) {
-  const radians = (degrees: number) => degrees * Math.PI / 180;
-  const latitude = radians(toLat - fromLat);
-  const longitude = radians(toLng - fromLng);
-  const a = Math.sin(latitude / 2) ** 2 + Math.cos(radians(fromLat)) * Math.cos(radians(toLat)) * Math.sin(longitude / 2) ** 2;
-  return 6371 * 2 * Math.asin(Math.sqrt(a));
-}
 
 function bearing([fromLng, fromLat]: readonly [number, number], [toLng, toLat]: readonly [number, number]) {
   const radians = (degrees: number) => degrees * Math.PI / 180;
@@ -20,16 +13,21 @@ function bearing([fromLng, fromLat]: readonly [number, number], [toLng, toLat]: 
 
 const compass = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
-// Station coordinates used for the displayed straight-line distances and bearings.
+// OSRM road distances from the Jutaku pin to the station pins, checked 17 Nov 2026.
+// Approximate values can change with road access and routing updates.
 const stations = [
-  { name: "Singasandra Metro", position: [77.64485, 12.88082] as const },
-  { name: "Hosa Road Metro", position: [77.65248, 12.87078] as const },
-  { name: "Kudlu Gate Metro", position: [77.63922, 12.88993] as const },
-  { name: "Beratena Agrahara Metro", position: [77.6579, 12.86388] as const },
-];
+  { name: "Singasandra Metro", roadDistanceMeters: 1715.2 },
+  { name: "Hosa Road Metro", roadDistanceMeters: 1512.3 },
+  { name: "Kudlu Gate Metro", roadDistanceMeters: 2238.8 },
+  { name: "Beratena Agrahara Metro", roadDistanceMeters: 2475.5 },
+].map((station) => {
+  const point = METRO_ROUTE_POINTS.Yellow.find((item) => item.name === station.name.replace(/ Metro$/, ""));
+  if (!point) throw new Error(`Missing Yellow Line station: ${station.name}`);
+  return { ...station, position: point.position };
+});
 
 export const ROUTE = stations.map((station) => ({
   ...station,
-  distance: `${distanceKm(site, station.position).toFixed(1)} km`,
+  distance: `${(station.roadDistanceMeters / 1000).toFixed(1)} km`,
   direction: compass[Math.round(bearing(site, station.position) / 22.5) % compass.length],
 }));
