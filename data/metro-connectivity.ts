@@ -35,10 +35,19 @@ const PURPLE_STATIONS = [
 
 const PINK_STATIONS = [
   "Kalena Agrahara", "Hulimavu", "IIM Bengaluru", "JP Nagar 4th Phase", "Jayadeva Hospital",
-  "Tavarekere", "Dairy Circle", "Lakkasandra", "Langford Town", "Rashtriya Military School",
+  "S.G. Palya (Tavarekere)", "Dairy Circle", "Lakkasandra", "Langford Town", "Rashtriya Military School",
   "MG Road", "Shivajinagar", "Cantonment Railway Station", "Pottery Town", "Tannery Road",
   "Venkateshpura", "Kadugondanahalli", "Nagawara",
 ] as const;
+
+// Passenger service opened on the first six Pink Line stations in November 2026.
+// The remaining Pink stations and the entire Blue Line are still planned.
+export const PINK_OPEN_STATION_COUNT = 6;
+
+export function isMetroStationOpen(line: string, stationIndex: number): boolean {
+  return line === "Yellow" || line === "Green" || line === "Purple"
+    || line === "Pink" && stationIndex < PINK_OPEN_STATION_COUNT;
+}
 
 const BLUE_STATIONS = [
   "Central Silk Board", "HSR Layout", "Agara Lake", "Ibbalur", "Bellandur",
@@ -99,18 +108,18 @@ export const METRO_CONNECTIONS = [
   },
   {
     line: "Pink",
-    status: "Planned interchange",
+    status: "Six stations in service · northern section planned",
     station: "Jayadeva Hospital interchange",
     position: [77.59993, 12.91693] as const,
-    steps: ["Pink Line (planned)", "Jayadeva Hospital · Yellow", "Singasandra / Hosa Road", "Jutaku"],
-    description: "Once the Pink Line opens, change at Jayadeva Hospital to the Yellow Line towards Bommasandra to reach Jutaku.",
+    steps: ["Pink Line (open section)", "Jayadeva Hospital · Yellow", "Singasandra / Hosa Road", "Jutaku"],
+    description: "The Pink Line runs from Kalena Agrahara to S.G. Palya. Change at Jayadeva Hospital to the Yellow Line towards Bommasandra to reach Jutaku. Stations north of S.G. Palya are under construction.",
     journey: [
-      { title: "Pink · future journey to Jayadeva", detail: "Once passenger service opens, ride the Pink Line to Jayadeva Hospital." },
+      { title: "Pink · to Jayadeva", detail: "From an open Pink Line station, ride to Jayadeva Hospital. The northern section remains under construction." },
       { title: "Yellow · toward Bommasandra", detail: "Change to the Yellow Line and exit at Singasandra or Hosa Road." },
       { title: "Finish at Jutaku", detail: "Follow local directions from the station to MEMCO Skyline Jutaku on Manipal County Road." },
     ],
     stations: PINK_STATIONS,
-    stationsLabel: "All 18 planned stations · Kalena Agrahara to Nagawara",
+    stationsLabel: "Six open stations from Kalena Agrahara to S.G. Palya; 12 further stations planned",
     highlights: ["Jayadeva Hospital", "MG Road"],
   },
   {

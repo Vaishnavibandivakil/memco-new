@@ -84,6 +84,10 @@ const STATION_CIDS: Record<string, string> = {
   "Kengeri Bus Terminal": "0x3bae3f20d23d8f1b:0x8c528e57de702e00",
   Kengeri: "0x3bae3f76af704dd5:0x3d5811eb61de463a",
   Challaghatta: "0x3bae395ac4c8ce1b:0x66d721a37f3a1abf",
+  "Kalena Agrahara": "0x3bae6b005cb35fbd:0xf9ebcee1e4772f61",
+  Hulimavu: "0x3bae1500419c9ce3:0x3b582d207ad070e",
+  "IIM Bengaluru": "0x3bae1523a3fb061d:0x25400c400f7afb29",
+  "S.G. Palya (Tavarekere)": "0x3bae1500651525d5:0x78458d44ccb37885",
 };
 
 const JUTAKU_CID = "0x3bae6b00256cd43d:0x159453b3f51b5e1b";

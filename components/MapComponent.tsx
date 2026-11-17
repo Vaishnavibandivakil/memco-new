@@ -13,7 +13,8 @@ import pLimit from "p-limit";
 import Link from "next/link";
 import type * as GeoJSON from "geojson";
 import { LOCATION_DIRECTORY, type LocationCategory } from "@/data/location-directory";
-import { METRO_CONNECTIONS } from "@/data/metro-connectivity";
+import { isMetroStationOpen, METRO_CONNECTIONS, PINK_OPEN_STATION_COUNT } from "@/data/metro-connectivity";
+import { googleMetroPlaceId, JUTAKU_GOOGLE_PLACE_ID } from "@/data/metro-google-places";
 import { METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
 import { SITE_COORDINATES } from "@/lib/data";
 import { Map3DBuildings } from "@/components/ui/map-3d-buildings";
@@ -849,6 +850,10 @@ function getDisplayRoute(route: RouteData | null | undefined, poi: Poi | null) {
 }
 
 function getGoogleMapsDirectionsUrl(poi: Poi) {
+  if (poi.category === "Metro") {
+    const stationPlaceId = googleMetroPlaceId(poi.name);
+    if (stationPlaceId) return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent("MEMCO Skyline Jutaku, Bengaluru")}&origin_place_id=${JUTAKU_GOOGLE_PLACE_ID}&destination=${encodeURIComponent(`${poi.name} Metro Station, Bengaluru`)}&destination_place_id=${stationPlaceId}`;
+  }
   return `https://www.google.com/maps/dir/?api=1&destination=${poi.lat}%2C${poi.lng}`;
 }
 
@@ -912,6 +917,7 @@ export function CustomStyleExample() {
   const hasSyncedViewportRef = useRef(false);
   const mountedRef = useRef(false);
   const userRouteAbortRef = useRef<AbortController | null>(null);
+  const metroRouteAbortRef = useRef<AbortController | null>(null);
   const routeCacheRef = useRef<Record<string, RouteData>>({});
   const routeCacheWriteChainRef = useRef<Promise<void>>(Promise.resolve());
 
@@ -937,6 +943,8 @@ export function CustomStyleExample() {
   const [showMobileMetro, setShowMobileMetro] = useState(false);
   const [activeMetroIndex, setActiveMetroIndex] = useState<number | null>(null);
   const [activeMetroStation, setActiveMetroStation] = useState<number | null>(null);
+  const [metroRoadRoute, setMetroRoadRoute] = useState<RouteData | null>(null);
+  const [metroRouteLoading, setMetroRouteLoading] = useState(false);
 
   const [selectedCategories, setSelectedCategories] = useState<PoiCategory[]>(
     DEFAULT_SELECTED_CATEGORIES,
@@ -1003,6 +1011,8 @@ export function CustomStyleExample() {
       mountedRef.current = false;
       userRouteAbortRef.current?.abort();
       userRouteAbortRef.current = null;
+      metroRouteAbortRef.current?.abort();
+      metroRouteAbortRef.current = null;
     };
   }, []);
 
@@ -1019,6 +1029,9 @@ export function CustomStyleExample() {
         setShowMobileMetro(false);
         setActiveMetroIndex(null);
         setActiveMetroStation(null);
+        metroRouteAbortRef.current?.abort();
+        setMetroRoadRoute(null);
+        setMetroRouteLoading(false);
       }
     };
 
@@ -1266,6 +1279,9 @@ export function CustomStyleExample() {
     setShowMobileMetro(false);
     setActiveMetroIndex(null);
     setActiveMetroStation(null);
+    metroRouteAbortRef.current?.abort();
+    setMetroRoadRoute(null);
+    setMetroRouteLoading(false);
     setShowPopular(true);
     setShowPoiDetails(false);
     setShowDesktopSidebar(true);
@@ -1303,48 +1319,77 @@ export function CustomStyleExample() {
     setIsUserRouteLoading(false);
   }, []);
 
+  const clearMetroRoadRoute = useCallback(() => {
+    metroRouteAbortRef.current?.abort();
+    metroRouteAbortRef.current = null;
+    setMetroRoadRoute(null);
+    setMetroRouteLoading(false);
+  }, []);
+
   const showMetroLine = useCallback((index: number) => {
     const connection = METRO_CONNECTIONS[index];
     if (!connection) return;
     const route = METRO_ROUTE_POINTS[connection.line];
-    const preferredStation = connection.line === "Yellow"
-      ? "Singasandra"
-      : connection.line === "Green"
-        ? "RV Road"
-        : connection.line === "Purple"
-          ? "Majestic"
-          : connection.line === "Pink" ? "Jayadeva Hospital" : "Central Silk Board";
-    const stationIndex = Math.max(0, route.findIndex((point) => point.name === preferredStation));
     const points = route;
     const lngs = points.map((point) => point.position[0]);
     const lats = points.map((point) => point.position[1]);
 
     stopAllRouteAnimations();
+    clearMetroRoadRoute();
     setShowPoiDetails(false);
     setShowFilters(false);
     setShowMobileMenu(false);
     setShowMobileMetro(false);
     setMobilePopularExpanded(false);
     setActiveMetroIndex(index);
-    setActiveMetroStation(stationIndex);
+    setActiveMetroStation(null);
     mapRef.current?.fitBounds?.(
       [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
       { padding: { top: 105, right: 36, bottom: 150, left: 36 }, maxZoom: 12.8, duration: 950, essential: true },
     );
-  }, [stopAllRouteAnimations]);
+  }, [clearMetroRoadRoute, stopAllRouteAnimations]);
 
-  const focusMetroStation = useCallback((index: number, position: readonly [number, number]) => {
+  const focusMetroStation = useCallback((index: number, position: readonly [number, number], name: string) => {
+    clearMetroRoadRoute();
     setActiveMetroStation(index);
     setShowMobileMetro(false);
-    mapRef.current?.flyTo?.({ center: [...position], zoom: 14, duration: 750, essential: true });
-  }, []);
+    setMobilePopularExpanded(false);
+    const bounds: [[number, number], [number, number]] = [
+      [Math.min(centerPlace.lng, position[0]), Math.min(centerPlace.lat, position[1])],
+      [Math.max(centerPlace.lng, position[0]), Math.max(centerPlace.lat, position[1])],
+    ];
+    mapRef.current?.fitBounds?.(bounds, { padding: { top: 110, right: 45, bottom: 230, left: 45 }, maxZoom: 14.5, duration: 800, essential: true });
+    const controller = new AbortController();
+    metroRouteAbortRef.current = controller;
+    setMetroRouteLoading(true);
+    void fetchRouteBetweenPoints({
+      from: { lng: centerPlace.lng, lat: centerPlace.lat },
+      to: { lng: position[0], lat: position[1] },
+      id: -2,
+      name: `Jutaku to ${name} Metro Station`,
+      signal: controller.signal,
+    }).then((route) => {
+      if (controller.signal.aborted) return;
+      setMetroRoadRoute(route);
+      if (route) {
+        const routeBounds = route.coordinates.reduce<[[number, number], [number, number]]>((current, [lng, lat]) => [
+          [Math.min(current[0][0], lng), Math.min(current[0][1], lat)],
+          [Math.max(current[1][0], lng), Math.max(current[1][1], lat)],
+        ], bounds);
+        mapRef.current?.fitBounds?.(routeBounds, { padding: { top: 110, right: 45, bottom: 230, left: 45 }, maxZoom: 14.5, duration: 800, essential: true });
+      }
+    }).finally(() => {
+      if (!controller.signal.aborted) setMetroRouteLoading(false);
+    });
+  }, [clearMetroRoadRoute]);
 
   const clearMetroLine = useCallback(() => {
+    clearMetroRoadRoute();
     setShowMobileMetro(false);
     setActiveMetroIndex(null);
     setActiveMetroStation(null);
     mapRef.current?.flyTo?.({ center: [centerPlace.lng, centerPlace.lat], zoom: 12.2, duration: 850, essential: true });
-  }, []);
+  }, [clearMetroRoadRoute]);
 
   const handleClusterPointClick = useCallback(
     (
@@ -1489,6 +1534,16 @@ export function CustomStyleExample() {
   const userRouteColor = "#006e52";
   const activeMetroConnection = activeMetroIndex === null ? null : METRO_CONNECTIONS[activeMetroIndex];
   const activeMetroRoute = activeMetroConnection ? METRO_ROUTE_POINTS[activeMetroConnection.line] : null;
+  const selectedMetroStation = activeMetroRoute && activeMetroStation !== null ? activeMetroRoute[activeMetroStation] : null;
+  const selectedMetroOpen = Boolean(activeMetroConnection && activeMetroStation !== null && isMetroStationOpen(activeMetroConnection.line, activeMetroStation));
+  const selectedMetroPlaceId = selectedMetroOpen && selectedMetroStation ? googleMetroPlaceId(selectedMetroStation.name) : null;
+  const selectedMetroDirectionsUrl = selectedMetroStation
+    ? selectedMetroPlaceId
+      ? `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent("MEMCO Skyline Jutaku, Bengaluru")}&origin_place_id=${JUTAKU_GOOGLE_PLACE_ID}&destination=${encodeURIComponent(`${selectedMetroStation.name} Metro Station, Bengaluru`)}&destination_place_id=${selectedMetroPlaceId}`
+      : selectedMetroOpen
+        ? `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${centerPlace.lat}%2C${centerPlace.lng}%3B${selectedMetroStation.position[1]}%2C${selectedMetroStation.position[0]}`
+        : `https://www.google.com/maps/@?api=1&map_action=map&center=${selectedMetroStation.position[1]}%2C${selectedMetroStation.position[0]}&zoom=16`
+    : null;
   const showClusters = !activeMetroConnection && currentZoom < POI_CLUSTER_SWITCH_ZOOM;
   const selectedDisplayPoi = selectedPoi ?? visiblePois[0] ?? pois[0] ?? null;
   const desktopSidebarVisible = !isCompactLayout && showDesktopSidebar && !showPoiDetails;
@@ -1676,7 +1731,7 @@ export function CustomStyleExample() {
               isCompactLayout
                 ? showFilters || showMobileMenu || showMobileMetro
                   ? "hidden"
-                  : `right-3 sm:right-5 ${showPoiDetails || mobilePopularExpanded ? "bottom-auto top-[4.75rem] sm:top-[5.5rem]" : "bottom-[7rem] sm:bottom-[7.75rem]"}`
+                  : `right-3 sm:right-5 ${showPoiDetails || mobilePopularExpanded || selectedMetroStation ? "bottom-auto top-[4.75rem] sm:top-[5.5rem]" : "bottom-[7rem] sm:bottom-[7.75rem]"}`
                 : `right-6 ${showPoiDetails ? "bottom-[26rem]" : "bottom-8"}`
             }
           />
@@ -1691,9 +1746,11 @@ export function CustomStyleExample() {
           {userAnimatedCoordinates.length > 1 ? (
             <MapRoute id="user-route-animated" coordinates={userAnimatedCoordinates} color={userRouteColor} width={5} opacity={1} />
           ) : null}
-          {activeMetroConnection && activeMetroRoute ? (
-            <MapRoute key={activeMetroConnection.line} id={`mobile-metro-${activeMetroConnection.line.toLowerCase()}`} coordinates={activeMetroRoute.map((point) => [...point.position])} color={METRO_LINE_COLORS[activeMetroConnection.line]} width={4} opacity={0.95} dashArray={activeMetroConnection.line === "Pink" || activeMetroConnection.line === "Blue" ? [2, 2] : undefined} interactive={false} />
-          ) : null}
+          {activeMetroConnection && activeMetroRoute ? activeMetroConnection.line === "Pink" ? <>
+            <MapRoute id="mobile-metro-pink-open" coordinates={activeMetroRoute.slice(0, PINK_OPEN_STATION_COUNT).map((point) => [...point.position])} color={METRO_LINE_COLORS.Pink} width={4} opacity={0.95} interactive={false} />
+            <MapRoute id="mobile-metro-pink-planned" coordinates={activeMetroRoute.slice(PINK_OPEN_STATION_COUNT - 1).map((point) => [...point.position])} color={METRO_LINE_COLORS.Pink} width={4} opacity={0.95} dashArray={[2, 2]} interactive={false} />
+          </> : <MapRoute key={activeMetroConnection.line} id={`mobile-metro-${activeMetroConnection.line.toLowerCase()}`} coordinates={activeMetroRoute.map((point) => [...point.position])} color={METRO_LINE_COLORS[activeMetroConnection.line]} width={4} opacity={0.95} dashArray={activeMetroConnection.line === "Blue" ? [2, 2] : undefined} interactive={false} /> : null}
+          {metroRoadRoute ? <><MapRoute id="mobile-metro-road-outline" coordinates={metroRoadRoute.coordinates} color="#ffffff" width={9} opacity={0.95} interactive={false} /><MapRoute id="mobile-metro-road" coordinates={metroRoadRoute.coordinates} color="#193c2c" width={5} opacity={0.95} interactive={false} /></> : null}
           {activeRoute ? (
             <>
               <MapRoute id="poi-route-outline" coordinates={activeRoute.coordinates} color="#ffffff" width={3} opacity={0.55} />
@@ -1757,7 +1814,7 @@ export function CustomStyleExample() {
             return (
               <MapMarker key={`${activeMetroConnection.line}-${station.name}`} longitude={station.position[0]} latitude={station.position[1]}>
                 <MarkerContent>
-                  <button type="button" onClick={() => focusMetroStation(index, station.position)} className="group relative flex items-center justify-center" aria-label={`Show ${station.name} station`} aria-pressed={selected}>
+                  <button type="button" onClick={() => focusMetroStation(index, station.position, station.name)} className="group relative flex items-center justify-center" aria-label={`Show directions from Jutaku to ${station.name} ${isMetroStationOpen(activeMetroConnection.line, index) ? "Metro Station" : "planned station area"}`} aria-pressed={selected}>
                     <span className="size-3 rounded-full border-2 border-white shadow-[0_2px_10px_rgba(0,0,0,0.22)]" style={{ backgroundColor: METRO_LINE_COLORS[activeMetroConnection.line] }} />
                     {selected || highlighted ? <span className="absolute bottom-full mb-1.5 max-w-40 whitespace-nowrap rounded-full border border-black/8 bg-white/95 px-2.5 py-1 text-[0.62rem] font-semibold text-[#183b2a] shadow-md">{station.name}</span> : null}
                   </button>
@@ -1907,7 +1964,7 @@ export function CustomStyleExample() {
                       </div>
                       <div className="mt-3 grid grid-cols-2 gap-2">
                         {activeMetroRoute.map((station, index) => (
-                          <button key={station.name} type="button" onClick={() => focusMetroStation(index, station.position)} className={`min-h-11 rounded-[0.85rem] border px-3 py-2 text-left text-[0.7rem] font-semibold leading-4 ${activeMetroStation === index ? "border-[#006e52]/35 bg-[#006e52]/7 text-[#006e52]" : "border-black/9"}`} aria-pressed={activeMetroStation === index}>{station.name}</button>
+                          <button key={station.name} type="button" onClick={() => focusMetroStation(index, station.position, station.name)} className={`min-h-11 rounded-[0.85rem] border px-3 py-2 text-left text-[0.7rem] font-semibold leading-4 ${activeMetroStation === index ? "border-[#006e52]/35 bg-[#006e52]/7 text-[#006e52]" : "border-black/9"}`} aria-pressed={activeMetroStation === index}>{station.name}{activeMetroConnection.line === "Pink" ? <span className="mt-1 block text-[0.6rem] font-normal">{index < PINK_OPEN_STATION_COUNT ? "Open" : "Planned"}</span> : null}</button>
                         ))}
                       </div>
                     </div>
@@ -2343,7 +2400,15 @@ export function CustomStyleExample() {
 
         {isCompactLayout ? (
           <>
-            {showPopular && !showPoiDetails && !showFilters && !showMobileMenu && !showMobileMetro ? (
+            {activeMetroConnection && selectedMetroStation && selectedMetroDirectionsUrl && !showMobileMetro && !showMobileMenu && !showFilters ? (
+              <section className={`absolute inset-x-3 pointer-events-auto p-4 text-[#183b2a] sm:left-1/2 sm:right-auto sm:w-[min(40rem,calc(100vw-2.5rem))] sm:-translate-x-1/2 ${FLOATING_PANEL}`} style={{ bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }} aria-live="polite">
+                <p className="text-[0.62rem] font-bold uppercase tracking-[0.17em] text-[#006e52]">{activeMetroConnection.line} Line · {selectedMetroOpen ? "In service" : "Planned station"}</p>
+                <h2 className="mt-1 text-lg font-semibold leading-tight">{selectedMetroStation.name}</h2>
+                <p className="mt-1 text-xs leading-5 text-[#183b2a]/70">From Jutaku{metroRouteLoading ? " · Finding road route…" : metroRoadRoute ? ` · ${formatDistance(metroRoadRoute.distance)} by road` : " · Select directions for a road route"}</p>
+                <a href={selectedMetroDirectionsUrl} target="_blank" rel="noopener noreferrer" className={`mt-3 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-full px-4 text-xs font-semibold ${PREMIUM_OLIVE_BUTTON}`}><Navigation className="size-4" />{selectedMetroOpen ? "Directions from Jutaku" : "View planned station area"}</a>
+              </section>
+            ) : null}
+            {showPopular && !activeMetroConnection && !showPoiDetails && !showFilters && !showMobileMenu && !showMobileMetro ? (
               <section
                 className={`absolute inset-x-3 sm:left-1/2 sm:right-auto sm:w-[min(40rem,calc(100vw-2.5rem))] sm:-translate-x-1/2 ${FLOATING_PANEL} ${OVERLAY_TRANSITION}`}
                 style={{ bottom: "calc(env(safe-area-inset-bottom) + 1rem)" }}

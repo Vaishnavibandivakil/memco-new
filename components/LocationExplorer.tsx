@@ -7,7 +7,7 @@ import { ArrowRight, Building2, GraduationCap, Hospital, Hotel, LayoutGrid, MapP
 import { Map, MapClusterLayer, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
 import { Map3DBuildings } from "@/components/ui/map-3d-buildings";
 import { ADDRESS, SITE_COORDINATES } from "@/lib/data";
-import { METRO_CONNECTIONS } from "@/data/metro-connectivity";
+import { isMetroStationOpen, METRO_CONNECTIONS, PINK_OPEN_STATION_COUNT } from "@/data/metro-connectivity";
 import { googleMetroPlaceId, JUTAKU_GOOGLE_PLACE_ID } from "@/data/metro-google-places";
 import { METRO_GREEN_TRANSFER, METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
 import { LOCATION_CATEGORIES, LOCATION_DIRECTORY, type LocationCategory } from "@/data/location-directory";
@@ -71,11 +71,14 @@ export function LocationExplorer() {
   const visiblePlaces = category === "All" ? LOCATION_DIRECTORY : LOCATION_DIRECTORY.filter((place) => place.category === category);
   const cardPosition = selectedMetroStation?.position ?? activeConnection?.position ?? selectedPlace.position;
   const homePlaceUrl = "https://www.google.com/maps/place/MEMCO+Skyline+Jutaku/@12.8742426,77.6382217,17z/data=!3m1!4b1!4m6!3m5!1s0x3bae6b00256cd43d:0x159453b3f51b5e1b!8m2!3d12.8742426!4d77.6407966!16s%2Fg%2F11xzz_6bnl";
-  const stationPlaceId = activeConnection?.status.startsWith("In service") && selectedMetroStation ? googleMetroPlaceId(selectedMetroStation.name) : null;
+  const selectedStationInService = activeConnection && activeStation !== null && isMetroStationOpen(activeConnection.line, activeStation);
+  const stationPlaceId = selectedStationInService && selectedMetroStation ? googleMetroPlaceId(selectedMetroStation.name) : null;
   const directionsUrl = activeConnection
     ? stationPlaceId
       ? `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent("MEMCO Skyline Jutaku, Bengaluru")}&origin_place_id=${JUTAKU_GOOGLE_PLACE_ID}&destination=${encodeURIComponent(`${selectedMetroStation?.name} Metro Station, Bengaluru`)}&destination_place_id=${stationPlaceId}`
-      : `https://www.google.com/maps/@?api=1&map_action=map&center=${cardPosition[1]}%2C${cardPosition[0]}&zoom=16`
+      : selectedStationInService
+        ? `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${SITE_COORDINATES.lat}%2C${SITE_COORDINATES.lng}%3B${cardPosition[1]}%2C${cardPosition[0]}`
+        : `https://www.google.com/maps/@?api=1&map_action=map&center=${cardPosition[1]}%2C${cardPosition[0]}&zoom=16`
     : selectedPlace.category === "Home"
       ? homePlaceUrl
       : `https://www.google.com/maps/dir/?api=1&destination=${cardPosition[1]}%2C${cardPosition[0]}`;
@@ -105,8 +108,14 @@ export function LocationExplorer() {
     setStationRouteLoading(false);
   }, []);
 
-  const choose = useCallback((index: number, scrollToMap = false) => {
+  const choose = (index: number, scrollToMap = false) => {
     const place = PLACES[index];
+    if (place.category === "Metro") {
+      const stationIndex = METRO_ROUTE_POINTS[place.line].findIndex((station) => station.name === place.name);
+      focusMetroStation(stationIndex, place.line);
+      if (scrollToMap) stageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
     clearStationRoute();
     setMetroPanelOpen(false);
     setActiveMetro(null);
@@ -114,12 +123,12 @@ export function LocationExplorer() {
     setSelected(index);
     mapRef.current?.flyTo({ center: [...place.position], zoom: index === 0 ? 13.5 : 14.5, duration: 950, essential: true });
     if (scrollToMap) stageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [clearStationRoute]);
+  };
 
-  const selectClusterPoint = useCallback((feature: GeoJSON.Feature<GeoJSON.Point, LocationClusterProperties>) => {
+  const selectClusterPoint = (feature: GeoJSON.Feature<GeoJSON.Point, LocationClusterProperties>) => {
     const placeIndex = feature.properties?.placeIndex;
     if (typeof placeIndex === "number") choose(placeIndex);
-  }, [choose]);
+  };
 
   const chooseCategory = (next: LocationCategory) => {
     clearStationRoute();
@@ -159,10 +168,11 @@ export function LocationExplorer() {
     if (window.innerWidth <= 980) mapContainerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const focusMetroStation = (index: number) => {
-    const point = activeRoute?.[index];
+  const focusMetroStation = (index: number, line = activeConnection?.line) => {
+    const point = line ? METRO_ROUTE_POINTS[line]?.[index] : null;
     if (!point) return;
     clearStationRoute();
+    setActiveMetro(METRO_CONNECTIONS.findIndex((connection) => connection.line === line));
     setActiveStation(index);
     setMetroPanelOpen(false);
     const routeBounds: [[number, number], [number, number]] = [
@@ -243,7 +253,8 @@ export function LocationExplorer() {
           <Map3DBuildings />
           {yellowAccess && <MapRoute id="metro-access-yellow" coordinates={yellowAccess.map((point) => [...point.position])} color={METRO_LINE_COLORS.Yellow} width={4} opacity={0.9} interactive={false} />}
           {activeConnection?.line === "Purple" && <MapRoute id="metro-transfer-green" coordinates={METRO_GREEN_TRANSFER.map((point) => [...point.position])} color="#00804d" width={4} opacity={0.9} interactive={false} />}
-          {activeRoute && activeConnection && <MapRoute key={activeConnection.line} id={`metro-route-${activeConnection.line.toLowerCase()}`} coordinates={activeRoute.map((point) => [...point.position])} color={METRO_LINE_COLORS[activeConnection.line]} width={4} opacity={0.9} dashArray={activeConnection.line === "Pink" || activeConnection.line === "Blue" ? [2, 2] : undefined} interactive={false} />}
+          {activeRoute && activeConnection?.line === "Pink" && <><MapRoute id="metro-route-pink-open" coordinates={activeRoute.slice(0, PINK_OPEN_STATION_COUNT).map((point) => [...point.position])} color={METRO_LINE_COLORS.Pink} width={4} opacity={0.9} interactive={false} /><MapRoute id="metro-route-pink-planned" coordinates={activeRoute.slice(PINK_OPEN_STATION_COUNT - 1).map((point) => [...point.position])} color={METRO_LINE_COLORS.Pink} width={4} opacity={0.9} dashArray={[2, 2]} interactive={false} /></>}
+          {activeRoute && activeConnection && activeConnection.line !== "Pink" && <MapRoute key={activeConnection.line} id={`metro-route-${activeConnection.line.toLowerCase()}`} coordinates={activeRoute.map((point) => [...point.position])} color={METRO_LINE_COLORS[activeConnection.line]} width={4} opacity={0.9} dashArray={activeConnection.line === "Blue" ? [2, 2] : undefined} interactive={false} />}
           {stationRoadRoute && <MapRoute id="jutaku-station-road-route-outline" coordinates={stationRoadRoute} color="#fff" width={9} opacity={0.95} interactive={false} />}
           {stationRoadRoute && <MapRoute id="jutaku-station-road-route" coordinates={stationRoadRoute} color="#193c2c" width={5} opacity={0.95} interactive={false} />}
           {showClusters && <MapClusterLayer<LocationClusterProperties> data={clusterData} clusterMaxZoom={14} clusterRadius={60} clusterColors={["#006e52", "#006e52", "#006e52"]} clusterThresholds={[5, 12]} pointColor="#006e52" onPointClick={selectClusterPoint} />}
@@ -294,7 +305,7 @@ export function LocationExplorer() {
             <div><span className="location-metro-kicker">Metro connectivity</span><h2 id="location-metro-title">How to reach Jutaku.</h2></div>
             <button type="button" className="location-metro-close" onClick={closeMetroPanel} aria-label="Close metro connections"><X size={19} aria-hidden="true" /></button>
           </div>
-          <p className="location-metro-panel-intro">Choose a line, then tap a station to see its road route and distance from Jutaku. Pink and Blue station positions are indicative while construction continues.</p>
+          <p className="location-metro-panel-intro">Choose a line, then tap a station to see its road route and distance from Jutaku. The first six Pink Line stations are open; northern Pink and Blue stations remain planned.</p>
           <div className="location-metro-panel-routes">
             {METRO_CONNECTIONS.map((connection, index) => (
               <div key={connection.line} className={`location-metro-option is-${connection.line.toLowerCase()}${activeMetro === index ? " is-active" : ""}`}>
@@ -312,14 +323,14 @@ export function LocationExplorer() {
                   <p className="location-metro-stations-direction">{connection.stationsLabel}. Tap any stop for directions from Jutaku.</p>
                   <div className="location-metro-route-diagram" aria-label={`${connection.line} Line station route diagram`}>
                     <div className="location-metro-route-endpoint">{connection.stations[0]}</div>
-                    <ol className="location-metro-stations">{connection.stations.map((station, stationIndex) => <li key={station} className={`${connection.highlights.some((highlight) => highlight === station) ? "is-key" : ""}${activeStation === stationIndex ? " is-current" : ""}`}><button type="button" onClick={() => focusMetroStation(stationIndex)} aria-label={`Show directions from Jutaku to ${station}`} aria-current={activeStation === stationIndex ? "location" : undefined}><span className="location-metro-station-node" aria-hidden="true" /><span>{station}</span>{connection.highlights.some((highlight) => highlight === station) && <small>{station === "Singasandra" || station === "Hosa Road" ? "Near Jutaku" : "Connection"}</small>}</button></li>)}</ol>
+                    <ol className="location-metro-stations">{connection.stations.map((station, stationIndex) => <li key={station} className={`${connection.highlights.some((highlight) => highlight === station) ? "is-key" : ""}${activeStation === stationIndex ? " is-current" : ""}`}><button type="button" onClick={() => focusMetroStation(stationIndex)} aria-label={`Show directions from Jutaku to ${station}${isMetroStationOpen(connection.line, stationIndex) ? " Metro Station" : " planned station area"}`} aria-current={activeStation === stationIndex ? "location" : undefined}><span className="location-metro-station-node" aria-hidden="true" /><span>{station}</span>{connection.line === "Pink" ? <small>{stationIndex < PINK_OPEN_STATION_COUNT ? "Open" : "Planned"}</small> : connection.highlights.some((highlight) => highlight === station) && <small>{station === "Singasandra" || station === "Hosa Road" ? "Near Jutaku" : "Connection"}</small>}</button></li>)}</ol>
                     <div className="location-metro-route-endpoint is-end">{connection.stations[connection.stations.length - 1]}</div>
                   </div>
                 </div>}
               </div>
             ))}
           </div>
-          <p className="location-metro-panel-note">Note: Pink and Blue routes are under construction and may change.<span className="location-metro-panel-note-mark" aria-hidden="true">*</span></p>
+          <p className="location-metro-panel-note">Note: Pink Line stations north of S.G. Palya and the Blue Line are still under construction; positions may change.<span className="location-metro-panel-note-mark" aria-hidden="true">*</span></p>
         </aside>
       )}
 
@@ -330,11 +341,11 @@ export function LocationExplorer() {
           {selectedPlace.category !== "Home" && <figcaption>Illustrative image</figcaption>}
         </figure>}
         <div className="location-card-copy" aria-live="polite">
-          <span className="location-card-index">{activeConnection ? `${activeConnection.line} Line · ${activeConnection.status}` : selectedPlace.category === "Home" ? "Visit Jutaku" : selectedPlace.category}</span>
+          <span className="location-card-index">{activeConnection ? `${activeConnection.line} Line · ${selectedStationInService ? "In service" : "Planned station"}` : selectedPlace.category === "Home" ? "Visit Jutaku" : selectedPlace.category}</span>
           <h2>{selectedMetroStation?.name ?? activeConnection?.station ?? (selectedPlace.category === "Home" ? "MEMCO Skyline Jutaku" : selectedPlace.name)}</h2>
-          <p>{activeConnection ? `From MEMCO Skyline Jutaku to ${selectedMetroStation?.name ?? activeConnection.station}${activeConnection.status.startsWith("In service") ? " Metro Station" : " planned station area"}. ${stationRouteLoading ? "Finding a road route…" : stationRoadDistanceMeters !== null ? `About ${(stationRoadDistanceMeters / 1000).toFixed(1)} km by road; route shown on the map.` : activeConnection.status.startsWith("In service") ? "Open Google Maps for the road route." : "Station location is indicative while construction continues."}` : selectedPlace.category === "Home" ? ADDRESS : `${selectedPlace.distance} from Jutaku.`}</p>
+          <p>{activeConnection ? `From MEMCO Skyline Jutaku to ${selectedMetroStation?.name ?? activeConnection.station}${selectedStationInService ? " Metro Station" : " planned station area"}. ${stationRouteLoading ? "Finding a road route…" : stationRoadDistanceMeters !== null ? `About ${(stationRoadDistanceMeters / 1000).toFixed(1)} km by road; route shown on the map.` : selectedStationInService ? "Open directions for the road route." : "Station location is indicative while construction continues."}` : selectedPlace.category === "Home" ? ADDRESS : `${selectedPlace.distance} from Jutaku.`}</p>
           <div className="location-card-actions">
-            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> {activeConnection ? stationPlaceId ? "Directions from Jutaku" : "View planned station area" : selectedPlace.category === "Home" ? "View on Google Maps" : "Get directions"}</a>
+            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> {activeConnection ? selectedStationInService ? "Directions from Jutaku" : "View planned station area" : selectedPlace.category === "Home" ? "View on Google Maps" : "Get directions"}</a>
           </div>
         </div>
       </aside>}
