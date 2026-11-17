@@ -569,13 +569,11 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .sl-m .lbl { display: block; white-space: normal; overflow-wrap: break-word; }
 
 /* statement */
-.st { position: relative; background: var(--paper); padding: 20vh 0 0; overflow: hidden; }
-.st-kicker { text-align: center; margin-bottom: 12vh; }
+.st { position: relative; background: var(--paper); padding: clamp(72px, 12vh, 140px) 0 0; overflow: hidden; }
 .st-split { align-items: center; gap: clamp(16px, 2vw, 32px); }
 .st-split .disp { flex: 0 1 auto; min-width: 0; font-size: clamp(26px, 3.05vw, 58px); line-height: 1.05; white-space: normal; }
 .st-split .sl-r { text-align: right; }
-.st-split .sl-mid { flex: 1 1 110px; gap: 12px; margin: 0; }
-.st-split .sl-m .lbl { white-space: nowrap; }
+.st-split .sl-mid { display: none; }
 .st-grid { width: min(100%, 1900px); margin: 0 auto; padding: clamp(70px, 10vh, 140px) var(--side) clamp(105px, 15vh, 180px); }
 .st-chart { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(40px, 6vw, 130px); width: 100%; }
 .st-chart-copy { min-width: 0; }
@@ -712,7 +710,6 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .sl-m .lbl { font-size: 8.5px; letter-spacing: .08em; }
   .st-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .st-split .disp { font-size: clamp(33px, 8vw, 58px); }
-  .st-split .sl-mid { order: initial; flex-basis: auto; margin: 0; }
   .st-split .sl-r { text-align: right; }
   .gl-body { grid-template-columns: 1fr; }
   .st-grid { padding: 70px 22px 90px; }
@@ -967,7 +964,7 @@ html.reduced .am-cap:first-child { opacity: 1; transform: none; filter: none; }
 /* §04: statements (H2) in MEMCO Green on light surfaces; kicker labels in Signal Red */
 .gl-name, .sp-note { color: var(--green); }
 .cc-kicker { color: var(--green); }
-.st-kicker, .un-say > .lbl, .cr-kicker, .rs-kicker { color: var(--signal); }
+.un-say > .lbl, .cr-kicker, .rs-kicker { color: var(--signal); }
 .cr-kicker .dim, .rs-kicker .dim { color: var(--ink); }
 
 /* Jutaku booking invitation */
