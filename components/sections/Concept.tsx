@@ -138,7 +138,7 @@ export function Concept() {
           <div className="ds-body">
             <p className="lbl ds-kicker ds-fade">01 / Design</p>
             <h2 className="caps-serif ds-statement">Built around <span>real life</span></h2>
-            <p className="ds-intro ds-fade">Smart ownership pairs a private Urban Unit of around 500 sq ft with access to a planned 50,000 sq ft ecosystem of shared spaces.</p>
+            <p className="ds-intro ds-fade">Smart ownership pairs a right-sized Urban Unit, around 500 sq ft super built-up, with access to a planned 50,000 sq ft ecosystem of shared spaces.</p>
           </div>
           <figure className="ds-hero ds-fade">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -195,7 +195,7 @@ export function Concept() {
               <h2 className="caps-serif" data-hfade>What comes with your home</h2>
             </div>
             <div className="cc-points">
-              <article data-hfade><span>01</span><div><h3>A private base</h3><p>An Urban Unit of around 500 sq ft for everyday life.</p></div></article>
+              <article data-hfade><span>01</span><div><h3>A private base</h3><p>A standard 500.45 sq ft super built-up unit includes 327.13 sq ft of private living space.</p></div></article>
               <article data-hfade><span>02</span><div><h3>Space when you need it</h3><p>Planned music rooms, hosting kitchens and workspaces serve needs beyond the home.</p></div></article>
               <article data-hfade><span>03</span><div><h3>A shared ecosystem</h3><p>Professionally managed spaces connect 646 private Urban Units into one community.</p></div></article>
             </div>

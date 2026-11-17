@@ -3,7 +3,7 @@ import { ROUTE } from "@/lib/nearby-route";
 
 export const HOTSPOTS = [
   { id: "roof", x: 27, y: 10, mobileX: 50, mobileY: 43, title: "Skyline Aqua Lounge", body: "A 56 ft rooftop pool, with access planned around the clock.", photo: "/images/rooftop-pool.jpg" },
-  { id: "homes", x: 29, y: 39, mobileX: 51, mobileY: 58, title: "Urban Units · 646", body: "A private home of around 500 sq ft, with a park, pool, studios and sports spaces on site.", photo: "/images/interior-bedroom.jpg" },
+  { id: "homes", x: 29, y: 39, mobileX: 51, mobileY: 58, title: "Urban Units · 646", body: "A home of around 500 sq ft super built-up, with a park, pool, studios and sports spaces on site.", photo: "/images/interior-bedroom.jpg" },
   { id: "park", x: 24, y: 80, mobileX: 50, mobileY: 73, title: "Serenity Park", body: "12,000 sq ft of planned paths, gardens and quiet places among the trees.", photo: "/images/walking-trails.jpg" },
 ];
 

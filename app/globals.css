@@ -581,6 +581,15 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .st-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; align-items: end; padding: 12vh var(--side) 16vh; }
 .st-copy { display: grid; gap: 26px; max-width: 580px; justify-self: start; padding-bottom: 4vh; }
 .st-say { font-size: clamp(19.68px, 1.89vw, 34.44px); }
+.st-area { width: 100%; padding-top: 18px; border-top: 1px solid var(--rule); }
+.st-area-heading { color: var(--ink); line-height: 1.5; }
+.st-area-heading span { color: var(--green); }
+.st-area-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
+.st-area-list div { min-width: 0; }
+.st-area-list dt { min-height: 30px; color: #626a62; font-size: 10px; line-height: 1.35; text-transform: uppercase; letter-spacing: .06em; }
+.st-area-list dd { margin-top: 8px; color: var(--green); font-family: var(--ff-disp); font-size: clamp(20px, 1.75vw, 29px); font-weight: 600; line-height: 1; white-space: nowrap; }
+.st-area-list dd span { font-family: var(--ff-sans); font-size: 10px; font-weight: 500; letter-spacing: .04em; }
+.st-area-note { margin-top: 16px; color: #626a62; font-size: 10px; line-height: 1.5; }
 .st-pic { aspect-ratio: 4 / 3; overflow: hidden; }
 .st-pic img, .st-wide img { width: 100%; height: 116%; margin-top: -8%; object-fit: cover; }
 .st-wide { height: 92vh; overflow: hidden; }
@@ -700,6 +709,10 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .st-split .sl-r { text-align: right; }
   .st-grid, .gl-body { grid-template-columns: 1fr; }
   .st-copy { justify-self: start; }
+  .st-area-list { grid-template-columns: 1fr; gap: 0; margin-top: 12px; }
+  .st-area-list div { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--rule); }
+  .st-area-list dt { min-height: 0; }
+  .st-area-list dd { flex: none; margin-top: 0; }
   .st-wide { height: 60vh; }
   .nb { height: 560svh; }
   .nb-tile-1 { left: 2%; top: 12%; width: 56%; height: 18.5%; }

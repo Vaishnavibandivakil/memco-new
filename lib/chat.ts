@@ -12,7 +12,7 @@ export type ChatReply = {
 
 const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
   homes: {
-    text: "Jutaku plans 646 Urban Units of around 500 sq ft, with access to shared spaces for work, wellness, dining and sport. The available layouts and prices should be confirmed with the MEMCO team.",
+    text: "Jutaku plans 646 Urban Units of around 500 sq ft super built-up, with access to shared spaces for work, wellness, dining and sport. A standard 500.45 sq ft unit includes 327.13 sq ft of private living space; confirm individual layouts with the MEMCO team.",
     action: { label: "Explore the homes", href: "/#project" },
   },
   amenities: {
@@ -35,7 +35,7 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
     text: "Investment benefits at Jutaku",
     sections: [
       { heading: "What you get", items: [
-        { title: "Private space (~500 sq ft)", body: "Your private sanctuary with smart, efficient design." },
+        { title: "Standard unit (500.45 sq ft SBA)", body: "Includes 327.13 sq ft of private living space, with stated amenity and infrastructure allocations." },
         { title: "Access to the full ecosystem", body: "50,000 sq ft of experience zones at your fingertips." },
         { title: "Revenue-sharing opportunities", body: "Potential income from bookable spaces in the ecosystem, subject to the project terms." },
       ] },
@@ -49,7 +49,7 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
     action: { label: "Speak with the team", href: "/#contact" },
   },
   investmentComparison: {
-    text: "The published Jutaku concept pairs a private Urban Unit of around 500 sq ft with access to a wider 50,000 sq ft amenity plan. The site mentions revenue-sharing opportunities from bookable spaces, but it does not publish a guaranteed return or rental yield.",
+    text: "The published Jutaku concept pairs an Urban Unit of around 500 sq ft super built-up with access to a wider 50,000 sq ft amenity plan. The site mentions revenue-sharing opportunities from bookable spaces, but it does not publish a guaranteed return or rental yield.",
     details: [
       "Homes are advertised from ₹68.5 lakhs, with premiums for floor rise, corner and east-facing units. Confirm the current price, charges and terms with the project team.",
       "Any resale appreciation, rental income or revenue share depends on future conditions and the applicable documents; none is guaranteed.",

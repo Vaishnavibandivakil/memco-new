@@ -43,7 +43,7 @@ export function Units() {
         <img className="un-deco" src="/images/design-trees.webp" alt="" loading="lazy" data-rise />
         <i className="un-line" aria-hidden data-draw />
         <p className="lbl" data-fade>The feeling of home</p>
-        <h2 className="caps-serif cc-statement" data-lines data-delay="0.2">Private homes of about 500 sq ft each, opening onto 50,000 sq ft you share with your neighbours.</h2>
+        <h2 className="caps-serif cc-statement" data-lines data-delay="0.2">Homes of about 500 sq ft super built-up, opening onto 50,000 sq ft of spaces shared with your neighbours.</h2>
         <span className="mark" aria-hidden data-fade data-delay="0.5" />
       </div>
     </section>

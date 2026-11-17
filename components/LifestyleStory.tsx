@@ -172,7 +172,7 @@ export function LifestyleStory({ story }: { story: Story }) {
             <div className="persona-bento-copy persona-bento-ownership" data-fade>
               <span>05 / Access</span>
               <h3>Smart ownership, shared access.</h3>
-              <p>Own a right-sized Urban Unit of around 500 sq ft and access planned community spaces such as music rooms and hosting kitchens. Confirm access and booking details with the MEMCO team.</p>
+              <p>Own a right-sized Urban Unit of around 500 sq ft super built-up and access planned community spaces such as music rooms and hosting kitchens. Confirm access and booking details with the MEMCO team.</p>
             </div>
             <div className="persona-bento-copy persona-bento-safety" data-fade>
               <span>06 / Peace of mind</span>
