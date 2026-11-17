@@ -53,12 +53,15 @@ export function LocationExplorer() {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const metroButtonRef = useRef<HTMLButtonElement>(null);
   const metroPanelRef = useRef<HTMLElement>(null);
+  const stationRouteRequestRef = useRef<AbortController | null>(null);
   const [selected, setSelected] = useState(0);
   const [category, setCategory] = useState<LocationCategory>("All");
   const [metroPanelOpen, setMetroPanelOpen] = useState(false);
   const [activeMetro, setActiveMetro] = useState<number | null>(null);
   const [activeStation, setActiveStation] = useState<number | null>(null);
   const [currentZoom, setCurrentZoom] = useState(12.2);
+  const [stationRoadRoute, setStationRoadRoute] = useState<[number, number][] | null>(null);
+  const [stationRouteLoading, setStationRouteLoading] = useState(false);
   const selectedPlace = PLACES[selected];
   const activeConnection = activeMetro === null ? null : METRO_CONNECTIONS[activeMetro];
   const activeRoute = activeConnection ? METRO_ROUTE_POINTS[activeConnection.line] : null;
@@ -68,9 +71,7 @@ export function LocationExplorer() {
   const cardPosition = selectedMetroStation?.position ?? activeConnection?.position ?? selectedPlace.position;
   const homePlaceUrl = "https://www.google.com/maps/place/MEMCO+Skyline+Jutaku/@12.8742426,77.6382217,17z/data=!3m1!4b1!4m6!3m5!1s0x3bae6b00256cd43d:0x159453b3f51b5e1b!8m2!3d12.8742426!4d77.6407966!16s%2Fg%2F11xzz_6bnl";
   const directionsUrl = activeConnection
-    ? activeConnection.status.startsWith("In service")
-      ? `https://www.google.com/maps/dir/?api=1&origin=${cardPosition[1]}%2C${cardPosition[0]}&destination=${encodeURIComponent(`MEMCO Skyline Jutaku, ${ADDRESS}`)}&travelmode=transit`
-      : homePlaceUrl
+    ? `https://www.google.com/maps/dir/?api=1&origin=${SITE_COORDINATES.lat}%2C${SITE_COORDINATES.lng}&destination=${cardPosition[1]}%2C${cardPosition[0]}`
     : selectedPlace.category === "Home"
       ? homePlaceUrl
       : `https://www.google.com/maps/dir/?api=1&destination=${cardPosition[1]}%2C${cardPosition[0]}`;
@@ -92,15 +93,23 @@ export function LocationExplorer() {
     };
   }, [category]);
 
+  const clearStationRoute = useCallback(() => {
+    stationRouteRequestRef.current?.abort();
+    stationRouteRequestRef.current = null;
+    setStationRoadRoute(null);
+    setStationRouteLoading(false);
+  }, []);
+
   const choose = useCallback((index: number, scrollToMap = false) => {
     const place = PLACES[index];
+    clearStationRoute();
     setMetroPanelOpen(false);
     setActiveMetro(null);
     setActiveStation(null);
     setSelected(index);
     mapRef.current?.flyTo({ center: [...place.position], zoom: index === 0 ? 13.5 : 14.5, duration: 950, essential: true });
     if (scrollToMap) stageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
+  }, [clearStationRoute]);
 
   const selectClusterPoint = useCallback((feature: GeoJSON.Feature<GeoJSON.Point, LocationClusterProperties>) => {
     const placeIndex = feature.properties?.placeIndex;
@@ -108,6 +117,7 @@ export function LocationExplorer() {
   }, [choose]);
 
   const chooseCategory = (next: LocationCategory) => {
+    clearStationRoute();
     setMetroPanelOpen(false);
     setActiveMetro(null);
     setActiveStation(null);
@@ -120,6 +130,7 @@ export function LocationExplorer() {
   };
 
   const showMetroOnMap = (index: number) => {
+    clearStationRoute();
     const connection = METRO_CONNECTIONS[index];
     const route = METRO_ROUTE_POINTS[connection.line];
     const startingStation = route.findIndex((point) => point.name === (connection.line === "Yellow" ? "Singasandra" : connection.line === "Green" ? "RV Road" : connection.line === "Purple" ? "Majestic" : connection.line === "Pink" ? "Jayadeva Hospital" : "Central Silk Board"));
@@ -146,8 +157,45 @@ export function LocationExplorer() {
   const focusMetroStation = (index: number) => {
     const point = activeRoute?.[index];
     if (!point) return;
+    clearStationRoute();
     setActiveStation(index);
-    mapRef.current?.flyTo({ center: [...point.position], zoom: 14, offset: window.innerWidth > 980 ? [-190, 0] : [0, -80], duration: 750, essential: true });
+    setMetroPanelOpen(false);
+    const routeBounds: [[number, number], [number, number]] = [
+      [Math.min(SITE_COORDINATES.lng, point.position[0]), Math.min(SITE_COORDINATES.lat, point.position[1])],
+      [Math.max(SITE_COORDINATES.lng, point.position[0]), Math.max(SITE_COORDINATES.lat, point.position[1])],
+    ];
+    const fitRoute = (bounds: [[number, number], [number, number]]) => mapRef.current?.fitBounds(bounds, {
+      padding: window.innerWidth > 980
+        ? { top: 160, right: Math.min(500, window.innerWidth * 0.43), bottom: 145, left: 70 }
+        : { top: 60, right: 35, bottom: 60, left: 35 },
+      maxZoom: 14.5,
+      duration: 850,
+      essential: true,
+    });
+    fitRoute(routeBounds);
+
+    const controller = new AbortController();
+    stationRouteRequestRef.current = controller;
+    setStationRouteLoading(true);
+    void fetch(`https://router.project-osrm.org/route/v1/driving/${SITE_COORDINATES.lng},${SITE_COORDINATES.lat};${point.position[0]},${point.position[1]}?overview=full&geometries=geojson`, { signal: controller.signal })
+      .then((response) => response.ok ? response.json() : null)
+      .then((data) => {
+        if (controller.signal.aborted) return;
+        const coordinates = data?.routes?.[0]?.geometry?.coordinates;
+        if (!Array.isArray(coordinates) || coordinates.length < 2 || !coordinates.every((coordinate: unknown) => Array.isArray(coordinate) && coordinate.length === 2 && coordinate.every((value) => typeof value === "number" && Number.isFinite(value)))) return;
+        const route = coordinates as [number, number][];
+        setStationRoadRoute(route);
+        const bounds = route.reduce<[[number, number], [number, number]]>((current, [lng, lat]) => [
+          [Math.min(current[0][0], lng), Math.min(current[0][1], lat)],
+          [Math.max(current[1][0], lng), Math.max(current[1][1], lat)],
+        ], routeBounds);
+        fitRoute(bounds);
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!controller.signal.aborted) setStationRouteLoading(false);
+      });
+    if (window.innerWidth <= 980) mapContainerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const closeMetroPanel = useCallback(() => {
@@ -164,6 +212,10 @@ export function LocationExplorer() {
     setMetroPanelOpen(true);
     if (activeMetro !== null) showMetroOnMap(activeMetro);
   };
+
+  useEffect(() => {
+    return () => stationRouteRequestRef.current?.abort();
+  }, []);
 
   useEffect(() => {
     if (!metroPanelOpen) return;
@@ -185,6 +237,8 @@ export function LocationExplorer() {
           {yellowAccess && <MapRoute id="metro-access-yellow" coordinates={yellowAccess.map((point) => [...point.position])} color={METRO_LINE_COLORS.Yellow} width={4} opacity={0.9} interactive={false} />}
           {activeConnection?.line === "Purple" && <MapRoute id="metro-transfer-green" coordinates={METRO_GREEN_TRANSFER.map((point) => [...point.position])} color="#00804d" width={4} opacity={0.9} interactive={false} />}
           {activeRoute && activeConnection && <MapRoute key={activeConnection.line} id={`metro-route-${activeConnection.line.toLowerCase()}`} coordinates={activeRoute.map((point) => [...point.position])} color={METRO_LINE_COLORS[activeConnection.line]} width={4} opacity={0.9} dashArray={activeConnection.line === "Pink" || activeConnection.line === "Blue" ? [2, 2] : undefined} interactive={false} />}
+          {stationRoadRoute && <MapRoute id="jutaku-station-road-route-outline" coordinates={stationRoadRoute} color="#fff" width={9} opacity={0.95} interactive={false} />}
+          {stationRoadRoute && <MapRoute id="jutaku-station-road-route" coordinates={stationRoadRoute} color="#193c2c" width={5} opacity={0.95} interactive={false} />}
           {showClusters && <MapClusterLayer<LocationClusterProperties> data={clusterData} clusterMaxZoom={14} clusterRadius={60} clusterColors={["#006e52", "#006e52", "#006e52"]} clusterThresholds={[5, 12]} pointColor="#006e52" onPointClick={selectClusterPoint} />}
           {PLACES.map((item, index) => (activeRoute ? index === 0 : index === 0 || !showClusters && (category === "All" || item.category === category)) && (
             <MapMarker key={item.name} longitude={item.position[0]} latitude={item.position[1]}>
@@ -202,7 +256,7 @@ export function LocationExplorer() {
           {activeRoute?.map((point, index) => (
             <MapMarker key={`${activeConnection?.line}-${point.name}`} longitude={point.position[0]} latitude={point.position[1]}>
               <MarkerContent>
-                <button type="button" className={`location-route-pin is-${activeConnection?.line.toLowerCase()}${activeStation === index ? " is-selected" : ""}${activeConnection?.highlights.some((highlight) => highlight === point.name) ? " is-key" : ""}`} onClick={() => focusMetroStation(index)} aria-label={`Show ${point.name} ${activeConnection?.line} Line station on map`} aria-pressed={activeStation === index}>
+                <button type="button" className={`location-route-pin is-${activeConnection?.line.toLowerCase()}${activeStation === index ? " is-selected" : ""}${activeConnection?.highlights.some((highlight) => highlight === point.name) ? " is-key" : ""}`} onClick={() => focusMetroStation(index)} aria-label={`Show directions from Jutaku to ${point.name} ${activeConnection?.line} Line station`} aria-pressed={activeStation === index}>
                   <span className="location-route-pin-dot" aria-hidden="true" /><span className="location-route-pin-label">{point.name}</span>
                 </button>
               </MarkerContent>
@@ -233,7 +287,7 @@ export function LocationExplorer() {
             <div><span className="location-metro-kicker">Metro connectivity</span><h2 id="location-metro-title">How to reach Jutaku.</h2></div>
             <button type="button" className="location-metro-close" onClick={closeMetroPanel} aria-label="Close metro connections"><X size={19} aria-hidden="true" /></button>
           </div>
-          <p className="location-metro-panel-intro">Choose a line to see the route towards Jutaku. Singasandra Metro is about {ROUTE[0].distance} away; Hosa Road Metro is about {ROUTE[1].distance} away. Tap a station to find it on the map.</p>
+          <p className="location-metro-panel-intro">Choose a line to see the route towards Jutaku. Singasandra Metro is about {ROUTE[0].distance} away; Hosa Road Metro is about {ROUTE[1].distance} away. Tap a station to see directions from Jutaku.</p>
           <div className="location-metro-panel-routes">
             {METRO_CONNECTIONS.map((connection, index) => (
               <div key={connection.line} className={`location-metro-option is-${connection.line.toLowerCase()}${activeMetro === index ? " is-active" : ""}`}>
@@ -248,10 +302,10 @@ export function LocationExplorer() {
                   <h3>How to reach Jutaku</h3>
                   <ol className="location-metro-journey">{connection.journey.map((leg) => <li key={leg.title}><strong>{leg.title}</strong><span>{leg.detail}</span></li>)}</ol>
                   <div className="location-metro-stations-heading"><h3>Station map</h3><span>{connection.stations.length} stops</span></div>
-                  <p className="location-metro-stations-direction">{connection.stationsLabel}. Tap any stop to find it on the map.</p>
+                  <p className="location-metro-stations-direction">{connection.stationsLabel}. Tap any stop for directions from Jutaku.</p>
                   <div className="location-metro-route-diagram" aria-label={`${connection.line} Line station route diagram`}>
                     <div className="location-metro-route-endpoint">{connection.stations[0]}</div>
-                    <ol className="location-metro-stations">{connection.stations.map((station, stationIndex) => <li key={station} className={`${connection.highlights.some((highlight) => highlight === station) ? "is-key" : ""}${activeStation === stationIndex ? " is-current" : ""}`}><button type="button" onClick={() => focusMetroStation(stationIndex)} aria-label={`Show ${station} on the map`} aria-current={activeStation === stationIndex ? "location" : undefined}><span className="location-metro-station-node" aria-hidden="true" /><span>{station}</span>{connection.highlights.some((highlight) => highlight === station) && <small>{station === "Singasandra" || station === "Hosa Road" ? "Near Jutaku" : "Connection"}</small>}</button></li>)}</ol>
+                    <ol className="location-metro-stations">{connection.stations.map((station, stationIndex) => <li key={station} className={`${connection.highlights.some((highlight) => highlight === station) ? "is-key" : ""}${activeStation === stationIndex ? " is-current" : ""}`}><button type="button" onClick={() => focusMetroStation(stationIndex)} aria-label={`Show directions from Jutaku to ${station}`} aria-current={activeStation === stationIndex ? "location" : undefined}><span className="location-metro-station-node" aria-hidden="true" /><span>{station}</span>{connection.highlights.some((highlight) => highlight === station) && <small>{station === "Singasandra" || station === "Hosa Road" ? "Near Jutaku" : "Connection"}</small>}</button></li>)}</ol>
                     <div className="location-metro-route-endpoint is-end">{connection.stations[connection.stations.length - 1]}</div>
                   </div>
                 </div>}
@@ -262,18 +316,18 @@ export function LocationExplorer() {
         </aside>
       )}
 
-      {!metroPanelOpen && <aside className="location-card" aria-label="Selected map place">
-        <figure className="location-card-image">
+      {!metroPanelOpen && <aside className={`location-card${activeConnection ? " is-station-route" : ""}`} aria-label={activeConnection ? "Directions from Jutaku to the selected station" : "Selected map place"}>
+        {!activeConnection && <figure className="location-card-image">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img key={activeConnection?.station ?? selectedPlace.name} src={selectedImage} alt={activeConnection ? "Illustrative metro scene" : selectedPlace.category === "Home" ? "Jutaku tower and experience centre" : `Illustrative ${selectedPlace.category.toLowerCase()} scene`} />
-          {(activeConnection || selectedPlace.category !== "Home") && <figcaption>Illustrative image</figcaption>}
-        </figure>
+          <img key={selectedPlace.name} src={selectedImage} alt={selectedPlace.category === "Home" ? "Jutaku tower and experience centre" : `Illustrative ${selectedPlace.category.toLowerCase()} scene`} />
+          {selectedPlace.category !== "Home" && <figcaption>Illustrative image</figcaption>}
+        </figure>}
         <div className="location-card-copy" aria-live="polite">
           <span className="location-card-index">{activeConnection ? `${activeConnection.line} Line · ${activeConnection.status}` : selectedPlace.category === "Home" ? "Visit Jutaku" : selectedPlace.category}</span>
           <h2>{selectedMetroStation?.name ?? activeConnection?.station ?? (selectedPlace.category === "Home" ? "MEMCO Skyline Jutaku" : selectedPlace.name)}</h2>
-          <p>{activeConnection ? activeConnection.status.startsWith("In service") ? `Start at this ${activeConnection.line} Line station and follow the connection to MEMCO Skyline Jutaku.` : `Future ${activeConnection.line} Line connection to MEMCO Skyline Jutaku; passenger service has not started.` : selectedPlace.category === "Home" ? ADDRESS : `${selectedPlace.distance} from Jutaku.`}</p>
+          <p>{activeConnection ? activeConnection.status.startsWith("In service") ? `From MEMCO Skyline Jutaku to ${selectedMetroStation?.name ?? activeConnection.station}. ${stationRouteLoading ? "Finding a road route…" : stationRoadRoute ? "Road route shown on the map." : "Open Google Maps for directions."}` : `From MEMCO Skyline Jutaku to ${selectedMetroStation?.name ?? activeConnection.station}. The ${activeConnection.line} Line is planned; passenger service has not started.` : selectedPlace.category === "Home" ? ADDRESS : `${selectedPlace.distance} from Jutaku.`}</p>
           <div className="location-card-actions">
-            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> {activeConnection ? activeConnection.status.startsWith("In service") ? "Directions to Jutaku" : "View Jutaku on Google Maps" : selectedPlace.category === "Home" ? "View on Google Maps" : "Get directions"}</a>
+            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> {activeConnection ? "Directions from Jutaku" : selectedPlace.category === "Home" ? "View on Google Maps" : "Get directions"}</a>
           </div>
         </div>
       </aside>}

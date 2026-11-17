@@ -33,6 +33,9 @@
 .location-controls button:hover, .location-controls button:focus-visible { background: var(--green); color: white; }
 
 .location-card { position: absolute; z-index: 2; right: clamp(24px, 3.5vw, 68px); bottom: 105px; display: grid; grid-template-columns: 42% 58%; grid-template-rows: minmax(0, 1fr); width: min(480px, 45vw); height: 220px; overflow: hidden; border: 1px solid rgba(0,110,66,.1); border-radius: 14px; background: rgba(250,251,248,.97); box-shadow: 0 18px 55px rgba(21,47,32,.13); }
+.location-card.is-station-route { display: block; width: min(360px, 42vw); height: auto; }
+.location-card.is-station-route .location-card-copy { min-height: 165px; }
+.location-card.is-station-route .location-card-copy > p { max-width: 39ch; font-size: 11px; }
 .location-card-image { position: relative; min-height: 0; overflow: hidden; }
 .location-card-image img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; animation: location-image-in .35s ease both; }
 .location-card-image figcaption { position: absolute; right: 10px; bottom: 10px; padding: 4px 7px; border-radius: 4px; background: rgba(12,25,17,.58); color: #fff; font-size: 8px; line-height: 1; }
@@ -149,6 +152,7 @@
   .location-map { position: relative; inset: auto; order: 0; height: 52svh; min-height: 380px; }
   .location-controls { bottom: 20px; left: 20px; }
   .location-card { position: relative; right: auto; bottom: auto; order: 1; width: auto; height: 180px; margin: -25px 20px 20px; }
+  .location-card.is-station-route { width: auto; }
   .location-filters { position: relative; right: auto; bottom: auto; left: auto; order: 2; width: auto; max-width: none; margin: 0 20px 20px; }
   .location-card h2 { font-size: 22px; }
   .location-metro-panel { position: fixed; z-index: 20; top: auto; right: 0; bottom: 0; left: 0; width: 100%; max-height: min(70svh, 690px); padding: 24px 20px max(24px, env(safe-area-inset-bottom)); border-radius: 18px 18px 0 0; animation-name: location-panel-mobile-in; }
