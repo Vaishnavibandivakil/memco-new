@@ -583,10 +583,10 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .st-polar-visual canvas { width: 100% !important; height: 100% !important; }
 .st-polar-center { position: absolute; left: 50%; top: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--paper); font-size: 16px; font-weight: 700; letter-spacing: -.045em; transform: translate(-50%, -50%); pointer-events: none; }
 .st-polar-center small { margin-top: 2px; color: #66786b; font-size: 8px; font-weight: 500; letter-spacing: .02em; text-transform: uppercase; }
-.st-chart-key { border-top: 1px solid var(--rule); }
 .st-chart-key-heading { display: flex; justify-content: space-between; gap: 12px; padding: 17px 0 9px; color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
 .st-chart-key-heading span:last-child { color: #708176; font-weight: 500; white-space: nowrap; }
 .st-chart-key button { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 16px; width: 100%; min-height: 76px; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); border-radius: 0; text-align: left; transition: background .2s, color .2s, padding .2s; }
+.st-chart-key button:last-child { border-bottom: 0; }
 .st-chart-key button:hover, .st-chart-key button.is-active { padding-left: 12px; border-radius: 14px; background: rgba(0, 110, 66, .055); color: var(--green); }
 .st-chart-key button:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; border-radius: 14px; }
 .st-chart-key-index { display: flex; flex-direction: column; gap: 6px; color: #829487; font-size: 10px; font-weight: 600; letter-spacing: .06em; }
