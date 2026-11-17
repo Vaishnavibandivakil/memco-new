@@ -4,7 +4,7 @@ import { Split } from "@/components/Split";
 import { AreaBreakdownChart } from "@/components/AreaBreakdownChart";
 import { gsap, useScene } from "@/lib/motion";
 
-/* The ownership statement sits beside an interactive area breakdown; the wide photo remains below. */
+/* The ownership statement leads into an interactive area breakdown; the wide photo remains below. */
 export function Quote() {
   const root = useRef<HTMLElement>(null);
   useScene(root, ({ reduced }) => {
@@ -17,10 +17,6 @@ export function Quote() {
       <p className="lbl st-kicker" data-fade>Smart ownership <i>·</i> Shared by design</p>
       <Split className="st-split" left="OWN 500 SQ.FT." mid={<span className="lbl">Jutaku <i>·</i> Bengaluru</span>} right="EXPERIENCE 50,000 SQ.FT." />
       <div className="st-grid">
-        <div className="st-copy">
-          <p className="st-say" data-fade><strong>A right-sized private home,</strong> with planned music rooms, hosting kitchens and workspaces for the moments that need more room.</p>
-          <p className="lbl" data-fade data-delay="0.3">MEMCO Skyline <i>·</i> Jutaku</p>
-        </div>
         <AreaBreakdownChart />
       </div>
       <div className="st-wide">
