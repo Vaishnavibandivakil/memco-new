@@ -29,9 +29,9 @@ export function Opening() {
         <div className="op-sticky">
           <div className="op-clip">
             <div className="op-media">
-              <div className="cover" style={{ ["--ar" as string]: 1672 / 940 }}>
+              <div className="cover" style={{ ["--ar" as string]: 1672 / 941 }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/jutaku-exterior-hero.webp" alt="Jutaku residential tower and experience centre in daylight" fetchPriority="high" />
+                <img src="/images/homepage-master.webp" alt="Jutaku residential tower and clubhouse at dusk" fetchPriority="high" />
                 <div className={`spots${spotsOn ? " is-on" : ""}`}>
                   {HOTSPOTS.map((h, i) => (
                     <div key={h.id} data-spot={h.id} className={`spot${spot === h.id ? " is-open" : ""}${h.x > 55 ? " flip" : ""}`} style={{ ["--spot-x" as string]: `${h.x}%`, ["--spot-y" as string]: `${h.y}%`, ["--spot-mobile-x" as string]: `${h.mobileX}%`, ["--spot-mobile-y" as string]: `${h.mobileY}%`, ["--i" as string]: i }}

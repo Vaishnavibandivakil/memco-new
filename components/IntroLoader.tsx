@@ -6,7 +6,7 @@ const PHOTOS = [
   "living", "study", "bedroom", "second-bedroom", "pickleball", "football",
   "kitchen", "bowling", "rooftop", "basketball", "creator-studio",
 ].map((name) => `/images/intro/${name}.webp`);
-const FRAMES = [...PHOTOS, "/images/jutaku-exterior-hero.webp"];
+const FRAMES = [...PHOTOS, "/images/homepage-master.webp"];
 const FRAME_MS = 205;
 
 type Phase = "loading" | "cycling" | "reveal" | "expand" | "leave" | "done";
