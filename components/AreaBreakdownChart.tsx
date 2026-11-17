@@ -65,7 +65,6 @@ const petalAnnotations: Plugin<"polarArea"> = {
 
 export function AreaBreakdownChart() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const chartRef = useRef<ChartJS<"polarArea"> | null>(null);
   const [hovered, setHovered] = useState<number | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const active = hovered ?? selected;
@@ -108,59 +107,55 @@ export function AreaBreakdownChart() {
         scales: { r: { display: false, min: 0, max: 1, startAngle: 45 } },
         plugins: {
           legend: { display: false },
-          tooltip: {
-            displayColors: false,
-            backgroundColor: "#123a2b",
-            padding: 12,
-            callbacks: { label: (context) => `${format(AREAS[context.dataIndex].value)} sq ft · ${percentage(AREAS[context.dataIndex].value)}` },
-          },
+          tooltip: { enabled: false },
         },
         onHover: (_, elements) => setHovered((current) => current === (elements[0]?.index ?? null) ? current : (elements[0]?.index ?? null)),
         onClick: (_, elements) => { if (elements[0]) setSelected(elements[0].index); },
       },
     });
-    chartRef.current = chart;
-    return () => { chart.destroy(); chartRef.current = null; };
+    return () => chart.destroy();
   }, []);
 
   const select = (index: number) => {
     setSelected(index);
-    chartRef.current?.setActiveElements([{ datasetIndex: 0, index }]);
-    chartRef.current?.update();
   };
 
   return (
     <figure className="st-chart" data-rise>
-      <figcaption className="st-chart-head">
-        <p className="lbl">MEMCO Skyline <i>·</i> Jutaku</p>
-        <h3>Inside 500.45 sq ft.</h3>
-        <p>A right-sized private home, with planned music rooms, hosting kitchens and workspaces for the moments that need more room.</p>
-      </figcaption>
+      <div className="st-chart-copy">
+        <figcaption className="st-chart-head">
+          <p className="lbl">MEMCO Skyline <i>·</i> Jutaku</p>
+          <h3>Inside 500.45 sq ft.</h3>
+          <p>A right-sized private home, with planned music rooms, hosting kitchens and workspaces for the moments that need more room.</p>
+        </figcaption>
+        <div className="st-chart-key" aria-label="Area categories">
+          {AREAS.map((area, index) => (
+            <button
+              type="button"
+              key={area.label}
+              className={active === index ? "is-active" : ""}
+              aria-pressed={selected === index}
+              onClick={() => select(index)}
+              onMouseEnter={() => setHovered(index)}
+              onMouseLeave={() => setHovered(null)}
+              onFocus={() => setHovered(index)}
+              onBlur={() => setHovered(null)}
+            >
+              <i style={{ backgroundColor: area.colors[1] }} aria-hidden="true" />
+              <span>{area.label}</span>
+              <strong>{format(area.value)} <small>sq ft</small></strong>
+              <em>{percentage(area.value)}</em>
+            </button>
+          ))}
+        </div>
+        <p className="st-chart-detail" aria-live="polite">{focus ? `${focus.label} · ${percentage(focus.value)} of the standard unit. ${focus.detail}` : "Tap a segment to explore its area allocation."}</p>
+        <p className="st-chart-note">Petal lengths are illustrative. The 49.00 sq ft corridor balance makes the stated figures total 500.45 sq ft; the supplied graphic rounds it to 49.01 sq ft.</p>
+      </div>
       <div className="st-polar-visual">
         <canvas ref={canvasRef} role="img" aria-label="Four-part radial chart showing the standard unit's 500.45 square foot super built-up area" />
         <span className="st-polar-center" aria-hidden="true">500.45<small>sq ft total</small></span>
+        {focus && <span className="st-polar-tooltip" aria-hidden="true">{focus.label} <strong>{format(focus.value)} sq ft</strong> <em>{percentage(focus.value)}</em></span>}
       </div>
-      <div className="st-chart-key" aria-label="Area categories">
-        {AREAS.map((area, index) => (
-          <button
-            type="button"
-            key={area.label}
-            className={active === index ? "is-active" : ""}
-            aria-pressed={selected === index}
-            onClick={() => select(index)}
-            onMouseEnter={() => setHovered(index)}
-            onMouseLeave={() => setHovered(null)}
-            onFocus={() => setHovered(index)}
-            onBlur={() => setHovered(null)}
-          >
-            <i style={{ backgroundColor: area.colors[1] }} aria-hidden="true" />
-            <span>{area.label}</span>
-            <strong>{format(area.value)} <small>sq ft</small></strong>
-          </button>
-        ))}
-      </div>
-      <p className="st-chart-detail" aria-live="polite">{focus ? `${focus.label} · ${percentage(focus.value)} of the standard unit. ${focus.detail}` : "Tap a segment to explore its area allocation."}</p>
-      <p className="st-chart-note">Petal lengths are illustrative. The 49.00 sq ft corridor balance makes the stated figures total 500.45 sq ft; the supplied graphic rounds it to 49.01 sq ft.</p>
     </figure>
   );
 }
