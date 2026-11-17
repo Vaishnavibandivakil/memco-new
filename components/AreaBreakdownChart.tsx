@@ -1,16 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArcElement, Chart as ChartJS, PolarAreaController, RadialLinearScale, Tooltip, type Plugin } from "chart.js";
+import { ArcElement, Chart as ChartJS, PolarAreaController, RadialLinearScale, type Plugin } from "chart.js";
 
-ChartJS.register(ArcElement, PolarAreaController, RadialLinearScale, Tooltip);
+ChartJS.register(ArcElement, PolarAreaController, RadialLinearScale);
 
 const TOTAL = 500.45;
 const AREAS = [
-  { label: "Private living", value: 327.13, detail: "Space inside the home for everyday living.", colors: ["#82c19b", "#006e42"] },
-  { label: "Mechanical & utilities", value: 85.23, detail: "Building services such as lifts, staircases and utility rooms.", colors: ["#cde6d3", "#4d9e70"] },
-  { label: "Corridors & safety lobbies", value: 49, detail: "The calculated balance for residential corridors and safety lobbies.", colors: ["#e3eacb", "#93a967"] },
-  { label: "Club amenities", value: 39.09, detail: "An allocation toward shared sport, dining and club spaces.", colors: ["#ffc9ae", "#e43d3b"] },
+  { label: "Private living", value: 327.13, colors: ["#82c19b", "#006e42"] },
+  { label: "Mechanical & utilities", value: 85.23, colors: ["#cde6d3", "#4d9e70"] },
+  { label: "Corridors & safety lobbies", value: 49, colors: ["#e3eacb", "#93a967"] },
+  { label: "Club amenities", value: 39.09, colors: ["#ffc9ae", "#e43d3b"] },
 ] as const;
 
 const format = (value: number) => value.toFixed(2);
@@ -68,7 +68,6 @@ export function AreaBreakdownChart() {
   const [hovered, setHovered] = useState<number | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const active = hovered ?? selected;
-  const focus = active === null ? null : AREAS[active];
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -123,7 +122,6 @@ export function AreaBreakdownChart() {
     <figure className="st-chart" data-rise>
       <div className="st-chart-copy">
         <figcaption className="st-chart-head">
-          <p className="lbl">MEMCO Skyline <i>·</i> Jutaku</p>
           <h3>Inside 500.45 sq ft.</h3>
           <p>A right-sized private home, with planned music rooms, hosting kitchens and workspaces for the moments that need more room.</p>
         </figcaption>
@@ -147,13 +145,10 @@ export function AreaBreakdownChart() {
             </button>
           ))}
         </div>
-        <p className="st-chart-detail" aria-live="polite">{focus ? `${focus.label} · ${percentage(focus.value)} of the standard unit. ${focus.detail}` : "Select a category to see how the space is used."}</p>
-        <p className="st-chart-note">The chart is illustrative. The corridor allocation is shown as 49.00 sq ft so the figures total 500.45 sq ft; the supplied graphic rounds it to 49.01 sq ft.</p>
       </div>
       <div className="st-polar-visual">
         <canvas ref={canvasRef} role="img" aria-label="Four-part radial chart showing the standard unit's 500.45 square foot super built-up area" />
         <span className="st-polar-center" aria-hidden="true">500.45<small>sq ft total</small></span>
-        {focus && <span className="st-polar-tooltip" aria-hidden="true">{focus.label} <strong>{format(focus.value)} sq ft</strong> <em>{percentage(focus.value)}</em></span>}
       </div>
     </figure>
   );
