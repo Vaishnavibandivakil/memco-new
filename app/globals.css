@@ -579,13 +579,11 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .st-grid { width: min(100%, 1900px); margin: 0 auto; padding: clamp(70px, 10vh, 140px) var(--side) clamp(105px, 15vh, 180px); }
 .st-chart { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(40px, 6vw, 130px); width: 100%; }
 .st-chart-copy { min-width: 0; }
-.st-chart-head h3 { font-size: clamp(32px, 3vw, 52px); font-weight: 500; line-height: 1.08; letter-spacing: -.055em; }
-.st-chart-head > p:last-child { max-width: 47ch; margin-top: 18px; color: #53645a; font-size: clamp(14px, 1.05vw, 17px); line-height: 1.55; }
 .st-polar-visual { position: relative; justify-self: end; width: min(100%, 570px); aspect-ratio: 1; }
 .st-polar-visual canvas { width: 100% !important; height: 100% !important; }
 .st-polar-center { position: absolute; left: 50%; top: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--paper); font-size: 16px; font-weight: 700; letter-spacing: -.045em; transform: translate(-50%, -50%); pointer-events: none; }
 .st-polar-center small { margin-top: 2px; color: #66786b; font-size: 8px; font-weight: 500; letter-spacing: .02em; text-transform: uppercase; }
-.st-chart-key { margin-top: clamp(30px, 4vh, 46px); border-top: 1px solid var(--rule); }
+.st-chart-key { border-top: 1px solid var(--rule); }
 .st-chart-key-heading { display: flex; justify-content: space-between; gap: 12px; padding: 17px 0 9px; color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
 .st-chart-key-heading span:last-child { color: #708176; font-weight: 500; white-space: nowrap; }
 .st-chart-key button { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 16px; width: 100%; min-height: 76px; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); border-radius: 0; text-align: left; transition: background .2s, color .2s, padding .2s; }
@@ -719,7 +717,6 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .gl-body { grid-template-columns: 1fr; }
   .st-grid { padding: 70px 22px 90px; }
   .st-chart { grid-template-columns: 1fr; gap: 34px; }
-  .st-chart-head h3 { font-size: clamp(28px, 7vw, 38px); }
   .st-polar-visual { justify-self: center; width: min(100%, 350px); }
   .st-polar-center { width: 56px; height: 56px; font-size: 13px; }
   .st-polar-center small { font-size: 7px; }

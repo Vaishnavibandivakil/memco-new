@@ -121,10 +121,6 @@ export function AreaBreakdownChart() {
   return (
     <figure className="st-chart" data-rise>
       <div className="st-chart-copy">
-        <figcaption className="st-chart-head">
-          <h3>Inside 500.45 sq ft.</h3>
-          <p>A right-sized private home, with planned music rooms, hosting kitchens and workspaces for the moments that need more room.</p>
-        </figcaption>
         <div className="st-chart-key" aria-label="Area categories">
           <div className="st-chart-key-heading"><span>Standard unit breakdown</span><span>500.45 sq ft SBA</span></div>
           {AREAS.map((area, index) => (
