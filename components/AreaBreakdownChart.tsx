@@ -129,6 +129,7 @@ export function AreaBreakdownChart() {
           <p>A right-sized private home, with planned music rooms, hosting kitchens and workspaces for the moments that need more room.</p>
         </figcaption>
         <div className="st-chart-key" aria-label="Area categories">
+          <div className="st-chart-key-heading"><span>Standard unit breakdown</span><span>500.45 sq ft SBA</span></div>
           {AREAS.map((area, index) => (
             <button
               type="button"
@@ -141,15 +142,14 @@ export function AreaBreakdownChart() {
               onFocus={() => setHovered(index)}
               onBlur={() => setHovered(null)}
             >
-              <i style={{ backgroundColor: area.colors[1] }} aria-hidden="true" />
-              <span>{area.label}</span>
-              <strong>{format(area.value)} <small>sq ft</small></strong>
-              <em>{percentage(area.value)}</em>
+              <span className="st-chart-key-index"><i style={{ backgroundColor: area.colors[1] }} aria-hidden="true" />0{index + 1}</span>
+              <span className="st-chart-key-main"><span>{area.label}</span><span className="st-chart-key-track" aria-hidden="true"><i style={{ width: percentage(area.value), backgroundColor: area.colors[1] }} /></span></span>
+              <span className="st-chart-key-figure"><strong>{format(area.value)}</strong><small>sq ft <em>{percentage(area.value)}</em></small></span>
             </button>
           ))}
         </div>
-        <p className="st-chart-detail" aria-live="polite">{focus ? `${focus.label} · ${percentage(focus.value)} of the standard unit. ${focus.detail}` : "Tap a segment to explore its area allocation."}</p>
-        <p className="st-chart-note">Petal lengths are illustrative. The 49.00 sq ft corridor balance makes the stated figures total 500.45 sq ft; the supplied graphic rounds it to 49.01 sq ft.</p>
+        <p className="st-chart-detail" aria-live="polite">{focus ? `${focus.label} · ${percentage(focus.value)} of the standard unit. ${focus.detail}` : "Select a category to see how the space is used."}</p>
+        <p className="st-chart-note">The chart is illustrative. The corridor allocation is shown as 49.00 sq ft so the figures total 500.45 sq ft; the supplied graphic rounds it to 49.01 sq ft.</p>
       </div>
       <div className="st-polar-visual">
         <canvas ref={canvasRef} role="img" aria-label="Four-part radial chart showing the standard unit's 500.45 square foot super built-up area" />
