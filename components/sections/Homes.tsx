@@ -35,7 +35,7 @@ export function Homes() {
       gsap.fromTo(element, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "expo.inOut" });
       gsap.set(element.querySelectorAll(".hm-title .ch"), { opacity: 0 });
       charsIn(element.querySelectorAll(".hm-title .ch"), { delay: 0.55 });
-      gsap.fromTo(element.querySelectorAll(".hm-count, .hm-plans-intro, .hm-lifestyle-intro, .hm-plan-entry"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1, stagger: 0.08, delay: 0.7, ease: "power3.out" });
+      gsap.fromTo(element.querySelectorAll(".hm-count, .hm-lifestyle-intro, .hm-plan-entry"), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1, stagger: 0.08, delay: 0.7, ease: "power3.out" });
     } else {
       document.documentElement.classList.remove("panel-open");
       lenis()?.start();
@@ -52,7 +52,6 @@ export function Homes() {
           <h2 className="disp hm-title"><Chars text="HOMES" /></h2>
           <span className="disp hm-count">03</span>
         </header>
-        <div className="hm-plans-intro"><span>Available homes</span><span>Explore the supplied MEMCO Skyline Jutaku plans</span></div>
         <div className="hm-lifestyle-intro">
           <div><span>100X Lifestyle</span><h3>Urban Lifestyle Ecosystem</h3></div>
           <p>Smart ownership means a private home sized for daily life, with planned music rooms, hosting kitchens and other shared spaces when you need more room.</p>
