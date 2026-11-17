@@ -19,14 +19,14 @@ export const ROOMS: Room[] = [
 
 export type Amenity = { id: string; index: string; name: string; desc: string; area?: string; photo: string; detail: string[] };
 
-/* Zones, areas, descriptions and sub-bullets are verbatim from memcoskyline.com/amenities. */
+/* Zones and areas follow memcoskyline.com; room details also reflect the current project brief. */
 export const AMENITIES: Amenity[] = [
   { id: "skyline-sports", index: "01", name: "Skyline Sports Deck", desc: "Rooftop multi-sport facilities", area: "18,800", photo: "/images/rooftop-court.jpg", detail: ["Pickleball + Box Cricket + Squash"] },
   { id: "performance-wellness", index: "02", name: "Performance & Wellness Hub", desc: "Performance training and wellness facilities", area: "12,800", photo: "/images/sports-gym.jpg", detail: ["Fully Equipped Gym", "Pilates Studio", "Indoor Sports", "Fitness Classes"] },
   { id: "wellness", index: "03", name: "Wellness & Recovery", desc: "Yoga, Zumba and a recovery zone inside the Hub", photo: "/images/recovery-zone.webp", detail: ["Yoga & Zumba Studio", "Recovery Zone", "Meditation Zones"] },
   { id: "serenity-park", index: "04", name: "Serenity Park", desc: "Private green spaces and meditation zones", area: "12,000", photo: "/images/walking-trails.jpg", detail: ["Walking Trails", "Garden Spaces", "Meditation Zones"] },
-  { id: "culinary-studios", index: "05", name: "Culinary Studios", desc: "Shared kitchen and dining spaces", area: "6,000", photo: "/images/club-community-kitchen.webp", detail: ["Community Kitchen", "Private Dining"] },
-  { id: "clubrooms-creator", index: "06", name: "Clubrooms & Creator Studios", desc: "Professional studios and collaborative clubrooms", area: "4,000", photo: "/images/club-podcast.jpg", detail: ["Podcasting Room", "DJ Studios", "Co-working", "Community Dining"] },
+  { id: "culinary-studios", index: "05", name: "Culinary Studios", desc: "Shared kitchen and dining spaces", area: "6,000", photo: "/images/club-community-kitchen.webp", detail: ["Community Kitchen", "Hosting Kitchens", "Private Dining"] },
+  { id: "clubrooms-creator", index: "06", name: "Clubrooms & Creator Studios", desc: "Professional studios and collaborative clubrooms", area: "4,000", photo: "/images/club-podcast.jpg", detail: ["Podcasting Room", "Music & Jamming Rooms", "DJ Studios", "Co-working", "Community Dining"] },
   { id: "experience-arena", index: "07", name: "Experience Arena", desc: "AV-enabled events and screenings", area: "2,800", photo: "/images/experience-arena.webp", detail: ["Events & Concerts", "Movie Screenings"] },
   { id: "aqua-lounge", index: "08", name: "Skyline Aqua Lounge", desc: "Rooftop pool with panoramic skyline views", area: "2,600", photo: "/images/rooftop-pool.jpg", detail: ["56 ft length", "24/7 access"] },
   { id: "ground-sports", index: "09", name: "Ground Sports", desc: "Open-air courts for quick active breaks", area: "1,200", photo: "/images/pickleball.webp", detail: ["Half Court Basketball"] },

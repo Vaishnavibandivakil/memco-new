@@ -16,7 +16,7 @@ const NEARBY_STATIONS = [ROUTE[2], ROUTE[0], ROUTE[1], ROUTE[3]];
 const PRINCIPLES = [
   { title: "Purpose-led design", detail: "Spaces shaped for everyday routines, not just for the view." },
   { title: "Functional flow", detail: "Layouts planned for living, working and moving through the day." },
-  { title: "One connected ecosystem", detail: "Studios, courts, kitchens and wellness rooms serve different parts of life." },
+  { title: "Shared by design", detail: "Music rooms, hosting kitchens and workspaces put occasional-use space to work for the community." },
   { title: "Nature in the plan", detail: "Preserved trees and the planned 12,000 sq ft Serenity Park shape the grounds." },
 ];
 
@@ -138,7 +138,7 @@ export function Concept() {
           <div className="ds-body">
             <p className="lbl ds-kicker ds-fade">01 / Design</p>
             <h2 className="caps-serif ds-statement">Built around <span>real life</span></h2>
-            <p className="ds-intro ds-fade">A private Urban Unit of around 500 sq ft, connected to a planned 50,000 sq ft ecosystem for work, wellbeing and time together.</p>
+            <p className="ds-intro ds-fade">Smart ownership pairs a private Urban Unit of around 500 sq ft with access to a planned 50,000 sq ft ecosystem of shared spaces.</p>
           </div>
           <figure className="ds-hero ds-fade">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -151,7 +151,7 @@ export function Concept() {
             <div className="dp-heading">
               <p className="lbl" data-hfade>02 / Our approach</p>
               <h2 className="caps-serif" data-hfade>Design principles</h2>
-              <p data-hfade>Jutaku is designed around everyday use: functional homes, purposeful shared spaces and open areas that connect them.</p>
+              <p data-hfade>Private rooms serve everyday life. Spaces used less often are planned for the wider community.</p>
             </div>
             <ol className="dp-list" aria-label="Design principles">
               {PRINCIPLES.map((item, index) => <li key={item.title} data-hfade><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{item.title}</h3><p>{item.detail}</p></div></li>)}
@@ -176,11 +176,11 @@ export function Concept() {
         <div id="concept" className="hz-panel cc">
           <div className="cc-body">
             <p className="lbl cc-kicker" data-hfade>03 / The concept</p>
-            <h2 className="caps-serif cc-statement" aria-label="A smarter way to own space.">
-              <span className="cc-line-mask"><span className="cc-line">A smarter way</span></span>
-              <span className="cc-line-mask"><span className="cc-line">to own space.</span></span>
+            <h2 className="caps-serif cc-statement" aria-label="Smart ownership. More life, shared.">
+              <span className="cc-line-mask"><span className="cc-line">Smart ownership.</span></span>
+              <span className="cc-line-mask"><span className="cc-line">More life, shared.</span></span>
             </h2>
-            <p className="cc-intro" data-hfade>Smart ownership begins with a private space of your own and access to a much wider lifestyle ecosystem at the same address.</p>
+            <p className="cc-intro" data-hfade>A compact private home handles everyday life. Music rooms, hosting kitchens and workspaces become planned shared spaces for the occasions that call for more.</p>
           </div>
           <figure className="cc-hero">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -195,9 +195,9 @@ export function Concept() {
               <h2 className="caps-serif" data-hfade>What comes with your home</h2>
             </div>
             <div className="cc-points">
-              <article data-hfade><span>01</span><div><h3>A place that is yours</h3><p>An Urban Unit of around 500 sq ft to make your own.</p></div></article>
-              <article data-hfade><span>02</span><div><h3>A wider experience</h3><p>About 50,000 sq ft of planned spaces for work, sport, dining and leisure.</p></div></article>
-              <article data-hfade><span>03</span><div><h3>Part of the community</h3><p>Professionally managed shared spaces alongside 646 private Urban Units.</p></div></article>
+              <article data-hfade><span>01</span><div><h3>A private base</h3><p>An Urban Unit of around 500 sq ft for everyday life.</p></div></article>
+              <article data-hfade><span>02</span><div><h3>Space when you need it</h3><p>Planned music rooms, hosting kitchens and workspaces serve needs beyond the home.</p></div></article>
+              <article data-hfade><span>03</span><div><h3>A shared ecosystem</h3><p>Professionally managed spaces connect 646 private Urban Units into one community.</p></div></article>
             </div>
           </div>
         </div>

@@ -69,7 +69,7 @@ export function Opening() {
             <img className="op-script" src="/brand/jutaku-white.png" alt="Jutaku" width={379} height={260} />
           </h1>
           <div className="op-row">
-            <span className="caps-serif">Own your space</span>
+            <span className="caps-serif">Smart ownership</span>
             <span className="lbl">Singasandra <i>·</i> South Bengaluru</span>
             <span className="caps-serif">Experience more</span>
           </div>

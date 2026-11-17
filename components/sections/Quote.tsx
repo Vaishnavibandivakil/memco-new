@@ -14,11 +14,11 @@ export function Quote() {
   });
   return (
     <section ref={root} className="st" data-tone="light">
-      <p className="lbl st-kicker" data-fade>Own your space <i>·</i> Live beyond it</p>
+      <p className="lbl st-kicker" data-fade>Smart ownership <i>·</i> Shared by design</p>
       <Split className="st-split" left="OWN 500 SQ.FT." mid={<span className="lbl">Jutaku <i>·</i> Bengaluru</span>} right="EXPERIENCE 50,000 SQ.FT." />
       <div className="st-grid">
         <div className="st-copy">
-          <p className="caps-serif st-say" data-lines>An Urban Unit of around 500 sq ft, with spaces to work, train, cook and unwind beyond your front door.</p>
+          <p className="caps-serif st-say" data-lines>A right-sized private home, with planned music rooms, hosting kitchens and workspaces for the moments that need more room.</p>
           <p className="lbl" data-fade data-delay="0.3">MEMCO Skyline <i>·</i> Jutaku</p>
         </div>
         <figure className="st-pic" data-rise>

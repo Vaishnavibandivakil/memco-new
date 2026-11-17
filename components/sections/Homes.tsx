@@ -55,7 +55,7 @@ export function Homes() {
         <div className="hm-plans-intro"><span>Available homes</span><span>Explore the supplied MEMCO Skyline Jutaku plans</span></div>
         <div className="hm-lifestyle-intro">
           <div><span>100X Lifestyle</span><h3>Urban Lifestyle Ecosystem</h3></div>
-          <p>Choose the home that fits you, with planned shared spaces for work, wellbeing and time together beyond your front door.</p>
+          <p>Smart ownership means a private home sized for daily life, with planned music rooms, hosting kitchens and other shared spaces when you need more room.</p>
         </div>
         <div className="hm-plan-collection">
           <article className="hm-plan-entry">
@@ -92,8 +92,8 @@ export function Homes() {
             <div className="hm-plan-copy">
               <p className="hm-plan-index">03 / The bigger picture</p>
               <h3>Across the floor</h3>
-              <p>See how the individual homes connect to a shared corridor and one of the building&apos;s three cores.</p>
-              <span className="hm-plan-detail">One core · typical floor</span>
+              <p>See how individual homes connect to a shared corridor and one of the building&apos;s three cores. Even floors are planned with clubrooms; their placement is not shown in these illustrative drawings.</p>
+              <span className="hm-plan-detail">One core · illustrative typical floor</span>
             </div>
             <div className="hm-floor-drawings">
               <figure className="hm-plan-media hm-plan-media--core">

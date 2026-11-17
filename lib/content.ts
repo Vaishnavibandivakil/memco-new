@@ -15,9 +15,9 @@ export const REASONS = [
     tag: "Singasandra, South Bengaluru",
   },
   {
-    title: "Own 500. Experience 50,000",
+    title: "A home of your own. More to share.",
     photo: "/images/rooftop-court.jpg",
-    body: "An Urban Unit of around 500 sq ft to make your own, connected to about 50,000 sq ft of planned spaces for work, sport, dining and leisure.",
+    body: "Smart ownership keeps your private home right-sized and brings occasional-use rooms into a planned 50,000 sq ft community ecosystem.",
     tag: "The Jutaku concept",
   },
   {
@@ -31,12 +31,12 @@ export const REASONS = [
 export const AMENITY_SLIDES = [
   { name: "Arrival Lobby", label: "Arrival · Lobby", body: "Step inside the planned lobby before moving through the shared spaces at Jutaku.", photo: "/images/design-lobby.webp" },
   { name: "CCTV & Security", label: "Arrival · Security", body: "CCTV monitoring and 24/7 security are part of the plan for the building.", photo: "/images/amenity-cctv.webp" },
-  { name: "Lift Access", label: "Everyday infrastructure", body: "The lift lobby connects the homes with shared spaces across the building.", photo: "/images/amenity-lift-lobby.webp" },
+  { name: "Lift Access", label: "Everyday infrastructure", body: "High-speed Mitsubishi lifts are specified at 9 km/h, with dedicated service shafts planned for the building.", photo: "/images/amenity-lift-lobby.webp" },
   { name: "Fire Safety", label: "Everyday infrastructure", body: "Fire exits and safety equipment are included in the building plan.", photo: "/images/amenity-fire-safety.webp" },
-  { name: "Waste Sorting", label: "Everyday infrastructure", body: "Separate chutes for recyclables and organic waste make daily disposal simpler.", photo: "/images/amenity-waste-sorting.webp" },
+  { name: "Waste Sorting", label: "Everyday infrastructure", body: "Dual garbage chutes are planned to separate recyclable and organic waste.", photo: "/images/amenity-waste-sorting.webp" },
   { name: "Wellness Hub", label: "Podium · 12,800 sq ft", body: "From a morning gym session to Pilates or a fitness class, make movement part of the day.", photo: "/images/amenity-yoga.jpg" },
-  { name: "Culinary Studios", label: "6,000 sq ft", body: "Cook in the community kitchen; gather around a table in the private dining rooms.", photo: "/images/amenity-culinary.jpg" },
-  { name: "Creator Studios", label: "Clubrooms · 4,000 sq ft", body: "Find a desk, record a podcast or make something in the DJ studio.", photo: "/images/amenity-creator-studio.jpg" },
+  { name: "Culinary Studios", label: "6,000 sq ft", body: "Hosting kitchens and private dining rooms give the community space for occasions beyond everyday cooking.", photo: "/images/amenity-culinary.jpg" },
+  { name: "Creator Studios", label: "Clubrooms · 4,000 sq ft", body: "Even floors are planned with clubrooms for music, podcasting, co-working and other shared pursuits.", photo: "/images/amenity-creator-studio.jpg" },
   { name: "Experience Arena", label: "2,800 sq ft", body: "A space for screenings, performances and the evenings that bring everyone together.", photo: "/images/experience-arena.webp" },
   { name: "Rooftop BBQ Lounge", label: "Open-air social space", body: "Bring dinner into the open air, with barbecue seating and a rooftop view.", photo: "/images/amenity-rooftop-dining.jpg" },
   { name: "Skyline Sports Deck", label: "Rooftop · 18,800 sq ft", body: "Take a game of pickleball, box cricket or squash up to the roof.", photo: "/images/rooftop-futsal.jpg" },

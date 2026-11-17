@@ -47,7 +47,7 @@ export function FloorPlanExplorer() {
         <FloorPlanInteriors />
 
         <section className="fp-layout fp-layout--wide" aria-labelledby="fp-floor-title">
-          <div className="fp-layout-copy"><span>03 / Building layout</span><h2 id="fp-floor-title">Across the floor</h2><p>The isometric view shows one core; the drawing below shows the arrangement across a typical floor.</p></div>
+          <div className="fp-layout-copy"><span>03 / Building layout</span><h2 id="fp-floor-title">Across the floor</h2><p>The isometric view shows one core; the drawing below shows an illustrative typical floor. Even floors are planned with clubrooms, which are not marked on this home layout preview.</p></div>
           <div className="fp-layout-views">
             <figure className="fp-layout-image">
               {/* eslint-disable-next-line @next/next/no-img-element */}

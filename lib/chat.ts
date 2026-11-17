@@ -1,7 +1,7 @@
 import { ADDRESS, EMAIL, PHONE, RERA } from "@/lib/data";
 import { ROUTE } from "@/lib/nearby-route";
 
-export type ChatTopic = "homes" | "amenities" | "location" | "pricing" | "investment" | "investmentComparison" | "visit" | "experience" | "contact" | "rera" | "concept" | "other";
+export type ChatTopic = "homes" | "amenities" | "infrastructure" | "location" | "pricing" | "investment" | "investmentComparison" | "visit" | "experience" | "contact" | "rera" | "concept" | "other";
 export type ChatReply = {
   topic: ChatTopic;
   text: string;
@@ -16,8 +16,12 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
     action: { label: "Explore the homes", href: "/#project" },
   },
   amenities: {
-    text: "The amenity plan covers around 50,000 sq ft. It includes a 56 ft rooftop pool, an 18,800 sq ft sports deck, a 12,800 sq ft wellness hub, Culinary Studios, creator rooms and Serenity Park.",
+    text: "Smart ownership pairs a right-sized private home with around 50,000 sq ft of planned shared spaces. Music rooms, hosting kitchens and workspaces are there for occasions that need more room, alongside wellness, sport and rooftop spaces.",
     action: { label: "See the amenities", href: "/#amenities" },
+  },
+  infrastructure: {
+    text: "The current building plan specifies high-speed Mitsubishi lifts at 9 km/h, dedicated service shafts and dual garbage chutes. Even floors are planned with clubrooms. Confirm final specifications and layouts with the MEMCO team.",
+    action: { label: "See the building plan", href: "/floor-plans" },
   },
   location: {
     text: `The site is ${ADDRESS}. From Jutaku, Singasandra Metro is about ${ROUTE[0].distance} by road to the ${ROUTE[0].direction}, and Hosa Road Metro about ${ROUTE[1].distance} to the ${ROUTE[1].direction}. Road routes may vary.`,
@@ -39,7 +43,7 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
         { title: "Connected living", body: "Everyday access to the IT corridor." },
         { title: "Metro within reach", body: `About ${ROUTE[0].distance} by road from Jutaku to Singasandra Metro.` },
         { title: "Complete ecosystem", body: "50,000+ sq ft of experience zones." },
-        { title: "Smart ownership", body: "Potential value in an established IT hub; returns are not guaranteed." },
+        { title: "Smart ownership", body: "Keep private space right-sized while planned shared rooms expand what you can use." },
       ] },
     ],
     action: { label: "Speak with the team", href: "/#contact" },
@@ -69,7 +73,7 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
     action: { label: "Contact the team", href: `mailto:${EMAIL}` },
   },
   concept: {
-    text: "Jutaku's idea is private ownership with shared access: an Urban Unit of around 500 sq ft and a wider 50,000 sq ft amenity plan for work, fitness, food, sport and time outdoors.",
+    text: "Jutaku's smart ownership idea keeps the private Urban Unit right-sized while occasional-use spaces become part of a planned, shared community ecosystem. Music rooms, hosting kitchens and workspaces are examples; access and booking terms should be confirmed with the team.",
     action: { label: "Read the concept", href: "/#project" },
   },
   other: {
@@ -79,12 +83,13 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
 
 const intentPatterns: [ChatTopic, RegExp][] = [
   ["investmentComparison", /\b(roi|returns?|appreciation|rental offset|rent\w*|yield|acquisition|ticket size|15,?500|1\.6\s*(?:cr|crore))\b/i],
-  ["investment", /\b(invest\w*|benefits?|smart ownership|revenue.sharing)\b/i],
+  ["investment", /\b(invest\w*|benefits?|revenue.sharing)\b/i],
   ["visit", /\b(book|booking|visits?|tour|appointment|walkthrough|viewing|schedule|reserve)\b/i],
   ["experience", /\b(jutaku experience|experience cent(?:re|er))\b/i],
   ["pricing", /\b(prices?|pricing|cost|budget|lakh|lakhs|payment|emi|finance|expensive)\b/i],
   ["location", /\b(where|address|location|metro|distance|commute|begur|singasandra|hosa|electronic city|nearby)\b/i],
-  ["amenities", /\b(amenit|pool|swim|gym|fitness|rooftop|sport|pickleball|squash|garden|park|cowork|co-work|studio|kitchen|dining|wellness|yoga)\w*/i],
+  ["infrastructure", /\b(infrastructure|elevators?|lifts?|mitsubishi|shafts?|garbage|chutes?|even floors?|clubrooms?.*(?:floor|level)|(?:floor|level).*clubrooms?)\b/i],
+  ["amenities", /\b(amenit|pool|swim|gym|fitness|rooftop|sport|pickleball|squash|garden|park|cowork|co-work|studio|kitchen|dining|wellness|yoga|clubroom|music|hosting)\w*/i],
   ["homes", /\b(homes?|houses?|apartments?|flats?|units?|floors?|sizes?|square feet|sq\.?\s*ft|layouts?|bedrooms?|available|availability)\b/i],
   ["contact", /\b(contact|call|phone|number|email|talk|speak|sales|agent|whatsapp)\b/i],
   ["rera", /\b(rera|registration|registered)\b/i],
