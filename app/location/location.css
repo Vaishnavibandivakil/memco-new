@@ -21,10 +21,10 @@
 .location-back:hover, .location-back:focus-visible { background: var(--green); color: white; }
 
 .location-pin { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 3px; border: 0; background: transparent; cursor: pointer; white-space: nowrap; }
-.location-pin-dot { display: block; width: 13px; height: 13px; border: 3px solid white; border-radius: 50%; background: var(--green); box-shadow: 0 1px 12px rgba(0,82,48,.3); transition: transform .25s, box-shadow .25s; }
+.location-pin-icon { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid rgba(0,110,66,.2); border-radius: 50%; background: #f5f0e8; color: var(--green); box-shadow: 0 8px 18px rgba(0,110,82,.18); transition: transform .25s, border-color .25s, box-shadow .25s; }
 .location-pin-brand { display: grid; place-items: center; width: 42px; height: 42px; padding: 7px; border: 2px solid white; border-radius: 50%; background: white; box-shadow: 0 4px 18px rgba(0,82,48,.22); transition: transform .25s, box-shadow .25s; }
 .location-pin-brand img { display: block; width: 100%; height: 100%; object-fit: contain; }
-.location-pin.is-active .location-pin-dot, .location-pin:hover .location-pin-dot { transform: scale(1.25); box-shadow: 0 0 0 7px rgba(0,110,66,.14), 0 1px 12px rgba(0,82,48,.3); }
+.location-pin.is-active .location-pin-icon, .location-pin:hover .location-pin-icon, .location-pin:focus-visible .location-pin-icon { border-color: var(--green); transform: scale(1.12); box-shadow: 0 0 0 6px rgba(0,110,66,.14), 0 8px 18px rgba(0,110,82,.18); }
 .location-pin.is-active .location-pin-brand, .location-pin:hover .location-pin-brand { transform: scale(1.12); box-shadow: 0 0 0 7px rgba(0,110,66,.14), 0 4px 18px rgba(0,82,48,.22); }
 .location-pin-label { padding: 5px 9px; border: 1px solid rgba(0,110,66,.13); border-radius: 999px; background: rgba(255,255,255,.95); color: #244c36; font-size: 10px; font-weight: 650; box-shadow: 0 5px 15px rgba(20,50,30,.08); opacity: 0; visibility: hidden; transform: translateY(-3px); transition: opacity .2s, transform .2s, visibility .2s; }
 .location-pin.is-active .location-pin-label, .location-pin.is-home .location-pin-label, .location-pin:hover .location-pin-label, .location-pin:focus-visible .location-pin-label { opacity: 1; visibility: visible; transform: translateY(0); }

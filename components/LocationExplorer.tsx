@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type * as GeoJSON from "geojson";
-import { ArrowRight, Building2, GraduationCap, Hospital, Hotel, LayoutGrid, MapPin, Minus, Navigation, Plus, Store, TrainFront, X } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, Building2, BusFront, Cross, GraduationCap, Hospital, Hotel, Landmark, LayoutGrid, MapPin, Minus, Navigation, Plus, School, Store, TrainFront, X } from "lucide-react";
 import { Map, MapClusterLayer, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
 import { Map3DBuildings } from "@/components/ui/map-3d-buildings";
 import { ADDRESS, SITE_COORDINATES } from "@/lib/data";
@@ -22,6 +22,17 @@ const CATEGORY_ICONS = {
   "IT Parks": Building2,
   Commercial: Store,
   Areas: MapPin,
+  Hotels: Hotel,
+} as const;
+
+// Match the place icons used by the phone map.
+const POI_MARKER_ICONS = {
+  Metro: BusFront,
+  Healthcare: Cross,
+  Education: School,
+  "IT Parks": BriefcaseBusiness,
+  Commercial: Store,
+  Areas: Landmark,
   Hotels: Hotel,
 } as const;
 
@@ -282,19 +293,21 @@ export function LocationExplorer() {
           {stationRoadRoute && <MapRoute key={routeIsDirectLine ? "direct-outline" : "road-outline"} id={routeIsDirectLine ? "jutaku-place-direct-outline" : "jutaku-place-road-outline"} coordinates={stationRoadRoute} color="#fff" width={9} opacity={0.95} dashArray={routeIsDirectLine ? [2, 2] : undefined} interactive={false} />}
           {stationRoadRoute && <MapRoute key={routeIsDirectLine ? "direct-line" : "road-line"} id={routeIsDirectLine ? "jutaku-place-direct-line" : "jutaku-place-road-line"} coordinates={stationRoadRoute} color="#193c2c" width={5} opacity={0.95} dashArray={routeIsDirectLine ? [2, 2] : undefined} interactive={false} />}
           {showClusters && <MapClusterLayer<LocationClusterProperties> data={clusterData} clusterMaxZoom={14} clusterRadius={60} clusterColors={["#006e52", "#006e52", "#006e52"]} clusterThresholds={[5, 12]} pointColor="#006e52" onPointClick={selectClusterPoint} />}
-          {PLACES.map((item, index) => (activeRoute ? index === 0 : index === 0 || !showClusters && (category === "All" || item.category === category)) && (
-            <MapMarker key={item.name} longitude={item.position[0]} latitude={item.position[1]}>
+          {PLACES.map((item, index) => {
+            if (!(activeRoute ? index === 0 : index === 0 || !showClusters && (category === "All" || item.category === category))) return null;
+            const Icon = item.category === "Home" ? null : POI_MARKER_ICONS[item.category];
+            return <MapMarker key={item.name} longitude={item.position[0]} latitude={item.position[1]}>
               <MarkerContent>
                 <button type="button" className={`location-pin${selected === index ? " is-active" : ""}${index === 0 ? " is-home" : ""}${category !== "All" && index !== 0 ? " is-filtered" : ""}`} onClick={() => choose(index)} aria-label={`Show ${item.name}`} aria-pressed={selected === index}>
                   {index === 0 ? <span className="location-pin-brand">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/images/memco-logo.svg" alt="" />
-                  </span> : <span className="location-pin-dot" />}
+                  </span> : <span className="location-pin-icon">{Icon && <Icon size={16} strokeWidth={1.9} aria-hidden="true" />}</span>}
                   <span className="location-pin-label">{item.name}</span>
                 </button>
               </MarkerContent>
-            </MapMarker>
-          ))}
+            </MapMarker>;
+          })}
           {activeRoute?.map((point, index) => (
             <MapMarker key={`${activeConnection?.line}-${point.name}`} longitude={point.position[0]} latitude={point.position[1]}>
               <MarkerContent>
