@@ -2400,6 +2400,7 @@ export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Rec
                 <Navigation className="size-4" />
                 Show route from Jutaku
               </button>
+              <a href={directionsFromJutaku(selectedDisplayPoi)} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex h-11 w-full items-center justify-center rounded-full border border-[#006e52] bg-white px-4 text-[0.9rem] font-semibold text-[#006e52] transition hover:bg-[#eef4ee]">Open in Google Maps</a>
             </div>
           </section>
         ) : null}
@@ -2515,6 +2516,7 @@ export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Rec
                       <Navigation className="size-4" />
                       Show route from Jutaku
                     </button>
+                    <a href={directionsFromJutaku(selectedDisplayPoi)} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex h-10 w-full items-center justify-center rounded-full border border-[#006e52] bg-white px-4 text-[0.76rem] font-semibold text-[#006e52] transition hover:bg-[#eef4ee] sm:h-11 sm:text-sm">Open in Google Maps</a>
                   </div>
                 </div>
               </section>

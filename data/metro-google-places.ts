@@ -94,7 +94,7 @@ const JUTAKU_CID = "0x3bae6b00256cd43d:0x159453b3f51b5e1b";
 
 // Google Maps URLs accept Place IDs. These station listing CIDs encode the same
 // feature and entity identifiers in the standard ChIJ Place ID byte format.
-function placeIdFromCid(cid: string): string {
+export function placeIdFromCid(cid: string): string {
   const [feature, entity] = cid.split(":").map(BigInt);
   const bytes = new Uint8Array(20);
   bytes.set([0x0a, 0x12, 0x09]);
