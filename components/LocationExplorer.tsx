@@ -64,6 +64,7 @@ export function LocationExplorer() {
   const [stationRoadRoute, setStationRoadRoute] = useState<[number, number][] | null>(null);
   const [stationRoadDistanceMeters, setStationRoadDistanceMeters] = useState<number | null>(null);
   const [stationRouteLoading, setStationRouteLoading] = useState(false);
+  const [routeIsDirectLine, setRouteIsDirectLine] = useState(false);
   const selectedPlace = PLACES[selected];
   const activeConnection = activeMetro === null ? null : METRO_CONNECTIONS[activeMetro];
   const activeRoute = activeConnection ? METRO_ROUTE_POINTS[activeConnection.line] : null;
@@ -107,7 +108,57 @@ export function LocationExplorer() {
     setStationRoadRoute(null);
     setStationRoadDistanceMeters(null);
     setStationRouteLoading(false);
+    setRouteIsDirectLine(false);
   }, []);
+
+  const showRouteFromJutaku = (position: readonly [number, number]) => {
+    const routeBounds: [[number, number], [number, number]] = [
+      [Math.min(SITE_COORDINATES.lng, position[0]), Math.min(SITE_COORDINATES.lat, position[1])],
+      [Math.max(SITE_COORDINATES.lng, position[0]), Math.max(SITE_COORDINATES.lat, position[1])],
+    ];
+    const fitRoute = (bounds: [[number, number], [number, number]]) => mapRef.current?.fitBounds(bounds, {
+      padding: window.innerWidth > 980
+        ? { top: 160, right: Math.min(500, window.innerWidth * 0.43), bottom: 145, left: 70 }
+        : { top: 60, right: 35, bottom: 60, left: 35 },
+      maxZoom: 14.5,
+      duration: 850,
+      essential: true,
+    });
+    // Keep the direction visible while road routing is loading or unavailable.
+    setStationRoadRoute([[SITE_COORDINATES.lng, SITE_COORDINATES.lat], [position[0], position[1]]]);
+    setRouteIsDirectLine(true);
+    fitRoute(routeBounds);
+
+    const controller = new AbortController();
+    stationRouteRequestRef.current = controller;
+    setStationRouteLoading(true);
+    const timeoutId = window.setTimeout(() => controller.abort(), 12000);
+    void fetch(`https://router.project-osrm.org/route/v1/driving/${SITE_COORDINATES.lng},${SITE_COORDINATES.lat};${position[0]},${position[1]}?overview=full&geometries=geojson`, { signal: controller.signal })
+      .then((response) => response.ok ? response.json() : null)
+      .then((data) => {
+        if (controller.signal.aborted) return;
+        const coordinates = data?.routes?.[0]?.geometry?.coordinates;
+        if (!Array.isArray(coordinates) || coordinates.length < 2 || !coordinates.every((coordinate: unknown) => Array.isArray(coordinate) && coordinate.length === 2 && coordinate.every((value) => typeof value === "number" && Number.isFinite(value)))) return;
+        const route = coordinates as [number, number][];
+        setStationRoadRoute(route);
+        setRouteIsDirectLine(false);
+        const distance = data?.routes?.[0]?.distance;
+        if (typeof distance === "number" && Number.isFinite(distance) && distance > 0) setStationRoadDistanceMeters(distance);
+        const bounds = route.reduce<[[number, number], [number, number]]>((current, [lng, lat]) => [
+          [Math.min(current[0][0], lng), Math.min(current[0][1], lat)],
+          [Math.max(current[1][0], lng), Math.max(current[1][1], lat)],
+        ], routeBounds);
+        fitRoute(bounds);
+      })
+      .catch(() => {})
+      .finally(() => {
+        window.clearTimeout(timeoutId);
+        if (stationRouteRequestRef.current === controller) {
+          stationRouteRequestRef.current = null;
+          setStationRouteLoading(false);
+        }
+      });
+  };
 
   const choose = (index: number, scrollToMap = false) => {
     const place = PLACES[index];
@@ -122,7 +173,8 @@ export function LocationExplorer() {
     setActiveMetro(null);
     setActiveStation(null);
     setSelected(index);
-    mapRef.current?.flyTo({ center: [...place.position], zoom: index === 0 ? 13.5 : 14.5, duration: 950, essential: true });
+    if (index === 0) mapRef.current?.flyTo({ center: [...place.position], zoom: 13.5, duration: 950, essential: true });
+    else showRouteFromJutaku(place.position);
     if (scrollToMap) stageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -176,43 +228,7 @@ export function LocationExplorer() {
     setActiveMetro(METRO_CONNECTIONS.findIndex((connection) => connection.line === line));
     setActiveStation(index);
     setMetroPanelOpen(false);
-    const routeBounds: [[number, number], [number, number]] = [
-      [Math.min(SITE_COORDINATES.lng, point.position[0]), Math.min(SITE_COORDINATES.lat, point.position[1])],
-      [Math.max(SITE_COORDINATES.lng, point.position[0]), Math.max(SITE_COORDINATES.lat, point.position[1])],
-    ];
-    const fitRoute = (bounds: [[number, number], [number, number]]) => mapRef.current?.fitBounds(bounds, {
-      padding: window.innerWidth > 980
-        ? { top: 160, right: Math.min(500, window.innerWidth * 0.43), bottom: 145, left: 70 }
-        : { top: 60, right: 35, bottom: 60, left: 35 },
-      maxZoom: 14.5,
-      duration: 850,
-      essential: true,
-    });
-    fitRoute(routeBounds);
-
-    const controller = new AbortController();
-    stationRouteRequestRef.current = controller;
-    setStationRouteLoading(true);
-    void fetch(`https://router.project-osrm.org/route/v1/driving/${SITE_COORDINATES.lng},${SITE_COORDINATES.lat};${point.position[0]},${point.position[1]}?overview=full&geometries=geojson`, { signal: controller.signal })
-      .then((response) => response.ok ? response.json() : null)
-      .then((data) => {
-        if (controller.signal.aborted) return;
-        const coordinates = data?.routes?.[0]?.geometry?.coordinates;
-        if (!Array.isArray(coordinates) || coordinates.length < 2 || !coordinates.every((coordinate: unknown) => Array.isArray(coordinate) && coordinate.length === 2 && coordinate.every((value) => typeof value === "number" && Number.isFinite(value)))) return;
-        const route = coordinates as [number, number][];
-        setStationRoadRoute(route);
-        const distance = data?.routes?.[0]?.distance;
-        if (typeof distance === "number" && Number.isFinite(distance) && distance > 0) setStationRoadDistanceMeters(distance);
-        const bounds = route.reduce<[[number, number], [number, number]]>((current, [lng, lat]) => [
-          [Math.min(current[0][0], lng), Math.min(current[0][1], lat)],
-          [Math.max(current[1][0], lng), Math.max(current[1][1], lat)],
-        ], routeBounds);
-        fitRoute(bounds);
-      })
-      .catch(() => {})
-      .finally(() => {
-        if (!controller.signal.aborted) setStationRouteLoading(false);
-      });
+    showRouteFromJutaku(point.position);
     if (window.innerWidth <= 980) mapContainerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -256,8 +272,8 @@ export function LocationExplorer() {
           {activeConnection?.line === "Purple" && <MapRoute id="metro-transfer-green" coordinates={METRO_GREEN_TRANSFER.map((point) => [...point.position])} color="#00804d" width={4} opacity={0.9} interactive={false} />}
           {activeRoute && activeConnection?.line === "Pink" && <><MapRoute id="metro-route-pink-open" coordinates={activeRoute.slice(0, PINK_OPEN_STATION_COUNT).map((point) => [...point.position])} color={METRO_LINE_COLORS.Pink} width={4} opacity={0.9} interactive={false} /><MapRoute id="metro-route-pink-planned" coordinates={activeRoute.slice(PINK_OPEN_STATION_COUNT - 1).map((point) => [...point.position])} color={METRO_LINE_COLORS.Pink} width={4} opacity={0.9} dashArray={[2, 2]} interactive={false} /></>}
           {activeRoute && activeConnection && activeConnection.line !== "Pink" && <MapRoute key={activeConnection.line} id={`metro-route-${activeConnection.line.toLowerCase()}`} coordinates={activeRoute.map((point) => [...point.position])} color={METRO_LINE_COLORS[activeConnection.line]} width={4} opacity={0.9} dashArray={activeConnection.line === "Blue" ? [2, 2] : undefined} interactive={false} />}
-          {stationRoadRoute && <MapRoute id="jutaku-station-road-route-outline" coordinates={stationRoadRoute} color="#fff" width={9} opacity={0.95} interactive={false} />}
-          {stationRoadRoute && <MapRoute id="jutaku-station-road-route" coordinates={stationRoadRoute} color="#193c2c" width={5} opacity={0.95} interactive={false} />}
+          {stationRoadRoute && <MapRoute key={routeIsDirectLine ? "direct-outline" : "road-outline"} id={routeIsDirectLine ? "jutaku-place-direct-outline" : "jutaku-place-road-outline"} coordinates={stationRoadRoute} color="#fff" width={9} opacity={0.95} dashArray={routeIsDirectLine ? [2, 2] : undefined} interactive={false} />}
+          {stationRoadRoute && <MapRoute key={routeIsDirectLine ? "direct-line" : "road-line"} id={routeIsDirectLine ? "jutaku-place-direct-line" : "jutaku-place-road-line"} coordinates={stationRoadRoute} color="#193c2c" width={5} opacity={0.95} dashArray={routeIsDirectLine ? [2, 2] : undefined} interactive={false} />}
           {showClusters && <MapClusterLayer<LocationClusterProperties> data={clusterData} clusterMaxZoom={14} clusterRadius={60} clusterColors={["#006e52", "#006e52", "#006e52"]} clusterThresholds={[5, 12]} pointColor="#006e52" onPointClick={selectClusterPoint} />}
           {PLACES.map((item, index) => (activeRoute ? index === 0 : index === 0 || !showClusters && (category === "All" || item.category === category)) && (
             <MapMarker key={item.name} longitude={item.position[0]} latitude={item.position[1]}>
@@ -344,7 +360,7 @@ export function LocationExplorer() {
         <div className="location-card-copy" aria-live="polite">
           <span className="location-card-index">{activeConnection ? `${activeConnection.line} Line · ${selectedStationInService ? "In service" : "Planned station"}` : selectedPlace.category === "Home" ? "Visit Jutaku" : selectedPlace.category}</span>
           <h2>{selectedMetroStation?.name ?? activeConnection?.station ?? (selectedPlace.category === "Home" ? "MEMCO Skyline Jutaku" : selectedPlace.name)}</h2>
-          <p>{activeConnection ? `From MEMCO Skyline Jutaku to ${selectedMetroStation?.name ?? activeConnection.station}${selectedStationInService ? " Metro Station" : " planned station area"}. ${stationRouteLoading ? "Finding a road route…" : stationRoadDistanceMeters !== null ? `About ${(stationRoadDistanceMeters / 1000).toFixed(1)} km by road; route shown on the map.` : selectedStationInService ? "Open directions for the road route." : "Station location is indicative while construction continues."}` : selectedPlace.category === "Home" ? ADDRESS : `${selectedPlace.distance} from Jutaku.`}</p>
+          <p>{activeConnection ? `From MEMCO Skyline Jutaku to ${selectedMetroStation?.name ?? activeConnection.station}${selectedStationInService ? " Metro Station" : " planned station area"}. ${stationRouteLoading ? "Finding a road route…" : stationRoadDistanceMeters !== null ? `About ${(stationRoadDistanceMeters / 1000).toFixed(1)} km by road; route shown on the map.` : selectedStationInService ? "Open directions for the road route." : "Station location is indicative while construction continues."}` : selectedPlace.category === "Home" ? ADDRESS : `${selectedPlace.distance} from Jutaku. ${stationRouteLoading ? "Finding a road route…" : stationRoadDistanceMeters !== null ? `Road route: ${(stationRoadDistanceMeters / 1000).toFixed(1)} km.` : "Direction shown on the map."}`}</p>
           <div className="location-card-actions">
             <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> {activeConnection ? selectedStationInService ? "Directions from Jutaku" : "View planned station area" : selectedPlace.category === "Home" ? "View on Google Maps" : "Get directions"}</a>
           </div>
