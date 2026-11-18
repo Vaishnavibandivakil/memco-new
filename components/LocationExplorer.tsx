@@ -92,7 +92,7 @@ export function LocationExplorer({ roadDistances = {} }: { roadDistances?: Recor
       : `https://www.google.com/maps/@?api=1&map_action=map&center=${cardPosition[1]}%2C${cardPosition[0]}&zoom=16`
     : selectedPlace.category === "Home"
       ? homePlaceUrl
-      : directionsFromJutaku(selectedPlace);
+      : null;
   const selectedImage = activeConnection ? CATEGORY_IMAGES.Metro : selectedPlace.category === "Home" ? "/images/jutaku-exterior-hero.webp" : CATEGORY_IMAGES[selectedPlace.category];
   const selectedRoadMeters = selectedPlace.category === "Home" ? null : roadDistances[selectedPlace.name] ?? stationRoadDistanceMeters;
   const showClusters = category === "All" && !activeRoute && currentZoom < LOCATION_CLUSTER_SWITCH_ZOOM;
@@ -122,6 +122,7 @@ export function LocationExplorer({ roadDistances = {} }: { roadDistances?: Recor
   }, []);
 
   const showRouteFromJutaku = (position: readonly [number, number]) => {
+    stationRouteRequestRef.current?.abort();
     const routeBounds: [[number, number], [number, number]] = [
       [Math.min(SITE_COORDINATES.lng, position[0]), Math.min(SITE_COORDINATES.lat, position[1])],
       [Math.max(SITE_COORDINATES.lng, position[0]), Math.max(SITE_COORDINATES.lat, position[1])],
@@ -381,7 +382,7 @@ export function LocationExplorer({ roadDistances = {} }: { roadDistances?: Recor
           <h2>{selectedMetroStation?.name ?? activeConnection?.station ?? (selectedPlace.category === "Home" ? "MEMCO Skyline Jutaku" : selectedPlace.name)}</h2>
           <p>{activeConnection ? `From MEMCO Skyline Jutaku to ${selectedMetroStation?.name ?? activeConnection.station}${selectedStationInService ? " Metro Station" : " planned station area"}. ${stationRouteLoading ? "Finding a road route…" : stationRoadDistanceMeters !== null ? `About ${formatRoadDistance(stationRoadDistanceMeters)} by road; route shown on the map.` : selectedStationInService ? "Open directions for the road route." : "Station location is indicative while construction continues."}` : selectedPlace.category === "Home" ? ADDRESS : selectedRoadMeters !== null && selectedRoadMeters !== undefined ? `About ${formatRoadDistance(selectedRoadMeters)} by road from Jutaku. Route shown on the map.` : stationRouteLoading ? "Finding a road route from Jutaku…" : `About ${selectedPlace.distance} directly from Jutaku; road route unavailable.`}</p>
           <div className="location-card-actions">
-            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> {activeConnection ? selectedStationInService ? "Directions from Jutaku" : "View planned station area" : selectedPlace.category === "Home" ? "View on Google Maps" : "Get directions"}</a>
+            {directionsUrl ? <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="location-card-action"><Navigation size={15} aria-hidden="true" /> {activeConnection ? selectedStationInService ? "Directions from Jutaku" : "View planned station area" : "View on Google Maps"}</a> : <button type="button" onClick={() => showRouteFromJutaku(selectedPlace.position)} className="location-card-action"><Navigation size={15} aria-hidden="true" />Show route from Jutaku</button>}
           </div>
         </div>
       </aside>}

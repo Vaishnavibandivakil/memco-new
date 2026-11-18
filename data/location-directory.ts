@@ -34,7 +34,7 @@ const LOCATION_DIRECTORY_POINTS = [
   { name: "St. Francis School", category: "Education", position: [77.65216646993393, 12.889249551513036] as const },
   { name: "Ekana Multi Specialty Hospital", category: "Healthcare", position: [77.64336182692122, 12.871276908854627] as const },
   { name: "National Public School", category: "Education", position: [77.68602820707807, 12.88402231773768] as const },
-  { name: "Manipal Clinic", category: "Healthcare", position: [77.63523595142371, 12.864652309490513] as const },
+  { name: "Manipal Clinics Begur", category: "Healthcare", position: [77.6145983, 12.8624562] as const },
   { name: "HSR Layout", category: "Areas", position: [77.66298215593662, 12.911692993764753] as const },
   { name: "PES University", category: "Education", position: [77.68616790744267, 12.856236444506083] as const },
   { name: "Rainbow Children Hospital", category: "Healthcare", position: [77.62393437931574, 12.900062912907996] as const },
@@ -79,7 +79,6 @@ export const LOCATION_DIRECTORY = LOCATION_DIRECTORY_POINTS.map((place) => {
   const distanceKm = distanceFromSite(place.position);
   const suppliedDistance = place.name === "Singasandra" ? "1.4 km"
     : place.name === "Hosa Road" ? "1.2 km"
-    : place.name === "Manipal Clinic" ? "1 km"
     : undefined;
   return {
     ...place,

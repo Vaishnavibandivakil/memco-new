@@ -5,19 +5,19 @@ type Destination = {
   category: string;
 };
 
-// Keep both endpoints explicit. A missing origin makes Google Maps substitute the
-// visitor's location; a bare destination coordinate can acquire an unrelated name.
+// Only open Google directions where both endpoints have verified Place IDs.
+// Name searches and bare coordinates can be relabeled as unrelated businesses.
 export function directionsFromJutaku({ name, category }: Destination) {
+  const stationPlaceId = category === "Metro" ? googleMetroPlaceId(name) : null;
+  if (!stationPlaceId) throw new Error(`No verified Google Maps place for ${name}`);
+
   const params = new URLSearchParams({
     api: "1",
     origin: "MEMCO Skyline Jutaku, Bengaluru, Karnataka",
     origin_place_id: JUTAKU_GOOGLE_PLACE_ID,
-    destination: category === "Metro"
-      ? `${name} Metro Station, Bengaluru, Karnataka`
-      : `${name}, Bengaluru, Karnataka`,
+    destination: `${name} Metro Station, Bengaluru, Karnataka`,
+    destination_place_id: stationPlaceId,
     travelmode: "driving",
   });
-  const stationPlaceId = category === "Metro" ? googleMetroPlaceId(name) : null;
-  if (stationPlaceId) params.set("destination_place_id", stationPlaceId);
   return `https://www.google.com/maps/dir/?${params.toString()}`;
 }

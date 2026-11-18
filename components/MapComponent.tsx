@@ -856,10 +856,6 @@ function getDisplayRoute(route: RouteData | null | undefined, poi: Poi | null, r
   };
 }
 
-function getGoogleMapsDirectionsUrl(poi: Poi) {
-  return directionsFromJutaku(poi);
-}
-
 function getPoiDistanceMeters(poi: Poi, route: RouteData | null | undefined) {
   return route?.distance ?? parseDistanceLabel(poi.distanceLabel);
 }
@@ -1231,6 +1227,27 @@ export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Rec
     setSelectedPoiId(null);
   }, []);
 
+  const showPoiRoute = useCallback((poi: Poi) => {
+    setRoutePoiId(poi.id);
+    const coordinates = routeLookup.get(poi.id)?.coordinates ?? [
+      [centerPlace.lng, centerPlace.lat],
+      [poi.lng, poi.lat],
+    ];
+    const lngs = coordinates.map(([lng]) => lng);
+    const lats = coordinates.map(([, lat]) => lat);
+    mapRef.current?.fitBounds?.(
+      [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
+      {
+        padding: isCompactLayout
+          ? { top: 85, right: 32, bottom: 310, left: 32 }
+          : { top: 100, right: 430, bottom: 100, left: 55 },
+        maxZoom: 14.5,
+        duration: 900,
+        essential: true,
+      },
+    );
+  }, [isCompactLayout, routeLookup]);
+
   const toggleCategory = useCallback((category: PoiCategory) => {
     clearPoiSelection();
     setSelectedCategories((prev) =>
@@ -1246,7 +1263,7 @@ export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Rec
     setUserRoute(null);
     setIsUserRouteLoading(false);
     suppressNextMapClearRef.current = true;
-    setRoutePoiId(null);
+    showPoiRoute(poi);
     setSelectedPoiId(poi.id);
     setShowPoiDetails(true);
     setShowDesktopSidebar(false);
@@ -1254,12 +1271,7 @@ export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Rec
     setShowMobileMenu(false);
     setMobilePopularExpanded(false);
 
-    mapRef.current?.flyTo?.({
-      center: [poi.lng, poi.lat],
-      zoom: 16.8,
-      duration: 1200,
-    });
-  }, []);
+  }, [showPoiRoute]);
 
   const handleFilteredPoiSelection = useCallback((poi: Poi) => {
     setShowFilters(false);
@@ -1397,7 +1409,6 @@ export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Rec
   const handleClusterPointClick = useCallback(
     (
       feature: GeoJSON.Feature<GeoJSON.Point, ClusterPoiProperties>,
-      coordinates: [number, number],
     ) => {
       const poiId = feature.properties?.poiId;
       if (typeof poiId !== "number") return;
@@ -1410,7 +1421,7 @@ export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Rec
       setUserRoute(null);
       setIsUserRouteLoading(false);
       suppressNextMapClearRef.current = true;
-      setRoutePoiId(null);
+      showPoiRoute(poi);
       setSelectedPoiId(poi.id);
       setShowPoiDetails(true);
       setShowDesktopSidebar(false);
@@ -1418,13 +1429,8 @@ export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Rec
       setShowMobileMenu(false);
       setMobilePopularExpanded(false);
 
-      mapRef.current?.flyTo?.({
-        center: coordinates,
-        zoom: 16.2,
-        duration: 1000,
-      });
     },
-    [visiblePois],
+    [showPoiRoute, visiblePois],
   );
 
   const handleUserLocate = useCallback(async (coords: UserLocation) => {
@@ -2386,15 +2392,14 @@ export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Rec
                 <p className="mt-2 text-sm text-[#006e52]/70">{roadDistances[selectedDisplayPoi.name] ? `${formatRoadDistance(roadDistances[selectedDisplayPoi.name])} by road` : "Finding road distance"} from Jutaku.</p>
               </div>
 
-              <a
-                href={getGoogleMapsDirectionsUrl(selectedDisplayPoi)}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={() => showPoiRoute(selectedDisplayPoi)}
                 className={`mt-3 inline-flex h-12 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 text-[0.98rem] font-semibold shadow-[0_10px_20px_rgba(0,110,82,0.08)] ${PREMIUM_OLIVE_BUTTON}`}
               >
                 <Navigation className="size-4" />
-                Get directions
-              </a>
+                Show route from Jutaku
+              </button>
             </div>
           </section>
         ) : null}
@@ -2502,15 +2507,14 @@ export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Rec
                       {selectedDisplayPoi.name}
                     </h2>
                     <p className="mt-2 text-xs text-[#006e52]/70 sm:text-sm">{roadDistances[selectedDisplayPoi.name] ? `${formatRoadDistance(roadDistances[selectedDisplayPoi.name])} by road` : "Finding road distance"} from Jutaku.</p>
-                    <a
-                      href={getGoogleMapsDirectionsUrl(selectedDisplayPoi)}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      type="button"
+                      onClick={() => showPoiRoute(selectedDisplayPoi)}
                       className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#007b4f] px-4 text-[0.76rem] font-semibold text-white shadow-[0_10px_20px_rgba(0,110,82,0.16)] transition hover:bg-[#006e52] sm:h-12 sm:text-sm"
                     >
                       <Navigation className="size-4" />
-                      Get directions
-                    </a>
+                      Show route from Jutaku
+                    </button>
                   </div>
                 </div>
               </section>
