@@ -57,18 +57,19 @@ export const COLLAGE = [
 ];
 
 export const NEARBY: [string, string][] = [
-  ["Singasandra Metro", "1.7 km"],
-  ["Hosa Road Metro", "1.5 km"],
+  ["Singasandra Metro", "1.4 km"],
+  ["Hosa Road Metro", "1.2 km"],
   ["Electronic City", "3 km"],
   ["MG Road", "12 km"],
 ];
 
-/* Approximate road distances for the nearby Metro stations, checked 17 Nov 2026. */
+/* Nearby distances supplied by the MEMCO team. */
 export const LOCATION_HIGHLIGHTS = [
-  { name: "Singasandra Metro", distance: "1.7 km", type: "Transit" },
+  { name: "Hosur Road", distance: "600 m", type: "Road" },
   { name: "Manipal Clinics", distance: "1 km", type: "Healthcare" },
-  { name: "Hosa Road Metro", distance: "1.5 km", type: "Transit" },
-  { name: "AMR Tech Park", distance: "2.5 km", type: "Work" },
+  { name: "Hosa Road Metro Station", distance: "1.2 km", type: "Transit" },
+  { name: "Singasandra Metro Station", distance: "1.4 km", type: "Transit" },
+  { name: "AMT Tech Park", distance: "2.5 km", type: "Work" },
   { name: "Electronic City", distance: "3 km", type: "Work" },
   { name: "MG Road", distance: "12 km", type: "City" },
 ] as const;

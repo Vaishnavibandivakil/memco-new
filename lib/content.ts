@@ -11,7 +11,7 @@ export const REASONS = [
   {
     title: "Two metros. One address.",
     photo: "/images/balcony-exterior.webp",
-    body: `From Jutaku on Manipal County Road, Singasandra and Hosa Road Yellow Line stations are about ${ROUTE[0].distance} and ${ROUTE[1].distance} away by road. Distances are approximate.`,
+    body: `From Jutaku on Manipal County Road, Singasandra and Hosa Road Yellow Line stations are about ${ROUTE[0].distance} and ${ROUTE[1].distance} away. Distances are approximate.`,
     tag: "Singasandra, South Bengaluru",
   },
   {

@@ -13,11 +13,11 @@ function bearing([fromLng, fromLat]: readonly [number, number], [toLng, toLat]: 
 
 const compass = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
-// OSRM road distances from the Jutaku pin to the station pins, checked 17 Nov 2026.
-// Approximate values can change with road access and routing updates.
+// The first two station distances were supplied by the MEMCO team. The remaining
+// two are OSRM road estimates; the map's live route can differ.
 const stations = [
-  { name: "Singasandra Metro", roadDistanceMeters: 1715.2 },
-  { name: "Hosa Road Metro", roadDistanceMeters: 1512.3 },
+  { name: "Singasandra Metro", roadDistanceMeters: 1400 },
+  { name: "Hosa Road Metro", roadDistanceMeters: 1200 },
   { name: "Kudlu Gate Metro", roadDistanceMeters: 2238.8 },
   { name: "Beratena Agrahara Metro", roadDistanceMeters: 2475.5 },
 ].map((station) => {

@@ -209,7 +209,7 @@ export function Concept() {
             <span className="script" data-hfade data-delay="0.5">within</span>
             <span data-hchars data-delay="0.2"><Chars text="REACH" /></span>
           </h2>
-          <p className="pl-kicker lbl">Four Yellow Line stations near Jutaku · approximate road distances</p>
+          <p className="pl-kicker lbl">Four Yellow Line stations near Jutaku · approximate distances</p>
           <div className="pl-maprow">
             <svg className="pl-map" viewBox={`${VB.x} ${VB.y} ${VB.w} ${VB.h}`} aria-hidden="true">
               <defs>
@@ -252,7 +252,7 @@ export function Concept() {
           </figure>
           <div className="gm-side">
             <h3 className="caps-serif" data-hfade>The metro, close to home</h3>
-            <p data-hfade data-delay="0.1">Singasandra Metro is about {ROUTE[0].distance} by road from Jutaku and Hosa Road Metro about {ROUTE[1].distance}. Kudlu Gate and Beratena Agrahara are the next Yellow Line stops in either direction.</p>
+            <p data-hfade data-delay="0.1">Singasandra Metro is about {ROUTE[0].distance} from Jutaku and Hosa Road Metro about {ROUTE[1].distance}. Kudlu Gate and Beratena Agrahara are the next Yellow Line stops in either direction.</p>
           </div>
           <button type="button" className="round gm-view" data-hfade onClick={() => openHomes()}>
             <svg viewBox="0 0 100 100" aria-hidden><circle cx="50" cy="50" r="48" /></svg>

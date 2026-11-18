@@ -7,6 +7,7 @@ import { ArrowRight, Building2, GraduationCap, Hospital, Hotel, LayoutGrid, MapP
 import { Map, MapClusterLayer, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
 import { Map3DBuildings } from "@/components/ui/map-3d-buildings";
 import { ADDRESS, SITE_COORDINATES } from "@/lib/data";
+import { LocationHighlights } from "@/components/LocationHighlights";
 import { isMetroStationOpen, METRO_CONNECTIONS, PINK_OPEN_STATION_COUNT } from "@/data/metro-connectivity";
 import { googleMetroPlaceId, JUTAKU_GOOGLE_PLACE_ID } from "@/data/metro-google-places";
 import { METRO_GREEN_TRANSFER, METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
@@ -363,6 +364,7 @@ export function LocationExplorer() {
           <div><span>Explore nearby</span><h2 id="location-directory-title">Around Jutaku.</h2></div>
           <p>Explore stations, healthcare, schools, work hubs and shopping around Jutaku.</p>
         </div>
+        <LocationHighlights />
         <div className="location-directory-count" aria-live="polite">{visiblePlaces.length} {visiblePlaces.length === 1 ? "place" : "places"} {category === "All" ? "nearby" : `in ${category}`}</div>
         <ul className="location-directory-list">
           {visiblePlaces.map((place) => (
@@ -372,7 +374,7 @@ export function LocationExplorer() {
             </li>
           ))}
         </ul>
-        <p className="location-directory-note">Distances are approximate straight-line measurements between map pins; travel routes may differ.</p>
+        <p className="location-directory-note">Distances are approximate; travel routes may differ.</p>
       </section>
     </main>
   );

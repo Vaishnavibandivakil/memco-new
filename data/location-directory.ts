@@ -63,8 +63,8 @@ const LOCATION_DIRECTORY_POINTS = [
   ...METRO_DIRECTORY_POINTS,
 ] as const;
 
-// Keep displayed distances consistent with the project's actual map pin.
-// These are straight-line estimates; travel distances depend on the route.
+// Other directory distances use straight-line estimates between map pins.
+// Travel distances depend on the route.
 function distanceFromSite([lng, lat]: readonly [number, number]) {
   const toRadians = (degrees: number) => degrees * Math.PI / 180;
   const latitudeDelta = toRadians(lat - SITE_COORDINATES.lat);
@@ -77,12 +77,16 @@ function distanceFromSite([lng, lat]: readonly [number, number]) {
 
 export const LOCATION_DIRECTORY = LOCATION_DIRECTORY_POINTS.map((place) => {
   const distanceKm = distanceFromSite(place.position);
+  const suppliedDistance = place.name === "Singasandra" ? "1.4 km"
+    : place.name === "Hosa Road" ? "1.2 km"
+    : place.name === "Manipal Clinic" ? "1 km"
+    : undefined;
   return {
     ...place,
     distanceKm,
-    distance: distanceKm < 1
+    distance: suppliedDistance ?? (distanceKm < 1
       ? `${Math.round(distanceKm * 10) * 100} m`
-      : `${distanceKm.toFixed(1)} km`,
+      : `${distanceKm.toFixed(1)} km`),
   };
 }).sort((a, b) => a.distanceKm - b.distanceKm);
 

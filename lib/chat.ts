@@ -1,4 +1,4 @@
-import { ADDRESS, EMAIL, PHONE, RERA } from "@/lib/data";
+import { ADDRESS, EMAIL, LOCATION_HIGHLIGHTS, PHONE, RERA } from "@/lib/data";
 import { ROUTE } from "@/lib/nearby-route";
 
 export type ChatTopic = "homes" | "amenities" | "infrastructure" | "location" | "pricing" | "investment" | "investmentComparison" | "visit" | "experience" | "contact" | "rera" | "concept" | "other";
@@ -24,7 +24,7 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
     action: { label: "See the building plan", href: "/floor-plans" },
   },
   location: {
-    text: `The site is ${ADDRESS}. From Jutaku, Singasandra Metro is about ${ROUTE[0].distance} by road to the ${ROUTE[0].direction}, and Hosa Road Metro about ${ROUTE[1].distance} to the ${ROUTE[1].direction}. Road routes may vary.`,
+    text: `The site is ${ADDRESS}. Approximate nearby distances from Jutaku: ${LOCATION_HIGHLIGHTS.map((place) => `${place.name} ${place.distance}`).join("; ")}. Road routes may vary.`,
     action: { label: "Explore the location", href: "/location" },
   },
   pricing: {
@@ -41,7 +41,7 @@ const answers: Record<ChatTopic, Omit<ChatReply, "topic">> = {
       ] },
       { heading: "Investment highlights", items: [
         { title: "Connected living", body: "Everyday access to the IT corridor." },
-        { title: "Metro within reach", body: `About ${ROUTE[0].distance} by road from Jutaku to Singasandra Metro.` },
+        { title: "Metro within reach", body: `About ${ROUTE[0].distance} from Jutaku to Singasandra Metro.` },
         { title: "Complete ecosystem", body: "50,000+ sq ft of experience zones." },
         { title: "Smart ownership", body: "Keep private space right-sized while planned shared rooms expand what you can use." },
       ] },
