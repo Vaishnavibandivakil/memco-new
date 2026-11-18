@@ -879,7 +879,7 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .am-mobile-count { font-size: 10px; text-align: right; }
   .am-mobile-title { display: none; }
   .am-mobile-cap { position: absolute; z-index: 2; display: grid; gap: 12px; left: 20px; right: 20px; bottom: max(24px, env(safe-area-inset-bottom)); }
-  .am-mobile-cap .caps-serif { max-width: 33ch; font-size: clamp(20px, 5.4vw, 27px); font-weight: 600; line-height: 1.18; }
+  .am-mobile-cap .caps-serif { max-width: min(33ch, calc(100% - 80px)); font-size: clamp(20px, 5.4vw, 27px); font-weight: 600; line-height: 1.18; }
   .am-shade, .am-list, .am-caps { display: none; }
   .sp-collage { display: flex; flex-direction: column; gap: 8vh; padding: 4vh 20px 16vh; }
   .sp-block { width: 50vw; }
