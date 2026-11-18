@@ -28,6 +28,7 @@
 .location-pin.is-active .location-pin-brand, .location-pin:hover .location-pin-brand { transform: scale(1.12); box-shadow: 0 0 0 7px rgba(0,110,66,.14), 0 4px 18px rgba(0,82,48,.22); }
 .location-pin-label { padding: 5px 9px; border: 1px solid rgba(0,110,66,.13); border-radius: 999px; background: rgba(255,255,255,.95); color: #244c36; font-size: 10px; font-weight: 650; box-shadow: 0 5px 15px rgba(20,50,30,.08); opacity: 0; visibility: hidden; transform: translateY(-3px); transition: opacity .2s, transform .2s, visibility .2s; }
 .location-pin.is-active .location-pin-label, .location-pin.is-home .location-pin-label, .location-pin:hover .location-pin-label, .location-pin:focus-visible .location-pin-label { opacity: 1; visibility: visible; transform: translateY(0); }
+.location-pin.is-filtered .location-pin-label { max-width: 155px; color: #183b2a; line-height: 1.2; text-align: center; white-space: normal; opacity: 1; visibility: visible; transform: translateY(0); }
 .location-controls { position: absolute; z-index: 2; bottom: 105px; left: clamp(24px, 3.5vw, 68px); display: flex; gap: 7px; }
 .location-controls button { display: grid; place-items: center; width: 37px; height: 37px; border: 1px solid rgba(0,110,66,.2); border-radius: 50%; background: white; color: var(--green); box-shadow: 0 4px 14px rgba(20,50,30,.08); transition: background .25s, color .25s; }
 .location-controls button:hover, .location-controls button:focus-visible { background: var(--green); color: white; }

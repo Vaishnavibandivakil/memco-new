@@ -85,7 +85,7 @@ export function LocationExplorer() {
       ? homePlaceUrl
       : `https://www.google.com/maps/dir/?api=1&destination=${cardPosition[1]}%2C${cardPosition[0]}`;
   const selectedImage = activeConnection ? CATEGORY_IMAGES.Metro : selectedPlace.category === "Home" ? "/images/jutaku-exterior-hero.webp" : CATEGORY_IMAGES[selectedPlace.category];
-  const showClusters = !activeRoute && currentZoom < LOCATION_CLUSTER_SWITCH_ZOOM;
+  const showClusters = category === "All" && !activeRoute && currentZoom < LOCATION_CLUSTER_SWITCH_ZOOM;
   const clusterData = useMemo<GeoJSON.FeatureCollection<GeoJSON.Point, LocationClusterProperties>>(() => {
     const places = category === "All" ? LOCATION_DIRECTORY : LOCATION_DIRECTORY.filter((place) => place.category === category);
     return {
@@ -193,7 +193,14 @@ export function LocationExplorer() {
     const places = next === "All" ? PLACES : PLACES.filter((place) => place.category === "Home" || place.category === next);
     const lngs = places.map((place) => place.position[0]);
     const lats = places.map((place) => place.position[1]);
-    mapRef.current?.fitBounds([[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]], { padding: 90, maxZoom: 14, duration: 900, essential: true });
+    mapRef.current?.fitBounds([[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]], {
+      padding: window.innerWidth > 980
+        ? { top: 250, right: 85, bottom: 140, left: 85 }
+        : { top: 90, right: 35, bottom: 105, left: 35 },
+      maxZoom: 14,
+      duration: 900,
+      essential: true,
+    });
   };
 
   const showMetroOnMap = (index: number) => {
@@ -278,7 +285,7 @@ export function LocationExplorer() {
           {PLACES.map((item, index) => (activeRoute ? index === 0 : index === 0 || !showClusters && (category === "All" || item.category === category)) && (
             <MapMarker key={item.name} longitude={item.position[0]} latitude={item.position[1]}>
               <MarkerContent>
-                <button type="button" className={`location-pin${selected === index ? " is-active" : ""}${index === 0 ? " is-home" : ""}`} onClick={() => choose(index)} aria-label={`Show ${item.name}`} aria-pressed={selected === index}>
+                <button type="button" className={`location-pin${selected === index ? " is-active" : ""}${index === 0 ? " is-home" : ""}${category !== "All" && index !== 0 ? " is-filtered" : ""}`} onClick={() => choose(index)} aria-label={`Show ${item.name}`} aria-pressed={selected === index}>
                   {index === 0 ? <span className="location-pin-brand">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/images/memco-logo.svg" alt="" />
@@ -351,7 +358,7 @@ export function LocationExplorer() {
         </aside>
       )}
 
-      {!metroPanelOpen && <aside className={`location-card${activeConnection ? " is-station-route" : ""}`} aria-label={activeConnection ? "Directions from Jutaku to the selected station" : "Selected map place"}>
+      {!metroPanelOpen && (category === "All" || selected !== 0 || activeConnection) && <aside className={`location-card${activeConnection ? " is-station-route" : ""}`} aria-label={activeConnection ? "Directions from Jutaku to the selected station" : "Selected map place"}>
         {!activeConnection && <figure className="location-card-image">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img key={selectedPlace.name} src={selectedImage} alt={selectedPlace.category === "Home" ? "Jutaku tower and experience centre" : `Illustrative ${selectedPlace.category.toLowerCase()} scene`} />

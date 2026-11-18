@@ -617,10 +617,12 @@ const categoryMeta: Record<
 const PoiMarker = memo(function PoiMarker({
   poi,
   isSelected,
+  showLabel,
   onMarkerClick,
 }: {
   poi: Poi;
   isSelected: boolean;
+  showLabel: boolean;
   onMarkerClick: (poi: Poi) => void;
 }) {
   const meta = categoryMeta[poi.category];
@@ -650,15 +652,16 @@ const PoiMarker = memo(function PoiMarker({
           >
             <Icon className="size-4 text-[#006e52]" />
           </span>
+          {showLabel ? <span className="pointer-events-none absolute top-full mt-1.5 max-w-36 rounded-xl border border-[rgba(0,110,82,0.18)] bg-white/95 px-2.5 py-1 text-center text-[0.62rem] font-semibold leading-tight text-[#183b2a] shadow-md">{poi.name}</span> : null}
         </button>
       </MarkerContent>
-      <MarkerTooltip
+      {!showLabel && <MarkerTooltip
         offset={10}
         popupClassName="memco-map-tooltip"
         className={`rounded-full border border-[rgba(0,110,82,0.18)] bg-[#f5f0e8] px-3 py-1 text-[0.68rem] font-semibold text-[#006e52] shadow-[0_10px_24px_rgba(0,110,82,0.12)] ${isSelected ? "opacity-100" : ""}`}
       >
         {poi.name}
-      </MarkerTooltip>
+      </MarkerTooltip>}
     </MapMarker>
   );
 });
@@ -1544,7 +1547,7 @@ export function CustomStyleExample() {
         ? `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${centerPlace.lat}%2C${centerPlace.lng}%3B${selectedMetroStation.position[1]}%2C${selectedMetroStation.position[0]}`
         : `https://www.google.com/maps/@?api=1&map_action=map&center=${selectedMetroStation.position[1]}%2C${selectedMetroStation.position[0]}&zoom=16`
     : null;
-  const showClusters = !activeMetroConnection && currentZoom < POI_CLUSTER_SWITCH_ZOOM;
+  const showClusters = selectedCategories.length === CATEGORY_ORDER.length && !activeMetroConnection && currentZoom < POI_CLUSTER_SWITCH_ZOOM;
   const selectedDisplayPoi = selectedPoi ?? visiblePois[0] ?? pois[0] ?? null;
   const desktopSidebarVisible = !isCompactLayout && showDesktopSidebar && !showPoiDetails;
   const desktopSidebarWidthClass = isTabletLayout
@@ -1804,6 +1807,7 @@ export function CustomStyleExample() {
                   key={poi.id}
                   poi={poi}
                   isSelected={selectedPoiId === poi.id}
+                  showLabel={selectedCategories.length !== CATEGORY_ORDER.length}
                   onMarkerClick={handlePoiMarkerClick}
                 />
               ))
