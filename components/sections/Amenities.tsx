@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { gsap, useScene } from "@/lib/motion";
 import { AMENITY_SLIDES } from "@/lib/content";
 
@@ -7,6 +7,7 @@ import { AMENITY_SLIDES } from "@/lib/content";
    the index at the top right lights the current one, its caption sits bottom left. */
 export function Amenities() {
   const root = useRef<HTMLElement>(null);
+  const [mobileIndex, setMobileIndex] = useState(0);
   useScene(root, ({ reduced, mobile }) => {
     if (reduced || mobile) return;
     const q = gsap.utils.selector(root);
@@ -39,8 +40,19 @@ export function Amenities() {
 
   return (
     <section id="amenities" ref={root} className="am" data-tone="dark" aria-label="Amenities from arrival to rooftop">
+      <div className="am-mobile-nav">
+        <label htmlFor="am-mobile-select" className="lbl">Explore the spaces</label>
+        <div className="am-mobile-controls">
+          <button type="button" className="am-mobile-step" onClick={() => setMobileIndex((i) => (i - 1 + AMENITY_SLIDES.length) % AMENITY_SLIDES.length)} aria-label="Previous space">‹</button>
+          <select id="am-mobile-select" value={mobileIndex} onChange={(event) => setMobileIndex(Number(event.target.value))} aria-label="Choose a space">
+            {AMENITY_SLIDES.map((a, i) => <option key={a.name} value={i}>{a.name}</option>)}
+          </select>
+          <button type="button" className="am-mobile-step" onClick={() => setMobileIndex((i) => (i + 1) % AMENITY_SLIDES.length)} aria-label="Next space">›</button>
+        </div>
+        <span className="am-mobile-count lbl">{String(mobileIndex + 1).padStart(2, "0")} / {String(AMENITY_SLIDES.length).padStart(2, "0")}</span>
+      </div>
       {AMENITY_SLIDES.map((a, i) => (
-        <div key={a.name} className="am-slide" style={{ zIndex: i + 1 }}>
+        <div key={a.name} className={`am-slide${mobileIndex === i ? " is-mobile-active" : ""}`} style={{ zIndex: i + 1 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="am-slide-main" src={a.photo} alt={a.name} loading="lazy" />
           <p className="am-mobile-title caps-serif">{a.name}</p>

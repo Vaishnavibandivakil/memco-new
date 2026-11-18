@@ -225,6 +225,8 @@ export function Nearby() {
         </h2>
       </div>
 
+      <div className="nb-scroll-space" aria-hidden="true" />
+
       <ul className="nb-facts" aria-label="Nearby places">
         {FACTS.map((fact) => (
           <li className="nb-fact" key={fact.label}>
