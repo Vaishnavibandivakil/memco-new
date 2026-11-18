@@ -40,17 +40,6 @@ export function Amenities() {
 
   return (
     <section id="amenities" ref={root} className="am" data-tone="dark" aria-label="Amenities from arrival to rooftop">
-      <div className="am-mobile-nav">
-        <label htmlFor="am-mobile-select" className="lbl">Explore the spaces</label>
-        <div className="am-mobile-controls">
-          <button type="button" className="am-mobile-step" onClick={() => setMobileIndex((i) => (i - 1 + AMENITY_SLIDES.length) % AMENITY_SLIDES.length)} aria-label="Previous space">‹</button>
-          <select id="am-mobile-select" value={mobileIndex} onChange={(event) => setMobileIndex(Number(event.target.value))} aria-label="Choose a space">
-            {AMENITY_SLIDES.map((a, i) => <option key={a.name} value={i}>{a.name}</option>)}
-          </select>
-          <button type="button" className="am-mobile-step" onClick={() => setMobileIndex((i) => (i + 1) % AMENITY_SLIDES.length)} aria-label="Next space">›</button>
-        </div>
-        <span className="am-mobile-count lbl">{String(mobileIndex + 1).padStart(2, "0")} / {String(AMENITY_SLIDES.length).padStart(2, "0")}</span>
-      </div>
       {AMENITY_SLIDES.map((a, i) => (
         <div key={a.name} className={`am-slide${mobileIndex === i ? " is-mobile-active" : ""}`} style={{ zIndex: i + 1 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -63,7 +52,12 @@ export function Amenities() {
       ))}
       <div className="am-shade" />
       <ol className="am-list caps-serif">
-        {AMENITY_SLIDES.map((a) => <li key={a.name}>{a.name}</li>)}
+        {AMENITY_SLIDES.map((a, i) => (
+          <li key={a.name} className={mobileIndex === i ? "is-mobile-on" : undefined}>
+            <span className="am-list-desktop">{a.name}</span>
+            <button type="button" className="am-list-mobile" aria-pressed={mobileIndex === i} onClick={() => setMobileIndex(i)}>{a.name}</button>
+          </li>
+        ))}
       </ol>
       <div className="am-caps">
         {AMENITY_SLIDES.map((a) => (
