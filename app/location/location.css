@@ -48,8 +48,6 @@
 .location-card-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 12px; }
 .location-card-action { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 36px; padding: 0 13px; border: 1px solid var(--green); border-radius: 999px; background: var(--green); color: white; font-size: 10px; font-weight: 650; transition: background .25s, transform .25s; }
 .location-card-action:hover, .location-card-action:focus-visible { background: #005332; transform: translateY(-2px); }
-.location-card-action--secondary { background: transparent; color: var(--green); }
-.location-card-action--secondary:hover, .location-card-action--secondary:focus-visible { background: #e9f1e9; }
 
 .location-metro-panel { position: absolute; z-index: 4; top: 100px; right: clamp(24px, 3.5vw, 68px); bottom: 105px; width: min(420px, calc(100vw - 48px)); padding: 24px; overflow-y: auto; border: 1px solid #dbe5dc; border-radius: 18px; background: rgba(255,255,255,.98); box-shadow: 0 20px 65px rgba(21,47,32,.2); scrollbar-width: thin; animation: location-panel-in .32s ease-out both; }
 @keyframes location-panel-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
