@@ -11,6 +11,24 @@ export type InsightVideo = {
 // Video IDs and editorial topics are from MEMCO Skyline's News & Events section.
 export const INSIGHT_VIDEOS: InsightVideo[] = [
   {
+    id: "vFXXJuXyhbw",
+    title: "The vision for Jutaku",
+    previewTitle: "The project vision",
+    category: "Site & vision",
+    description: "The project's concept, planning and design before the community takes shape.",
+    image: "/images/homepage-master.webp",
+    fallbackImage: "/images/homepage-master.webp",
+  },
+  {
+    id: "MgZtkpUkwnI",
+    title: "Every tree has a place",
+    previewTitle: "Tree relocation",
+    category: "The landscape",
+    description: "A look at MEMCO Skyline's tree transplantation work.",
+    image: "/images/serenity-park.webp",
+    fallbackImage: "/images/serenity-park.webp",
+  },
+  {
     id: "hgZz-oA7Oz4",
     title: "The Experience Centre is open",
     previewTitle: "Experience Centre",
@@ -29,15 +47,6 @@ export const INSIGHT_VIDEOS: InsightVideo[] = [
     fallbackImage: "/images/experience-center.webp",
   },
   {
-    id: "FjBli6q4MgY",
-    title: "Around the amenities",
-    previewTitle: "The amenities",
-    category: "The ecosystem",
-    description: "A tour of the shared spaces planned across Jutaku.",
-    image: "/images/amenity-pool.jpg",
-    fallbackImage: "/images/amenity-pool.jpg",
-  },
-  {
     id: "HyKLDx3Xbws",
     title: "From DJing to cricket",
     category: "Inside Jutaku",
@@ -54,11 +63,12 @@ export const INSIGHT_VIDEOS: InsightVideo[] = [
     fallbackImage: "/images/pickleball.webp",
   },
   {
-    id: "MgZtkpUkwnI",
-    title: "Every tree has a place",
-    category: "The landscape",
-    description: "A look at MEMCO Skyline's tree transplantation work.",
-    image: "/images/serenity-park.webp",
-    fallbackImage: "/images/serenity-park.webp",
+    id: "FjBli6q4MgY",
+    title: "Around the amenities",
+    previewTitle: "The amenities",
+    category: "The ecosystem",
+    description: "A tour of the shared spaces planned across Jutaku.",
+    image: "/images/amenity-pool.jpg",
+    fallbackImage: "/images/amenity-pool.jpg",
   },
 ];

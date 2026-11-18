@@ -67,7 +67,7 @@ export function InsightsPreview() {
         <div className="insights-spread-page">
           <div className="insights-spread-top lbl"><span>Insights</span><Link className="pill insights-view-all" href="/insights">View all films <ArrowUpRight size={15} aria-hidden="true" /></Link></div>
           <h2 id="insights-title">The Jutaku<br />journal.</h2>
-          <p className="insights-spread-intro">Films from the Experience Centre, its people and the spaces taking shape.</p>
+          <p className="insights-spread-intro">From the project vision and tree relocation to the Experience Centre and its people.</p>
           <div className="insights-spread-films" aria-label="More featured films">
             {videos.slice(1).map((video, index) => (
               <button type="button" className="insights-spread-film" key={video.id} onClick={() => setPlaying(video)} aria-label={`Watch ${video.title}`}>
@@ -88,7 +88,7 @@ export function InsightsLibrary() {
   return (
     <main className="insights-page">
       <SubpageHeader className="insights-page-header" closeHref="/#insights" />
-      <div className="insights-page-intro"><p className="insights-eyebrow lbl">Films 01—06</p><h1 className="disp">The Jutaku<br />journal</h1><p>Visit the Experience Centre, meet the people involved and see the spaces taking shape.</p></div>
+      <div className="insights-page-intro"><p className="insights-eyebrow lbl">Films 01—{String(INSIGHT_VIDEOS.length).padStart(2, "0")}</p><h1 className="disp">The Jutaku<br />journal</h1><p>Follow the project vision, tree relocation, Experience Centre and events as Jutaku takes shape.</p></div>
       <div className="insights-library" aria-label="Jutaku videos">
         {INSIGHT_VIDEOS.map((video, index) => (
           <button type="button" className="insights-library-card" key={video.id} onClick={() => setPlaying(video)} aria-label={`Watch ${video.title}`}>

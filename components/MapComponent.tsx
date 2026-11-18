@@ -14,9 +14,10 @@ import Link from "next/link";
 import type * as GeoJSON from "geojson";
 import { LOCATION_DIRECTORY, type LocationCategory } from "@/data/location-directory";
 import { isMetroStationOpen, METRO_CONNECTIONS, PINK_OPEN_STATION_COUNT } from "@/data/metro-connectivity";
-import { googleMetroPlaceId, JUTAKU_GOOGLE_PLACE_ID } from "@/data/metro-google-places";
+import { directionsFromJutaku } from "@/lib/location-directions";
 import { METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
 import { SITE_COORDINATES } from "@/lib/data";
+import { formatRoadDistance } from "@/lib/location-road-distances";
 import { Map3DBuildings } from "@/components/ui/map-3d-buildings";
 import { Map as MapView,
   MapMarker,
@@ -59,6 +60,7 @@ type RouteData = {
   coordinates: [number, number][];
   duration: number;
   distance: number;
+  provisional?: boolean;
 };
 
 type UserLocation = {
@@ -252,6 +254,7 @@ function buildProvisionalRoute(poi: Poi): RouteData {
     ),
     duration: parseDurationLabel(poi.timeLabel),
     distance: parseDistanceLabel(poi.distanceLabel),
+    provisional: true,
   };
 }
 
@@ -845,19 +848,16 @@ function getPoiImage(poi: Poi | null) {
   return getPoiImages(poi)[0] ?? "/RGA.webp";
 }
 
-function getDisplayRoute(route: RouteData | null | undefined, poi: Poi | null) {
+function getDisplayRoute(route: RouteData | null | undefined, poi: Poi | null, roadDistances: Record<string, number>) {
+  const roadMeters = poi ? roadDistances[poi.name] : null;
   return {
-    distance: route ? formatDistance(route.distance) : poi?.distanceLabel ?? "3.7 km",
-    duration: route ? formatDuration(route.duration) : poi?.timeLabel ?? "6 min",
+    distance: roadMeters ? formatRoadDistance(roadMeters) : route && !route.provisional ? formatDistance(route.distance) : "Road route loading",
+    duration: route && !route.provisional ? formatDuration(route.duration) : "",
   };
 }
 
 function getGoogleMapsDirectionsUrl(poi: Poi) {
-  if (poi.category === "Metro") {
-    const stationPlaceId = googleMetroPlaceId(poi.name);
-    if (stationPlaceId) return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent("MEMCO Skyline Jutaku, Bengaluru")}&origin_place_id=${JUTAKU_GOOGLE_PLACE_ID}&destination=${encodeURIComponent(`${poi.name} Metro Station, Bengaluru`)}&destination_place_id=${stationPlaceId}`;
-  }
-  return `https://www.google.com/maps/dir/?api=1&destination=${poi.lat}%2C${poi.lng}`;
+  return directionsFromJutaku(poi);
 }
 
 function getPoiDistanceMeters(poi: Poi, route: RouteData | null | undefined) {
@@ -912,7 +912,7 @@ function PremiumSelect({
 }
 
 
-export function CustomStyleExample() {
+export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Record<string, number> }) {
   const mapRef = useRef<MapRef>(null);
   const suppressNextMapClearRef = useRef(false);
   const userRouteRequestRef = useRef(0);
@@ -1539,13 +1539,10 @@ export function CustomStyleExample() {
   const activeMetroRoute = activeMetroConnection ? METRO_ROUTE_POINTS[activeMetroConnection.line] : null;
   const selectedMetroStation = activeMetroRoute && activeMetroStation !== null ? activeMetroRoute[activeMetroStation] : null;
   const selectedMetroOpen = Boolean(activeMetroConnection && activeMetroStation !== null && isMetroStationOpen(activeMetroConnection.line, activeMetroStation));
-  const selectedMetroPlaceId = selectedMetroOpen && selectedMetroStation ? googleMetroPlaceId(selectedMetroStation.name) : null;
   const selectedMetroDirectionsUrl = selectedMetroStation
-    ? selectedMetroPlaceId
-      ? `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent("MEMCO Skyline Jutaku, Bengaluru")}&origin_place_id=${JUTAKU_GOOGLE_PLACE_ID}&destination=${encodeURIComponent(`${selectedMetroStation.name} Metro Station, Bengaluru`)}&destination_place_id=${selectedMetroPlaceId}`
-      : selectedMetroOpen
-        ? `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${centerPlace.lat}%2C${centerPlace.lng}%3B${selectedMetroStation.position[1]}%2C${selectedMetroStation.position[0]}`
-        : `https://www.google.com/maps/@?api=1&map_action=map&center=${selectedMetroStation.position[1]}%2C${selectedMetroStation.position[0]}&zoom=16`
+    ? selectedMetroOpen
+      ? directionsFromJutaku({ name: selectedMetroStation.name, category: "Metro" })
+      : `https://www.google.com/maps/@?api=1&map_action=map&center=${selectedMetroStation.position[1]}%2C${selectedMetroStation.position[0]}&zoom=16`
     : null;
   const showClusters = selectedCategories.length === CATEGORY_ORDER.length && !activeMetroConnection && currentZoom < POI_CLUSTER_SWITCH_ZOOM;
   const selectedDisplayPoi = selectedPoi ?? visiblePois[0] ?? pois[0] ?? null;
@@ -2253,7 +2250,7 @@ export function CustomStyleExample() {
                     {listedPois.map((poi) => {
                       const meta = categoryMeta[poi.category];
                       const linkedRoute = routeLookup.get(poi.id);
-                      const metrics = getDisplayRoute(linkedRoute, poi);
+                      const metrics = getDisplayRoute(linkedRoute, poi, roadDistances);
                       const isSelected = selectedPoiId === poi.id;
 
                       return (
@@ -2386,7 +2383,7 @@ export function CustomStyleExample() {
                 <h2 className={`text-[2rem] font-semibold leading-tight text-[#006e52]`}>
                   {selectedDisplayPoi.name}
                 </h2>
-                <p className="mt-2 text-sm text-[#006e52]/70">{selectedDisplayPoi.distanceLabel} from Jutaku.</p>
+                <p className="mt-2 text-sm text-[#006e52]/70">{roadDistances[selectedDisplayPoi.name] ? `${formatRoadDistance(roadDistances[selectedDisplayPoi.name])} by road` : "Finding road distance"} from Jutaku.</p>
               </div>
 
               <a
@@ -2436,7 +2433,7 @@ export function CustomStyleExample() {
                       {listedPois.map((poi) => {
                         const meta = categoryMeta[poi.category];
                         const linkedRoute = routeLookup.get(poi.id);
-                        const metrics = getDisplayRoute(linkedRoute, poi);
+                        const metrics = getDisplayRoute(linkedRoute, poi, roadDistances);
 
                         return (
                           <button
@@ -2504,7 +2501,7 @@ export function CustomStyleExample() {
                     <h2 className={`text-[1.35rem] font-semibold leading-tight text-[#006e52] sm:text-[1.65rem]`}>
                       {selectedDisplayPoi.name}
                     </h2>
-                    <p className="mt-2 text-xs text-[#006e52]/70 sm:text-sm">{selectedDisplayPoi.distanceLabel} from Jutaku.</p>
+                    <p className="mt-2 text-xs text-[#006e52]/70 sm:text-sm">{roadDistances[selectedDisplayPoi.name] ? `${formatRoadDistance(roadDistances[selectedDisplayPoi.name])} by road` : "Finding road distance"} from Jutaku.</p>
                     <a
                       href={getGoogleMapsDirectionsUrl(selectedDisplayPoi)}
                       target="_blank"
