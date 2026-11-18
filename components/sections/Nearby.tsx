@@ -69,6 +69,7 @@ export function Nearby() {
     const tiles = q(".nb-tile");
     const hint = q(".nb-canvas-hint")[0];
     const marquee = q(".nb-marquee")[0];
+    const facts = q(".nb-facts")[0] as HTMLElement;
     const mosaicFeatureRect = mobile
       ? { left: "51%", top: "26.5%", width: "47%", height: "22.5%" }
       : { left: "32%", top: "27%", width: "36%", height: "46%" };
@@ -136,7 +137,9 @@ export function Nearby() {
       scrollTrigger: {
         trigger: root.current,
         start: "top top",
-        end: () => `+=${window.innerHeight * (mobile ? 4.4 : 3.9)}`,
+        // Settle the mobile photo before the fact cards enter; svh-based offsetTop
+        // stays stable as the phone browser chrome expands and contracts.
+        end: () => `+=${mobile ? Math.round(facts.offsetTop * 0.96) : window.innerHeight * 3.9}`,
         scrub: 0.65,
         invalidateOnRefresh: true,
       },
