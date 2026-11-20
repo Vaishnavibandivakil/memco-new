@@ -429,6 +429,12 @@ html.reduced .pl-stop { opacity: 1; transform: none; }
 .cr-line { display: block; }
 .cr-body sup { font-size: .32em; vertical-align: top; position: relative; top: .3em; }
 .cr-fine { margin-top: 6vh; max-width: 560px; opacity: .6; font-size: 8.5px; line-height: 2; }
+.cr-stamp { width: clamp(150px, 18vw, 205px); margin-top: clamp(28px, 5vh, 56px); color: var(--green); transform: rotate(-11deg); opacity: .84; mix-blend-mode: multiply; }
+.cr-stamp svg { display: block; width: 100%; height: auto; }
+@media (min-width: 761px) {
+  .cr-rule { height: 9vh; margin: 2vh 0 3vh; }
+  .cr-stamp { width: clamp(150px, 13vw, 170px); margin-top: clamp(18px, 2.5vh, 28px); }
+}
 /* ── homes finder ───────────────────────────────────────────── */
 /* the home finder is an overlay panel, not a page section */
 .hm { position: fixed; inset: 0; z-index: 60; background: var(--paper); color: var(--ink); visibility: hidden; clip-path: inset(100% 0% 0% 0%); }
