@@ -20,7 +20,7 @@ export function Credentials() {
       <p className="lbl cr-fine" data-fade data-delay="0.6">*{RERA}<br />{PRICE_NOTE}</p>
       <div className="cr-stamp" aria-hidden="true" data-fade data-delay="0.75">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/rera-approved-stamp.png" alt="" loading="lazy" />
+        <img src="/images/rera-approved-red-stamp.png" alt="" loading="lazy" />
       </div>
     </section>
   );
