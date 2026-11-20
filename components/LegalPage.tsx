@@ -5,6 +5,7 @@ import { SubpageHeader } from "@/components/SubpageHeader";
 type LegalSection = {
   title: string;
   paragraphs: string[];
+  items?: string[];
 };
 
 type LegalPageProps = {
@@ -13,9 +14,10 @@ type LegalPageProps = {
   sections: LegalSection[];
   relatedHref: string;
   relatedLabel: string;
+  lastUpdated?: string;
 };
 
-export function LegalPage({ title, introduction, sections, relatedHref, relatedLabel }: LegalPageProps) {
+export function LegalPage({ title, introduction, sections, relatedHref, relatedLabel, lastUpdated = "22 October 2026" }: LegalPageProps) {
   return (
     <main className="legal-page" data-tone="light">
       <aside className="legal-scene">
@@ -37,7 +39,7 @@ export function LegalPage({ title, introduction, sections, relatedHref, relatedL
           <header className="legal-heading">
             <h1>{title}</h1>
             <p>{introduction}</p>
-            <small>Last updated 22 October 2026</small>
+            <small>Last updated {lastUpdated}</small>
           </header>
 
           <div className="legal-sections">
@@ -47,6 +49,7 @@ export function LegalPage({ title, introduction, sections, relatedHref, relatedL
                 <div>
                   <h2>{section.title}</h2>
                   {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                  {section.items && <ul>{section.items.map((item) => <li key={item}>{item}</li>)}</ul>}
                 </div>
               </section>
             ))}

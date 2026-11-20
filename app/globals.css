@@ -1187,6 +1187,9 @@ body:has(.bk-page) .chrome { display: none; }
 .legal-section-number { display: block; margin-bottom: 8px; color: var(--green); font-size: 10px; font-weight: 700; }
 .legal-section h2 { font-size: 17px; font-weight: 650; letter-spacing: -.03em; }
 .legal-section p { max-width: 66ch; margin-top: 10px; color: #536057; font-size: 12px; line-height: 1.75; overflow-wrap: anywhere; }
+.legal-section ul { max-width: 66ch; margin: 10px 0 0; padding-left: 18px; list-style: disc; color: #536057; font-size: 12px; line-height: 1.75; }
+.legal-section li::marker { color: var(--green); }
+.legal-section li + li { margin-top: 8px; }
 .legal-footer { display: grid; justify-items: start; gap: 10px; padding: 24px 0 4px; border-top: 1px solid #dce4db; color: #657269; font-size: 11px; line-height: 1.6; overflow-wrap: anywhere; }
 .legal-footer a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 760px) {

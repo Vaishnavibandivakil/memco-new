@@ -31,8 +31,21 @@ const sections = [
     title: "Updates",
     paragraphs: ["We may update this page if the website or our handling of enquiries changes. The date above shows when this version was last updated."],
   },
+  {
+    title: "Data Deletion Instructions",
+    paragraphs: [
+      "MEMCO Skyline Private Limited (JUTAKU) may receive your information when you contact us through our Facebook or Instagram pages, Meta (Facebook/Instagram) lead forms, Instagram Direct Messages or WhatsApp.",
+      "What we may hold: your name, phone number, email address, Instagram/Facebook profile name, and the messages you send us, including answers you give to our automated assistant (for example, rent or income figures used for estimates).",
+      "How to request deletion — any one of these:",
+    ],
+    items: [
+      "Email memcoskyline@gmail.com with the subject “Data deletion request”, giving your name and the phone number, email or Instagram username you used to contact us.",
+      "Send “DELETE MY DATA” as a message to our Instagram account (@jutaku or @memcoskyline) or our WhatsApp number.",
+      "Call or WhatsApp us on +91-9187224980.",
+    ],
+  },
 ];
 
 export default function PrivacyPolicyPage() {
-  return <LegalPage title="Privacy Policy" introduction="A clear view of what happens when you explore Jutaku or contact the MEMCO Skyline team." sections={sections} relatedHref="/terms-and-conditions" relatedLabel="Read Terms & Conditions" />;
+  return <LegalPage title="Privacy Policy" introduction="A clear view of what happens when you explore Jutaku or contact the MEMCO Skyline team." sections={sections} relatedHref="/terms-and-conditions" relatedLabel="Read Terms & Conditions" lastUpdated="20 November 2026" />;
 }
