@@ -10,7 +10,7 @@ const AREAS = [
   { label: "Private living", value: 327.13, colors: ["#82c19b", "#006e42"] },
   { label: "Mechanical & utilities", value: 85.23, colors: ["#cde6d3", "#4d9e70"] },
   { label: "Corridors & safety lobbies", value: 49, colors: ["#e3eacb", "#93a967"] },
-  { label: "Club amenities", value: 39.09, colors: ["#ffc9ae", "#e43d3b"] },
+  { label: "Club amenities", value: 39.09, colors: ["#c5e2c7", "#5a9b74"] },
 ] as const;
 
 const format = (value: number) => value.toFixed(2);
