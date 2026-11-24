@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { BLOG_STORIES } from "@/lib/blog";
 
 export function BlogPreview() {
@@ -36,7 +35,7 @@ export function BlogPreview() {
                 </li>
               ))}
             </ol>
-            <Link className="blog-preview-link" href="/blog">Explore the blog <ArrowUpRight size={17} strokeWidth={1.7} aria-hidden="true" /></Link>
+            <Link className="blog-preview-link" href="/blog">Explore the blog</Link>
           </div>
         </div>
       </div>

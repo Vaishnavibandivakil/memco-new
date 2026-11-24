@@ -65,7 +65,7 @@ export function InsightsPreview() {
           </button>
         </div>
         <div className="insights-spread-page">
-          <div className="insights-spread-top lbl"><span>Insights</span><Link className="pill insights-view-all" href="/insights">View all films <ArrowUpRight size={15} aria-hidden="true" /></Link></div>
+          <div className="insights-spread-top lbl"><span>Insights</span><Link className="pill insights-view-all" href="/insights">View all films</Link></div>
           <h2 id="insights-title">The Jutaku<br />journal.</h2>
           <p className="insights-spread-intro">From the project vision and tree relocation to the Experience Centre and its people.</p>
           <div className="insights-spread-films" aria-label="More featured films">

@@ -1,4 +1,6 @@
 import { Chars } from "@/components/Chars";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { RERA } from "@/lib/data";
 import { PRICE, PRICE_NOTE } from "@/lib/content";
 
@@ -21,6 +23,10 @@ export function Credentials() {
       <div className="cr-stamp" aria-hidden="true" data-fade data-delay="0.75">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/rera-approved-red-stamp.png" alt="" loading="lazy" />
+      </div>
+      <div className="cr-actions" data-fade data-delay="0.85">
+        <Link className="cr-action cr-action-primary" href="/book-visit">Book Jutaku experience</Link>
+        <Link className="cr-action cr-action-secondary" href="/brochure">Enquire now <ArrowUpRight size={17} strokeWidth={1.8} aria-hidden="true" /></Link>
       </div>
     </section>
   );
