@@ -5,14 +5,8 @@ import { Chars } from "@/components/Chars";
 import { gsap, ScrollTrigger, useScene, charsIn, lenis } from "@/lib/motion";
 import { ROUTE } from "@/lib/nearby-route";
 import { openHomes } from "@/components/sections/Homes";
+import { LocationStory } from "@/components/sections/LocationStory";
 
-/* Keep the original curved road artwork, with each station anchored to it. */
-const VB = { x: 280, y: 150, w: 1240, h: 210 };
-const ROAD = "M288,318 C360,305 460,285 505,265 C520,258 505,252 490,249 C500,244 560,244 610,245 C640,246 650,256 634,264 C640,270 690,266 730,262 C780,257 815,252 835,258 C842,264 820,270 816,273 C860,276 900,268 960,270 C1010,273 1060,276 1100,262 C1120,254 1135,258 1160,274 C1190,293 1215,313 1238,308 C1258,302 1256,270 1275,252 C1295,240 1350,244 1400,249 C1440,253 1480,260 1510,265";
-const ROAD_X = [288, 1510];
-const DOTS: [number, number][] = [[450, 283.3], [680, 266.2], [1140, 262.9], [1360, 245.5]];
-const HOME: [number, number] = [900, 270.8];
-const NEARBY_STATIONS = [ROUTE[2], ROUTE[0], ROUTE[1], ROUTE[3]];
 const PRINCIPLES = [
   { title: "Purpose-led design", detail: "Spaces shaped for everyday routines, not just for the view." },
   { title: "Functional flow", detail: "Layouts planned for living, working and moving through the day." },
@@ -25,15 +19,10 @@ export function Concept() {
   const root = useRef<HTMLElement>(null);
   useScene(root, ({ reduced, mobile }) => {
     const q = gsap.utils.selector(root);
-    const stops = q(".pl-stop") as HTMLElement[];
-    const at = [...DOTS, HOME];
-    stops.forEach((el, k) => { el.style.left = `${((at[k][0] - VB.x) / VB.w) * 100}%`; el.style.top = `${((at[k][1] - VB.y) / VB.h) * 100}%`; });
-    const path = root.current!.querySelector<SVGPathElement>(".pl-road")!;
     const track = q(".hz-track")[0] as HTMLElement;
     const dist = () => track.scrollWidth - window.innerWidth;
-    if (reduced) { path.style.strokeDashoffset = "0"; return; }
+    if (reduced) return;
     if (mobile) {
-      path.style.strokeDashoffset = "0";
       const panelStops = () => {
         const distance = Math.max(1, dist());
         return [...track.children]
@@ -116,19 +105,6 @@ export function Concept() {
     /* the photo opens as it slides in */
     gsap.fromTo(q(".gm-pic"), { clipPath: "inset(0% 0% 0% 100%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: q(".gm-pic")[0], containerAnimation: move, start: "left 100%", end: "left 45%", scrub: true } });
     gsap.fromTo(q(".gm-pic img"), { xPercent: 12, scale: 1.15 }, { xPercent: -6, scale: 1.05, ease: "none", scrollTrigger: { trigger: q(".gm-pic")[0], containerAnimation: move, start: "left 100%", end: "right 0%", scrub: true } });
-    const reach = at.map(([x]) => (x - ROAD_X[0]) / (ROAD_X[1] - ROAD_X[0]));
-    const drawn = { p: 0 };
-    const paint = () => {
-      path.style.strokeDashoffset = String(1 - drawn.p);
-      stops.forEach((el, k) => el.classList.toggle("is-on", drawn.p >= reach[k] - 0.03));
-    };
-    const draw = gsap.to(drawn, { p: 1, duration: 1.8, ease: "power2.out", onUpdate: paint, paused: true });
-    paint();
-    ScrollTrigger.create({
-      trigger: q(".rc")[0], containerAnimation: move, start: "left 45%", end: "right 0%",
-      onEnter: () => draw.play(),
-      onLeaveBack: () => { draw.pause(0); drawn.p = 0; paint(); },
-    });
     return () => s.revert();
   });
 
@@ -203,41 +179,7 @@ export function Concept() {
           </div>
         </div>
 
-        {/* Original location road artwork, with road distances and bearings from the project pin. */}
-        <div id="location" className="hz-panel rc">
-          <h2 className="disp rc-title">
-            <span data-hchars><Chars text="EVERYTHING" /></span>
-            <span className="script" data-hfade data-delay="0.5">within</span>
-            <span data-hchars data-delay="0.2"><Chars text="REACH" /></span>
-          </h2>
-          <p className="pl-kicker lbl">Four Yellow Line stations near Jutaku · approximate distances</p>
-          <div className="pl-maprow">
-            <svg className="pl-map" viewBox={`${VB.x} ${VB.y} ${VB.w} ${VB.h}`} aria-hidden="true">
-              <defs>
-                <linearGradient id="road-taper" gradientUnits="userSpaceOnUse" x1={ROAD_X[0]} x2={ROAD_X[1]} y1="0" y2="0">
-                  <stop offset="0" stopColor="#fff" stopOpacity="0.1" /><stop offset="0.07" stopColor="#fff" />
-                  <stop offset="0.93" stopColor="#fff" /><stop offset="1" stopColor="#fff" stopOpacity="0.05" />
-                </linearGradient>
-                <mask id="road-mask" maskUnits="userSpaceOnUse" x={VB.x} y={VB.y} width={VB.w} height={VB.h}><rect x={VB.x} y={VB.y} width={VB.w} height={VB.h} fill="url(#road-taper)" /></mask>
-              </defs>
-              <path className="pl-road" d={ROAD} pathLength={1} mask="url(#road-mask)" />
-            </svg>
-            <ol className="pl-stops">
-              {NEARBY_STATIONS.map((r) => (
-                <li key={r.name} className="pl-stop">
-                  <span className="pl-lab"><b>{r.name.replace(/ Metro$/, "")}</b><span>≈{r.distance} · {r.direction}</span></span><i />
-                </li>
-              ))}
-              <li className="pl-stop pl-home" aria-label="MEMCO Skyline Jutaku"><span className="pl-lab"><span className="mark" /><b>Jutaku</b></span><i /></li>
-            </ol>
-          </div>
-          <ol className="pl-mobile" aria-label="Nearby Yellow Line stations">
-            {NEARBY_STATIONS.slice(0, 2).map((station) => <li key={station.name}><i aria-hidden="true" /><b>{station.name.replace(/ Metro$/, "")}</b><span>≈{station.distance}</span></li>)}
-            <li className="pl-mobile-home"><i aria-hidden="true"><span className="mark" /></i><b>MEMCO Skyline · Jutaku</b><span>Manipal County Road</span></li>
-            {NEARBY_STATIONS.slice(2).map((station) => <li key={station.name}><i aria-hidden="true" /><b>{station.name.replace(/ Metro$/, "")}</b><span>≈{station.distance}</span></li>)}
-          </ol>
-          <a className="rc-directions" href="/location" aria-label="Explore Jutaku's location">Explore the location</a>
-        </div>
+        <LocationStory />
 
         {/* The place follows the nearby-stations graphic. */}
         <div className="hz-panel gm">
