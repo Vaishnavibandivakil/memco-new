@@ -5,14 +5,10 @@ import { BLOG_STORIES } from "@/lib/blog";
 export function BlogPreview() {
   return (
     <section id="blog" className="blog-preview" data-tone="light" aria-labelledby="blog-preview-title">
-      <div className="blog-preview-frame">
-        <div className="blog-preview-top lbl">
-          <span>Jutaku / Journal</span>
-          <span>Stories from the space we are creating</span>
-        </div>
+      <div className="blog-preview-inner">
         <div className="blog-preview-layout">
           <div className="blog-preview-cards" aria-label="Featured journal topics">
-            {BLOG_STORIES.slice(0, 4).map((story, index) => (
+            {BLOG_STORIES.slice(0, 2).map((story, index) => (
               <article className={`blog-preview-card blog-preview-card--${index + 1}`} key={story.slug}>
                 <div className="blog-preview-image">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -23,10 +19,12 @@ export function BlogPreview() {
               </article>
             ))}
           </div>
-          <div className="blog-preview-index">
-            <p className="blog-preview-eyebrow lbl">A Jutaku journal</p>
+          <div className="blog-preview-heading">
+            <p className="blog-preview-eyebrow lbl">Jutaku / Journal</p>
             <h2 id="blog-preview-title">Stories<span>.</span></h2>
             <p className="blog-preview-intro">Ideas on home, shared spaces and the neighbourhood around us.</p>
+          </div>
+          <div className="blog-preview-index">
             <p className="blog-preview-list-label lbl">Five stories in the making</p>
             <ol className="blog-preview-list">
               {BLOG_STORIES.map((story, index) => (
