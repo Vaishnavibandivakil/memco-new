@@ -90,9 +90,10 @@ export function Chrome() {
               {LINKS.map((item, i) => (
                 <a key={item.label} href={`#${item.section}`} style={{ ["--i" as string]: i }} onClick={(e) => { e.preventDefault(); setOpen(false); scrollToId(item.section, item.section === "location"); if (item.section === "location") window.history.replaceState(null, "", "/#location"); }}>{item.label}</a>
               ))}
-              <button type="button" style={{ ["--i" as string]: LINKS.length }} onClick={() => { setOpen(false); openLifestylePopup(); }}>Find your fit</button>
+              <Link href="/blog" style={{ ["--i" as string]: LINKS.length }} onClick={() => setOpen(false)}>Blogs</Link>
+              <button type="button" style={{ ["--i" as string]: LINKS.length + 1 }} onClick={() => { setOpen(false); openLifestylePopup(); }}>Find your fit</button>
             </nav>
-            <button type="button" className="hdr-cta" style={{ ["--i" as string]: LINKS.length + 1 }} onClick={() => { setOpen(false); openHomes(); }}>Select a home</button>
+            <button type="button" className="hdr-cta" style={{ ["--i" as string]: LINKS.length + 2 }} onClick={() => { setOpen(false); openHomes(); }}>Select a home</button>
           </div>
         </div>
       </header>

@@ -28,6 +28,9 @@ export function useScene(ref: RefObject<HTMLElement | null>, build: (c: SceneCtx
 declare global { interface Window { __lenis?: Lenis } }
 export const lenis = () => (typeof window !== "undefined" ? window.__lenis : undefined);
 
+// Keep the final project panel visible for the last tenth of its pinned scroll.
+export const PROJECT_TRAVEL_FRACTION = 0.9;
+
 /** Resolve a horizontally moving project panel to its vertical scroll position. */
 export function projectScrollTarget(el: HTMLElement): number | null {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return null;
@@ -40,7 +43,8 @@ export function projectScrollTarget(el: HTMLElement): number | null {
   if (!track || !panel) return horizontal.start;
   const distance = Math.max(1, track.scrollWidth - window.innerWidth);
   const progress = Math.min(1, Math.max(0, panel.offsetLeft / distance));
-  return horizontal.start + progress * (horizontal.end - horizontal.start);
+  const travelFraction = window.innerWidth > 760 ? PROJECT_TRAVEL_FRACTION : 1;
+  return horizontal.start + progress * (horizontal.end - horizontal.start) * travelFraction;
 }
 
 export function scrollToId(id: string, immediate = false) {

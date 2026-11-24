@@ -2,7 +2,7 @@
 import { useRef } from "react";
 import SplitType from "split-type";
 import { Chars } from "@/components/Chars";
-import { gsap, ScrollTrigger, useScene, charsIn, lenis } from "@/lib/motion";
+import { gsap, ScrollTrigger, useScene, charsIn, lenis, PROJECT_TRAVEL_FRACTION } from "@/lib/motion";
 import { ROUTE } from "@/lib/nearby-route";
 import { openHomes } from "@/components/sections/Homes";
 import { LocationStory } from "@/components/sections/LocationStory";
@@ -49,10 +49,11 @@ export function Concept() {
       ScrollTrigger.addEventListener("scrollEnd", settle);
       return () => ScrollTrigger.removeEventListener("scrollEnd", settle);
     }
-    const move = gsap.to(track, {
-      x: () => -dist(), ease: "none",
-      scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${dist() * 1.9}`, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
+    const move = gsap.timeline({
+      scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${dist() * 1.9 / PROJECT_TRAVEL_FRACTION}`, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
     });
+    move.to(track, { x: () => -dist(), duration: PROJECT_TRAVEL_FRACTION, ease: "none" });
+    move.to({}, { duration: 1 - PROJECT_TRAVEL_FRACTION });
 
     /* the Design panel is on screen when the pin starts */
     const s = new SplitType(q(".ds-statement")[0] as HTMLElement, { types: "lines", lineClass: "ln" });
