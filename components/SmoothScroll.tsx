@@ -14,24 +14,6 @@ export function SmoothScroll() {
     const l = new Lenis({
       lerp: 0.13,
       wheelMultiplier: 1,
-      virtualScroll: (input) => {
-        // Slow the final project panel before a large wheel gesture can skip the CTA.
-        if (window.innerWidth <= 760 || !(input.event instanceof WheelEvent)) return true;
-        const project = document.getElementById("project");
-        const homesButton = project?.querySelector<HTMLElement>(".gm-view");
-        const placePanel = project?.querySelector<HTMLElement>(".gm");
-        const track = project?.querySelector<HTMLElement>(".hz-track");
-        if (!project || !homesButton || !placePanel || !track) return true;
-        const trigger = ScrollTrigger.getAll().find((item) => item.trigger === project && item.pin);
-        if (!trigger || l.targetScroll < trigger.start || l.targetScroll > trigger.end) return true;
-        const travel = Math.max(1, track.scrollWidth - window.innerWidth);
-        const scrollRange = Math.max(1, trigger.end - trigger.start);
-        const nextProgress = Math.max(0, Math.min(1, (l.targetScroll + input.deltaY - trigger.start) / scrollRange));
-        const buttonLeft = placePanel.offsetLeft + homesButton.offsetLeft - nextProgress * travel;
-        const reveal = Math.max(0, Math.min(1, (window.innerWidth * 2 - buttonLeft) / (window.innerWidth * 1.2)));
-        input.deltaY *= 1 - reveal * .9;
-        return true;
-      },
     });
     window.__lenis = l;
     if (document.documentElement.classList.contains("intro-active")) l.stop();
