@@ -2,6 +2,7 @@ import { PHONE, EMAIL, ADDRESS, RERA } from "@/lib/data";
 import { InsightsPreview } from "@/components/Insights";
 import { BlogPreview } from "@/components/sections/BlogPreview";
 import { ClosingMotion } from "@/components/ClosingMotion";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 import Link from "next/link";
 
 export function Closing() {
@@ -36,6 +37,7 @@ export function Closing() {
           </div>
         </div>
         <footer className="cl-foot">
+          <NewsletterSignup />
           <div className="cl-foot-main">
             {/* co-branding lockup (§05): MEMCO leads, Jutaku follows at 70% of its height — reversed white on green */}
             <div className="cl-brand">
