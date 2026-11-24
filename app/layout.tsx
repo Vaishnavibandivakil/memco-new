@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { ChatAssistant } from "@/components/ChatAssistant";
 import { ReturnNavigationTracker } from "@/components/ReturnNavigation";
+import { RERA } from "@/lib/data";
 import "./globals.css";
 
 /* Brand guidelines §04: Montserrat only — Bold 700 headlines/numerals, SemiBold 600 sub-heads/labels/buttons,
@@ -26,6 +27,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <ReturnNavigationTracker />
         <ChatAssistant />
+        <p className="rera-fixed" aria-label={`RERA registration number ${RERA}`}>
+          <span>RERA registered</span>
+          <strong>{RERA}</strong>
+        </p>
       </body>
     </html>
   );
