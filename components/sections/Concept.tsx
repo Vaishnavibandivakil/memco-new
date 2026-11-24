@@ -143,7 +143,7 @@ export function Concept() {
           </div>
           <figure className="ds-hero ds-fade">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/intro/principles-interior.webp" alt="Living area designed for everyday routines" loading="lazy" />
+            <img src="/images/intro/principles-bedroom.webp" alt="Urban Unit bedroom with a built-in desk and storage" loading="lazy" />
           </figure>
         </div>
 
