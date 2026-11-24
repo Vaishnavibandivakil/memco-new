@@ -160,7 +160,7 @@ export function Concept() {
           </div>
           <figure className="dp-photo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/intro/kitchen.webp" alt="Shared kitchen at Jutaku" loading="lazy" />
+            <img src="/images/intro/study.webp" alt="Jutaku study with a compact desk and adaptable storage" loading="lazy" />
           </figure>
         </div>
 
@@ -185,7 +185,7 @@ export function Concept() {
           </div>
           <figure className="cc-hero">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/intro/creator-studio.webp" alt="Jutaku creator studio with space to meet and work" loading="lazy" />
+            <img src="/images/clubhouse-exterior.webp" alt="Jutaku clubhouse with shared spaces beyond the private homes" loading="lazy" />
           </figure>
         </div>
 

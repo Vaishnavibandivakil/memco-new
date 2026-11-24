@@ -2,7 +2,7 @@
 import { ROUTE } from "@/lib/nearby-route";
 
 export const HOTSPOTS = [
-  { id: "roof", x: 42, y: 17, mobileX: 45, mobileY: 35, title: "Skyline Aqua Lounge", body: "A 56 ft rooftop pool, with access planned around the clock.", photo: "/images/rooftop-pool.jpg" },
+  { id: "roof", x: 42, y: 13, mobileX: 45, mobileY: 32, title: "Skyline Aqua Lounge", body: "A 56 ft rooftop pool, with access planned around the clock.", photo: "/images/rooftop-pool.jpg" },
   { id: "single-home", x: 42, y: 52, mobileX: 46, mobileY: 48, title: "Single Urban Unit · 38", body: "A self-contained studio with its own kitchen, bathroom and patio, planned as a compact private home.", photo: "/images/interior-bedroom.jpg" },
   { id: "twin-home", x: 29, y: 39, mobileX: 46, mobileY: 57, title: "Twin Urban Unit · 308", body: "Two adjoining, self-contained homes, each with its own entrance, kitchen and bathroom.", photo: "/images/design-living-2.webp" },
   { id: "clubhouse", x: 62, y: 44, mobileX: 54, mobileY: 48, title: "The Clubhouse", body: "Planned lounges and shared rooms create places to meet, host and spend time beyond the private home.", photo: "/images/clubhouse-exterior.webp" },
