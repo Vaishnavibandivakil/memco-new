@@ -16,7 +16,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: StoryPageProps): Promise<Metadata> {
   const { slug } = await params;
   const story = BLOG_STORIES.find((item) => item.slug === slug);
-  if (!story) return { title: "Story not found · MEMCO Skyline Jutaku" };
+  if (!story) return { title: "Blog not found · MEMCO Skyline Jutaku" };
   return {
     title: `${story.title} · MEMCO Skyline Jutaku`,
     description: story.summary,
@@ -47,9 +47,9 @@ export default async function StoryPage({ params }: StoryPageProps) {
           <div className="blog-article-body">
             {story.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
-          <nav className="blog-article-navigation" aria-label="Journal navigation">
-            <Link href="/blog">All stories <ArrowUpRight size={16} aria-hidden="true" /></Link>
-            <Link href={`/blog/${nextStory.slug}`}>Next story <span>{nextStory.title}</span> <ArrowUpRight size={16} aria-hidden="true" /></Link>
+          <nav className="blog-article-navigation" aria-label="Blog navigation">
+            <Link href="/blog">All blogs <ArrowUpRight size={16} aria-hidden="true" /></Link>
+            <Link href={`/blog/${nextStory.slug}`}>Next blog <span>{nextStory.title}</span> <ArrowUpRight size={16} aria-hidden="true" /></Link>
           </nav>
         </div>
       </article>

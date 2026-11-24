@@ -14,9 +14,9 @@ export default function BlogPage() {
     <main className="blog-page">
       <SubpageHeader closeHref="/#blog" />
       <div className="blog-page-inner">
-        <h1 className="disp">Stories</h1>
+        <h1 className="caps-serif">Blogs</h1>
         <p className="blog-page-intro">Ideas on home, shared spaces and the neighbourhood around Jutaku.</p>
-        <div className="blog-page-topics" aria-label="Jutaku journal stories">
+        <div className="blog-page-topics" aria-label="Jutaku blogs">
           {BLOG_STORIES.map((story, index) => (
             <article key={story.slug}>
               <Link href={`/blog/${story.slug}`}>

@@ -22,11 +22,11 @@ export function BlogPreview() {
             ))}
           </div>
           <div className="blog-preview-heading">
-            <h2 id="blog-preview-title" className="disp">Stories</h2>
+            <h2 id="blog-preview-title" className="caps-serif">Blogs</h2>
             <p className="blog-preview-intro">Ideas on home, shared spaces and the neighbourhood around us.</p>
           </div>
           <div className="blog-preview-index">
-            <p className="blog-preview-list-label lbl">Five stories to explore</p>
+            <p className="blog-preview-list-label lbl">Five blogs to explore</p>
             <ol className="blog-preview-list">
               {BLOG_STORIES.map((story, index) => (
                 <li key={story.slug}>
