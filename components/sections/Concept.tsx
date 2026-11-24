@@ -62,7 +62,7 @@ export function Concept() {
     }
     const move = gsap.to(track, {
       x: () => -dist(), ease: "none",
-      scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${dist() * 1.4}`, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
+      scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${dist() * 1.9}`, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
     });
 
     /* the Design panel is on screen when the pin starts */
@@ -109,8 +109,9 @@ export function Concept() {
       when(el, () => charsIn(chars, { delay: Number((el as HTMLElement).dataset.delay || 0) }));
     });
     q(".hz [data-hfade]").forEach((el) => {
+      const homesButton = el.classList.contains("gm-view");
       gsap.set(el, { opacity: 0, y: 18 });
-      when(el, () => gsap.to(el, { opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: Number((el as HTMLElement).dataset.delay || 0) }), "left 88%");
+      when(el, () => gsap.to(el, { opacity: 1, y: 0, duration: homesButton ? .55 : 1, ease: "power3.out", delay: Number((el as HTMLElement).dataset.delay || 0) }), homesButton ? "left 120%" : "left 88%");
     });
     /* the photo opens as it slides in */
     gsap.fromTo(q(".gm-pic"), { clipPath: "inset(0% 0% 0% 100%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: q(".gm-pic")[0], containerAnimation: move, start: "left 100%", end: "left 45%", scrub: true } });

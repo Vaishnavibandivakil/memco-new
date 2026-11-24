@@ -295,7 +295,7 @@ html.js:not(.reduced) [data-rise] { clip-path: inset(100% 0% 0% 0%); }
   .ds-hero img { transition: transform 1s var(--e-out); }
   .ds-hero:hover img { transform: scale(1.035); }
 }
-.gm { width: 138vw; }
+.gm { width: 155vw; }
 .gm-country { position: absolute; left: var(--side); top: 50%; letter-spacing: .5em; }
 .gm-words { position: absolute; z-index: 3; left: 24vw; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; font-size: clamp(38.4px, 6.3vw, 117.6px); }
 .gm-words > span { display: block; }
@@ -1665,7 +1665,7 @@ body:has(.bk-page) .chrome { display: none; }
   .dp-mobile-detail { display: none; }
   .dp-list li, .cc-points article { padding-block: 4px; }
   .dp-list p, .cc-points p { font-size: 9px; }
-  .gm { width: 138vw; }
+  .gm { width: 155vw; }
   .gm-country { top: 18svh; }
   .gm-words { left: 24vw; font-size: 6.3vw; }
   .gm-pic { left: 62vw; top: 18svh; width: 30vw; height: 74svh; }
