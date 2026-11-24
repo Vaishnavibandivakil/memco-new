@@ -3,15 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, MarkerContent, type MapRef } from "@/components/ui/map";
 import { SITE_COORDINATES } from "@/lib/data";
-import { ROUTE } from "@/lib/nearby-route";
 
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/bright";
 const STAGES = [
-  { label: "Jutaku", caption: "The project, on Manipal County Road", zoom: 15.4, center: [SITE_COORDINATES.lng, SITE_COORDINATES.lat] as [number, number] },
-  { label: "The neighbourhood", caption: "Singasandra and Hosa Road", zoom: 13.6, center: [SITE_COORDINATES.lng + 0.003, SITE_COORDINATES.lat + 0.004] as [number, number] },
-  { label: "South Bengaluru", caption: "Four nearby Yellow Line stations", zoom: 12.4, center: [SITE_COORDINATES.lng + 0.004, SITE_COORDINATES.lat + 0.006] as [number, number] },
-  { label: "The project", caption: "Jutaku by MEMCO Skyline", zoom: 12.4, center: [SITE_COORDINATES.lng, SITE_COORDINATES.lat] as [number, number] },
+  { center: [SITE_COORDINATES.lng, SITE_COORDINATES.lat] as [number, number], zoom: 15.5 },
+  { center: [SITE_COORDINATES.lng, SITE_COORDINATES.lat] as [number, number], zoom: 11.6 },
+  { center: [77.5946, 12.9716] as [number, number], zoom: 9.1 },
+  { center: [77.2, 15.2] as [number, number], zoom: 5.2 },
 ] as const;
+const ADDRESS = ["Manipal County Road", "Singasandra", "Bengaluru", "Karnataka 560114", "India"];
 
 export function LocationStory() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -21,6 +21,16 @@ export function LocationStory() {
   const [mounted, setMounted] = useState(false);
   const [stage, setStage] = useState(0);
 
+  const clearTimers = () => { timers.current.forEach(window.clearTimeout); timers.current = []; };
+  const play = () => {
+    clearTimers();
+    setStage(0);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    [1, 2, 3, 4].forEach((next, index) => {
+      timers.current.push(window.setTimeout(() => setStage(next), 1500 * (index + 1)));
+    });
+  };
+
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -28,68 +38,49 @@ export function LocationStory() {
       if (!entry.isIntersecting || started.current) return;
       started.current = true;
       setMounted(true);
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      [1, 2, 3].forEach((next, index) => {
-        timers.current.push(window.setTimeout(() => setStage(next), 1500 * (index + 1)));
-      });
-    }, { threshold: 0.38 });
+      play();
+    }, { threshold: 0.72 });
     observer.observe(section);
-    return () => { observer.disconnect(); timers.current.forEach(window.clearTimeout); };
+    return () => { observer.disconnect(); clearTimers(); };
   }, []);
 
   useEffect(() => {
-    if (stage === 3) return;
+    if (stage === 4) return;
     const target = STAGES[stage];
-    mapRef.current?.flyTo({ center: [...target.center], zoom: target.zoom, duration: stage === 0 ? 0 : 1100, essential: true });
+    mapRef.current?.flyTo({ center: [...target.center], zoom: target.zoom, duration: stage === 0 ? 0 : 1350, essential: true });
   }, [stage]);
-
-  const selectStage = (next: number) => {
-    timers.current.forEach(window.clearTimeout);
-    timers.current = [];
-    setStage(next);
-  };
 
   return (
     <section id="location" ref={sectionRef} className="hz-panel rc" aria-labelledby="rc-title">
       <div className="rc-story">
         <div className="rc-copy">
-          <div>
+          <div className="rc-heading">
             <p className="lbl rc-eyebrow">05 / The location</p>
-            <h2 id="rc-title">Everything<br /><em>within reach.</em></h2>
-            <p className="rc-intro">Located between Begur Road and Hosa Road, with the Yellow Line close to home.</p>
+            <h2 id="rc-title">Everything <em>within reach.</em></h2>
           </div>
-          <div className="rc-address" aria-label="Jutaku address">
-            <span>MEMCO Skyline · Jutaku</span>
-            <strong>Manipal County Road</strong>
-            <strong>Singasandra</strong>
-            <strong>Bengaluru, Karnataka 560114</strong>
+          <div className={`rc-address${stage > 0 ? " is-expanded" : ""}`} aria-label="Jutaku address">
+            <span className="rc-address-label">Jutaku / MEMCO Skyline</span>
+            {ADDRESS.map((line, index) => <span key={line} className={`rc-address-line${stage >= index ? " is-revealed" : ""}${stage === index ? " is-current" : ""}`}>{line}</span>)}
           </div>
           <div className="rc-bottom">
-            <p className="rc-stations-title">Yellow Line · approximate road distances from Jutaku</p>
-            <div className="rc-stations">
-              {ROUTE.map((station) => <div key={station.name}><span>{station.name.replace(/ Metro$/, "")}</span><b>≈{station.distance}</b></div>)}
-            </div>
+            <p>Singasandra Metro ≈1.4 km <span aria-hidden="true">·</span> Hosa Road Metro ≈1.2 km</p>
             <div className="rc-actions">
-              <div className="rc-steps" aria-label="Location story views">
-                {STAGES.map((item, index) => <button key={item.label} type="button" className={stage === index ? "is-active" : ""} onClick={() => selectStage(index)} aria-label={`Show ${item.label}`} aria-pressed={stage === index}><span /></button>)}
-              </div>
+              <button type="button" className="rc-replay" onClick={play} aria-label="Replay location animation">Replay <span aria-hidden="true">↻</span></button>
               <a className="rc-directions" href="/location">Explore the location <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </div>
-        <div className="rc-visual" aria-label="Jutaku location story">
-          {mounted && <div className="rc-map" aria-hidden={stage === 3}>
-            <Map ref={mapRef} className="rc-map-canvas" theme="light" styles={{ light: MAP_STYLE, dark: MAP_STYLE }} center={[SITE_COORDINATES.lng, SITE_COORDINATES.lat]} zoom={STAGES[0].zoom} minZoom={10} maxZoom={17} interactive={false} attributionControl={{ compact: true }}>
-              <MapMarker longitude={SITE_COORDINATES.lng} latitude={SITE_COORDINATES.lat}><MarkerContent><span className="rc-pin rc-pin-home"><i /><b>Jutaku</b></span></MarkerContent></MapMarker>
-              {ROUTE.map((station) => <MapMarker key={station.name} longitude={station.position[0]} latitude={station.position[1]}><MarkerContent><span className="rc-pin rc-pin-station"><i /><b>{station.name.replace(/ Metro$/, "")}</b></span></MarkerContent></MapMarker>)}
+        <div className="rc-visual" aria-label="Map zooming from Jutaku to India, followed by a Jutaku project rendering">
+          {mounted && <div className="rc-map" aria-hidden={stage === 4}>
+            <Map ref={mapRef} className="rc-map-canvas" theme="light" styles={{ light: MAP_STYLE, dark: MAP_STYLE }} center={[SITE_COORDINATES.lng, SITE_COORDINATES.lat]} zoom={STAGES[0].zoom} minZoom={4} maxZoom={17} interactive={false} attributionControl={{ compact: true }}>
+              {stage < 2 && <MapMarker longitude={SITE_COORDINATES.lng} latitude={SITE_COORDINATES.lat}><MarkerContent><span className="rc-pin rc-pin-home"><i /><b>Jutaku</b></span></MarkerContent></MapMarker>}
             </Map>
           </div>}
-          <div className={`rc-project-image${stage === 3 ? " is-visible" : ""}`} aria-hidden={stage !== 3}>
+          <div className={`rc-project-image${stage === 4 ? " is-visible" : ""}`} aria-hidden={stage !== 4}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/jutaku-exterior-hero.webp" alt="" loading="lazy" />
+            <img src="/images/tower-hero.webp" alt="" loading="lazy" />
+            <span>Jutaku · Singasandra</span>
           </div>
-          <div className="rc-visual-top"><span>JUTAKU / SINGASANDRA</span><span>12.8742426° N · 77.6407966° E</span></div>
-          <div className="rc-visual-bottom"><span>{String(stage + 1).padStart(2, "0")} / 04</span><span>{STAGES[stage].caption}</span></div>
         </div>
       </div>
     </section>

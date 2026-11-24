@@ -1,12 +1,14 @@
 "use client";
 import { useRef, useState } from "react";
-import { gsap, useScene } from "@/lib/motion";
+import { gsap, lenis, useScene } from "@/lib/motion";
 import { AMENITY_SLIDES } from "@/lib/content";
 
 /* Reference 01:08–01:20 — pinned full-bleed amenity photos, each wiping in on a diagonal;
    the index at the top right lights the current one, its caption sits bottom left. */
 export function Amenities() {
   const root = useRef<HTMLElement>(null);
+  const timeline = useRef<gsap.core.Timeline | null>(null);
+  const activeIndex = useRef(0);
   const [mobileIndex, setMobileIndex] = useState(0);
   useScene(root, ({ reduced, mobile }) => {
     if (reduced || mobile) return;
@@ -15,6 +17,7 @@ export function Amenities() {
     const names = q(".am-list li");
     const caps = q(".am-cap");
     const setActive = (i: number) => {
+      activeIndex.current = i;
       names.forEach((n, j) => n.classList.toggle("is-on", j === i));
       caps.forEach((c, j) => c.classList.toggle("is-on", j === i));
     };
@@ -27,6 +30,7 @@ export function Amenities() {
       onUpdate: () => setActive(gsap.utils.clamp(0, slides.length - 1, Math.floor((tl.time() - 0.4) / STEP))),
       scrollTrigger: { trigger: root.current, start: "top top", end: `+=${slides.length * 80}%`, pin: true, scrub: 0.8 },
     });
+    timeline.current = tl;
     slides.forEach((s, i) => {
       const img = s.querySelector("img");
       if (i === 0) { tl.fromTo(img, { scale: 1.18 }, { scale: 1, duration: 1.4 }, 0); return; }
@@ -36,7 +40,25 @@ export function Amenities() {
         .to(slides[i - 1].querySelector("img"), { xPercent: -8, duration: STEP }, at);
     });
     tl.to({}, { duration: 0.4 });
+    return () => { timeline.current = null; };
   });
+
+  const selectAmenity = (index: number) => {
+    if (window.matchMedia("(max-width: 760px)").matches) {
+      setMobileIndex(index);
+      return;
+    }
+    const tl = timeline.current;
+    const trigger = tl?.scrollTrigger;
+    if (!tl || !trigger) return;
+    const time = index === 0 ? 0 : 0.8 * (index + 1);
+    const progress = Math.min(1, time / tl.duration());
+    const target = trigger.start + progress * (trigger.end - trigger.start);
+    const duration = Math.min(3.8, 0.8 + Math.abs(index - activeIndex.current) * 0.32);
+    const smooth = lenis();
+    if (smooth) smooth.scrollTo(target, { duration });
+    else window.scrollTo({ top: target, behavior: "smooth" });
+  };
 
   return (
     <section id="amenities" ref={root} className="am" data-tone="dark" aria-label="Amenities from arrival to rooftop">
@@ -54,7 +76,7 @@ export function Amenities() {
       <ol className="am-list caps-serif">
         {AMENITY_SLIDES.map((a, i) => (
           <li key={a.name} className={mobileIndex === i ? "is-mobile-on" : undefined}>
-            <span className="am-list-desktop">{a.name}</span>
+            <button type="button" className="am-list-desktop" onClick={() => selectAmenity(i)} aria-label={`Show ${a.name}`}>{a.name}</button>
             <button type="button" className="am-list-mobile" aria-pressed={mobileIndex === i} onClick={() => setMobileIndex(i)}>{a.name}</button>
           </li>
         ))}
