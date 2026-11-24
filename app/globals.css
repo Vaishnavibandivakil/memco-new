@@ -563,7 +563,7 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .sv-title { position: relative; z-index: 2; display: flex; flex-direction: column; font-size: clamp(36px, 5.4vw, 103.2px); }
 .sv-kicker, .sv-sub { position: relative; z-index: 2; }
 .cl { position: relative; background: var(--deep); color: var(--paper); }
-.cl-foot { display: grid; gap: 18px; padding: 72px var(--side) 30px; }
+.cl-foot { display: grid; gap: 18px; padding: 72px var(--side) clamp(90px, 9vh, 120px); }
 .cl-foot-columns { display: grid; grid-template-columns: 1fr 1.2fr 1.15fr; gap: clamp(30px, 5vw, 90px); align-items: start; }
 .cl-brand-block { display: grid; gap: 18px; }
 .cl-brand-block p { max-width: 240px; color: rgba(245, 240, 232, .75); font-size: 13px; line-height: 1.5; }
@@ -577,6 +577,7 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .cl-contact a { width: fit-content; }
 .cl-contact a:hover, .cl-contact a:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
 .cl-phone { font-size: 15px; font-weight: 600; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; white-space: nowrap; }
+.cl-updates { display: grid; gap: 20px; min-width: 0; }
 .cl-newsletter { display: grid; gap: 16px; min-width: 0; }
 .cl-newsletter-copy p { margin-top: 4px; color: rgba(245, 240, 232, .75); font-size: 11px; line-height: 1.4; }
 .cl-newsletter-form { display: grid; gap: 4px; }
@@ -588,6 +589,10 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .cl-newsletter-row button:not(:disabled):hover, .cl-newsletter-row button:not(:disabled):focus-visible { transform: translateY(-2px); background: #fff; }
 .cl-newsletter-row button:disabled { opacity: .85; cursor: default; }
 .cl-newsletter-note { color: rgba(245, 240, 232, .7); font-size: 10px; }
+.cl-socials { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.cl-socials a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid rgba(245, 240, 232, .4); border-radius: 50%; color: var(--paper); transition: background .2s, border-color .2s, transform .2s; }
+.cl-socials a:hover, .cl-socials a:focus-visible { background: rgba(245, 240, 232, .15); border-color: var(--paper); transform: translateY(-2px); }
+.cl-socials svg { width: 17px; height: 17px; }
 .cl-foot-main { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-top: 18px; border-top: 1px solid rgba(242, 239, 231, .25); }
 .cl-legal { text-align: left; }
 .cl-policy-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px 20px; width: 100%; }
@@ -595,7 +600,7 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .cl-policy-links a:hover, .cl-policy-links a:focus-visible { border-color: currentColor; color: #fff; }
 .cl-right { padding-left: 4vw; }
 .cl-right { text-align: right; }
-@media (max-width: 1100px) { .cl-foot-columns { grid-template-columns: 1fr 1fr; } .cl-newsletter { grid-column: 1 / -1; max-width: 520px; } }
+@media (max-width: 1100px) { .cl-foot-columns { grid-template-columns: 1fr 1fr; } .cl-updates { grid-column: 1 / -1; max-width: 520px; } }
 
 
 /* ── AIR layouts, drawn in the ERA / MEMCO language: one serif, one palette ── */
@@ -935,7 +940,8 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .cl-brand-block { gap: 8px; }
   .cl-brand-block p { font-size: 11px; }
   .cl-contact { gap: 7px; }
-  .cl-newsletter { grid-column: auto; gap: 10px; padding: 0; }
+  .cl-updates { grid-column: auto; gap: 16px; }
+  .cl-newsletter { gap: 10px; }
   .cl-newsletter-row input { font-size: 16px; }
   .cl-foot-main { display: grid; justify-content: start; gap: 8px; padding-top: 14px; }
   .cl-brand { width: 100%; }
