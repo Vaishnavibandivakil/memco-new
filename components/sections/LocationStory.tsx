@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
 import { LOCATION_DIRECTORY } from "@/data/location-directory";
 import { SITE_COORDINATES } from "@/lib/data";
-import { directionsFromJutaku } from "@/lib/location-directions";
 
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/bright";
 const STAGES = [
@@ -129,22 +128,17 @@ export function LocationStory() {
           <div className="rc-heading">
             <p className="lbl rc-eyebrow">05 / The location</p>
             <h2 id="rc-title">Everything <em>within reach.</em></h2>
+            <a className="rc-explore" href="/location">Explore location</a>
           </div>
           <div className="rc-nearby">
-            <p className="rc-address-label">Nearby from Jutaku · Choose a destination</p>
+            <p className="rc-nearby-label">Nearby locations</p>
             <div className="rc-place-list">
               {NEARBY.map((place, index) => <button key={place.name} type="button" className={`rc-place${selected === index ? " is-selected" : ""}`} onClick={() => selectPlace(index)} aria-pressed={selected === index} aria-label={`Show directions from Jutaku to ${place.label}`}>
-                <span className="rc-place-name">{place.label}</span><span className="rc-place-arrow" aria-hidden="true">↗</span>
+                {place.label}
               </button>)}
             </div>
           </div>
-          <div className="rc-bottom">
-            <p aria-live="polite">{selectedPlace ? `${selectedPlace.label} · ${routeLoading ? "Finding road route…" : directLine ? "Open directions for the road route" : roadDistance !== null ? `About ${(roadDistance / 1000).toFixed(1)} km by road` : "Road route shown on map"}` : "Choose a place to see its route from Jutaku."}</p>
-            <div className="rc-actions">
-              <button type="button" className="rc-replay" onClick={play} aria-label="Replay location animation">Replay <span aria-hidden="true">↻</span></button>
-              {selectedPlace ? <a className="rc-directions" href={directionsFromJutaku(selectedPlace)} target="_blank" rel="noopener noreferrer">Open directions <span aria-hidden="true">↗</span></a> : <a className="rc-directions" href="/location">Explore the location <span aria-hidden="true">↗</span></a>}
-            </div>
-          </div>
+          <p className="rc-route-status" aria-live="polite">{selectedPlace ? `${selectedPlace.label} · ${routeLoading ? "Finding road route…" : directLine ? "Road route unavailable" : roadDistance !== null ? `About ${(roadDistance / 1000).toFixed(1)} km by road` : "Route shown on map"}` : ""}</p>
         </div>
         <div className="rc-visual" aria-label={selectedPlace ? `Map showing directions from Jutaku to ${selectedPlace.label}` : "Map zooming from Jutaku to India, followed by a Jutaku project rendering"}>
           {mounted && <div className="rc-map" aria-hidden={!selectedPlace && stage === 4}>
