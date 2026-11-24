@@ -9,7 +9,7 @@ export function NewsletterSignup() {
         <label className="sr-only" htmlFor="newsletter-email">Email address</label>
         <div className="cl-newsletter-row">
           <input id="newsletter-email" name="email" type="email" autoComplete="email" placeholder="Your email address" maxLength={254} />
-          <button type="button" disabled title="Newsletter signup coming soon">Subscribe <span aria-hidden="true">↗</span></button>
+          <button type="button" disabled aria-label="Subscribe to the newsletter" title="Newsletter signup coming soon"><span aria-hidden="true">↗</span></button>
         </div>
         <p className="cl-newsletter-note">Signup coming soon.</p>
       </div>
