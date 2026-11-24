@@ -9,6 +9,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 /* The landing page opens directly on the existing, scroll-led tower scene. */
 export function Opening() {
   const root = useRef<HTMLElement>(null);
+  const pointerType = useRef<string | null>(null);
   const [spot, setSpot] = useState<string | null>(null);
   const [spotsOn, setSpotsOn] = useState(false);
 
@@ -35,9 +36,16 @@ export function Opening() {
                 <div className={`spots${spotsOn ? " is-on" : ""}`}>
                   {HOTSPOTS.map((h, i) => (
                     <div key={h.id} data-spot={h.id} className={`spot${spot === h.id ? " is-open" : ""}${h.x > 55 ? " flip" : ""}`} style={{ ["--spot-x" as string]: `${h.x}%`, ["--spot-y" as string]: `${h.y}%`, ["--spot-mobile-x" as string]: `${h.mobileX}%`, ["--spot-mobile-y" as string]: `${h.mobileY}%`, ["--i" as string]: i }}
-                      onMouseEnter={() => setSpot(h.id)} onMouseLeave={() => setSpot(null)}>
+                      onPointerEnter={(event) => { if (event.pointerType === "mouse") setSpot(h.id); }}
+                      onPointerLeave={(event) => { if (event.pointerType === "mouse") setSpot((current) => current === h.id ? null : current); }}>
                       <button type="button" className="spot-dot" aria-expanded={spot === h.id} aria-label={h.title}
-                        onClick={() => setSpot(spot === h.id ? null : h.id)} onFocus={() => setSpot(h.id)} onBlur={() => setSpot(null)}>
+                        onPointerDown={(event) => { pointerType.current = event.pointerType; }}
+                        onClick={(event) => {
+                          if (event.detail === 0 || pointerType.current === "mouse") setSpot(h.id);
+                          else setSpot((current) => current === h.id ? null : h.id);
+                        }}
+                        onBlur={() => setSpot(null)}
+                        onKeyDown={(event) => { if (event.key === "Escape") setSpot(null); }}>
                         <span />
                       </button>
                       <div className="spot-card" role="note">

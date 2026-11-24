@@ -2,9 +2,12 @@
 import { ROUTE } from "@/lib/nearby-route";
 
 export const HOTSPOTS = [
-  { id: "roof", x: 27, y: 10, mobileX: 50, mobileY: 43, title: "Skyline Aqua Lounge", body: "A 56 ft rooftop pool, with access planned around the clock.", photo: "/images/rooftop-pool.jpg" },
-  { id: "homes", x: 29, y: 39, mobileX: 51, mobileY: 58, title: "Urban Units · 646", body: "A home of around 500 sq ft super built-up, with a park, pool, studios and sports spaces on site.", photo: "/images/interior-bedroom.jpg" },
-  { id: "park", x: 24, y: 80, mobileX: 50, mobileY: 73, title: "Serenity Park", body: "12,000 sq ft of planned paths, gardens and quiet places among the trees.", photo: "/images/walking-trails.jpg" },
+  { id: "roof", x: 27, y: 10, mobileX: 50, mobileY: 39, title: "Skyline Aqua Lounge", body: "A 56 ft rooftop pool, with access planned around the clock.", photo: "/images/rooftop-pool.jpg" },
+  { id: "single-home", x: 42, y: 52, mobileX: 46, mobileY: 48, title: "Single Urban Unit · 38", body: "A self-contained studio with its own kitchen, bathroom and patio, planned as a compact private home.", photo: "/images/interior-bedroom.jpg" },
+  { id: "twin-home", x: 29, y: 39, mobileX: 46, mobileY: 57, title: "Twin Urban Unit · 308", body: "Two adjoining, self-contained homes, each with its own entrance, kitchen and bathroom.", photo: "/images/floor-plans/paired-urban-units.webp" },
+  { id: "clubhouse", x: 62, y: 44, mobileX: 54, mobileY: 48, title: "The Clubhouse", body: "Planned lounges and shared rooms create places to meet, host and spend time beyond the private home.", photo: "/images/clubhouse-exterior.webp" },
+  { id: "clubhouse-dining", x: 83, y: 64, mobileX: 54, mobileY: 65, title: "Culinary Studios", body: "Hosting kitchens and private dining rooms are planned for meals and celebrations with friends and neighbours.", photo: "/images/amenity-culinary.jpg" },
+  { id: "park", x: 24, y: 80, mobileX: 46, mobileY: 76, title: "Serenity Park", body: "12,000 sq ft of planned paths, gardens and quiet places among the trees.", photo: "/images/walking-trails.jpg" },
 ];
 
 export const REASONS = [
