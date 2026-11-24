@@ -36,7 +36,7 @@ export const AMENITY_SLIDES = [
   { name: "CCTV & Security", label: "Arrival · Security", body: "CCTV monitoring and 24/7 security are part of the plan for the building.", photo: "/images/amenity-cctv.webp" },
   { name: "Lift Access", label: "Everyday infrastructure", body: "High-speed Mitsubishi lifts are specified at 9 km/h, with dedicated service shafts planned for the building.", photo: "/images/amenity-lift-lobby.webp" },
   { name: "Fire Safety", label: "Everyday infrastructure", body: "Fire exits and safety equipment are included in the building plan.", photo: "/images/amenity-fire-safety.webp" },
-  { name: "Waste Sorting", label: "Everyday infrastructure", body: "Dual garbage chutes are planned to separate recyclable and organic waste.", photo: "/images/amenity-waste-sorting.webp" },
+  { name: "Waste Sorting", label: "Every floor · Every core", body: "Dual garbage chutes are planned on every floor of every core, with separate disposal for recyclable and organic waste.", photo: "/images/amenity-waste-sorting.webp" },
   { name: "Wellness Hub", label: "Podium · 12,800 sq ft", body: "From a morning gym session to Pilates or a fitness class, make movement part of the day.", photo: "/images/amenity-yoga.jpg" },
   { name: "Culinary Studios", label: "6,000 sq ft", body: "Hosting kitchens and private dining rooms give the community space for occasions beyond everyday cooking.", photo: "/images/amenity-culinary.jpg" },
   { name: "Creator Studios", label: "Clubrooms · 4,000 sq ft", body: "Even floors are planned with clubrooms for music, podcasting, co-working and other shared pursuits.", photo: "/images/amenity-creator-studio.jpg" },
