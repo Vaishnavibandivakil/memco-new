@@ -5,6 +5,7 @@ import Link from "next/link";
 import type * as GeoJSON from "geojson";
 import { ArrowRight, BriefcaseBusiness, Building2, BusFront, Cross, GraduationCap, Hospital, Hotel, Landmark, LayoutGrid, MapPin, Minus, Navigation, Plus, School, Store, TrainFront, X } from "lucide-react";
 import { Map, MapClusterLayer, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
+import { MapCredit } from "@/components/ui/MapCredit";
 import { Map3DBuildings } from "@/components/ui/map-3d-buildings";
 import { ADDRESS, SITE_COORDINATES } from "@/lib/data";
 import { formatRoadDistance } from "@/lib/location-road-distances";
@@ -284,7 +285,7 @@ export function LocationExplorer({ roadDistances = {} }: { roadDistances?: Recor
     <main className="location-page" data-tone="light">
       <div ref={stageRef} className="location-stage">
       <div ref={mapContainerRef} className="location-map" aria-label="Map of Jutaku and nearby places">
-        <Map ref={mapRef} className="location-map-canvas" theme="light" styles={{ light: OPENFREEMAP_STYLE, dark: OPENFREEMAP_STYLE }} center={[SITE_COORDINATES.lng, SITE_COORDINATES.lat]} zoom={12.2} pitch={55} bearing={-18} minZoom={10} maxZoom={18} canvasContextAttributes={{ antialias: true }} attributionControl={{ compact: false }} onViewportChange={(viewport) => setCurrentZoom(viewport.zoom)}>
+        <Map ref={mapRef} className="location-map-canvas" theme="light" styles={{ light: OPENFREEMAP_STYLE, dark: OPENFREEMAP_STYLE }} center={[SITE_COORDINATES.lng, SITE_COORDINATES.lat]} zoom={12.2} pitch={55} bearing={-18} minZoom={10} maxZoom={18} canvasContextAttributes={{ antialias: true }} attributionControl={false} onViewportChange={(viewport) => setCurrentZoom(viewport.zoom)}>
           <Map3DBuildings />
           {yellowAccess && <MapRoute id="metro-access-yellow" coordinates={yellowAccess.map((point) => [...point.position])} color={METRO_LINE_COLORS.Yellow} width={4} opacity={0.9} interactive={false} />}
           {activeConnection?.line === "Purple" && <MapRoute id="metro-transfer-green" coordinates={METRO_GREEN_TRANSFER.map((point) => [...point.position])} color="#00804d" width={4} opacity={0.9} interactive={false} />}
@@ -318,6 +319,7 @@ export function LocationExplorer({ roadDistances = {} }: { roadDistances?: Recor
             </MapMarker>
           ))}
         </Map>
+        <MapCredit />
         <div className="location-controls" aria-label="Map controls">
           <button type="button" onClick={() => mapRef.current?.zoomIn({ duration: 450 })} aria-label="Zoom in"><Plus size={18} aria-hidden="true" /></button>
           <button type="button" onClick={() => mapRef.current?.zoomOut({ duration: 450 })} aria-label="Zoom out"><Minus size={18} aria-hidden="true" /></button>

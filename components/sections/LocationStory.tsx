@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, MapRoute, MarkerContent, type MapRef } from "@/components/ui/map";
+import { MapCredit } from "@/components/ui/MapCredit";
 import { LOCATION_DIRECTORY } from "@/data/location-directory";
 import { SITE_COORDINATES } from "@/lib/data";
 
@@ -18,6 +19,9 @@ const NEARBY = [
   { name: "Singasandra", label: "Singasandra Metro" },
   { name: "Pralaksha Hospital", label: "Pralaksha Hospital" },
   { name: "Dayananda Sagar University City Campus", label: "Dayananda Sagar University" },
+  { name: "HSR Layout", label: "HSR Layout" },
+  { name: "Koramangala", label: "Koramangala" },
+  { name: "MG Road", label: "MG Road" },
 ].map(({ name, label }) => {
   const place = LOCATION_DIRECTORY.find((entry) => entry.name === name);
   if (!place) throw new Error(`Missing location: ${name}`);
@@ -142,7 +146,7 @@ export function LocationStory() {
         </div>
         <div className="rc-visual" aria-label={selectedPlace ? `Map showing directions from Jutaku to ${selectedPlace.label}` : "Map zooming from Jutaku to India, followed by a Jutaku project rendering"}>
           {mounted && <div className="rc-map" aria-hidden={!selectedPlace && stage === 4}>
-            <Map ref={mapRef} className="rc-map-canvas" theme="light" styles={{ light: MAP_STYLE, dark: MAP_STYLE }} center={[SITE_COORDINATES.lng, SITE_COORDINATES.lat]} zoom={STAGES[0].zoom} minZoom={4} maxZoom={17} interactive={false} attributionControl={{ compact: true }}>
+            <Map ref={mapRef} className="rc-map-canvas" theme="light" styles={{ light: MAP_STYLE, dark: MAP_STYLE }} center={[SITE_COORDINATES.lng, SITE_COORDINATES.lat]} zoom={STAGES[0].zoom} minZoom={4} maxZoom={17} interactive={false} attributionControl={false}>
               {route && <><MapRoute key={directLine ? "direct-outline" : "road-outline"} id={directLine ? "rc-direct-outline" : "rc-road-outline"} coordinates={route} color="#fff" width={9} opacity={.95} dashArray={directLine ? [2, 2] : undefined} interactive={false} /><MapRoute key={directLine ? "direct" : "road"} id={directLine ? "rc-direct" : "rc-road"} coordinates={route} color="#006b3d" width={5} opacity={.95} dashArray={directLine ? [2, 2] : undefined} interactive={false} /></>}
               {(selectedPlace || stage < 2) && <MapMarker longitude={SITE_COORDINATES.lng} latitude={SITE_COORDINATES.lat}><MarkerContent><span className="rc-pin rc-pin-home"><i /><b>Jutaku</b></span></MarkerContent></MapMarker>}
               {selectedPlace && <MapMarker longitude={selectedPlace.position[0]} latitude={selectedPlace.position[1]}><MarkerContent><span className="rc-pin rc-pin-destination"><i /><b>{selectedPlace.label}</b></span></MarkerContent></MapMarker>}
@@ -153,6 +157,7 @@ export function LocationStory() {
             <img src="/images/tower-hero.webp" alt="" loading="lazy" />
             <span>Jutaku · Singasandra</span>
           </div>
+          {mounted && (stage !== 4 || selectedPlace) && <MapCredit />}
         </div>
       </div>
     </section>

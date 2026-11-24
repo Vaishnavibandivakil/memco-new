@@ -19,6 +19,7 @@ import { METRO_ROUTE_POINTS } from "@/data/metro-station-locations";
 import { SITE_COORDINATES } from "@/lib/data";
 import { formatRoadDistance } from "@/lib/location-road-distances";
 import { Map3DBuildings } from "@/components/ui/map-3d-buildings";
+import { MapCredit } from "@/components/ui/MapCredit";
 import { Map as MapView,
   MapMarker,
   MarkerContent,
@@ -1725,6 +1726,7 @@ export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Rec
           className="h-full w-full"
           onViewportChange={handleViewportChange}
           styles={{ light: activeMapStyle, dark: activeMapStyle }}
+          attributionControl={false}
         >
           <Map3DBuildings active={mapDisplayMode === "3d"} />
           <MapControls
@@ -1830,6 +1832,7 @@ export function CustomStyleExample({ roadDistances = {} }: { roadDistances?: Rec
             );
           }) : null}
         </MapView>
+        <MapCredit className="map-credit-mobile" />
 
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_86%,rgba(245,240,232,0.58)_0%,rgba(245,240,232,0.18)_24%,transparent_48%)]" />
       </div>

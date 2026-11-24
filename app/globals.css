@@ -341,6 +341,14 @@ html.js:not(.reduced) [data-rise] { clip-path: inset(100% 0% 0% 0%); }
 .rc-pin i { display: block; width: 17px; height: 17px; border: 3px solid white; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 2px var(--green); }
 .rc-pin b { padding: 5px 8px; background: white; color: var(--green); font-size: 12px; font-weight: 650; box-shadow: 0 2px 8px #152c1a22; }
 .rc-pin-destination i { background: var(--green); }
+.map-credit { position: absolute; z-index: 5; right: 12px; bottom: 12px; color: #263b2e; font: 500 10px/1.4 var(--ff-sans); }
+.map-credit summary { display: grid; place-items: center; width: 24px; height: 24px; margin-left: auto; border: 1px solid #c7d4cb; border-radius: 50%; background: rgba(255,255,255,.94); box-shadow: 0 2px 8px #102b1a1a; cursor: pointer; list-style: none; font-size: 14px; font-weight: 700; }
+.map-credit summary::-webkit-details-marker { display: none; }
+.map-credit summary:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.map-credit-details { position: absolute; right: 0; bottom: 32px; display: flex; flex-wrap: wrap; gap: 3px 8px; width: max-content; max-width: min(280px, calc(100vw - 40px)); padding: 8px 10px; border: 1px solid #dce7df; border-radius: 8px; background: rgba(255,255,255,.97); box-shadow: 0 6px 24px #102b1a22; }
+.map-credit-details a { color: var(--green); text-decoration: none; }
+.map-credit-details a:hover, .map-credit-details a:focus-visible { text-decoration: underline; }
+.map-credit-mobile { bottom: 88px; }
 
 /* Editorial home chooser: a photo and two simple paths, without competing cards. */
 .lifestyle-backdrop { position: fixed; z-index: 130; inset: 0; display: grid; place-items: center; padding: 22px; background: rgba(6, 22, 14, .68); }

@@ -17,6 +17,7 @@ const NEARBY_METRO_STATIONS = [
   ["Green", "Jaya Prakash Nagar"],
   ["Green", "Yelachenahalli"],
   ["Green", "Banashankari"],
+  ["Purple", "MG Road"],
 ] as const;
 
 const METRO_DIRECTORY_POINTS = NEARBY_METRO_STATIONS.map(([line, name]) => {
