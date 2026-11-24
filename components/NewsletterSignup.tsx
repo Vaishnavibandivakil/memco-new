@@ -2,17 +2,16 @@ export function NewsletterSignup() {
   return (
     <div className="cl-newsletter">
       <div className="cl-newsletter-copy">
-        <p className="lbl">The Jutaku newsletter</p>
-        <h2>More from Jutaku,<br />straight to your inbox.</h2>
-        <p>Occasional notes on homes, shared spaces and what&apos;s happening at Jutaku.</p>
+        <h2>Newsletter</h2>
+        <p>Jutaku updates, straight to your inbox.</p>
       </div>
       <div className="cl-newsletter-form">
-        <label htmlFor="newsletter-email">Email address</label>
+        <label className="sr-only" htmlFor="newsletter-email">Email address</label>
         <div className="cl-newsletter-row">
           <input id="newsletter-email" name="email" type="email" autoComplete="email" placeholder="Your email address" maxLength={254} />
           <button type="button" disabled title="Newsletter signup coming soon">Subscribe <span aria-hidden="true">↗</span></button>
         </div>
-        <p className="cl-newsletter-note">Newsletter signup coming soon.</p>
+        <p className="cl-newsletter-note">Signup coming soon.</p>
       </div>
     </div>
   );

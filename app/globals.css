@@ -562,39 +562,40 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .sv-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4, 12, 9, .35), rgba(4, 12, 9, .1) 50%, rgba(4, 12, 9, .35)); }
 .sv-title { position: relative; z-index: 2; display: flex; flex-direction: column; font-size: clamp(36px, 5.4vw, 103.2px); }
 .sv-kicker, .sv-sub { position: relative; z-index: 2; }
-.cl { position: relative; background: var(--deep); color: var(--paper); padding-bottom: clamp(90px, 10vh, 130px); }
-.cl-contact { padding: 16vh 20px 13vh; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center; }
-/* lining figures: Playfair defaults to old-style numerals, which make a phone number look uneven */
-.cl-phone { font-size: clamp(31.28px, 4.35vw, 81.6px); font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; white-space: nowrap; transition: opacity .3s; }
-.cl-phone:hover { opacity: .75; }
-.cl-info { display: grid; gap: 6px; }
-.cl-info a { border-bottom: 1px solid rgba(242, 239, 231, .35); }
-.cl-foot { display: grid; gap: 23px; padding: 0 var(--side); }
-.cl-newsletter { display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, .8fr); align-items: end; gap: clamp(32px, 7vw, 110px); padding: 42px 0 52px; border-top: 1px solid rgba(242, 239, 231, .3); border-bottom: 1px solid rgba(242, 239, 231, .3); }
-.cl-newsletter-copy .lbl { color: rgba(245, 240, 232, .72); }
-.cl-newsletter-copy h2 { margin-top: 12px; font-size: clamp(26px, 3.1vw, 48px); font-weight: 650; line-height: 1.1; letter-spacing: -.045em; }
-.cl-newsletter-copy > p:last-child { max-width: 45ch; margin-top: 17px; color: rgba(245, 240, 232, .75); font-size: 13px; line-height: 1.6; }
-.cl-newsletter-form { display: grid; gap: 12px; }
-.cl-newsletter-form > label:first-child { font-size: 11px; font-weight: 600; }
-.cl-newsletter-row { display: flex; align-items: center; gap: 12px; min-width: 0; padding-bottom: 12px; border-bottom: 1px solid rgba(245, 240, 232, .7); }
-.cl-newsletter-row input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--paper); font: 500 15px var(--ff-sans); }
+.cl { position: relative; background: var(--deep); color: var(--paper); }
+.cl-foot { display: grid; gap: 18px; padding: 72px var(--side) 30px; }
+.cl-foot-columns { display: grid; grid-template-columns: 1fr 1.2fr 1.15fr; gap: clamp(30px, 5vw, 90px); align-items: start; }
+.cl-brand-block { display: grid; gap: 18px; }
+.cl-brand-block p { max-width: 240px; color: rgba(245, 240, 232, .75); font-size: 13px; line-height: 1.5; }
+.cl-brand { display: flex; align-items: center; gap: 12px; }
+.cl-memco { height: 42px; width: auto; }
+.cl-div { width: 1px; height: 36px; background: rgba(245, 240, 232, .4); }
+.cl-jutaku { height: 42px; width: auto; }
+.cl-contact { display: grid; gap: 12px; font-size: 13px; line-height: 1.5; }
+.cl-contact h2, .cl-newsletter-copy h2 { color: #8ad6a8; font-size: 11px; font-weight: 700; line-height: 1.3; letter-spacing: .18em; text-transform: uppercase; }
+.cl-contact-address { max-width: 360px; color: rgba(245, 240, 232, .75); }
+.cl-contact a { width: fit-content; }
+.cl-contact a:hover, .cl-contact a:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
+.cl-phone { font-size: 15px; font-weight: 600; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; white-space: nowrap; }
+.cl-newsletter { display: grid; gap: 16px; min-width: 0; }
+.cl-newsletter-copy p { margin-top: 4px; color: rgba(245, 240, 232, .75); font-size: 11px; line-height: 1.4; }
+.cl-newsletter-form { display: grid; gap: 4px; }
+.cl-newsletter-row { display: flex; align-items: center; gap: 12px; min-width: 0; min-height: 40px; border-bottom: 1px solid rgba(245, 240, 232, .7); }
+.cl-newsletter-row input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--paper); font: 500 13px var(--ff-sans); }
 .cl-newsletter-row input::placeholder { color: rgba(245, 240, 232, .55); }
 .cl-newsletter-row:focus-within { border-bottom-color: #fff; }
-.cl-newsletter-row button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 42px; padding: 0 18px; border-radius: 999px; background: var(--paper); color: var(--green); font-size: 11px; font-weight: 700; transition: background .2s, transform .2s; }
+.cl-newsletter-row button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 32px; padding: 0 13px; border-radius: 999px; background: var(--paper); color: var(--green); font-size: 10px; font-weight: 700; transition: background .2s, transform .2s; }
 .cl-newsletter-row button:not(:disabled):hover, .cl-newsletter-row button:not(:disabled):focus-visible { transform: translateY(-2px); background: #fff; }
 .cl-newsletter-row button:disabled { opacity: .85; cursor: default; }
 .cl-newsletter-note { color: rgba(245, 240, 232, .7); font-size: 10px; }
-.cl-foot-main { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
-.cl-brand { display: flex; align-items: center; gap: 18px; }
-.cl-memco { height: 44px; width: auto; }
-.cl-div { width: 1px; height: 36px; background: rgba(245, 240, 232, .4); }
-.cl-jutaku { height: 44px; width: auto; }   /* same height as the MEMCO lockup */
-.cl-legal { margin-left: auto; text-align: right; }
-.cl-policy-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 9px 20px; width: 100%; padding-top: 17px; border-top: 1px solid rgba(242, 239, 231, .25); }
+.cl-foot-main { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-top: 18px; border-top: 1px solid rgba(242, 239, 231, .25); }
+.cl-legal { text-align: left; }
+.cl-policy-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px 20px; width: 100%; }
 .cl-policy-links a { border-bottom: 1px solid rgba(242, 239, 231, .45); padding-bottom: 3px; transition: border-color .2s, color .2s; }
 .cl-policy-links a:hover, .cl-policy-links a:focus-visible { border-color: currentColor; color: #fff; }
 .cl-right { padding-left: 4vw; }
 .cl-right { text-align: right; }
+@media (max-width: 1100px) { .cl-foot-columns { grid-template-columns: 1fr 1fr; } .cl-newsletter { grid-column: 1 / -1; max-width: 520px; } }
 
 
 /* ── AIR layouts, drawn in the ERA / MEMCO language: one serif, one palette ── */
@@ -929,16 +930,17 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .hm-close { top: 16px; right: 16px; }
   .hm-grid { grid-template-columns: 1fr; gap: 16px; }
   .hm-note { margin-left: 0; width: 100%; }
-  .cl { padding-bottom: max(170px, env(safe-area-inset-bottom, 0px) + 150px); }
-  .cl-foot { padding: 0 20px; }
-  .cl-newsletter { grid-template-columns: 1fr; gap: 28px; padding: 32px 0 38px; }
-  .cl-newsletter-copy h2 { font-size: clamp(26px, 7vw, 36px); }
+  .cl-foot { gap: 16px; padding: 64px 20px max(140px, env(safe-area-inset-bottom, 0px) + 125px); }
+  .cl-foot-columns { grid-template-columns: 1fr; gap: 28px; }
+  .cl-brand-block { gap: 8px; }
+  .cl-brand-block p { font-size: 11px; }
+  .cl-contact { gap: 7px; }
+  .cl-newsletter { grid-column: auto; gap: 10px; padding: 0; }
   .cl-newsletter-row input { font-size: 16px; }
-  .cl-foot-main { display: grid; justify-content: start; gap: 18px; }
+  .cl-foot-main { display: grid; justify-content: start; gap: 8px; padding-top: 14px; }
   .cl-brand { width: 100%; }
-  .cl-memco { height: 34px; }
-  .cl-jutaku { height: 34px; }
-  .cl-legal { margin-left: 0; text-align: left; }
+  .cl-memco { height: 32px; }
+  .cl-jutaku { height: 32px; }
   .cl-right { padding-left: 0; text-align: left; }
   .cl-policy-links { justify-content: flex-start; }
 }
@@ -947,7 +949,6 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .jx-actions { flex-direction: column; }
   .jx-book-btn, .jx-brochure-btn { width: min(100%, 220px); }
   .jx-dialog h2 span { white-space: normal; }
-  .cl-phone { font-size: clamp(24px, 7.6vw, 31px); white-space: normal; overflow-wrap: anywhere; }
 }
 @media (max-width: 300px) {
   .rs-head { font-size: 32px; }

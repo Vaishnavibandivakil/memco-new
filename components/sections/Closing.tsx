@@ -27,26 +27,27 @@ export function Closing() {
       <InsightsPreview />
 
       <section id="contact" className="cl" data-tone="dark">
-        <div className="cl-contact">
-          <span className="mark mark-light" aria-hidden />
-          <a className="disp cl-phone" href={`tel:${tel}`}>{PHONE}</a>
-          <div className="cl-info">
-            <p className="lbl">Experience Centre · now open</p>
-            <p className="lbl dim">{ADDRESS}</p>
-            <p className="lbl"><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
-          </div>
-        </div>
         <footer className="cl-foot">
-          <NewsletterSignup />
-          <div className="cl-foot-main">
-            {/* co-branding lockup (§05): MEMCO leads, Jutaku follows at 70% of its height — reversed white on green */}
-            <div className="cl-brand">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="cl-memco" src="/brand/lockup-h-white.png" alt="MEMCO Skyline" width={856} height={243} />
-              <span className="cl-div" aria-hidden />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="cl-jutaku" src="/brand/jutaku-white.png" alt="Jutaku" width={379} height={260} />
+          <div className="cl-foot-columns">
+            <div className="cl-brand-block">
+              <div className="cl-brand">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="cl-memco" src="/brand/lockup-h-white.png" alt="MEMCO Skyline" width={856} height={243} />
+                <span className="cl-div" aria-hidden />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="cl-jutaku" src="/brand/jutaku-white.png" alt="Jutaku" width={379} height={260} />
+              </div>
+              <p>Urban living, thoughtfully shared.</p>
             </div>
+            <div className="cl-contact">
+              <h2>Contact</h2>
+              <p className="cl-contact-address">Experience Centre · now open<br />{ADDRESS}</p>
+              <a className="cl-phone" href={`tel:${tel}`}>{PHONE}</a>
+              <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            </div>
+            <NewsletterSignup />
+          </div>
+          <div className="cl-foot-main">
             <p className="lbl cl-legal">MEMCO Skyline · Jutaku<br /><span className="dim">RERA {RERA}</span></p>
             <p className="lbl cl-right">© 2026 MEMCO<br /><span className="dim">All rights reserved</span></p>
           </div>
