@@ -1,5 +1,6 @@
 import { PHONE, EMAIL, ADDRESS, RERA } from "@/lib/data";
 import { InsightsPreview } from "@/components/Insights";
+import { BlogPreview } from "@/components/sections/BlogPreview";
 import { ClosingMotion } from "@/components/ClosingMotion";
 import Link from "next/link";
 
@@ -21,6 +22,7 @@ export function Closing() {
         <p className="lbl sv-sub">24/7 access planned</p>
       </section>
 
+      <BlogPreview />
       <InsightsPreview />
 
       <section id="contact" className="cl" data-tone="dark">
