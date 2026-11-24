@@ -62,7 +62,7 @@ export function Concept() {
     }
     const move = gsap.to(track, {
       x: () => -dist(), ease: "none",
-      scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${dist()}`, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
+      scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${dist() * 1.4}`, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
     });
 
     /* the Design panel is on screen when the pin starts */

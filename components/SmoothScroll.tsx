@@ -11,7 +11,21 @@ export function SmoothScroll() {
       document.documentElement.classList.add("reduced");
       return;
     }
-    const l = new Lenis({ lerp: 0.13, wheelMultiplier: 1 });
+    const l = new Lenis({
+      lerp: 0.13,
+      wheelMultiplier: 1,
+      virtualScroll: (input) => {
+        // Ease into the final homes CTA without pinning or snapping the page.
+        if (window.innerWidth <= 760 || !(input.event instanceof WheelEvent)) return true;
+        const project = document.getElementById("project");
+        const homesButton = project?.querySelector<HTMLElement>(".gm-view");
+        if (!project || !homesButton || Math.abs(project.getBoundingClientRect().top) > 4) return true;
+        const buttonLeft = homesButton.getBoundingClientRect().left;
+        const reveal = Math.max(0, Math.min(1, (window.innerWidth * 2 - buttonLeft) / (window.innerWidth * 1.2)));
+        input.deltaY *= 1 - reveal * .9;
+        return true;
+      },
+    });
     window.__lenis = l;
     if (document.documentElement.classList.contains("intro-active")) l.stop();
     l.on("scroll", ScrollTrigger.update);
