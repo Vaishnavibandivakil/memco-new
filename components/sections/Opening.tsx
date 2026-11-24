@@ -147,11 +147,11 @@ function Reasons() {
   });
 
   return (
-    <section ref={root} className="rs" data-tone="light" aria-label="Three reasons to choose Jutaku">
+    <section ref={root} className="rs" data-tone="light" aria-label="Four reasons to choose Jutaku">
       <div className="dome" aria-hidden>
         <svg className="dome-arc" viewBox="0 0 1000 1000">
           <defs><path id="arc" d="M 50,500 A 450,450 0 0 1 950,500" /></defs>
-          <text><textPath href="#arc" startOffset="50%" textAnchor="middle">THREE · REASONS · TO · CHOOSE · JUTAKU</textPath></text>
+          <text><textPath href="#arc" startOffset="50%" textAnchor="middle">FOUR · REASONS · TO · CHOOSE · JUTAKU</textPath></text>
         </svg>
       </div>
       <div className="rs-body">
@@ -172,7 +172,7 @@ function Reasons() {
           <div className="rs-pager" data-fade>
             <button type="button" onClick={() => { go(-1); }} aria-label="Previous reason"><ChevronLeft size={20} strokeWidth={1.8} aria-hidden="true" /></button>
             <i>
-              {/* timer: fills this slide's third of the bar over SLIDE_MS; key restarts it on every slide */}
+              {/* timer: fills this slide's share of the bar over SLIDE_MS; key restarts it on every slide */}
               <b key={`${i}-${tick}`} style={{ ["--from" as string]: i / REASONS.length, ["--to" as string]: (i + 1) / REASONS.length, ["--ms" as string]: `${SLIDE_MS}ms` }} />
             </i>
             <button type="button" onClick={() => go(1)} aria-label="Next reason"><ChevronRight size={20} strokeWidth={1.8} aria-hidden="true" /></button>

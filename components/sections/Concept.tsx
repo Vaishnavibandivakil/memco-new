@@ -17,11 +17,11 @@ const PRINCIPLES = [
 /* The page scroll drives one horizontal project sequence on desktop and mobile. */
 export function Concept() {
   const root = useRef<HTMLElement>(null);
-  useScene(root, ({ reduced, mobile }) => {
+  useScene(root, ({ reduced, mobile, shortLandscape }) => {
     const q = gsap.utils.selector(root);
     const track = q(".hz-track")[0] as HTMLElement;
     const dist = () => track.scrollWidth - window.innerWidth;
-    if (reduced) return;
+    if (reduced || shortLandscape) return;
     if (mobile) {
       const panelStops = () => {
         const distance = Math.max(1, dist());

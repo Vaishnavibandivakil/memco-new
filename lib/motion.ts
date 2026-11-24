@@ -9,7 +9,7 @@ export { gsap, ScrollTrigger };
 
 const useIso = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-export type SceneCtx = { reduced: boolean; mobile: boolean };
+export type SceneCtx = { reduced: boolean; mobile: boolean; shortLandscape: boolean };
 
 /** Scoped GSAP scene: rebuilt on breakpoint / reduced-motion change, fully reverted on unmount. */
 export function useScene(ref: RefObject<HTMLElement | null>, build: (c: SceneCtx) => void | (() => void)) {
@@ -17,7 +17,7 @@ export function useScene(ref: RefObject<HTMLElement | null>, build: (c: SceneCtx
     if (!ref.current) return;
     const mm = gsap.matchMedia(ref.current);
     // "any" always matches — gsap only runs the callback when at least one condition is true
-    mm.add({ any: "all", reduced: "(prefers-reduced-motion: reduce)", mobile: "(max-width: 760px)" }, (c) =>
+    mm.add({ any: "all", reduced: "(prefers-reduced-motion: reduce)", mobile: "(max-width: 760px)", shortLandscape: "(max-width: 760px) and (max-height: 500px) and (orientation: landscape)" }, (c) =>
       build(c.conditions as SceneCtx),
     );
     return () => mm.revert();

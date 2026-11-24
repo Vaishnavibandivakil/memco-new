@@ -2,12 +2,12 @@
 import { ROUTE } from "@/lib/nearby-route";
 
 export const HOTSPOTS = [
-  { id: "roof", x: 42, y: 13, mobileX: 45, mobileY: 32, title: "Skyline Aqua Lounge", body: "A 56 ft rooftop pool, with access planned around the clock.", photo: "/images/rooftop-pool.jpg" },
+  { id: "roof", x: 29, y: 11, mobileX: 47, mobileY: 22, title: "Skyline Aqua Lounge", body: "A 56 ft rooftop pool, with access planned around the clock.", photo: "/images/rooftop-pool.jpg" },
   { id: "single-home", x: 42, y: 52, mobileX: 46, mobileY: 48, title: "Single Urban Unit · 38", body: "A self-contained studio with its own kitchen, bathroom and patio, planned as a compact private home.", photo: "/images/interior-bedroom.jpg" },
   { id: "twin-home", x: 29, y: 39, mobileX: 46, mobileY: 57, title: "Twin Urban Unit · 308", body: "Two adjoining, self-contained homes, each with its own entrance, kitchen and bathroom.", photo: "/images/design-living-2.webp" },
   { id: "clubhouse", x: 62, y: 44, mobileX: 54, mobileY: 48, title: "The Clubhouse", body: "Planned lounges and shared rooms create places to meet, host and spend time beyond the private home.", photo: "/images/clubhouse-exterior.webp" },
   { id: "clubhouse-dining", x: 83, y: 64, mobileX: 54, mobileY: 65, title: "Culinary Studios", body: "Hosting kitchens and private dining rooms are planned for meals and celebrations with friends and neighbours.", photo: "/images/amenity-culinary.jpg" },
-  { id: "park", x: 16, y: 64, mobileX: 45, mobileY: 69, title: "Serenity Park", body: "12,000 sq ft of planned paths, gardens and quiet places among the trees.", photo: "/images/walking-trails.jpg" },
+  { id: "park", x: 22, y: 59, mobileX: 47, mobileY: 61, title: "Serenity Park", body: "12,000 sq ft of planned paths, gardens and quiet places among the trees.", photo: "/images/walking-trails.jpg" },
 ];
 
 export const REASONS = [
@@ -28,6 +28,12 @@ export const REASONS = [
     photo: "/images/design-trees.webp",
     body: "The project reports 348 trees surveyed and 115 transplanted from the construction path. Serenity Park is planned across 12,000 sq ft.",
     tag: "Serenity Park · 12,000 sq ft",
+  },
+  {
+    title: "A clearer path to ownership",
+    photo: "/images/intro/urban-unit-interior.webp",
+    body: "Urban Units start from ₹68.5 lakhs*. Review the price of your chosen home, including any applicable premiums, and discuss financing options with your lender.",
+    tag: "Pricing & finance · *Terms apply",
   },
 ];
 
