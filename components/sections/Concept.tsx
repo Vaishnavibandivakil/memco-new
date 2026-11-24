@@ -143,7 +143,7 @@ export function Concept() {
           </div>
           <figure className="ds-hero ds-fade">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/intro/living.webp" alt="Jutaku living room with a light, functional layout" loading="lazy" />
+            <img src="/images/intro/principles-interior.webp" alt="Living area designed for everyday routines" loading="lazy" />
           </figure>
         </div>
 
@@ -160,7 +160,7 @@ export function Concept() {
           </div>
           <figure className="dp-photo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/intro/study.webp" alt="Jutaku study with a compact desk and adaptable storage" loading="lazy" />
+            <img src="/images/intro/shared-workspace.webp" alt="Shared work room with a table and lounge seating" loading="lazy" />
           </figure>
         </div>
 
@@ -185,7 +185,7 @@ export function Concept() {
           </div>
           <figure className="cc-hero">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/clubhouse-exterior.webp" alt="Jutaku clubhouse with shared spaces beyond the private homes" loading="lazy" />
+            <img src="/images/intro/urban-unit-interior.webp" alt="Urban Unit interior with living, sleeping and work space" loading="lazy" />
           </figure>
         </div>
 
