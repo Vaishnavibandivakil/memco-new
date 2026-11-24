@@ -111,6 +111,8 @@ export function Chrome() {
         <button type="button" className="quick-actions-toggle" aria-expanded={quickOpen} aria-controls="quick-actions-menu" aria-label={quickOpen ? "Close quick actions" : "Open quick actions"} onClick={() => setQuickOpen((value) => !value)}><Plus size={27} strokeWidth={1.8} aria-hidden="true" /></button>
       </div>
 
+      <button type="button" className={`homes-floating${quickOpen ? " is-hidden" : ""}`} inert={quickOpen} onClick={openHomes}>View available homes <ArrowUpRight size={16} strokeWidth={1.8} aria-hidden="true" /></button>
+
       <div className="rail" aria-hidden>
         <span className="rail-line"><span ref={bar} className="rail-fill" /></span>
         <span className="rail-no lbl">{no}</span>

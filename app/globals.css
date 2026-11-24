@@ -1360,6 +1360,10 @@ body:has(.bk-page) .chrome { display: none; }
 .chrome-action-secondary { border-color: var(--green); background: var(--offwhite); color: var(--green); }
 .chrome-action:hover, .chrome-action:focus-visible { transform: translateY(-2px); background: var(--green); border-color: var(--green); color: #fff; }
 .chrome-action:focus-visible, .quick-action:focus-visible, .quick-actions-toggle:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.homes-floating { position: absolute; right: 26px; bottom: max(94px, env(safe-area-inset-bottom, 0px) + 88px); display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 44px; padding: 0 18px; border: 1px solid rgba(255,255,255,.72); border-radius: 999px; background: rgba(245,240,232,.9); box-shadow: 0 1px 0 rgba(22,21,15,.06), 0 10px 30px rgba(15,43,33,.12); -webkit-backdrop-filter: blur(20px) saturate(1.15); backdrop-filter: blur(20px) saturate(1.15); color: var(--green); font: 600 12px/1.2 var(--ff-sans); white-space: nowrap; cursor: pointer; transition: transform .25s, background .25s, color .25s, opacity .25s; }
+.homes-floating:hover, .homes-floating:focus-visible { transform: translateY(-2px); background: var(--green); color: white; }
+.homes-floating:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.homes-floating.is-hidden { opacity: 0; pointer-events: none; }
 .quick-actions { display: none; }
 @media (min-width: 1151px) {
   .chrome .hdr { padding: 7px; }
@@ -1382,6 +1386,7 @@ body:has(.bk-page) .chrome { display: none; }
   .chrome .hdr.is-open .hdr-more { display: block; grid-template-rows: none; }
   .chrome-actions { display: none; }
   .quick-actions { position: absolute; left: max(18px, env(safe-area-inset-left, 0px) + 10px); bottom: max(20px, env(safe-area-inset-bottom, 0px) + 12px); display: block; width: 56px; height: 56px; }
+  .homes-floating { right: max(18px, env(safe-area-inset-right, 0px) + 10px); bottom: max(20px, env(safe-area-inset-bottom, 0px) + 12px); }
   .quick-actions-toggle, .quick-action { display: grid; place-items: center; width: 56px; height: 56px; border: 1px solid rgba(255,255,255,.65); border-radius: 50%; background: var(--green); color: #fff; box-shadow: 0 8px 26px rgba(3, 28, 18, .22); }
   .quick-actions-toggle { position: relative; z-index: 2; transition: transform .25s, background .25s; }
   .quick-actions.is-open .quick-actions-toggle { transform: rotate(45deg); background: var(--deep); }
@@ -1401,6 +1406,7 @@ body:has(.bk-page) .chrome { display: none; }
 @media (max-width: 760px) {
   .chrome .hdr { left: 50%; right: auto; transform: translateX(-50%); }
   .quick-actions { left: auto; right: max(18px, env(safe-area-inset-right, 0px) + 10px); }
+  .homes-floating { bottom: max(90px, env(safe-area-inset-bottom, 0px) + 82px); min-height: 42px; padding-inline: 15px; font-size: 11px; }
   .quick-actions.is-open .quick-action-chat { transform: translate(-120px, 0); }
   .quick-actions.is-open .quick-action-visit { transform: translate(-85px, -85px); }
   .quick-actions.is-open .quick-action-details { transform: translate(0, -120px); }
