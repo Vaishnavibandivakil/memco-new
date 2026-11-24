@@ -609,8 +609,9 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .st-chart-key-figure strong { font-size: 20px; font-weight: 600; letter-spacing: -.04em; line-height: 1; }
 .st-chart-key-figure small { color: #65776a; font-size: 10px; white-space: nowrap; }
 .st-chart-key-figure em { margin-left: 7px; color: var(--green); font-style: normal; font-weight: 600; }
-.st-wide img { width: 100%; height: 116%; margin-top: -8%; object-fit: cover; }
-.st-wide { height: 92vh; overflow: hidden; }
+.st-wide { position: relative; height: 92vh; overflow: hidden; background: #17271e; }
+.st-wide img { width: 100%; height: 100%; object-fit: cover; }
+.st-wide-film { position: absolute; top: 50%; left: 50%; width: max(100%, 163.6vh); height: max(100%, 56.25vw); border: 0; transform: translate(-50%, -50%); pointer-events: none; }
 
 /* Living/location: the collage becomes an interactive print on white, then the tower takes over. */
 .nb { position: relative; height: 500vh; background: var(--paper-2); }
@@ -731,6 +732,7 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .st-polar-center { width: 56px; height: 56px; font-size: 13px; }
   .st-polar-center small { font-size: 7px; }
   .st-wide { height: 60vh; }
+  .st-wide-film { width: max(100%, 106.7vh); }
   .nb { height: 560svh; }
   .nb-next { background: var(--deep); }
   .nb-tile-1 { left: 2%; top: 12%; width: 56%; height: 18.5%; }

@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { Split } from "@/components/Split";
 import { AreaBreakdownChart } from "@/components/AreaBreakdownChart";
 import { gsap, useScene } from "@/lib/motion";
+import { INSIGHT_VIDEOS } from "@/lib/insights";
 
 /* The ownership statement leads into an interactive area breakdown; the wide photo remains below. */
 export function Quote() {
@@ -20,7 +21,15 @@ export function Quote() {
       </div>
       <div className="st-wide">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/rooftop-dining.jpg" alt="Rooftop dining, MEMCO Skyline" loading="lazy" data-parallax="8" />
+        <img src="/images/rooftop-dining.jpg" alt="" loading="lazy" />
+        <iframe
+          className="st-wide-film"
+          src={`https://www.youtube-nocookie.com/embed/${INSIGHT_VIDEOS[0].id}?autoplay=1&mute=1&loop=1&playlist=${INSIGHT_VIDEOS[0].id}&controls=0&disablekb=1&fs=0&playsinline=1&rel=0`}
+          title={`${INSIGHT_VIDEOS[0].title} — background film`}
+          allow="autoplay; encrypted-media; picture-in-picture"
+          tabIndex={-1}
+          aria-hidden="true"
+        />
       </div>
     </section>
   );
