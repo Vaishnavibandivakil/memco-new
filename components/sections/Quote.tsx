@@ -1,13 +1,16 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Split } from "@/components/Split";
 import { AreaBreakdownChart } from "@/components/AreaBreakdownChart";
 import { gsap, useScene } from "@/lib/motion";
 import { INSIGHT_VIDEOS } from "@/lib/insights";
+import { VideoModal } from "@/components/Insights";
+import { Play } from "lucide-react";
 
 /* The ownership statement leads into an interactive area breakdown; the wide photo remains below. */
 export function Quote() {
   const root = useRef<HTMLElement>(null);
+  const [playing, setPlaying] = useState(false);
   useScene(root, ({ reduced }) => {
     if (reduced) return;
     const q = gsap.utils.selector(root);
@@ -30,7 +33,12 @@ export function Quote() {
           tabIndex={-1}
           aria-hidden="true"
         />
+        <button type="button" className="featured-film featured-film--light" onClick={() => setPlaying(true)} aria-label="Watch the Jutaku project explainer">
+          <span className="featured-film-icon"><Play size={16} fill="currentColor" aria-hidden="true" /></span>
+          <span><small>01 / The project</small><strong>Watch the project explainer</strong></span>
+        </button>
       </div>
+      <VideoModal video={playing ? INSIGHT_VIDEOS[0] : null} onClose={() => setPlaying(false)} />
     </section>
   );
 }

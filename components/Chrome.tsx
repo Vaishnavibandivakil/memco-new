@@ -16,6 +16,7 @@ const LINKS = [
   { label: "Location", section: "location" },
   { label: "Living", section: "living" },
   { label: "Pricing", section: "pricing" },
+  { label: "About", section: "about" },
   { label: "Blogs", section: "blog" },
   { label: "Insights", section: "insights" },
 ];
@@ -89,7 +90,7 @@ export function Chrome() {
           <div className="hdr-inner">
             <nav className="hdr-nav" aria-label="Primary">
               {LINKS.map((item, i) => (
-                <a key={item.label} href={`#${item.section}`} style={{ ["--i" as string]: i }} onClick={(e) => { e.preventDefault(); setOpen(false); scrollToId(item.section, item.section === "location"); if (item.section === "location" || item.section === "blog") window.history.replaceState(null, "", `/#${item.section}`); }}>{item.label}</a>
+                <a key={item.label} href={`#${item.section}`} style={{ ["--i" as string]: i }} onClick={(e) => { e.preventDefault(); setOpen(false); scrollToId(item.section, item.section === "location"); window.history.replaceState(null, "", `/#${item.section}`); }}>{item.label}</a>
               ))}
               <button type="button" style={{ ["--i" as string]: LINKS.length }} onClick={() => { setOpen(false); openLifestylePopup(); }}>Find your fit</button>
             </nav>

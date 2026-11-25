@@ -71,6 +71,8 @@ export const LOCATION_HIGHLIGHTS = [
   { name: "Singasandra Metro Station", distance: "1.4 km", type: "Transit" },
   { name: "AMT Tech Park", distance: "2.5 km", type: "Work" },
   { name: "Electronic City", distance: "3 km", type: "Work" },
+  { name: "HSR Layout", distance: "4.8 km direct", type: "Neighbourhood" },
+  { name: "Koramangala", distance: "5.5 km direct", type: "Neighbourhood" },
   { name: "MG Road", distance: "12 km", type: "City" },
 ] as const;
 

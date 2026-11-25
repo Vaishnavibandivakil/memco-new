@@ -50,16 +50,30 @@ export function Homes() {
       <div className="hm-scroll" ref={scroller} data-lenis-prevent>
         <header className="hm-head">
           <h2 className="disp hm-title"><Chars text="HOMES" /></h2>
-          <span className="disp hm-count">03</span>
+          <span className="disp hm-count">02</span>
         </header>
         <div className="hm-lifestyle-intro">
           <div><span>100X Lifestyle</span><h3>Urban Lifestyle Ecosystem</h3></div>
-          <p>Smart ownership means a private home sized for daily life, with planned music rooms, hosting kitchens and other shared spaces when you need more room.</p>
+          <p>Choose the home that fits your life, then make use of planned shared spaces for work, hosting and time together.</p>
         </div>
         <div className="hm-plan-collection">
           <article className="hm-plan-entry">
             <div className="hm-plan-copy">
-              <p className="hm-plan-index">01 / A home of your own</p>
+              <p className="hm-plan-index">01 / 304 twin homes</p>
+              <h3>Twin Urban Unit</h3>
+              <p>Two adjoining, self-contained homes. Each has its own entrance, kitchen, bathroom and patio.</p>
+              <span className="hm-plan-detail">Two separate Studio Type 1 homes</span>
+            </div>
+            <figure className="hm-plan-media hm-plan-media--pair">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/floor-plans/paired-urban-units.webp" alt="Two adjoining mirrored Studio Type 1 floor plans, each with a separate entrance" loading="lazy" />
+              <figcaption>Twin Urban Unit · adjoining homes</figcaption>
+            </figure>
+          </article>
+
+          <article className="hm-plan-entry hm-plan-entry--reverse">
+            <div className="hm-plan-copy">
+              <p className="hm-plan-index">02 / 38 single homes</p>
               <h3>Single Urban Unit</h3>
               <p>A private studio with its own kitchen, bathroom and patio. The drawing shows how the rooms sit together in one compact home.</p>
               <span className="hm-plan-detail">Studio Type 1 · individual layout</span>
@@ -71,25 +85,11 @@ export function Homes() {
             </figure>
           </article>
 
-          <article className="hm-plan-entry hm-plan-entry--reverse">
-            <div className="hm-plan-copy">
-              <p className="hm-plan-index">02 / Side by side</p>
-              <h3>Twin Urban Unit</h3>
-              <p>The paired drawing shows adjoining mirrored homes. Each unit has its own entrance, kitchen, bathroom and patio.</p>
-              <span className="hm-plan-detail">Two separate Studio Type 1 homes</span>
-            </div>
-            <figure className="hm-plan-media hm-plan-media--pair">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/floor-plans/paired-urban-units.webp" alt="Two adjoining mirrored Studio Type 1 floor plans, each with a separate entrance" loading="lazy" />
-              <figcaption>Twin Urban Unit · adjoining homes</figcaption>
-            </figure>
-          </article>
-
           <FloorPlanInteriors />
 
           <article className="hm-plan-entry hm-plan-entry--floor">
             <div className="hm-plan-copy">
-              <p className="hm-plan-index">03 / The bigger picture</p>
+              <p className="hm-plan-index">The bigger picture</p>
               <h3>Across the floor</h3>
               <p>See how individual homes connect to a shared corridor and one of the building&apos;s three cores. Even floors are planned with clubrooms; their placement is not shown in these illustrative drawings.</p>
               <span className="hm-plan-detail">One core · illustrative typical floor</span>

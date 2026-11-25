@@ -18,7 +18,7 @@ export function LocationHighlights({ roadDistances = {} }: { roadDistances?: Rec
         <div className="location-highlight" key={place.name}>
           <span>{place.type}</span>
           <strong>{place.name === "Manipal Clinics" ? "Manipal Clinics Begur" : place.name}</strong>
-          <b>{roadDistances[directoryNames[place.name]] ? formatRoadDistance(roadDistances[directoryNames[place.name]]) : verifiedFallbackDistances[place.name] ?? place.distance}</b>
+          <b>{roadDistances[directoryNames[place.name] ?? place.name] ? `${formatRoadDistance(roadDistances[directoryNames[place.name] ?? place.name])} by road` : verifiedFallbackDistances[place.name] ?? place.distance}</b>
         </div>
       ))}
     </div>

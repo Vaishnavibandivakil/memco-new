@@ -9,14 +9,14 @@ import { Credentials } from "@/components/sections/Credentials";
 import { Homes } from "@/components/sections/Homes";
 import { ChooseHome } from "@/components/sections/ChooseHome";
 import { Closing } from "@/components/sections/Closing";
+import { About } from "@/components/sections/About";
 import { Reveals } from "@/components/Reveals";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Chrome } from "@/components/Chrome";
 import { LifestylePopup } from "@/components/LifestylePopup";
 import { IntroLoader } from "@/components/IntroLoader";
 
-/* Order follows the reference reel: arrival → reasons → quote → design/concept/place (horizontal) → Living → amenities →
-   Jutaku booking → interiors → credentials → contact. The home finder is a panel opened from any "view homes" button. */
+/* The project and Experience Centre films lead the story; the home finder remains available throughout. */
 export default function Home() {
   return (
     <>
@@ -25,13 +25,14 @@ export default function Home() {
     <main>
       <Opening />
       <Quote />
+      <JutakuExperience />
       <Concept />
       <Nearby />
       <Amenities />
-      <JutakuExperience />
       <SpaceToLive />
       <Credentials />
       <ChooseHome />
+      <About />
       <Closing />
       <Reveals />
     </main>

@@ -23,7 +23,7 @@ function InsightImage({ video }: { video: InsightVideo }) {
   );
 }
 
-function VideoModal({ video, onClose }: { video: InsightVideo | null; onClose: () => void }) {
+export function VideoModal({ video, onClose }: { video: InsightVideo | null; onClose: () => void }) {
   useEffect(() => {
     if (!video) return;
     const priorOverflow = document.body.style.overflow;
@@ -50,33 +50,28 @@ function VideoModal({ video, onClose }: { video: InsightVideo | null; onClose: (
 
 export function InsightsPreview() {
   const [playing, setPlaying] = useState<InsightVideo | null>(null);
-  const videos = INSIGHT_VIDEOS.slice(0, 3);
+  const videos = INSIGHT_VIDEOS.filter((video) => video.id !== INSIGHT_VIDEOS[0].id && video.id !== INSIGHT_VIDEOS[2].id);
 
   return (
     <section id="insights" className="insights-preview" data-tone="light" aria-labelledby="insights-title">
-      <div className="insights-spread">
-        <div className="insights-spread-cover">
-          <button type="button" className="insights-cover-film" onClick={() => setPlaying(videos[0])} aria-label={`Watch ${videos[0].title}`}>
-            <InsightImage video={videos[0]} />
-            <span className="insights-cover-details" aria-hidden="true">
-              <span className="insights-cover-category">01 / {videos[0].category}</span>
-              <span className="insights-cover-bottom"><strong>Inside Jutaku</strong><span>Watch film <Play size={12} fill="currentColor" /></span></span>
-            </span>
-          </button>
+      <div className="insights-flow">
+        <div className="insights-flow-heading">
+          <p className="lbl">Insights / films</p>
+          <h2 id="insights-title">More from Jutaku.</h2>
+          <p>Follow the landscape, shared spaces and people behind the project.</p>
+          <Link className="insights-flow-all" href="/insights">View all films</Link>
         </div>
-        <div className="insights-spread-page">
-          <div className="insights-spread-top lbl"><span>Insights</span><Link className="pill insights-view-all" href="/insights">View all films</Link></div>
-          <h2 id="insights-title">The Jutaku<br />journal.</h2>
-          <p className="insights-spread-intro">From the project vision and tree relocation to the Experience Centre and its people.</p>
-          <div className="insights-spread-films" aria-label="More featured films">
-            {videos.slice(1).map((video, index) => (
-              <button type="button" className="insights-spread-film" key={video.id} onClick={() => setPlaying(video)} aria-label={`Watch ${video.title}`}>
-                <span className="insights-spread-film-caption"><small>0{index + 2} / {video.category}</small><strong>{video.previewTitle ?? video.title}</strong></span>
-                <span className="insights-spread-film-image"><InsightImage video={video} /><span className="insights-film-play" aria-hidden="true"><Play size={15} fill="currentColor" /></span></span>
+        <ol className="insights-flow-list" aria-label="More Jutaku films">
+          {videos.map((video, index) => (
+            <li key={video.id}>
+              <button type="button" className="insights-flow-film" onClick={() => setPlaying(video)} aria-label={`Watch ${video.title}`}>
+                <span className="insights-flow-number">{String(index + 1).padStart(2, "0")}</span>
+                <span className="insights-flow-image"><InsightImage video={video} /><span className="insights-flow-play"><Play size={15} fill="currentColor" aria-hidden="true" /></span></span>
+                <span className="insights-flow-copy"><small>{video.category}</small><strong>{video.previewTitle ?? video.title}</strong><span>{video.description}</span></span>
               </button>
-            ))}
-          </div>
-        </div>
+            </li>
+          ))}
+        </ol>
       </div>
       <VideoModal video={playing} onClose={() => setPlaying(null)} />
     </section>

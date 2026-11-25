@@ -2,7 +2,7 @@
 import { useRef } from "react";
 import SplitType from "split-type";
 import { Chars } from "@/components/Chars";
-import { gsap, ScrollTrigger, useScene, charsIn, lenis, PROJECT_TRAVEL_FRACTION } from "@/lib/motion";
+import { gsap, ScrollTrigger, useScene, charsIn, PROJECT_TRAVEL_FRACTION } from "@/lib/motion";
 import { ROUTE } from "@/lib/nearby-route";
 import { openHomes } from "@/components/sections/Homes";
 import { LocationStory } from "@/components/sections/LocationStory";
@@ -23,31 +23,14 @@ export function Concept() {
     const dist = () => track.scrollWidth - window.innerWidth;
     if (reduced || shortLandscape) return;
     if (mobile) {
-      const panelStops = () => {
-        const distance = Math.max(1, dist());
-        return [...track.children]
-          .filter((panel) => getComputedStyle(panel).display !== "none")
-          .map((panel) => Math.min(1, (panel as HTMLElement).offsetLeft / distance))
-          .concat(1);
-      };
-      const move = gsap.to(track, {
+      gsap.to(track, {
         x: () => -dist(), ease: "none",
         scrollTrigger: {
-          trigger: root.current, start: "top top", end: () => `+=${dist()}`,
-          pin: true, scrub: 0.2, invalidateOnRefresh: true, anticipatePin: 1,
+          trigger: root.current, start: "top top", end: () => `+=${dist() * 1.25}`,
+          pin: true, scrub: 0.8, invalidateOnRefresh: true, anticipatePin: 1,
         },
       });
-      const settle = () => {
-        const trigger = move.scrollTrigger;
-        if (!trigger || trigger.scroll() <= trigger.start || trigger.scroll() >= trigger.end) return;
-        const nearest = gsap.utils.snap(panelStops(), trigger.progress);
-        if (Math.abs(nearest - trigger.progress) < 0.001) return;
-        const y = trigger.start + nearest * (trigger.end - trigger.start);
-        if (lenis()) lenis()!.scrollTo(y, { duration: 0.22 });
-        else window.scrollTo({ top: y, behavior: "smooth" });
-      };
-      ScrollTrigger.addEventListener("scrollEnd", settle);
-      return () => ScrollTrigger.removeEventListener("scrollEnd", settle);
+      return;
     }
     const move = gsap.timeline({
       scrollTrigger: { trigger: root.current, start: "top top", end: () => `+=${dist() * 1.9 / PROJECT_TRAVEL_FRACTION}`, pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
@@ -116,7 +99,7 @@ export function Concept() {
           <div className="ds-body">
             <p className="lbl ds-kicker ds-fade">01 / Design</p>
             <h2 className="caps-serif ds-statement">Built around <span>real life</span></h2>
-            <p className="ds-intro ds-fade">Smart ownership pairs a right-sized Urban Unit, around 500 sq ft super built-up, with access to a planned 50,000 sq ft ecosystem of shared spaces.</p>
+            <p className="ds-intro ds-fade">Your private Urban Unit, around 500 sq ft super built-up, sits within a planned 50,000 sq ft ecosystem of shared spaces.</p>
           </div>
           <figure className="ds-hero ds-fade">
             {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -2,12 +2,12 @@
 import { ROUTE } from "@/lib/nearby-route";
 
 export const HOTSPOTS = [
-  { id: "roof", x: 29, y: 11, mobileX: 47, mobileY: 22, title: "Skyline Aqua Lounge", body: "A 56 ft rooftop pool, with access planned around the clock.", photo: "/images/rooftop-pool.jpg" },
-  { id: "single-home", x: 42, y: 52, mobileX: 46, mobileY: 48, title: "Single Urban Unit · 38", body: "A self-contained studio with its own kitchen, bathroom and patio, planned as a compact private home.", photo: "/images/interior-bedroom.jpg" },
+  { id: "roof", x: 27.5, y: 16, mobileX: 47, mobileY: 22, title: "Skyline Aqua Lounge", body: "A 56 ft rooftop pool, with access planned around the clock.", photo: "/images/rooftop-pool.jpg" },
   { id: "twin-home", x: 29, y: 39, mobileX: 46, mobileY: 57, title: "Twin Urban Unit · 304", body: "Two adjoining, self-contained homes, each with its own entrance, kitchen and bathroom.", photo: "/images/design-living-2.webp" },
+  { id: "single-home", x: 42, y: 52, mobileX: 46, mobileY: 48, title: "Single Urban Unit · 38", body: "A self-contained studio with its own kitchen, bathroom and patio, planned as a compact private home.", photo: "/images/interior-bedroom.jpg" },
   { id: "clubhouse", x: 62, y: 44, mobileX: 54, mobileY: 48, title: "The Clubhouse", body: "Planned lounges and shared rooms create places to meet, host and spend time beyond the private home.", photo: "/images/clubhouse-exterior.webp" },
   { id: "clubhouse-dining", x: 83, y: 64, mobileX: 54, mobileY: 65, title: "Culinary Studios", body: "Hosting kitchens and private dining rooms are planned for meals and celebrations with friends and neighbours.", photo: "/images/amenity-culinary.jpg" },
-  { id: "park", x: 22, y: 59, mobileX: 47, mobileY: 61, title: "Serenity Park", body: "12,000 sq ft of planned paths, gardens and quiet places among the trees.", photo: "/images/walking-trails.jpg" },
+  { id: "park", x: 20, y: 59, mobileX: 47, mobileY: 61, title: "Serenity Park", body: "12,000 sq ft of planned paths, gardens and quiet places among the trees.", photo: "/images/walking-trails.jpg" },
 ];
 
 export const REASONS = [
@@ -20,7 +20,7 @@ export const REASONS = [
   {
     title: "A home of your own. More to share.",
     photo: "/images/rooftop-court.jpg",
-    body: "Smart ownership keeps your private home right-sized and brings occasional-use rooms into a planned 50,000 sq ft community ecosystem.",
+    body: "A right-sized private home connects to a planned 50,000 sq ft community ecosystem, with shared rooms for work, hosting and time together.",
     tag: "The Jutaku concept",
   },
   {
@@ -30,7 +30,7 @@ export const REASONS = [
     tag: "Serenity Park · 12,000 sq ft",
   },
   {
-    title: "A clearer path to ownership",
+    title: "A smart investment in connected living",
     photo: "/images/intro/urban-unit-interior.webp",
     body: "Urban Units start from ₹68.5 lakhs*. Review the price of your chosen home, including any applicable premiums, and discuss financing options with your lender.",
     tag: "Pricing & finance · *Terms apply",
