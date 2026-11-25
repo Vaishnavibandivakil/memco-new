@@ -174,7 +174,7 @@ export function Concept() {
             </div>
             <div className="cc-points">
               <article data-hfade><span>01</span><div><h3>A private base</h3><p>A standard 500.45 sq ft super built-up unit includes 327.13 sq ft of private living space.</p></div></article>
-              <article data-hfade><span>02</span><div><h3>Space when you need it</h3><p>Planned music rooms, hosting kitchens and workspaces serve needs beyond the home.</p></div></article>
+              <article data-hfade><span>02</span><div><h3>Space when you need it</h3><p>Planned shared spaces give you room to work, create and host when life calls for more.</p></div></article>
               <article data-hfade><span>03</span><div><h3>A shared ecosystem</h3><p>Professionally managed spaces connect 646 private Urban Units into one community.</p></div></article>
             </div>
           </div>
