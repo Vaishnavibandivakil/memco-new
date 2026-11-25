@@ -146,6 +146,9 @@ export function Nearby() {
     });
     scene.current = timeline;
     const mosaicRects = mobile ? mobileMosaicRects : desktopMosaicRects;
+    const expandedPhotoRect = mobile
+      ? { left: "4%", top: "12%", width: "92%", height: "68%" }
+      : { left: "2%", top: "10%", width: "96%", height: "72%" };
     tiles.forEach((tile, index) => timeline.to(tile, { ...mosaicRects[index], duration: 0.45, ease: "power1.inOut" }, 0));
     timeline.to(feature, { ...mosaicFeatureRect, duration: 0.45, ease: "power1.inOut" }, 0);
     timeline
@@ -153,7 +156,7 @@ export function Nearby() {
       .to(hint, { autoAlpha: 0, duration: 0.08, ease: "none" }, 0.78)
       .to(next, { autoAlpha: 1, duration: 0.06, ease: "none" }, 0.8)
       .fromTo([...tiles, feature], { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.18, ease: "none" }, 1.04)
-      .to(next, { left: "0%", top: "0%", width: "100%", height: "100%", duration: 0.42, ease: "power1.inOut" }, 0.8)
+      .to(next, { ...expandedPhotoRect, duration: 0.42, ease: "power1.inOut" }, 0.8)
       .to(marquee, { autoAlpha: 1, duration: 0.05, ease: "none" }, 1.25)
       .to(marquee, { xPercent: -65, duration: 0.74, ease: "none" }, 1.25)
       .to(shade, { opacity: 1, duration: 0.36, ease: "none" }, 1.25);

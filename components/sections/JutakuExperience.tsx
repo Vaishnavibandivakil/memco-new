@@ -1,13 +1,8 @@
-"use client";
-
 import Link from "next/link";
-import { useState } from "react";
-import { ArrowUpRight, Play } from "lucide-react";
-import { VideoModal } from "@/components/Insights";
+import { ArrowUpRight } from "lucide-react";
 import { INSIGHT_VIDEOS } from "@/lib/insights";
 
 export function JutakuExperience() {
-  const [playing, setPlaying] = useState(false);
   return (
     <section id="jutaku-experience" className="jx" data-tone="dark" aria-labelledby="jutaku-experience-title">
       <div className="jx-stage">
@@ -31,14 +26,18 @@ export function JutakuExperience() {
       </div>
       <section id="interiors" className="jx-arch" data-tone="light" aria-labelledby="interiors-title">
         <h2 id="interiors-title" className="disp jx-arch-title">The space<br />to <span>live in</span></h2>
-        <button type="button" className="jx-featured-film" onClick={() => setPlaying(true)} aria-label="Watch the Jutaku Experience Centre film">
+        <div className="jx-featured-film">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/experience-center-reception.webp" alt="" loading="lazy" />
-          <span className="jx-featured-shade" aria-hidden="true" />
-          <span className="featured-film featured-film--light"><span className="featured-film-icon"><Play size={16} fill="currentColor" aria-hidden="true" /></span><span><small>02 / Experience Centre</small><strong>Watch the Experience Centre film</strong></span></span>
-        </button>
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${INSIGHT_VIDEOS[2].id}?autoplay=1&mute=1&loop=1&playlist=${INSIGHT_VIDEOS[2].id}&controls=0&disablekb=1&fs=0&playsinline=1&rel=0`}
+            title="Experience Centre film — playing automatically without sound"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            loading="lazy"
+            tabIndex={-1}
+          />
+        </div>
       </section>
-      <VideoModal video={playing ? INSIGHT_VIDEOS[2] : null} onClose={() => setPlaying(false)} />
     </section>
   );
 }
