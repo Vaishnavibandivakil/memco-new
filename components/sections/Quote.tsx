@@ -7,7 +7,7 @@ import { INSIGHT_VIDEOS } from "@/lib/insights";
 import { VideoModal } from "@/components/Insights";
 import { Play } from "lucide-react";
 
-/* The ownership statement leads into an interactive area breakdown; the wide photo remains below. */
+/* Lead with the project film, then show the ownership statement and interactive area breakdown. */
 export function Quote() {
   const root = useRef<HTMLElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -18,10 +18,6 @@ export function Quote() {
   });
   return (
     <section ref={root} className="st" data-tone="light">
-      <Split className="st-split" left="OWN 500 SQ.FT." right="EXPERIENCE 50,000 SQ.FT." />
-      <div className="st-grid">
-        <AreaBreakdownChart />
-      </div>
       <div className="st-wide">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/rooftop-dining.jpg" alt="" loading="lazy" />
@@ -37,6 +33,10 @@ export function Quote() {
           <span className="featured-film-icon"><Play size={16} fill="currentColor" aria-hidden="true" /></span>
           <span><small>01 / The project</small><strong>Watch the project explainer</strong></span>
         </button>
+      </div>
+      <Split className="st-split" left="OWN 500 SQ.FT." right="EXPERIENCE 50,000 SQ.FT." />
+      <div className="st-grid">
+        <AreaBreakdownChart />
       </div>
       <VideoModal video={playing ? INSIGHT_VIDEOS[0] : null} onClose={() => setPlaying(false)} />
     </section>
