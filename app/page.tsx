@@ -26,10 +26,10 @@ export default function Home() {
       <Opening />
       <Quote />
       <JutakuExperience />
+      <SpaceToLive />
       <Concept />
       <Nearby />
       <Amenities />
-      <SpaceToLive />
       <Credentials />
       <ChooseHome />
       <About />
