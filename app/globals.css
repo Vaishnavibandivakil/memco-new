@@ -330,7 +330,6 @@ html.js:not(.reduced) [data-rise] { clip-path: inset(100% 0% 0% 0%); }
 .rc-explore:hover, .rc-explore:focus-visible { background: var(--green); color: white; }
 .rc-explore:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
 .rc-nearby { width: 100%; }
-.rc-nearby-label { margin-bottom: 18px; color: var(--green); font-size: clamp(10px, .75vw, 13px); font-weight: 650; letter-spacing: .06em; }
 .rc-place-list { display: grid; gap: clamp(10px, 1.8svh, 22px); }
 .rc-place { width: fit-content; max-width: 100%; padding: 0; border: 0; background: transparent; color: var(--ink); font: 500 clamp(17px, 1.15vw, 23px)/1.2 var(--ff-sans); letter-spacing: -.035em; text-align: left; cursor: pointer; transition: color .25s ease; }
 .rc-place:hover, .rc-place:focus-visible, .rc-place.is-selected { color: var(--green); }
@@ -964,7 +963,6 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
   .rc-copy { padding: 78px 20px 15px; }
   .rc-copy h2 { max-width: 18ch; margin-top: 6px; font-size: clamp(26px, 7.3vw, 35px); }
   .rc-explore { min-height: 35px; margin-top: 13px; padding-inline: 16px; font-size: 10px; }
-  .rc-nearby-label { margin-bottom: 9px; font-size: 9px; }
   .rc-place-list { gap: 8px; }
   .rc-place { font-size: clamp(13px, 3.6vw, 16px); }
   .rc-route-status { font-size: 9px; }
@@ -1516,7 +1514,7 @@ body:has(.bk-page) .chrome { display: none; }
 .insights-flow-all:hover, .insights-flow-all:focus-visible { background: var(--green); color: #fff; }
 .insights-flow-list { list-style: none; margin: 0; padding: 0; }
 .insights-flow-list li { border-top: 1px solid #d8e0d9; }
-.insights-flow-list li:last-child { border-bottom: 1px solid #d8e0d9; }
+.insights-flow-list li:first-child { border-top: 0; }
 .insights-flow-film { display: grid; grid-template-columns: 32px minmax(110px, 185px) minmax(0, 1fr); align-items: center; gap: clamp(13px, 2vw, 28px); width: 100%; padding: 18px 0; text-align: left; }
 .insights-flow-number { align-self: start; padding-top: 3px; color: var(--green); font-size: 11px; font-weight: 700; }
 .insights-flow-image { position: relative; display: block; width: 100%; aspect-ratio: 16/10; overflow: hidden; background: #e5e8df; }

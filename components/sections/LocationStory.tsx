@@ -135,7 +135,6 @@ export function LocationStory() {
             <a className="rc-explore" href="/location">Explore location</a>
           </div>
           <div className="rc-nearby">
-            <p className="rc-nearby-label">Nearby locations</p>
             <div className="rc-place-list">
               {NEARBY.map((place, index) => <button key={place.name} type="button" className={`rc-place${selected === index ? " is-selected" : ""}`} onClick={() => selectPlace(index)} aria-pressed={selected === index} aria-label={`Show directions from Jutaku to ${place.label}`}>
                 {place.label}
