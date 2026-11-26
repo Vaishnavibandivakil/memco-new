@@ -11,7 +11,6 @@ const leaders = [
 
 export function About() {
   const portraits = useRef<HTMLDivElement>(null);
-  const dragCursor = useRef<HTMLSpanElement>(null);
   const drag = useRef<{ startX: number; startScroll: number; moved: boolean } | null>(null);
   const suppressClick = useRef(false);
   const [active, setActive] = useState(0);
@@ -69,12 +68,6 @@ export function About() {
             <div className="about-portrait-viewport" ref={portraits} aria-label="MEMCO leadership portraits" onScroll={updateProgress}
               onPointerDown={(event) => { if (event.pointerType === "mouse" && event.button === 0) drag.current = { startX: event.clientX, startScroll: event.currentTarget.scrollLeft, moved: false }; }}
               onPointerMove={(event) => {
-                if (event.pointerType === "mouse" && dragCursor.current) {
-                  const rect = event.currentTarget.getBoundingClientRect();
-                  dragCursor.current.style.left = `${event.clientX - rect.left}px`;
-                  dragCursor.current.style.top = `${event.clientY - rect.top}px`;
-                  dragCursor.current.style.opacity = "1";
-                }
                 if (!drag.current) return;
                 const delta = event.clientX - drag.current.startX;
                 if (!drag.current.moved && Math.abs(delta) > 4) {
@@ -86,7 +79,7 @@ export function About() {
               }}
               onPointerUp={(event) => finishDrag(event.currentTarget, event.pointerId)}
               onPointerCancel={(event) => finishDrag(event.currentTarget, event.pointerId)}
-              onPointerLeave={(event) => { if (dragCursor.current) dragCursor.current.style.opacity = "0"; if (!event.currentTarget.hasPointerCapture(event.pointerId)) drag.current = null; }}>
+              onPointerLeave={(event) => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) drag.current = null; }}>
               {leaders.map((person, index) => (
                 <button key={person.name} className={`about-portrait-card${active === index ? " is-active" : ""}`} type="button" onClick={() => select(index)} aria-label={`${person.name}, ${person.role}. ${person.note}`} aria-pressed={active === index}>
                   <span className="about-portrait-photo"><Image src={person.image} alt={person.name} width={570} height={696} sizes="(max-width: 900px) 70vw, 28vw" draggable={false} /></span>
@@ -94,7 +87,6 @@ export function About() {
                 </button>
               ))}
             </div>
-            <span className="about-portrait-drag-cursor" ref={dragCursor} aria-hidden="true">DRAG</span>
           </div>
           <span className="about-portrait-progress" aria-hidden="true"><span style={{ left: `${progress * 66.667}%` }} /></span>
         </div>
