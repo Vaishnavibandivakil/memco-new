@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { ChatAssistant } from "@/components/ChatAssistant";
+import { SiteFooter } from "@/components/SiteFooter";
 import { ReturnNavigationTracker } from "@/components/ReturnNavigation";
 import { RERA } from "@/lib/data";
 import "./globals.css";
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* flags before first paint so motion states never flash; without JS everything is visible */}
         <script dangerouslySetInnerHTML={{ __html: boot }} />
         {children}
+        <SiteFooter />
         <ReturnNavigationTracker />
         <ChatAssistant />
         <p className="rera-fixed" aria-label={`RERA registration number ${RERA}`}>

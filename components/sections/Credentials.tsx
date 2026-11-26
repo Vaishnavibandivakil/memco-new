@@ -22,7 +22,7 @@ export function Credentials() {
       <p className="lbl cr-fine" data-fade data-delay="0.6">*{RERA}<br />{PRICE_NOTE}</p>
       <div className="cr-stamp" aria-hidden="true" data-fade data-delay="0.75">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/rera-approved-red-stamp.png" alt="" loading="lazy" />
+        <img src="/images/rera-approved-red-stamp.png" alt="" width={1254} height={1254} loading="lazy" />
       </div>
       <div className="cr-actions" data-fade data-delay="0.85">
         <Link className="cr-action cr-action-primary" href="/book-visit">Book Jutaku experience</Link>
