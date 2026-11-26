@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 const leaders = [
@@ -50,27 +49,15 @@ export function About() {
             <a href="https://memco.in/" target="_blank" rel="noopener noreferrer">Meet the parent company <span aria-hidden="true">↗</span></a>
           </div>
 
-          <div className="about-team">
-            <div className="about-team-heading"><p className="lbl">The people behind MEMCO</p><a href="https://memco.in/leadership/" target="_blank" rel="noopener noreferrer">MEMCO leadership <span aria-hidden="true">↗</span></a></div>
-            <div className="about-team-list">
-              {leaders.map((person, index) => (
-                <article key={person.name} className={active === index ? "is-active" : ""}>
-                  <h3><button type="button" onClick={() => select(index)} aria-label={`Show ${person.name}'s portrait`} aria-pressed={active === index}>{person.name}</button></h3>
-                  <p className="about-role">{person.role}</p>
-                  <p>{person.note}</p>
-                </article>
-              ))}
-            </div>
-            <Link className="about-book" href="/book-visit">Meet the Jutaku team at the Experience Centre</Link>
-          </div>
         </div>
 
         <div className="about-portraits" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false); }}>
+          <div className="about-portraits-heading"><p className="lbl">The people behind MEMCO</p><a href="https://memco.in/leadership/" target="_blank" rel="noopener noreferrer">MEMCO leadership <span aria-hidden="true">↗</span></a></div>
           <div className="about-portrait-viewport" ref={portraits} aria-label="MEMCO leadership portraits">
             {leaders.map((person, index) => (
-              <button key={person.name} className={`about-portrait-card${active === index ? " is-active" : ""}`} type="button" onClick={() => select(index)} aria-label={`Show ${person.name}'s details`} aria-pressed={active === index}>
-                <Image src={person.image} alt={person.name} width={570} height={696} sizes="(max-width: 900px) 70vw, 28vw" />
-                <span className="about-portrait-name">{person.name}</span>
+              <button key={person.name} className={`about-portrait-card${active === index ? " is-active" : ""}`} type="button" onClick={() => select(index)} aria-label={`${person.name}, ${person.role}. ${person.note}`} aria-pressed={active === index}>
+                <span className="about-portrait-label"><span>{person.role}</span><strong>{person.name}</strong></span>
+                <span className="about-portrait-photo"><Image src={person.image} alt={person.name} width={570} height={696} sizes="(max-width: 900px) 70vw, 28vw" /></span>
                 <span className="about-portrait-dot" aria-hidden="true" />
               </button>
             ))}
