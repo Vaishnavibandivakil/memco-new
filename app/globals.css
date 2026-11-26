@@ -606,7 +606,7 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .cl-socials a:hover, .cl-socials a:focus-visible { background: rgba(245, 240, 232, .15); border-color: var(--paper); transform: translateY(-2px); }
 .cl-socials svg { width: 17px; height: 17px; }
 .cl-foot-main { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-top: 18px; border-top: 1px solid rgba(242, 239, 231, .25); }
-.cl-legal { text-align: left; }
+.cl-legal { text-align: left; overflow-wrap: anywhere; }
 .cl-policy-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px 20px; width: 100%; }
 .cl-policy-links a { border-bottom: 1px solid rgba(242, 239, 231, .45); padding-bottom: 3px; transition: border-color .2s, color .2s; }
 .cl-policy-links a:hover, .cl-policy-links a:focus-visible { border-color: currentColor; color: #fff; }
