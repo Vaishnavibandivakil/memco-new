@@ -55,13 +55,16 @@ export function About() {
             <p className="lbl">About MEMCO Skyline</p>
             <h2 id="about-title">The experience <span>behind Jutaku.</span></h2>
             <p>Jutaku is a MEMCO Skyline project backed by 41 years of experience at its parent company, MEMCO Associates. Founded in Bengaluru in 1985, MEMCO works across engineering, infrastructure and technology.</p>
-            <a href="https://memco.in/" target="_blank" rel="noopener noreferrer">Meet the parent company <span aria-hidden="true">↗</span></a>
+            <div className="about-actions">
+              <a className="about-action" href="https://memco.in/" target="_blank" rel="noopener noreferrer">Meet the parent company</a>
+              <a className="about-action" href="https://memco.in/leadership/" target="_blank" rel="noopener noreferrer">MEMCO leadership</a>
+            </div>
           </div>
 
         </div>
 
         <div className="about-portraits">
-          <div className="about-portraits-heading"><p className="lbl">The people behind MEMCO</p><a href="https://memco.in/leadership/" target="_blank" rel="noopener noreferrer">MEMCO leadership <span aria-hidden="true">↗</span></a></div>
+          <div className="about-portraits-heading"><p className="lbl">The people behind MEMCO</p></div>
           <div className="about-portrait-stage">
             <div className="about-portrait-viewport" ref={portraits} aria-label="MEMCO leadership portraits" onScroll={updateProgress}
               onPointerDown={(event) => { if (event.pointerType === "mouse" && event.button === 0) drag.current = { startX: event.clientX, startScroll: event.currentTarget.scrollLeft, moved: false }; }}
@@ -86,8 +89,8 @@ export function About() {
               onPointerLeave={(event) => { if (dragCursor.current) dragCursor.current.style.opacity = "0"; if (!event.currentTarget.hasPointerCapture(event.pointerId)) drag.current = null; }}>
               {leaders.map((person, index) => (
                 <button key={person.name} className={`about-portrait-card${active === index ? " is-active" : ""}`} type="button" onClick={() => select(index)} aria-label={`${person.name}, ${person.role}. ${person.note}`} aria-pressed={active === index}>
-                  <span className="about-portrait-label"><span>{person.role}</span><strong>{person.name}</strong></span>
                   <span className="about-portrait-photo"><Image src={person.image} alt={person.name} width={570} height={696} sizes="(max-width: 900px) 70vw, 28vw" draggable={false} /></span>
+                  <span className="about-portrait-label"><strong>{person.name}</strong><span>{person.role}</span></span>
                 </button>
               ))}
             </div>
