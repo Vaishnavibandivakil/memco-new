@@ -194,6 +194,7 @@ html.js:not(.reduced) [data-rise] { clip-path: inset(100% 0% 0% 0%); }
 .spots .spot { opacity: 0; transform: scale(.4); transition: opacity .7s var(--e-out), transform .7s var(--e-out); transition-delay: calc(var(--i) * .12s); pointer-events: none; }
 .spots.is-on .spot { opacity: 1; transform: none; pointer-events: auto; }
 .spot { position: absolute; left: var(--spot-x); top: var(--spot-y); width: 0; height: 0; z-index: 2; }
+.spot.is-open { z-index: 3; }
 .spot-dot { position: absolute; left: -13px; top: -13px; width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .9); display: grid; place-items: center; backdrop-filter: blur(4px); background: rgba(255, 255, 255, .14); }
 .spot-dot span { width: 7px; height: 7px; border-radius: 50%; background: #fff; }
 .spot-dot::after { content: ""; position: absolute; inset: -1px; border-radius: 50%; border: 1px solid #fff; animation: pulse 2.4s var(--e-out) infinite; }
