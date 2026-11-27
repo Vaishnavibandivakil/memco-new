@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const leaders = [
   { name: "Joshua Rajkumar", role: "CEO, MEMCO", note: "Leads MEMCO, the Bengaluru engineering company behind MEMCO Skyline.", image: "/images/joshua-rajkumar.jpg" },
@@ -9,31 +9,97 @@ const leaders = [
   { name: "VPS Raju", role: "Project Director, Real Estate", note: "Leads MEMCO's real estate project work and development direction.", image: "/images/vps-raju.jpg" },
 ];
 
+const cardStep = (rail: HTMLDivElement) => {
+  const first = rail.children[0] as HTMLElement;
+  const second = rail.children[1] as HTMLElement;
+  return second.offsetLeft - first.offsetLeft;
+};
+
+const groupWidth = (rail: HTMLDivElement) => {
+  const first = rail.children[0] as HTMLElement;
+  const repeatedFirst = rail.children[leaders.length] as HTMLElement;
+  return repeatedFirst.offsetLeft - first.offsetLeft;
+};
+
+const jumpTo = (rail: HTMLDivElement, left: number) => {
+  rail.style.scrollSnapType = "none";
+  rail.scrollLeft = left;
+  window.requestAnimationFrame(() => { rail.style.scrollSnapType = ""; });
+};
+
+const centerLoop = (rail: HTMLDivElement) => {
+  const group = groupWidth(rail);
+  const step = cardStep(rail);
+  if (!group || !step) return;
+  const slot = Math.round(rail.scrollLeft / step);
+  if (slot < leaders.length) jumpTo(rail, rail.scrollLeft + group);
+  else if (slot >= leaders.length * 2) jumpTo(rail, rail.scrollLeft - group);
+};
+
 export function About() {
   const portraits = useRef<HTMLDivElement>(null);
   const drag = useRef<{ startX: number; startScroll: number; moved: boolean } | null>(null);
   const suppressClick = useRef(false);
+  const paused = useRef(false);
+  const visible = useRef(false);
+  const settleTimer = useRef<number | null>(null);
+  const activeIndex = useRef(0);
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
 
-  const select = (index: number) => {
+  useLayoutEffect(() => {
+    const rail = portraits.current;
+    if (!rail) return;
+    jumpTo(rail, (rail.children[leaders.length] as HTMLElement).offsetLeft - rail.offsetLeft);
+    let width = rail.clientWidth;
+    const observer = new ResizeObserver(() => {
+      if (rail.clientWidth === width) return;
+      width = rail.clientWidth;
+      jumpTo(rail, (rail.children[leaders.length + activeIndex.current] as HTMLElement).offsetLeft - rail.offsetLeft);
+    });
+    observer.observe(rail);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const rail = portraits.current;
+    if (!rail) return;
+    const observer = new IntersectionObserver(([entry]) => { visible.current = entry.isIntersecting; }, { threshold: 0.2 });
+    observer.observe(rail);
+    const timer = window.setInterval(() => {
+      if (!visible.current || paused.current || drag.current || document.hidden || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      centerLoop(rail);
+      const next = Math.round(rail.scrollLeft / cardStep(rail)) + 1;
+      const card = rail.children[next] as HTMLElement | undefined;
+      if (card) rail.scrollTo({ left: card.offsetLeft - rail.offsetLeft, behavior: "smooth" });
+    }, 3600);
+    return () => {
+      observer.disconnect();
+      window.clearInterval(timer);
+      if (settleTimer.current !== null) window.clearTimeout(settleTimer.current);
+    };
+  }, []);
+
+  const select = (index: number, physicalIndex: number) => {
     if (suppressClick.current) return;
     setActive(index);
     const rail = portraits.current;
-    const card = rail?.children[index] as HTMLElement | undefined;
+    const card = rail?.children[physicalIndex] as HTMLElement | undefined;
     if (rail && card) rail.scrollTo({ left: card.offsetLeft - rail.offsetLeft, behavior: "smooth" });
   };
 
   const updateProgress = () => {
     const rail = portraits.current;
     if (!rail) return;
-    const max = rail.scrollWidth - rail.clientWidth;
-    setProgress(max > 0 ? rail.scrollLeft / max : 0);
-    const firstCard = rail.firstElementChild as HTMLElement | null;
-    if (firstCard) {
-      const gap = Number.parseFloat(window.getComputedStyle(rail).columnGap) || 0;
-      setActive(Math.min(leaders.length - 1, Math.round(rail.scrollLeft / (firstCard.offsetWidth + gap))));
-    }
+    const step = cardStep(rail);
+    if (!step) return;
+    const slot = rail.scrollLeft / step;
+    const index = ((Math.round(slot) % leaders.length) + leaders.length) % leaders.length;
+    activeIndex.current = index;
+    setActive(index);
+    setProgress((((slot % leaders.length) + leaders.length) % leaders.length) / (leaders.length - 1));
+    if (settleTimer.current !== null) window.clearTimeout(settleTimer.current);
+    settleTimer.current = window.setTimeout(() => { if (!drag.current) centerLoop(rail); }, 180);
   };
 
   const finishDrag = (rail: HTMLDivElement, pointerId: number) => {
@@ -66,6 +132,8 @@ export function About() {
           <div className="about-portraits-heading"><p className="lbl">The people behind MEMCO</p></div>
           <div className="about-portrait-stage">
             <div className="about-portrait-viewport" ref={portraits} aria-label="MEMCO leadership portraits" onScroll={updateProgress}
+              onMouseEnter={() => { paused.current = true; }} onMouseLeave={() => { paused.current = false; }}
+              onFocusCapture={() => { paused.current = true; }} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) paused.current = false; }}
               onPointerDown={(event) => { if (event.pointerType === "mouse" && event.button === 0) drag.current = { startX: event.clientX, startScroll: event.currentTarget.scrollLeft, moved: false }; }}
               onPointerMove={(event) => {
                 if (!drag.current) return;
@@ -75,17 +143,24 @@ export function About() {
                   event.currentTarget.classList.add("is-dragging");
                   event.currentTarget.setPointerCapture(event.pointerId);
                 }
-                if (drag.current.moved) event.currentTarget.scrollLeft = drag.current.startScroll - delta;
+                if (drag.current.moved) {
+                  const rail = event.currentTarget;
+                  const group = groupWidth(rail);
+                  let left = drag.current.startScroll - delta;
+                  if (left < group / 2) { left += group; drag.current.startScroll += group; }
+                  else if (left > group * 1.5) { left -= group; drag.current.startScroll -= group; }
+                  rail.scrollLeft = left;
+                }
               }}
               onPointerUp={(event) => finishDrag(event.currentTarget, event.pointerId)}
               onPointerCancel={(event) => finishDrag(event.currentTarget, event.pointerId)}
               onPointerLeave={(event) => { if (!event.currentTarget.hasPointerCapture(event.pointerId)) drag.current = null; }}>
-              {leaders.map((person, index) => (
-                <button key={person.name} className={`about-portrait-card${active === index ? " is-active" : ""}`} type="button" onClick={() => select(index)} aria-label={`${person.name}, ${person.role}. ${person.note}`} aria-pressed={active === index}>
+              {Array.from({ length: 3 }, (_, copy) => leaders.map((person, index) => (
+                <button key={`${copy}-${person.name}`} className={`about-portrait-card${active === index ? " is-active" : ""}`} type="button" onClick={() => select(index, copy * leaders.length + index)} aria-label={`${person.name}, ${person.role}. ${person.note}`} aria-pressed={active === index} aria-hidden={copy !== 1} tabIndex={copy === 1 ? 0 : -1}>
                   <span className="about-portrait-photo"><Image src={person.image} alt={person.name} width={570} height={696} sizes="(max-width: 900px) 70vw, 28vw" draggable={false} /></span>
                   <span className="about-portrait-label"><strong>{person.name}</strong><span>{person.role}</span></span>
                 </button>
-              ))}
+              )))}
             </div>
           </div>
           <span className="about-portrait-progress" aria-hidden="true"><span style={{ left: `${progress * 66.667}%` }} /></span>
