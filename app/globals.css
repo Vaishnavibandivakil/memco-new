@@ -628,7 +628,7 @@ html.panel-open .chrome { opacity: 0 !important; pointer-events: none; }
 .about .about-action { justify-content: center; min-height: 46px; padding: 11px 18px; border: 1px solid var(--green); border-radius: 999px; text-align: center; text-decoration: none; }
 .about .about-action:hover, .about .about-action:focus-visible { background: var(--green); color: #fff; }
 .about-portraits { justify-self: end; width: 100%; max-width: 950px; padding-top: 8px; }
-.about-portraits-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-bottom: 16px; border-bottom: 1px solid #cad6ce; }
+.about-portraits-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-bottom: 16px; }
 .about-portraits-heading a { font-size: 12px; white-space: nowrap; }
 .about-portrait-stage { position: relative; }
 .about-portrait-viewport { display: flex; gap: 14px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab; user-select: none; }
